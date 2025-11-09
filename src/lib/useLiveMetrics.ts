@@ -3,93 +3,103 @@
 import { useEffect, useRef, useState } from "react";
 import type { Metrics } from "./types";
 
-const API_BASE = process.env.NEXT_PUBLIC_API_BASE_URL!;
-const WS_BASE = process.env.NEXT_PUBLIC_WS_BASE_URL!;
+const EMPTY: Metrics = {
+  ok: true,
+  wordCount: 0,
+  charCount: 0,
+  sentenceCount: 0,
+  paragraphCount: 0,
+  readingTime: 0,
+  speakingTime: 0,
+  keywordCount: 0,
+  keywordDensity: 0,
+  repeatedPhrases: [],
+};
+
+const API_BASE = (process.env.NEXT_PUBLIC_API_BASE_URL || "").replace(/\/$/, "");
+const WS_BASE = (process.env.NEXT_PUBLIC_WS_BASE_URL || "").replace(/\/$/, "");
 
 export function useLiveMetrics() {
-  const [metrics, setMetrics] = useState<Metrics | null>(null);
+  const [metrics, setMetrics] = useState<Metrics>(EMPTY);
   const wsRef = useRef<WebSocket | null>(null);
-  const wsTimerRef = useRef<any>(null);
-  const lastPayloadRef = useRef<{ text: string; keyword: string }>({
-    text: "",
-    keyword: "",
-  });
 
   useEffect(() => {
-    initWebSocket();
+    if (!WS_BASE) return;
+
+    const ws = new WebSocket(`${WS_BASE}/ws/analyze`);
+    wsRef.current = ws;
+
+    ws.onmessage = (event) => {
+      try {
+        const data = JSON.parse(event.data);
+        if (data.type === "metrics" && data.ok) {
+          setMetrics({
+            ok: true,
+            wordCount: data.wordCount ?? 0,
+            charCount: data.charCount ?? 0,
+            sentenceCount: data.sentenceCount ?? 0,
+            paragraphCount: data.paragraphCount ?? 0,
+            readingTime: data.readingTime ?? 0,
+            speakingTime: data.speakingTime ?? 0,
+            keywordCount: data.keywordCount ?? 0,
+            keywordDensity: data.keywordDensity ?? 0,
+            repeatedPhrases: data.repeatedPhrases ?? [],
+          });
+        }
+      } catch (err) {
+        console.error("WS parse error", err);
+      }
+    };
+
+    ws.onerror = (e) => console.error("WS error", e);
+
     return () => {
-      if (wsRef.current) wsRef.current.close();
-      if (wsTimerRef.current) clearTimeout(wsTimerRef.current);
+      ws.close();
     };
   }, []);
 
-  function initWebSocket() {
-    try {
-      const url = `${WS_BASE}/ws/analyze`;
-      const ws = new WebSocket(url);
-      wsRef.current = ws;
+  const analyze = async (
+    text: string,
+    keyword: string,
+    mode: "live" | "paste" = "live"
+  ) => {
+    const payload = { text, keyword };
 
-      ws.onopen = () => {
-        // no-op
-      };
-
-      ws.onclose = () => {
-        setTimeout(initWebSocket, 1500);
-      };
-
-      ws.onmessage = (event) => {
-        try {
-          const msg = JSON.parse(event.data);
-          if (msg.type === "metrics" && msg.metrics) {
-            setMetrics(msg.metrics as Metrics);
-          }
-        } catch {
-          // ignore
-        }
-      };
-    } catch {
-      // ignore
-    }
-  }
-
-  async function analyzeViaRest(text: string, keyword: string) {
-    if (!text.trim()) {
-      setMetrics(null);
+    if (mode === "live" && wsRef.current?.readyState === WebSocket.OPEN) {
+      wsRef.current.send(JSON.stringify(payload));
       return;
     }
+
+    if (!API_BASE) return;
+
     try {
       const res = await fetch(`${API_BASE}/api/analyze`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ text, keyword }),
+        body: JSON.stringify(payload),
       });
       if (!res.ok) return;
       const data = await res.json();
-      if (data.metrics) setMetrics(data.metrics as Metrics);
-    } catch {
-      // ignore
+      if (data.ok) {
+        setMetrics({
+          ok: true,
+          wordCount: data.wordCount ?? 0,
+          charCount: data.charCount ?? 0,
+          sentenceCount: data.sentenceCount ?? 0,
+          paragraphCount: data.paragraphCount ?? 0,
+          readingTime: data.readingTime ?? 0,
+          speakingTime: data.speakingTime ?? 0,
+          keywordCount: data.keywordCount ?? 0,
+          keywordDensity: data.keywordDensity ?? 0,
+          repeatedPhrases: data.repeatedPhrases ?? [],
+        });
+      }
+    } catch (err) {
+      console.error("REST analyze error", err);
     }
-  }
+  };
 
-  function analyze(text: string, keyword: string, mode: "live" | "paste") {
-    lastPayloadRef.current = { text, keyword };
+  const reset = () => setMetrics(EMPTY);
 
-    if (mode === "paste") {
-      analyzeViaRest(text, keyword);
-      return;
-    }
-
-    const ws = wsRef.current;
-    if (!ws || ws.readyState !== WebSocket.OPEN) {
-      analyzeViaRest(text, keyword);
-      return;
-    }
-
-    if (wsTimerRef.current) clearTimeout(wsTimerRef.current);
-    wsTimerRef.current = setTimeout(() => {
-      ws.send(JSON.stringify({ text, keyword }));
-    }, 150);
-  }
-
-  return { metrics, analyze };
+  return { metrics, analyze, reset };
 }

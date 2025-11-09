@@ -17,7 +17,7 @@ RUN npm ci --omit=dev
 
 COPY --from=builder /app/.next .next
 COPY --from=builder /app/public ./public
-COPY --from=builder /app/next.config.mjs ./next.config.mjs
+
 
 ENV NODE_ENV=production
 EXPOSE 3000
