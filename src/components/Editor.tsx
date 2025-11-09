@@ -83,10 +83,20 @@ export function Editor(_: Props) {
   function transformSelection(fn: (s: string) => string) {
     const sel = window.getSelection();
     if (!sel || sel.rangeCount === 0) return;
+
     const range = sel.getRangeAt(0);
-    if (!divRef.current || !divRef.current.contains(range.commonAncestorNode)) return;
-    const selected = sel.toString();
-    if (!selected) return;
+
+    // Ensure the selection is inside our editor
+    if (
+      !divRef.current ||
+      !divRef.current.contains(range.commonAncestorContainer)
+    ) {
+      return;
+    }
+
+const selected = sel.toString();
+if (!selected) return;
+
     const node = document.createTextNode(fn(selected));
     range.deleteContents();
     range.insertNode(node);
