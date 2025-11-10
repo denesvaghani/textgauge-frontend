@@ -57,7 +57,12 @@ function analyzeText(rawText = "", rawKeyword = ""): Metrics {
   if (keyword) {
     // Bug fix #1: Use escapeRegex to safely handle special characters
     const safeKeyword = escapeRegex(keyword);
-    const regex = new RegExp(`\\b${safeKeyword}\\b`, "gi");
+    // Only use word boundaries if the keyword doesn't contain special chars/spaces
+    const hasSpecialChars = /[^a-z0-9]/i.test(keyword);
+    const pattern = hasSpecialChars
+      ? safeKeyword
+      : `\\b${safeKeyword}\\b`;
+    const regex = new RegExp(pattern, "gi");
     keywordCount = (text.match(regex) || []).length;
     keywordDensity = wordCount
       ? Number(((keywordCount / wordCount) * 100).toFixed(2))
