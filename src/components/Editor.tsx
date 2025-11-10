@@ -18,9 +18,8 @@ export function Editor() {
 
   // ensure editor starts empty
   useEffect(() => {
-    if (divRef.current) {
+    if (divRef.current && divRef.current.innerHTML !== "") {
       divRef.current.innerHTML = "";
-      setHistoryState({ items: [""], index: 0 });
     }
   }, []);
 
@@ -48,7 +47,7 @@ export function Editor() {
     const html = divRef.current.innerHTML;
     const text = getPlainText();
     pushHistory(html);
-    analyze(text, keyword.trim(), "live");
+    analyze(text, keyword.trim());
   };
 
   const clearAll = () => {
@@ -67,7 +66,7 @@ export function Editor() {
       if (divRef.current) {
         divRef.current.innerHTML = html;
       }
-      analyze(getPlainText(), keyword.trim(), "live");
+      analyze(getPlainText(), keyword.trim());
       return { ...prev, index: nextIndex };
     });
   };
@@ -80,7 +79,7 @@ export function Editor() {
       if (divRef.current) {
         divRef.current.innerHTML = html;
       }
-      analyze(getPlainText(), keyword.trim(), "live");
+      analyze(getPlainText(), keyword.trim());
       return { ...prev, index: nextIndex };
     });
   };
@@ -119,7 +118,7 @@ export function Editor() {
     if (divRef.current) {
       const html = divRef.current.innerHTML;
       pushHistory(html);
-      analyze(getPlainText(), keyword.trim(), "live");
+      analyze(getPlainText(), keyword.trim());
     }
   };
   
@@ -139,7 +138,7 @@ export function Editor() {
     if (divRef.current) {
       const html = divRef.current.innerHTML;
       pushHistory(html);
-      analyze(getPlainText(), keyword.trim(), "live");
+      analyze(getPlainText(), keyword.trim());
     }
   };
 
@@ -263,7 +262,7 @@ export function Editor() {
               const next = e.target.value;
               setKeyword(next);
               const text = getPlainText();
-              analyze(text, next.trim(), "live");
+              analyze(text, next.trim());
             }}
             placeholder="e.g., best laptops under 50000"
             className="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
@@ -308,7 +307,7 @@ function StatsBar({ metrics }: { metrics: Metrics }) {
           className="bg-gray-50 p-3 rounded-lg shadow-inner text-center"
         >
           <div className="text-xl font-bold text-blue-600">
-            {value as any}
+            {String(value)}
           </div>
           <div className="text-xs text-gray-600">{label}</div>
         </div>
