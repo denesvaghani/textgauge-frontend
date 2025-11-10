@@ -87,10 +87,30 @@ export function Editor() {
   const canUndo = historyState.index > 0;
   const canRedo = historyState.index < historyState.items.length - 1;
 
+  // Transform all text in editor
+  const transformAllText = (fn: (s: string) => string) => {
+    if (!divRef.current) return;
+    const text = getPlainText();
+    if (!text) return;
+    
+    const transformed = fn(text);
+    // Split by newlines and wrap each line in a div to preserve line breaks
+    const lines = transformed.split('\n');
+    const html = lines.map(line => `<div>${line || '<br>'}</div>`).join('');
+    
+    divRef.current.innerHTML = html;
+    pushHistory(html);
+    analyze(transformed, keyword.trim());
+  };
+  
   // transform only within a single text node to avoid breaking layout
   const transformSelection = (fn: (s: string) => string) => {
     const sel = window.getSelection();
-    if (!sel || sel.rangeCount === 0) return;
+    if (!sel || sel.rangeCount === 0) {
+      // If no selection, transform all text
+      transformAllText(fn);
+      return;
+    }
   
     const range = sel.getRangeAt(0);
     if (!divRef.current || !divRef.current.contains(range.commonAncestorContainer)) {
@@ -98,20 +118,31 @@ export function Editor() {
     }
   
     const selected = range.toString();
-    if (!selected) return;
+    if (!selected) {
+      // If empty selection, transform all text
+      transformAllText(fn);
+      return;
+    }
   
     const transformed = fn(selected);
   
-    // Replace selection with transformed plain text
+    // Replace selection, preserving newlines with <br> tags
     range.deleteContents();
-    const newTextNode = document.createTextNode(transformed);
-    range.insertNode(newTextNode);
+    const fragment = document.createDocumentFragment();
+    const lines = transformed.split('\n');
+    lines.forEach((line, i) => {
+      fragment.appendChild(document.createTextNode(line));
+      if (i < lines.length - 1) {
+        fragment.appendChild(document.createElement('br'));
+      }
+    });
+    range.insertNode(fragment);
   
     // Move caret to end of inserted text
     sel.removeAllRanges();
     const caret = document.createRange();
-    caret.setStart(newTextNode, newTextNode.length);
-    caret.collapse(true);
+    caret.selectNodeContents(divRef.current);
+    caret.collapse(false);
     sel.addRange(caret);
   
     // Sync history + metrics
@@ -342,7 +373,7 @@ function Sidebar({ metrics }: { metrics: Metrics }) {
             ))
           ) : (
             <p className="text-gray-500 italic text-center mt-4">
-              Start typing to see patterns...
+              {m.wordCount > 0 ? "No repeated phrases found" : "Start typing to see patterns..."}
             </p>
           )}
         </div>
