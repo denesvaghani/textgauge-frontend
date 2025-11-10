@@ -18,9 +18,8 @@ export function Editor() {
 
   // ensure editor starts empty
   useEffect(() => {
-    if (divRef.current) {
+    if (divRef.current && divRef.current.innerHTML !== "") {
       divRef.current.innerHTML = "";
-      setHistoryState({ items: [""], index: 0 });
     }
   }, []);
 
@@ -48,7 +47,7 @@ export function Editor() {
     const html = divRef.current.innerHTML;
     const text = getPlainText();
     pushHistory(html);
-    analyze(text, keyword.trim(), "live");
+    analyze(text, keyword.trim());
   };
 
   const clearAll = () => {
@@ -67,7 +66,7 @@ export function Editor() {
       if (divRef.current) {
         divRef.current.innerHTML = html;
       }
-      analyze(getPlainText(), keyword.trim(), "live");
+      analyze(getPlainText(), keyword.trim());
       return { ...prev, index: nextIndex };
     });
   };
@@ -80,7 +79,7 @@ export function Editor() {
       if (divRef.current) {
         divRef.current.innerHTML = html;
       }
-      analyze(getPlainText(), keyword.trim(), "live");
+      analyze(getPlainText(), keyword.trim());
       return { ...prev, index: nextIndex };
     });
   };
@@ -88,10 +87,30 @@ export function Editor() {
   const canUndo = historyState.index > 0;
   const canRedo = historyState.index < historyState.items.length - 1;
 
+  // Transform all text in editor
+  const transformAllText = (fn: (s: string) => string) => {
+    if (!divRef.current) return;
+    const text = getPlainText();
+    if (!text) return;
+    
+    const transformed = fn(text);
+    // Split by newlines and wrap each line in a div to preserve line breaks
+    const lines = transformed.split('\n');
+    const html = lines.map(line => `<div>${line || '<br>'}</div>`).join('');
+    
+    divRef.current.innerHTML = html;
+    pushHistory(html);
+    analyze(transformed, keyword.trim());
+  };
+  
   // transform only within a single text node to avoid breaking layout
   const transformSelection = (fn: (s: string) => string) => {
     const sel = window.getSelection();
-    if (!sel || sel.rangeCount === 0) return;
+    if (!sel || sel.rangeCount === 0) {
+      // If no selection, transform all text
+      transformAllText(fn);
+      return;
+    }
   
     const range = sel.getRangeAt(0);
     if (!divRef.current || !divRef.current.contains(range.commonAncestorContainer)) {
@@ -99,27 +118,38 @@ export function Editor() {
     }
   
     const selected = range.toString();
-    if (!selected) return;
+    if (!selected) {
+      // If empty selection, transform all text
+      transformAllText(fn);
+      return;
+    }
   
     const transformed = fn(selected);
   
-    // Replace selection with transformed plain text
+    // Replace selection, preserving newlines with <br> tags
     range.deleteContents();
-    const newTextNode = document.createTextNode(transformed);
-    range.insertNode(newTextNode);
+    const fragment = document.createDocumentFragment();
+    const lines = transformed.split('\n');
+    lines.forEach((line, i) => {
+      fragment.appendChild(document.createTextNode(line));
+      if (i < lines.length - 1) {
+        fragment.appendChild(document.createElement('br'));
+      }
+    });
+    range.insertNode(fragment);
   
     // Move caret to end of inserted text
     sel.removeAllRanges();
     const caret = document.createRange();
-    caret.setStart(newTextNode, newTextNode.length);
-    caret.collapse(true);
+    caret.selectNodeContents(divRef.current);
+    caret.collapse(false);
     sel.addRange(caret);
   
     // Sync history + metrics
     if (divRef.current) {
       const html = divRef.current.innerHTML;
       pushHistory(html);
-      analyze(getPlainText(), keyword.trim(), "live");
+      analyze(getPlainText(), keyword.trim());
     }
   };
   
@@ -139,7 +169,7 @@ export function Editor() {
     if (divRef.current) {
       const html = divRef.current.innerHTML;
       pushHistory(html);
-      analyze(getPlainText(), keyword.trim(), "live");
+      analyze(getPlainText(), keyword.trim());
     }
   };
 
@@ -263,7 +293,7 @@ export function Editor() {
               const next = e.target.value;
               setKeyword(next);
               const text = getPlainText();
-              analyze(text, next.trim(), "live");
+              analyze(text, next.trim());
             }}
             placeholder="e.g., best laptops under 50000"
             className="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
@@ -308,7 +338,7 @@ function StatsBar({ metrics }: { metrics: Metrics }) {
           className="bg-gray-50 p-3 rounded-lg shadow-inner text-center"
         >
           <div className="text-xl font-bold text-blue-600">
-            {value as any}
+            {String(value)}
           </div>
           <div className="text-xs text-gray-600">{label}</div>
         </div>
@@ -324,6 +354,30 @@ function Sidebar({ metrics }: { metrics: Metrics }) {
     <div className="sticky top-6 space-y-4">
       <h2 className="text-xl font-bold text-gray-800">Analysis Dashboard</h2>
 
+      {/* Keyword Stats */}
+      <div className="bg-white rounded-lg shadow-lg p-6">
+        <h3 className="text-lg font-bold text-gray-800 mb-3">
+          SEO Keyword Metrics
+        </h3>
+        {m.keywordCount > 0 ? (
+          <div className="space-y-2">
+            <div className="flex justify-between items-center">
+              <span className="text-sm text-gray-600">Keyword Occurrences:</span>
+              <span className="text-lg font-bold text-blue-600">{m.keywordCount}</span>
+            </div>
+            <div className="flex justify-between items-center">
+              <span className="text-sm text-gray-600">Keyword Density:</span>
+              <span className="text-lg font-bold text-green-600">{m.keywordDensity}%</span>
+            </div>
+          </div>
+        ) : (
+          <p className="text-gray-500 italic text-sm">
+            {m.wordCount > 0 ? "Enter a keyword above to track" : "Start typing and add a keyword..."}
+          </p>
+        )}
+      </div>
+
+      {/* Repeated Phrases */}
       <div className="bg-white rounded-lg shadow-lg p-6">
         <h3 className="text-lg font-bold text-gray-800 mb-3">
           Repeated Phrases
@@ -343,7 +397,7 @@ function Sidebar({ metrics }: { metrics: Metrics }) {
             ))
           ) : (
             <p className="text-gray-500 italic text-center mt-4">
-              Start typing to see patterns...
+              {m.wordCount > 0 ? "No repeated phrases found" : "Start typing to see patterns..."}
             </p>
           )}
         </div>
