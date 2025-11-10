@@ -354,6 +354,30 @@ function Sidebar({ metrics }: { metrics: Metrics }) {
     <div className="sticky top-6 space-y-4">
       <h2 className="text-xl font-bold text-gray-800">Analysis Dashboard</h2>
 
+      {/* Keyword Stats */}
+      <div className="bg-white rounded-lg shadow-lg p-6">
+        <h3 className="text-lg font-bold text-gray-800 mb-3">
+          SEO Keyword Metrics
+        </h3>
+        {m.keywordCount > 0 ? (
+          <div className="space-y-2">
+            <div className="flex justify-between items-center">
+              <span className="text-sm text-gray-600">Keyword Occurrences:</span>
+              <span className="text-lg font-bold text-blue-600">{m.keywordCount}</span>
+            </div>
+            <div className="flex justify-between items-center">
+              <span className="text-sm text-gray-600">Keyword Density:</span>
+              <span className="text-lg font-bold text-green-600">{m.keywordDensity}%</span>
+            </div>
+          </div>
+        ) : (
+          <p className="text-gray-500 italic text-sm">
+            {m.wordCount > 0 ? "Enter a keyword above to track" : "Start typing and add a keyword..."}
+          </p>
+        )}
+      </div>
+
+      {/* Repeated Phrases */}
       <div className="bg-white rounded-lg shadow-lg p-6">
         <h3 className="text-lg font-bold text-gray-800 mb-3">
           Repeated Phrases
