@@ -26,7 +26,9 @@ export function Editor() {
   const getPlainText = () => {
     if (!divRef.current) return "";
     // innerText keeps line breaks more naturally than textContent
-    return (divRef.current.innerText || "").replace(/\u00A0/g, " ");
+    const text = (divRef.current.innerText || "").replace(/\u00A0/g, " ");
+    // Fix: trim to handle edge case where empty editor returns whitespace/newline
+    return text.trim() === "" ? "" : text;
   };
 
   const pushHistory = (html: string) => {
@@ -190,6 +192,31 @@ export function Editor() {
         <h2 className="text-xl font-bold text-gray-800 mb-4">Live Statistics</h2>
         <StatsBar metrics={metrics} />
 
+        {/* SEO Keyword Input - Moved to top for better visibility */}
+        <div className="mb-4 bg-blue-50 rounded-lg p-4 border border-blue-200">
+          <label className="flex items-center text-sm font-semibold text-gray-700 mb-2">
+            <span className="text-blue-600 mr-2">🎯</span>
+            Target SEO Keyword:
+          </label>
+          <input
+            type="text"
+            value={keyword}
+            onChange={(e) => {
+              const next = e.target.value;
+              setKeyword(next);
+              const text = getPlainText();
+              analyze(text, next.trim());
+            }}
+            placeholder="e.g., best laptops under 50000"
+            className="w-full p-3 border border-blue-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 bg-white"
+          />
+          {keyword && (
+            <p className="mt-2 text-xs text-gray-600">
+              Tracking: <span className="font-semibold text-blue-700">"{keyword}"</span>
+            </p>
+          )}
+        </div>
+
         {/* Text tools */}
         <div className="mt-4 p-4 bg-gray-50 rounded-t-lg shadow-inner border-b border-gray-200">
           <h3 className="text-sm font-bold text-gray-700 mb-2">Text Tools</h3>
@@ -291,25 +318,6 @@ export function Editor() {
           data-placeholder="Start typing here or paste your content..."
           style={{ maxHeight: 'calc(100vh - 400px)', overflowY: 'auto' }}
         />
-
-        {/* Keyword */}
-        <div className="mt-4">
-          <label className="block text-sm font-semibold text-gray-700 mb-1">
-            Target SEO Keyword:
-          </label>
-          <input
-            type="text"
-            value={keyword}
-            onChange={(e) => {
-              const next = e.target.value;
-              setKeyword(next);
-              const text = getPlainText();
-              analyze(text, next.trim());
-            }}
-            placeholder="e.g., best laptops under 50000"
-            className="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
-          />
-        </div>
       </div>
 
       {/* Right column */}
