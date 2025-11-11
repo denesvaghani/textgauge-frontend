@@ -59,29 +59,39 @@ export function Editor() {
   };
 
   const undo = () => {
-    setHistoryState((prev) => {
-      if (prev.index <= 0) return prev;
-      const nextIndex = prev.index - 1;
-      const html = prev.items[nextIndex];
-      if (divRef.current) {
-        divRef.current.innerHTML = html;
-      }
-      analyze(getPlainText(), keyword.trim());
-      return { ...prev, index: nextIndex };
-    });
+    if (historyState.index <= 0) return;
+    
+    const nextIndex = historyState.index - 1;
+    const html = historyState.items[nextIndex];
+    
+    if (divRef.current) {
+      divRef.current.innerHTML = html;
+      // Wait for DOM to update before analyzing
+      setTimeout(() => {
+        const text = getPlainText();
+        analyze(text, keyword.trim());
+      }, 0);
+    }
+    
+    setHistoryState((prev) => ({ ...prev, index: nextIndex }));
   };
 
   const redo = () => {
-    setHistoryState((prev) => {
-      if (prev.index >= prev.items.length - 1) return prev;
-      const nextIndex = prev.index + 1;
-      const html = prev.items[nextIndex];
-      if (divRef.current) {
-        divRef.current.innerHTML = html;
-      }
-      analyze(getPlainText(), keyword.trim());
-      return { ...prev, index: nextIndex };
-    });
+    if (historyState.index >= historyState.items.length - 1) return;
+    
+    const nextIndex = historyState.index + 1;
+    const html = historyState.items[nextIndex];
+    
+    if (divRef.current) {
+      divRef.current.innerHTML = html;
+      // Wait for DOM to update before analyzing
+      setTimeout(() => {
+        const text = getPlainText();
+        analyze(text, keyword.trim());
+      }, 0);
+    }
+    
+    setHistoryState((prev) => ({ ...prev, index: nextIndex }));
   };
 
   const canUndo = historyState.index > 0;
@@ -174,9 +184,9 @@ export function Editor() {
   };
 
   return (
-    <div className="grid grid-cols-1 lg:grid-cols-10 gap-6">
+    <div className="grid grid-cols-1 lg:grid-cols-12 gap-6">
       {/* Left column */}
-      <div className="lg:col-span-7 bg-white rounded-lg shadow-xl p-6">
+      <div className="lg:col-span-9 bg-white rounded-lg shadow-xl p-6">
         <h2 className="text-xl font-bold text-gray-800 mb-4">Live Statistics</h2>
         <StatsBar metrics={metrics} />
 
@@ -277,8 +287,9 @@ export function Editor() {
           ref={divRef}
           contentEditable
           onInput={handleInput}
-          className="bg-white rounded-b-lg text-lg min-h-[24rem] p-4 border border-blue-500 focus:outline-none focus:ring-2 focus:ring-blue-500"
+          className="bg-white rounded-b-lg text-lg min-h-[32rem] p-6 border border-blue-500 focus:outline-none focus:ring-2 focus:ring-blue-500 leading-relaxed"
           data-placeholder="Start typing here or paste your content..."
+          style={{ maxHeight: 'calc(100vh - 400px)', overflowY: 'auto' }}
         />
 
         {/* Keyword */}
@@ -303,7 +314,7 @@ export function Editor() {
 
       {/* Right column */}
       <div className="lg:col-span-3">
-        <Sidebar metrics={metrics} />
+        <Sidebar metrics={metrics} keyword={keyword} />
       </div>
     </div>
   );
@@ -347,7 +358,7 @@ function StatsBar({ metrics }: { metrics: Metrics }) {
   );
 }
 
-function Sidebar({ metrics }: { metrics: Metrics }) {
+function Sidebar({ metrics, keyword }: { metrics: Metrics; keyword: string }) {
   const m = metrics;
 
   return (
@@ -359,20 +370,28 @@ function Sidebar({ metrics }: { metrics: Metrics }) {
         <h3 className="text-lg font-bold text-gray-800 mb-3">
           SEO Keyword Metrics
         </h3>
+        {keyword && (
+          <div className="mb-3 px-3 py-2 bg-blue-50 rounded-lg">
+            <span className="text-xs text-gray-600">Tracking:</span>
+            <p className="text-sm font-semibold text-blue-700 break-words">
+              "{keyword}"
+            </p>
+          </div>
+        )}
         {m.keywordCount > 0 ? (
           <div className="space-y-2">
             <div className="flex justify-between items-center">
-              <span className="text-sm text-gray-600">Keyword Occurrences:</span>
+              <span className="text-sm text-gray-600">Occurrences:</span>
               <span className="text-lg font-bold text-blue-600">{m.keywordCount}</span>
             </div>
             <div className="flex justify-between items-center">
-              <span className="text-sm text-gray-600">Keyword Density:</span>
+              <span className="text-sm text-gray-600">Density:</span>
               <span className="text-lg font-bold text-green-600">{m.keywordDensity}%</span>
             </div>
           </div>
         ) : (
           <p className="text-gray-500 italic text-sm">
-            {m.wordCount > 0 ? "Enter a keyword above to track" : "Start typing and add a keyword..."}
+            {m.wordCount > 0 && keyword ? "Keyword not found in text" : m.wordCount > 0 ? "Enter a keyword above to track" : "Start typing and add a keyword..."}
           </p>
         )}
       </div>
