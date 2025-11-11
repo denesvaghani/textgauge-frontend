@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
+import { Analytics } from "@vercel/analytics/react";
 import "./globals.css";
 
 const geistSans = Geist({
@@ -14,15 +15,23 @@ const geistMono = Geist_Mono({
 
 export const metadata: Metadata = {
   title: {
-    default: "TextGauge - Count Characters, Convert Case, Find Repeating Phrases | Free SEO Tool",
-    template: "%s | TextGauge",
+    default: "Character Counter - Free Word Count & Character Count Tool Online",
+    template: "%s | Character Counter",
   },
   description:
-    "Free online tool to count characters, convert case (italic, uppercase, lowercase), detect repeating phrases, and analyze SEO. Text formatting and keyword density checker. No signup required.",
+    "Free character counter and word count tool. Count characters, words, sentences instantly. Convert case, find repeating phrases, analyze keyword density for SEO. No signup required.",
   keywords: [
+    "character counter",
+    "word count",
+    "character count",
+    "word counter",
+    "count characters",
+    "count words",
     "count the character",
     "count characters online",
     "character counter free",
+    "word count tool",
+    "free word counter",
     "convert the case",
     "case converter online",
     "uppercase lowercase converter",
@@ -34,7 +43,6 @@ export const metadata: Metadata = {
     "seo analyzer",
     "seo tool free",
     "keyword density checker",
-    "word counter",
     "text analysis tool",
     "content optimization",
     "reading time calculator",
@@ -54,16 +62,16 @@ export const metadata: Metadata = {
     type: "website",
     locale: "en_US",
     url: "https://textgauge.com",
-    siteName: "TextGauge",
-    title: "TextGauge - Count Characters, Convert Case, Find Repeating Phrases",
+    siteName: "Character Counter",
+    title: "Character Counter - Free Word Count & Character Count Tool",
     description:
-      "Free tool to count the character, convert the case (italic online free), detect repeating phrases, and analyze SEO. Perfect for content writers and bloggers.",
+      "Free character counter and word count tool. Count words and characters instantly. Perfect for writers, bloggers, and content creators.",
   },
   twitter: {
     card: "summary_large_image",
-    title: "Count Characters, Convert Case & Detect Repeating Phrases Free",
+    title: "Character Counter - Free Word Count Tool",
     description:
-      "Free online tool: count characters, convert case to italic/uppercase/lowercase, find repeating phrases, analyze keyword density. No signup required.",
+      "Free online character counter and word count tool. Count words, characters, sentences instantly. No signup required.",
   },
   alternates: {
     canonical: "https://textgauge.com",
@@ -79,7 +87,7 @@ export default function RootLayout({
   const structuredData = {
     "@context": "https://schema.org",
     "@type": "WebApplication",
-    name: "TextGauge",
+    name: "Character Counter",
     applicationCategory: "UtilityApplication",
     offers: {
       "@type": "Offer",
@@ -87,7 +95,7 @@ export default function RootLayout({
       priceCurrency: "USD",
     },
     description:
-      "Free online word counter and SEO analyzer tool. Count words, characters, analyze keyword density and optimize your content.",
+      "Free online character counter and word count tool. Count words, characters, sentences, and paragraphs instantly. Analyze keyword density and optimize your content for SEO.",
   };
 
   return (
@@ -111,6 +119,7 @@ export default function RootLayout({
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
         {children}
+        <Analytics />
       </body>
     </html>
   );

@@ -6,11 +6,12 @@ export default function Page() {
       <header className="bg-white shadow-sm">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4">
           <h1 className="text-3xl font-bold text-gray-900">
-            Count Characters, Convert Case & Find Repeating Phrases - Free Online Tool
+            <strong>Character Counter</strong> - Free <strong>Word Count</strong> & <strong>Character Count</strong> Tool
           </h1>
           <p className="text-gray-600 mt-2">
-            <strong>Count the character</strong>, <strong>convert the case</strong> (italic, uppercase, lowercase), 
-            detect <strong>repeating phrases</strong>, and analyze SEO with our free online text tool. 
+            Free online <strong>character counter</strong> and <strong>word count</strong> tool. 
+            Instantly <strong>count characters</strong>, <strong>count words</strong>, sentences, and paragraphs. 
+            Convert case, find repeating phrases, and analyze keyword density for SEO. 
             Perfect for writers, bloggers, and content creators.
           </p>
         </div>
@@ -23,37 +24,119 @@ export default function Page() {
       <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
         <div className="bg-white rounded-lg shadow-sm p-6">
           <h2 className="text-2xl font-bold text-gray-900 mb-4">
-            Free Online Text Analysis & Formatting Tool
+            Free Character Counter & Word Count Tool
           </h2>
           <div className="grid md:grid-cols-2 gap-6 text-sm text-gray-700">
             <div>
-              <h3 className="font-semibold text-lg mb-2">📊 Count the Character</h3>
+              <h3 className="font-semibold text-lg mb-2">📊 Character Count & Word Count</h3>
               <p>
-                Instantly count characters, words, sentences, and paragraphs. Our character counter 
-                shows real-time statistics as you type, perfect for social media posts, essays, and articles.
+                Instantly <strong>count characters</strong> and <strong>count words</strong> as you type. 
+                Our free <strong>character counter</strong> and <strong>word counter</strong> shows real-time statistics 
+                including sentences, paragraphs, reading time, and speaking time. Perfect for Twitter posts (280 characters), 
+                meta descriptions (155-160 characters), SMS messages, essays, and articles.
               </p>
             </div>
             <div>
               <h3 className="font-semibold text-lg mb-2">🔄 Convert the Case</h3>
               <p>
                 Convert case online free - transform text to Title Case, lowercase, UPPERCASE, or snake_case. 
-                Apply italic formatting and other text transformations with one click.
+                Apply italic formatting and other text transformations with one click. Perfect for formatting 
+                content quickly.
               </p>
             </div>
             <div>
               <h3 className="font-semibold text-lg mb-2">🔍 Find Repeating Phrases</h3>
               <p>
                 Detect repeating phrases automatically. Our tool identifies repeated 3-word phrases 
-                in your content, helping you improve readability and avoid redundancy.
+                in your content, helping you improve readability and avoid redundancy. Great for 
+                content editing and quality improvement.
               </p>
             </div>
             <div>
-              <h3 className="font-semibold text-lg mb-2">🎯 SEO Analysis</h3>
+              <h3 className="font-semibold text-lg mb-2">🎯 SEO Keyword Density</h3>
               <p>
                 Free SEO tool with keyword density checker. Track keyword occurrences, analyze density 
-                percentage, calculate reading time, and optimize your content for search engines.
+                percentage, calculate reading time, and optimize your content for search engines. 
+                Essential for content creators and bloggers.
               </p>
             </div>
+          </div>
+        </div>
+      </section>
+
+      {/* FAQ Section */}
+      <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+        <div className="bg-white rounded-lg shadow-sm p-6">
+          <h2 className="text-2xl font-bold text-gray-900 mb-4">
+            Frequently Asked Questions
+          </h2>
+          <div className="space-y-4">
+            <details className="bg-gray-50 p-4 rounded-lg">
+              <summary className="font-semibold cursor-pointer text-gray-800">
+                How do I count characters in my text?
+              </summary>
+              <p className="mt-2 text-gray-700 text-sm">
+                Simply paste or type your text in the editor above. The <strong>character count</strong> 
+                updates instantly as you type. Our free <strong>character counter</strong> counts all 
+                characters including spaces, punctuation, and special characters. The tool also shows 
+                <strong> word count</strong>, sentence count, and paragraph count simultaneously.
+              </p>
+            </details>
+            
+            <details className="bg-gray-50 p-4 rounded-lg">
+              <summary className="font-semibold cursor-pointer text-gray-800">
+                Can I count words and characters at the same time?
+              </summary>
+              <p className="mt-2 text-gray-700 text-sm">
+                Yes! Our tool displays both <strong>word count</strong> and <strong>character count</strong> simultaneously. 
+                You'll also see sentence count, paragraph count, reading time, and speaking time. It's a complete 
+                text analysis tool for all your content needs.
+              </p>
+            </details>
+            
+            <details className="bg-gray-50 p-4 rounded-lg">
+              <summary className="font-semibold cursor-pointer text-gray-800">
+                Is this character counter free to use?
+              </summary>
+              <p className="mt-2 text-gray-700 text-sm">
+                Absolutely! Our <strong>character counter</strong> and <strong>word count</strong> tool is 100% free 
+                with no registration required. Count unlimited characters and words without any restrictions. 
+                No hidden fees, no paywalls - completely free forever.
+              </p>
+            </details>
+            
+            <details className="bg-gray-50 p-4 rounded-lg">
+              <summary className="font-semibold cursor-pointer text-gray-800">
+                Does the character count include spaces?
+              </summary>
+              <p className="mt-2 text-gray-700 text-sm">
+                Yes, our <strong>character counter</strong> includes spaces by default. This is the standard 
+                for most platforms including Twitter (280 character limit), SMS messages (160 characters), 
+                and SEO meta descriptions (155-160 characters). All spaces and punctuation are counted.
+              </p>
+            </details>
+
+            <details className="bg-gray-50 p-4 rounded-lg">
+              <summary className="font-semibold cursor-pointer text-gray-800">
+                What is the word count limit?
+              </summary>
+              <p className="mt-2 text-gray-700 text-sm">
+                There is no limit! You can <strong>count words</strong> and <strong>count characters</strong> for 
+                any length of text - from a single sentence to entire books. Our <strong>word counter</strong> 
+                handles unlimited text instantly with real-time updates.
+              </p>
+            </details>
+
+            <details className="bg-gray-50 p-4 rounded-lg">
+              <summary className="font-semibold cursor-pointer text-gray-800">
+                How accurate is the word count?
+              </summary>
+              <p className="mt-2 text-gray-700 text-sm">
+                Our <strong>word count</strong> tool is extremely accurate. It counts words based on industry-standard 
+                algorithms, treating any sequence of characters separated by spaces as a word. The count matches 
+                what you'd get from Microsoft Word, Google Docs, and other professional word processors.
+              </p>
+            </details>
           </div>
         </div>
       </section>
