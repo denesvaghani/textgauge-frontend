@@ -61,7 +61,7 @@ export const metadata: Metadata = {
   openGraph: {
     type: "website",
     locale: "en_US",
-    url: "https://textgauge.com",
+    url: "https://www.countcharacters.org",
     siteName: "Character Counter",
     title: "Character Counter - Free Word Count & Character Count Tool",
     description:
@@ -74,7 +74,7 @@ export const metadata: Metadata = {
       "Free online character counter and word count tool. Count words, characters, sentences instantly. No signup required.",
   },
   alternates: {
-    canonical: "https://textgauge.com",
+    canonical: "https://www.countcharacters.org",
   },
 };
 
