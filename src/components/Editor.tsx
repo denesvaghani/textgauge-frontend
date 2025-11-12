@@ -169,12 +169,22 @@ export function Editor() {
   const toTitleCase = (str: string) =>
     str.replace(/\w\S*/g, (t) => t[0].toUpperCase() + t.slice(1).toLowerCase());
 
-  const toSnakeCase = (str: string) =>
-    str
+  const toSnakeCase = (str: string) => {
+    // Check if already in snake_case (contains underscores, no spaces, all lowercase)
+    const isSnakeCase = str.includes('_') && !str.includes(' ') && str === str.toLowerCase();
+    
+    if (isSnakeCase) {
+      // Convert back to normal text: replace underscores with spaces
+      return str.replace(/_/g, ' ');
+    }
+    
+    // Convert to snake_case
+    return str
       .toLowerCase()
       .replace(/[^a-z0-9\s-]/g, "")
       .trim()
       .replace(/[\s-]+/g, "_");
+  };
 
   const exec = (cmd: string) => {
     document.execCommand(cmd, false);
