@@ -3,6 +3,7 @@
 import { useEffect, useRef, useState } from "react";
 import { useLiveMetrics } from "../lib/useLiveMetrics";
 import type { Metrics } from "../lib/types";
+import { TrendingKeywords } from "./TrendingKeywords";
 
 export function Editor() {
   const divRef = useRef<HTMLDivElement | null>(null);
@@ -432,7 +433,15 @@ export function Editor() {
 
       {/* Right column */}
       <div className="lg:col-span-3">
-        <Sidebar metrics={metrics} keyword={keyword} />
+        <Sidebar 
+          metrics={metrics} 
+          keyword={keyword} 
+          onKeywordSelect={(kw) => {
+            setKeyword(kw);
+            const text = getPlainText();
+            analyze(text, kw.trim());
+          }}
+        />
       </div>
     </div>
   );
@@ -476,7 +485,15 @@ function StatsBar({ metrics }: { metrics: Metrics }) {
   );
 }
 
-function Sidebar({ metrics, keyword }: { metrics: Metrics; keyword: string }) {
+function Sidebar({ 
+  metrics, 
+  keyword,
+  onKeywordSelect 
+}: { 
+  metrics: Metrics; 
+  keyword: string;
+  onKeywordSelect: (keyword: string) => void;
+}) {
   const m = metrics;
 
   return (
@@ -539,6 +556,9 @@ function Sidebar({ metrics, keyword }: { metrics: Metrics; keyword: string }) {
           )}
         </div>
       </div>
+
+      {/* Trending Keywords */}
+      <TrendingKeywords onKeywordClick={onKeywordSelect} />
     </div>
   );
 }
