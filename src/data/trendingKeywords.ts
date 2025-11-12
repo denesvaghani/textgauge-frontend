@@ -140,6 +140,108 @@ export const trendingKeywords: TrendingKeyword[] = [
     difficulty: 'medium',
     trending: 'steady',
   },
+  
+  // More Writing Tools
+  {
+    keyword: 'text counter',
+    searchVolume: '82k',
+    category: 'writing',
+    difficulty: 'low',
+    trending: 'steady',
+  },
+  {
+    keyword: 'letter count',
+    searchVolume: '67k',
+    category: 'writing',
+    difficulty: 'low',
+    trending: 'steady',
+  },
+  {
+    keyword: 'sentence counter',
+    searchVolume: '34k',
+    category: 'writing',
+    difficulty: 'low',
+    trending: 'steady',
+  },
+  {
+    keyword: 'paragraph counter',
+    searchVolume: '28k',
+    category: 'writing',
+    difficulty: 'low',
+    trending: 'steady',
+  },
+  {
+    keyword: 'reading time calculator',
+    searchVolume: '22k',
+    category: 'writing',
+    difficulty: 'low',
+    trending: 'up',
+  },
+  {
+    keyword: 'text analyzer',
+    searchVolume: '45k',
+    category: 'writing',
+    difficulty: 'low',
+    trending: 'up',
+  },
+  {
+    keyword: 'grammar checker',
+    searchVolume: '301k',
+    category: 'writing',
+    difficulty: 'high',
+    trending: 'steady',
+  },
+  {
+    keyword: 'plagiarism checker',
+    searchVolume: '246k',
+    category: 'writing',
+    difficulty: 'high',
+    trending: 'steady',
+  },
+  {
+    keyword: 'paraphrasing tool',
+    searchVolume: '673k',
+    category: 'writing',
+    difficulty: 'medium',
+    trending: 'up',
+  },
+  {
+    keyword: 'essay word counter',
+    searchVolume: '18k',
+    category: 'writing',
+    difficulty: 'low',
+    trending: 'steady',
+  },
+  
+  // General Use Cases
+  {
+    keyword: 'copy and paste',
+    searchVolume: '450k',
+    category: 'general',
+    difficulty: 'low',
+    trending: 'steady',
+  },
+  {
+    keyword: 'text to speech',
+    searchVolume: '368k',
+    category: 'general',
+    difficulty: 'medium',
+    trending: 'steady',
+  },
+  {
+    keyword: 'case converter',
+    searchVolume: '55k',
+    category: 'general',
+    difficulty: 'low',
+    trending: 'steady',
+  },
+  {
+    keyword: 'duplicate word finder',
+    searchVolume: '12k',
+    category: 'writing',
+    difficulty: 'low',
+    trending: 'new',
+  },
 ];
 
 /**

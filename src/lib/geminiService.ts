@@ -74,7 +74,7 @@ export async function rephraseText(
           original: text,
           rephrased: text,
           success: false,
-          error: `Failed after ${maxRetries} attempts: ${error.message}`,
+          error: sanitizeErrorMessage(error.message),
         };
       }
 
@@ -111,6 +111,28 @@ Text to rephrase:
 ${text}
 
 Rephrased version:`;
+}
+
+/**
+ * Sanitize error messages to hide internal details from users
+ */
+function sanitizeErrorMessage(errorMessage: string): string {
+  // Remove any mention of environment variables or internal paths
+  const sanitized = errorMessage
+    .replace(/GEMINI_API_KEYS?/gi, 'API configuration')
+    .replace(/\.env(\.local)?/gi, 'configuration file')
+    .replace(/No API keys available/gi, 'Service temporarily unavailable');
+  
+  // Generic fallback for common errors
+  if (sanitized.toLowerCase().includes('service temporarily unavailable')) {
+    return 'AI rephrase service is currently unavailable. Please try again later.';
+  }
+  
+  if (sanitized.toLowerCase().includes('rate limit') || sanitized.toLowerCase().includes('quota')) {
+    return 'AI service is busy. Please try again in a moment.';
+  }
+  
+  return 'Unable to rephrase text at this time. Please try again later.';
 }
 
 /**

@@ -4,6 +4,7 @@ import { useEffect, useRef, useState } from "react";
 import { useLiveMetrics } from "../lib/useLiveMetrics";
 import type { Metrics } from "../lib/types";
 import { TrendingKeywords } from "./TrendingKeywords";
+import RelatedKeywords from "./RelatedKeywords";
 
 export function Editor() {
   const divRef = useRef<HTMLDivElement | null>(null);
@@ -296,6 +297,16 @@ export function Editor() {
               Tracking: <span className="font-semibold text-blue-700">"{keyword}"</span>
             </p>
           )}
+          
+          {/* Related Keywords Suggestions */}
+          <RelatedKeywords 
+            keyword={keyword}
+            onSelectKeyword={(selectedKeyword) => {
+              setKeyword(selectedKeyword);
+              const text = getPlainText();
+              analyze(text, selectedKeyword.trim());
+            }}
+          />
         </div>
 
         {/* Text tools */}
