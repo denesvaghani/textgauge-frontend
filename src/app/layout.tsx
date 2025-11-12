@@ -14,6 +14,9 @@ const geistMono = Geist_Mono({
   subsets: ["latin"],
 });
 
+// Primary domain is .org, secondary is .in
+const PRIMARY_DOMAIN = "https://www.countcharacters.org";
+
 export const metadata: Metadata = {
   title: {
     default: "Character Counter - Free Word Count & Character Count Tool Online",
@@ -62,7 +65,7 @@ export const metadata: Metadata = {
   openGraph: {
     type: "website",
     locale: "en_US",
-    url: "https://www.countcharacters.org",
+    url: PRIMARY_DOMAIN,
     siteName: "Character Counter",
     title: "Character Counter - Free Word Count & Character Count Tool",
     description:
@@ -75,7 +78,11 @@ export const metadata: Metadata = {
       "Free online character counter and word count tool. Count words, characters, sentences instantly. No signup required.",
   },
   alternates: {
-    canonical: "https://www.countcharacters.org",
+    canonical: PRIMARY_DOMAIN,
+    languages: {
+      'en': PRIMARY_DOMAIN,
+      'en-IN': 'https://www.countcharacters.in',
+    },
   },
 };
 
@@ -102,6 +109,14 @@ export default function RootLayout({
   return (
     <html lang="en">
       <head>
+        {/* Canonical URL - Always points to primary domain */}
+        <link rel="canonical" href={PRIMARY_DOMAIN} />
+        
+        {/* Alternate URLs for different regions */}
+        <link rel="alternate" href={PRIMARY_DOMAIN} hrefLang="x-default" />
+        <link rel="alternate" href={PRIMARY_DOMAIN} hrefLang="en" />
+        <link rel="alternate" href="https://www.countcharacters.in" hrefLang="en-IN" />
+        
         {/* Google AdSense */}
         {process.env.NEXT_PUBLIC_GOOGLE_ADSENSE_ID && (
           <script
