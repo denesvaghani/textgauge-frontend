@@ -7,6 +7,8 @@ import type { Metrics } from "../lib/types";
 export function Editor() {
   const divRef = useRef<HTMLDivElement | null>(null);
   const [keyword, setKeyword] = useState("");
+  const [isRephrasing, setIsRephrasing] = useState(false);
+  const [rephraseError, setRephraseError] = useState<string | null>(null);
 
   // history: keep items + index together
   const [historyState, setHistoryState] = useState<{
@@ -195,6 +197,74 @@ export function Editor() {
     }
   };
 
+  const handleRephrase = async () => {
+    setRephraseError(null);
+    
+    // Get selected text or all text
+    const sel = window.getSelection();
+    const selectedText = sel?.toString() || "";
+    const textToRephrase = selectedText.trim() || getPlainText();
+
+    if (!textToRephrase) {
+      setRephraseError("No text to rephrase");
+      return;
+    }
+
+    if (textToRephrase.length > 5000) {
+      setRephraseError("Text too long (max 5000 characters)");
+      return;
+    }
+
+    setIsRephrasing(true);
+
+    try {
+      const response = await fetch('/api/rephrase', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ 
+          text: textToRephrase,
+          tone: 'professional'
+        }),
+      });
+
+      const data = await response.json();
+
+      if (!data.success) {
+        throw new Error(data.error || 'Failed to rephrase');
+      }
+
+      // Replace text
+      if (selectedText) {
+        // Replace selection
+        if (sel && sel.rangeCount > 0) {
+          const range = sel.getRangeAt(0);
+          range.deleteContents();
+          range.insertNode(document.createTextNode(data.rephrased));
+        }
+      } else {
+        // Replace all text
+        if (divRef.current) {
+          const lines = data.rephrased.split('\n');
+          const html = lines.map((line: string) => `<div>${line || '<br>'}</div>`).join('');
+          divRef.current.innerHTML = html;
+        }
+      }
+
+      // Update history and metrics
+      if (divRef.current) {
+        const html = divRef.current.innerHTML;
+        pushHistory(html);
+        analyze(getPlainText(), keyword.trim());
+      }
+
+    } catch (error: any) {
+      console.error('Rephrase error:', error);
+      setRephraseError(error.message || 'Failed to rephrase text');
+    } finally {
+      setIsRephrasing(false);
+    }
+  };
+
   return (
     <div className="grid grid-cols-1 lg:grid-cols-12 gap-6">
       {/* Left column */}
@@ -316,7 +386,37 @@ export function Editor() {
             >
               snake_case
             </button>
+
+            <button
+              onMouseDown={(e) => {
+                e.preventDefault();
+                handleRephrase();
+              }}
+              disabled={isRephrasing}
+              className={`bg-purple-500 text-white font-semibold py-1.5 px-3 rounded-lg hover:bg-purple-600 text-xs flex items-center gap-1 ${
+                isRephrasing && "opacity-50 cursor-not-allowed"
+              }`}
+            >
+              {isRephrasing ? (
+                <>
+                  <span className="animate-spin">⏳</span>
+                  <span>Rephrasing...</span>
+                </>
+              ) : (
+                <>
+                  <span>✨</span>
+                  <span>Rephrase</span>
+                </>
+              )}
+            </button>
           </div>
+
+          {/* Error message */}
+          {rephraseError && (
+            <div className="mt-2 text-xs text-red-600 dark:text-red-400 bg-red-50 dark:bg-red-900/20 px-3 py-2 rounded-lg">
+              ⚠️ {rephraseError}
+            </div>
+          )}
         </div>
 
         {/* Editor */}
