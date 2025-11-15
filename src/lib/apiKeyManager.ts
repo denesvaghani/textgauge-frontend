@@ -3,153 +3,109 @@
  * Handles rotation of multiple API keys to overcome rate limits
  */
 
-interface ApiKeyConfig {
-  keys: string[];
-  currentIndex: number;
-  failedKeys: Set<string>;
+interface ApiKeyStats {
+  totalKeys: number;
+  activeKeyIndex: number | null;
+  failedKeys: string[];
+  cooldownMs: number;
 }
+
+console.log("GEMINI_API_KEYS raw:", process.env.GEMINI_API_KEYS);
+
 
 class ApiKeyManager {
-  private config: ApiKeyConfig;
+  private keys: string[];
+  private currentIndex = 0;
+  private failedAt = new Map<string, number>();
+  private readonly cooldownMs = 60_000; // 60s cooldown per failed key
 
   constructor(keys: string[]) {
-    this.config = {
-      keys: keys.filter(k => k && k.trim() !== ''), // Remove empty keys
-      currentIndex: 0,
-      failedKeys: new Set(),
-    };
-
-    if (this.config.keys.length === 0) {
-      console.warn('No valid API keys configured');
-    }
+    this.keys = keys.map((k) => k.trim()).filter(Boolean);
   }
 
-  /**
-   * Get the next available API key
-   * Uses round-robin rotation, skipping failed keys
-   */
-  getNextKey(): string | null {
-    if (this.config.keys.length === 0) {
-      return null;
-    }
-
-    const availableKeys = this.config.keys.filter(
-      key => !this.config.failedKeys.has(key)
-    );
-
-    if (availableKeys.length === 0) {
-      // All keys failed, reset and try again
-      console.warn('All API keys failed, resetting failure state');
-      this.config.failedKeys.clear();
-      return this.config.keys[0];
-    }
-
-    // Get current key
-    const key = availableKeys[this.config.currentIndex % availableKeys.length];
-    
-    // Rotate to next key for next request
-    this.config.currentIndex = (this.config.currentIndex + 1) % availableKeys.length;
-
-    return key;
+  hasKeys() {
+    return this.keys.length > 0;
   }
 
-  /**
-   * Mark a key as failed (rate limited or error)
-   * Will be excluded from rotation temporarily
-   */
-  markKeyAsFailed(key: string): void {
-    this.config.failedKeys.add(key);
-    console.log(`API key marked as failed. ${this.config.failedKeys.size}/${this.config.keys.length} keys failed`);
+  getNextKey(): string {
+    if (!this.keys.length) {
+      throw new Error(
+        "No Gemini API keys configured. Set GEMINI_API_KEYS in your environment.",
+      );
+    }
 
-    // Auto-reset failed keys after 1 minute
-    setTimeout(() => {
-      this.config.failedKeys.delete(key);
-      console.log(`API key recovered: ${key.substring(0, 10)}...`);
-    }, 60000); // 1 minute cooldown
+    const now = Date.now();
+
+    // Try each key at most once per call
+    for (let offset = 0; offset < this.keys.length; offset++) {
+      const idx = (this.currentIndex + offset) % this.keys.length;
+      const key = this.keys[idx];
+      const failedTime = this.failedAt.get(key);
+
+      if (!failedTime || now - failedTime > this.cooldownMs) {
+        this.currentIndex = idx;
+        return key;
+      }
+    }
+
+    // If all keys are in cooldown, just return the current one anyway
+    return this.keys[this.currentIndex];
   }
 
-  /**
-   * Get statistics about key usage
-   */
-  getStats() {
+  markKeyAsFailed(key: string) {
+    if (!key) return;
+    this.failedAt.set(key, Date.now());
+  }
+
+  getStats(): ApiKeyStats {
     return {
-      totalKeys: this.config.keys.length,
-      availableKeys: this.config.keys.length - this.config.failedKeys.size,
-      failedKeys: this.config.failedKeys.size,
-      currentIndex: this.config.currentIndex,
+      totalKeys: this.keys.length,
+      activeKeyIndex: this.keys.length ? this.currentIndex : null,
+      failedKeys: Array.from(this.failedAt.keys()),
+      cooldownMs: this.cooldownMs,
     };
   }
+}
 
-  /**
-   * Reset all failure states
-   */
-  reset(): void {
-    this.config.failedKeys.clear();
-    this.config.currentIndex = 0;
-  }
+let manager: ApiKeyManager | null = null;
+
+function initManager(): ApiKeyManager {
+  if (manager) return manager;
+
+  const raw =
+    process.env.GEMINI_API_KEYS ||
+    process.env.NEXT_PUBLIC_GEMINI_API_KEY || // fallback if needed
+    "";
+
+  const keys = raw
+    .split(",")
+    .map((k) => k.trim())
+    .filter(Boolean);
+
+  manager = new ApiKeyManager(keys);
+  return manager;
 }
 
 /**
- * Load API keys from environment variable
- * Format: GEMINI_API_KEYS=key1,key2,key3
+ * Get a currently usable API key (with simple rotation + cooldown)
  */
-function loadApiKeys(): string[] {
-  const keysString = process.env.GEMINI_API_KEYS || '';
-  
-  if (!keysString) {
-    console.warn('GEMINI_API_KEYS not configured. Add comma-separated keys to .env.local');
-    return [];
-  }
-
-  const keys = keysString
-    .split(',')
-    .map(k => k.trim())
-    .filter(k => k.length > 0);
-
-  console.log(`Loaded ${keys.length} Gemini API keys`);
-  return keys;
-}
-
-// Singleton instance
-let keyManager: ApiKeyManager | null = null;
-
-/**
- * Get the global API key manager instance
- */
-export function getApiKeyManager(): ApiKeyManager {
-  if (!keyManager) {
-    const keys = loadApiKeys();
-    keyManager = new ApiKeyManager(keys);
-  }
-  return keyManager;
-}
-
-/**
- * Get a working API key with automatic rotation
- */
-export async function getWorkingApiKey(): Promise<string> {
-  const manager = getApiKeyManager();
-  const key = manager.getNextKey();
-  
-  if (!key) {
-    throw new Error('No API keys available. Please configure GEMINI_API_KEYS in .env.local');
-  }
-  
-  return key;
+export function getWorkingApiKey(): string {
+  const m = initManager();
+  return m.getNextKey();
 }
 
 /**
  * Report that an API key failed (rate limited or error)
  */
 export function reportKeyFailure(key: string): void {
-  const manager = getApiKeyManager();
-  manager.markKeyAsFailed(key);
+  const m = initManager();
+  m.markKeyAsFailed(key);
 }
 
 /**
- * Get current API key statistics
+ * Get current API key statistics (for /api/rephrase GET health check)
  */
-export function getKeyStats() {
-  const manager = getApiKeyManager();
-  return manager.getStats();
+export function getKeyStats(): ApiKeyStats {
+  const m = initManager();
+  return m.getStats();
 }

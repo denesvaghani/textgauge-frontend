@@ -1,99 +1,82 @@
-import { NextResponse } from 'next/server';
-import { rephraseText } from '@/lib/geminiService';
-import { getKeyStats } from '@/lib/apiKeyManager';
+import { NextResponse } from "next/server";
+import { rephraseText, RephraseTone } from "@/lib/geminiService";
+import { getKeyStats } from "@/lib/apiKeyManager";
 
-export const runtime = 'nodejs';
+export const runtime = "nodejs";
 
 interface RephraseRequest {
-  text: string;
-  tone?: 'professional' | 'casual' | 'formal' | 'friendly';
+  text?: string;
+  tone?: RephraseTone;
 }
 
 export async function POST(req: Request) {
   try {
-    const body = (await req.json()) as Partial<RephraseRequest>;
+    const body = (await req.json()) as RephraseRequest | null;
 
-    // Validation
-    if (!body.text || typeof body.text !== 'string') {
+    const rawText = body?.text ?? "";
+    const text = typeof rawText === "string" ? rawText : String(rawText || "");
+    const tone = body?.tone;
+
+    if (!text || !text.trim()) {
       return NextResponse.json(
-        { success: false, error: 'Text is required' },
-        { status: 400 }
+        { success: false, error: "Text is required" },
+        { status: 400 },
       );
     }
 
-    if (body.text.trim().length === 0) {
+    if (text.length > 5000) {
       return NextResponse.json(
-        { success: false, error: 'Text cannot be empty' },
-        { status: 400 }
+        { success: false, error: "Text too long (max 5000 characters)" },
+        { status: 400 },
       );
     }
 
-    if (body.text.length > 5000) {
-      return NextResponse.json(
-        { success: false, error: 'Text is too long (max 5000 characters)' },
-        { status: 400 }
-      );
-    }
-
-    // Rephrase the text
-    const result = await rephraseText(body.text, {
-      tone: body.tone || 'professional',
-      maxRetries: 3,
-    });
-
-    // Get API key statistics for debugging
-    const stats = getKeyStats();
-    console.log('API Key Stats:', stats);
+    const result = await rephraseText(text, { tone });
 
     if (!result.success) {
       return NextResponse.json(
-        { 
-          success: false, 
-          error: result.error || 'Failed to rephrase text',
-          keyStats: stats, // Include stats for debugging
+        {
+          success: false,
+          error: "AI rephrase service is temporarily unavailable. Please try again.",
         },
-        { status: 500 }
+        { status: 502 },
       );
     }
 
     return NextResponse.json({
       success: true,
-      original: result.original,
       rephrased: result.rephrased,
-      keyStats: stats, // Include stats for monitoring
+      original: result.original,
+      model: result.model,
     });
-
   } catch (error: any) {
-    console.error('Rephrase API error:', error);
-    
+    console.error("Rephrase API error:", error);
     return NextResponse.json(
-      { 
-        success: false, 
-        error: error.message || 'Internal server error',
+      {
+        success: false,
+        error: "AI rephrase service is temporarily unavailable. Please try again.",
       },
-      { status: 500 }
+      { status: 500 },
     );
   }
 }
 
-// GET endpoint to check API health and key status
 export async function GET() {
   try {
     const stats = getKeyStats();
-    
     return NextResponse.json({
-      status: 'ok',
-      message: 'Rephrase API is running',
+      status: "ok",
+      message: "Rephrase API is running",
       keyStats: stats,
-      configured: stats.totalKeys > 0,
+      configured: (stats?.totalKeys ?? 0) > 0,
     });
   } catch (error: any) {
     return NextResponse.json(
-      { 
-        status: 'error', 
-        message: error.message,
+      {
+        status: "error",
+        message: error?.message || "Failed to read key stats",
       },
-      { status: 500 }
+      { status: 500 },
     );
   }
 }
