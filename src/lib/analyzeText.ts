@@ -42,11 +42,13 @@ export function analyzeText(rawText: string, rawKeyword: string): Metrics {
 
   const wordCount = tokens.length;
 
-  // ✅ Sentences: simple split on punctuation
-  const sentenceCount = text
-    .split(/[.!?]+/g)
+  // ✅ Sentences: simple split on punctuation OR line breaks
+    const sentenceCount =
+    text
+    .split(/[.!?]+|\n+/g)
     .map((s) => s.trim())
-    .filter((s) => s.length > 0).length;
+    .filter((s) => s.length > 0).length || (text.trim().length ? 1 : 0);
+
 
   // ✅ Paragraphs: non-empty line groups, default to 1 if there is any text
   const paragraphCount =

@@ -103,64 +103,70 @@ export function Editor() {
   const canUndo = historyState.index > 0;
   const canRedo = historyState.index < historyState.items.length - 1;
 
-  // Transform all text in editor
-  const transformAllText = (fn: (s: string) => string) => {
-    if (!divRef.current) return;
-    const text = getPlainText();
-    if (!text) return;
-    
-    const transformed = fn(text);
-    // Split by newlines and wrap each line in a div to preserve line breaks
-    const lines = transformed.split('\n');
-    const html = lines.map(line => `<div>${line || '<br>'}</div>`).join('');
-    
-    divRef.current.innerHTML = html;
-    pushHistory(html);
-    analyze(transformed, keyword.trim());
+  // Helper: apply transform to all text nodes under a root node
+  const applyTransformToTextNodes = (root: Node, fn: (s: string) => string) => {
+    const walker = document.createTreeWalker(root, NodeFilter.SHOW_TEXT);
+    const toChange: Text[] = [];
+
+    let current = walker.nextNode();
+    while (current) {
+      const textNode = current as Text;
+      const value = textNode.nodeValue ?? "";
+      // Skip pure whitespace nodes so we don't mess with layout spacing
+      if (value.trim().length > 0) {
+        toChange.push(textNode);
+      }
+      current = walker.nextNode();
+    }
+
+    toChange.forEach((node) => {
+      const original = node.nodeValue ?? "";
+      node.nodeValue = fn(original);
+    });
   };
   
-  // transform only within a single text node to avoid breaking layout
+  // Transform all text in the editor, preserving structure
+  const transformAllText = (fn: (s: string) => string) => {
+    if (!divRef.current) return;
+
+    applyTransformToTextNodes(divRef.current, fn);
+
+    const html = divRef.current.innerHTML;
+    pushHistory(html);
+    analyze(getPlainText(), keyword.trim());
+  };
+
+  // Transform only the current selection (fallback to all text if no real selection)
   const transformSelection = (fn: (s: string) => string) => {
     const sel = window.getSelection();
     if (!sel || sel.rangeCount === 0) {
-      // If no selection, transform all text
       transformAllText(fn);
       return;
     }
-  
+
     const range = sel.getRangeAt(0);
     if (!divRef.current || !divRef.current.contains(range.commonAncestorContainer)) {
       return;
     }
-  
-    const selected = range.toString();
-    if (!selected) {
-      // If empty selection, transform all text
+
+    // If selection is just a caret, treat as "transform all"
+    if (range.collapsed) {
       transformAllText(fn);
       return;
     }
-  
-    const transformed = fn(selected);
-  
-    // Replace selection, preserving newlines with <br> tags
-    range.deleteContents();
-    const fragment = document.createDocumentFragment();
-    const lines = transformed.split('\n');
-    lines.forEach((line, i) => {
-      fragment.appendChild(document.createTextNode(line));
-      if (i < lines.length - 1) {
-        fragment.appendChild(document.createElement('br'));
-      }
-    });
+
+    // Extract the selected fragment, transform its text nodes, and re-insert
+    const fragment = range.extractContents();
+    applyTransformToTextNodes(fragment, fn);
     range.insertNode(fragment);
-  
-    // Move caret to end of inserted text
+
+    // Move caret to end of editor
     sel.removeAllRanges();
     const caret = document.createRange();
     caret.selectNodeContents(divRef.current);
     caret.collapse(false);
     sel.addRange(caret);
-  
+
     // Sync history + metrics
     if (divRef.current) {
       const html = divRef.current.innerHTML;
