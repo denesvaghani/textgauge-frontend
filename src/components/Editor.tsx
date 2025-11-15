@@ -273,186 +273,226 @@ export function Editor() {
     }
   };
 
-  return (
-    <div className="grid grid-cols-1 lg:grid-cols-12 gap-6">
+  return  (
+    <div className="grid grid-cols-1 gap-6 lg:grid-cols-12">
       {/* Left column */}
-      <div className="lg:col-span-9 bg-white dark:bg-gray-800 rounded-lg shadow-xl p-6 transition-colors duration-200">
-        <h2 className="text-xl font-bold text-gray-800 dark:text-white mb-4">Live Statistics</h2>
-        <StatsBar metrics={metrics} />
-
-        {/* SEO Keyword Input - Moved to top for better visibility */}
-        <div className="mb-4 bg-blue-50 dark:bg-gray-700 rounded-lg p-4 border border-blue-200 dark:border-gray-600 transition-colors duration-200">
-          <label className="flex items-center text-sm font-semibold text-gray-700 dark:text-gray-200 mb-2">
-            <span className="text-blue-600 mr-2">🎯</span>
-            Target SEO Keyword:
-          </label>
-          <input
-            type="text"
-            value={keyword}
-            onChange={(e) => {
-              const next = e.target.value;
-              setKeyword(next);
-              const text = getPlainText();
-              analyze(text, next.trim());
-            }}
-            placeholder="e.g., best laptops under 50000"
-            className="w-full p-3 border border-blue-300 dark:border-gray-600 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 bg-white dark:bg-gray-900 dark:text-white transition-colors duration-200"
-          />
-          {keyword && (
-            <p className="mt-2 text-xs text-gray-600 dark:text-gray-400">
-              Tracking: <span className="font-semibold text-blue-700">"{keyword}"</span>
-            </p>
-          )}
-          
-          {/* Related Keywords Suggestions */}
-          <RelatedKeywords 
-            keyword={keyword}
-            onSelectKeyword={(selectedKeyword) => {
-              setKeyword(selectedKeyword);
-              const text = getPlainText();
-              analyze(text, selectedKeyword.trim());
-            }}
-          />
+      <div className="space-y-6 lg:col-span-9">
+        {/* Card 1: Live Statistics */}
+        <div className="rounded-lg bg-white p-6 shadow-xl transition-colors duration-200 dark:bg-gray-800">
+          <h2 className="mb-4 text-xl font-bold text-gray-800 dark:text-white">
+            Live Statistics
+          </h2>
+          <StatsBar metrics={metrics} />
         </div>
 
-        {/* Text tools */}
-        <div className="mt-4 p-4 bg-gray-50 dark:bg-gray-700 rounded-t-lg shadow-inner border-b border-gray-200 dark:border-gray-600 transition-colors duration-200">
-          <h3 className="text-sm font-bold text-gray-700 dark:text-gray-200 mb-2">Text Tools</h3>
-          <div className="flex flex-wrap gap-2">
-            <button
-              onMouseDown={(e) => {
-                e.preventDefault();
-                clearAll();
-              }}
-              className="bg-red-500 text-white font-semibold py-1.5 px-3 rounded-lg hover:bg-red-600 text-xs"
-            >
-              🗑️ Clear
-            </button>
+        {/* Card 2: Editor & Tools */}
+        <div className="rounded-lg bg-white p-6 shadow-xl transition-colors duration-200 dark:bg-gray-800">
+          {/* Editor wrapper: toolbar + editor */}
+          <div className="overflow-hidden rounded-lg border border-gray-200 dark:border-gray-700">
+            {/* Toolbar */}
+            <div className="flex flex-wrap items-center gap-2 border-b border-gray-200 bg-gray-50 px-3 py-2 text-xs dark:border-gray-700 dark:bg-gray-900/40">
+              {/* Left cluster: formatting + case tools */}
+              <div className="flex flex-wrap items-center gap-2">
+                {/* Clear */}
+                <button
+                  type="button"
+                  onMouseDown={(e) => {
+                    e.preventDefault();
+                    clearAll();
+                  }}
+                  className="rounded-md bg-red-500 px-3 py-1.5 font-semibold text-white hover:bg-red-600"
+                >
+                  🗑️ Clear
+                </button>
 
-            <button
-              onMouseDown={(e) => {
-                e.preventDefault();
-                if (canUndo) undo();
-              }}
-              disabled={!canUndo}
-              className={`bg-gray-300 text-gray-800 font-semibold py-1.5 px-3 rounded-lg text-xs ${
-                !canUndo && "opacity-50"
-              }`}
-            >
-              ↩️ Undo
-            </button>
+                {/* Undo */}
+                <button
+                  type="button"
+                  onMouseDown={(e) => {
+                    e.preventDefault();
+                    if (canUndo) undo();
+                  }}
+                  disabled={!canUndo}
+                  className="rounded-md bg-gray-300 px-3 py-1.5 font-semibold text-gray-800 hover:bg-gray-400 disabled:cursor-not-allowed disabled:opacity-50"
+                >
+                  ↩️ Undo
+                </button>
 
-            <button
-              onMouseDown={(e) => {
-                e.preventDefault();
-                if (canRedo) redo();
-              }}
-              disabled={!canRedo}
-              className={`bg-gray-300 text-gray-800 font-semibold py-1.5 px-3 rounded-lg text-xs ${
-                !canRedo && "opacity-50"
-              }`}
-            >
-              ↪️ Redo
-            </button>
+                {/* Redo */}
+                <button
+                  type="button"
+                  onMouseDown={(e) => {
+                    e.preventDefault();
+                    if (canRedo) redo();
+                  }}
+                  disabled={!canRedo}
+                  className="rounded-md bg-gray-300 px-3 py-1.5 font-semibold text-gray-800 hover:bg-gray-400 disabled:cursor-not-allowed disabled:opacity-50"
+                >
+                  ↪️ Redo
+                </button>
 
-            <button
-              onMouseDown={(e) => {
-                e.preventDefault();
-                exec("bold");
-              }}
-              className="bg-blue-500 text-white font-bold py-1.5 px-3 rounded-lg hover:bg-blue-600 text-xs"
-            >
-              B
-            </button>
+                {/* Bold */}
+                <button
+                  type="button"
+                  onMouseDown={(e) => {
+                    e.preventDefault();
+                    exec("bold");
+                  }}
+                  className="rounded-md bg-blue-500 px-3 py-1.5 font-bold text-white hover:bg-blue-600"
+                >
+                  B
+                </button>
 
-            <button
-              onMouseDown={(e) => {
-                e.preventDefault();
-                exec("italic");
-              }}
-              className="bg-blue-500 text-white italic py-1.5 px-3 rounded-lg hover:bg-blue-600 text-xs"
-            >
-              /
-            </button>
+                {/* Italic */}
+                <button
+                  type="button"
+                  onMouseDown={(e) => {
+                    e.preventDefault();
+                    exec("italic");
+                  }}
+                  className="rounded-md bg-blue-500 px-3 py-1.5 italic text-white hover:bg-blue-600"
+                >
+                  /
+                </button>
 
-            <button
-              onMouseDown={(e) => {
-                e.preventDefault();
-                transformSelection(toTitleCase);
-              }}
-              className="bg-green-500 text-white font-semibold py-1.5 px-3 rounded-lg hover:bg-green-600 text-xs"
-            >
-              Aa
-            </button>
+                {/* Title case */}
+                <button
+                  type="button"
+                  onMouseDown={(e) => {
+                    e.preventDefault();
+                    transformSelection(toTitleCase);
+                  }}
+                  className="rounded-md bg-green-500 px-3 py-1.5 font-semibold text-white hover:bg-green-600"
+                >
+                  Aa
+                </button>
 
-            <button
-              onMouseDown={(e) => {
-                e.preventDefault();
-                transformSelection((s) => s.toLowerCase());
-              }}
-              className="bg-green-500 text-white font-semibold py-1.5 px-3 rounded-lg hover:bg-green-600 text-xs"
-            >
-              abc
-            </button>
+                {/* lowercase */}
+                <button
+                  type="button"
+                  onMouseDown={(e) => {
+                    e.preventDefault();
+                    transformSelection((s) => s.toLowerCase());
+                  }}
+                  className="rounded-md bg-green-500 px-3 py-1.5 font-semibold text-white hover:bg-green-600"
+                >
+                  abc
+                </button>
 
-            <button
-              onMouseDown={(e) => {
-                e.preventDefault();
-                transformSelection(toSnakeCase);
-              }}
-              className="bg-green-500 text-white font-semibold py-1.5 px-3 rounded-lg hover:bg-green-600 text-xs"
-            >
-              snake_case
-            </button>
+                {/* snake_case */}
+                <button
+                  type="button"
+                  onMouseDown={(e) => {
+                    e.preventDefault();
+                    transformSelection(toSnakeCase);
+                  }}
+                  className="rounded-md bg-green-500 px-3 py-1.5 font-semibold text-white hover:bg-green-600"
+                >
+                  snake_case
+                </button>
+              </div>
 
-            <button
-              onMouseDown={(e) => {
-                e.preventDefault();
-                handleRephrase();
-              }}
-              disabled={isRephrasing}
-              className={`bg-purple-500 text-white font-semibold py-1.5 px-3 rounded-lg hover:bg-purple-600 text-xs flex items-center gap-1 ${
-                isRephrasing && "opacity-50 cursor-not-allowed"
-              }`}
-            >
-              {isRephrasing ? (
-                <>
-                  <span className="animate-spin">⏳</span>
-                  <span>Rephrasing...</span>
-                </>
-              ) : (
-                <>
-                  <span>✨</span>
-                  <span>Rephrase</span>
-                </>
-              )}
-            </button>
+              {/* Right cluster: AI rephrase */}
+              <div className="ml-auto flex items-center">
+                <button
+                  type="button"
+                  onMouseDown={(e) => {
+                    e.preventDefault();
+                    handleRephrase();
+                  }}
+                  disabled={isRephrasing}
+                  className={`flex items-center gap-1 rounded-full border border-purple-500 bg-purple-500 px-4 py-1.5 text-xs sm:text-sm font-semibold text-white shadow-sm hover:bg-purple-600 hover:border-purple-600 disabled:cursor-not-allowed disabled:opacity-60`}
+
+                >
+                  {isRephrasing ? (
+                    <>
+                      <span className="animate-spin">⏳</span>
+                      <span>Rephrasing…</span>
+                    </>
+                  ) : (
+                    <>
+                      <span>✨</span>
+                      <span>Rephrase</span>
+                    </>
+                  )}
+                </button>
+              </div>
+            </div>
+
+            {/* Error message under toolbar */}
+            {rephraseError && (
+              <div className="mx-3 mt-2 mb-1 rounded-lg bg-red-50 px-3 py-2 text-xs text-red-600 dark:bg-red-900/20 dark:text-red-400">
+                ⚠️ {rephraseError}
+              </div>
+            )}
+
+            {/* Editor */}
+            <div
+              ref={divRef}
+              contentEditable
+              onInput={handleInput}
+              className="
+                w-full
+                min-h-[260px] sm:min-h-[340px] lg:min-h-[420px]
+                bg-white dark:bg-gray-900
+                px-4 sm:px-5 lg:px-6
+                py-4 sm:py-5
+                text-sm sm:text-base
+                leading-relaxed
+                text-gray-900 dark:text-white
+                outline-none
+              "
+              data-placeholder="Start typing here or paste your content..."
+              style={{ maxHeight: "70vh", overflowY: "auto" }}
+            />
+
           </div>
 
-          {/* Error message */}
-          {rephraseError && (
-            <div className="mt-2 text-xs text-red-600 dark:text-red-400 bg-red-50 dark:bg-red-900/20 px-3 py-2 rounded-lg">
-              ⚠️ {rephraseError}
-            </div>
-          )}
-        </div>
+          {/* SEO Keyword Input below editor */}
+          <div className="mt-5 rounded-lg border border-blue-200 bg-blue-50 p-4 transition-colors duration-200 dark:border-gray-600 dark:bg-gray-900/40">
+            <label className="mb-2 flex items-center text-sm font-semibold text-gray-700 dark:text-gray-200">
+              <span className="mr-2 text-blue-600">🎯</span>
+              Target SEO Keyword (optional)
+            </label>
+            <input
+              type="text"
+              value={keyword}
+              onChange={(e) => {
+                const next = e.target.value;
+                setKeyword(next);
+                const text = getPlainText();
+                analyze(text, next.trim());
+              }}
+              placeholder="e.g., best laptops under 50000"
+              className="w-full rounded-md border border-blue-300 bg-white px-3 py-2 text-sm text-gray-900 outline-none ring-offset-0 focus:border-blue-500 focus:ring-2 focus:ring-blue-500 dark:border-gray-600 dark:bg-gray-900 dark:text-white"
+            />
+            {keyword && (
+              <p className="mt-2 text-xs text-gray-600 dark:text-gray-400">
+                Tracking{" "}
+                <span className="font-semibold text-blue-700 dark:text-blue-300">
+                  "{keyword}"
+                </span>{" "}
+                for keyword density.
+              </p>
+            )}
 
-        {/* Editor */}
-        <div
-          ref={divRef}
-          contentEditable
-          onInput={handleInput}
-          className="bg-white dark:bg-gray-900 rounded-b-lg text-lg min-h-[32rem] p-6 border border-blue-500 dark:border-gray-600 focus:outline-none focus:ring-2 focus:ring-blue-500 dark:text-white leading-relaxed transition-colors duration-200"
-          data-placeholder="Start typing here or paste your content..."
-          style={{ maxHeight: 'calc(100vh - 400px)', overflowY: 'auto' }}
-        />
+            <RelatedKeywords
+              keyword={keyword}
+              onSelectKeyword={(selectedKeyword) => {
+                setKeyword(selectedKeyword);
+                const text = getPlainText();
+                analyze(text, selectedKeyword.trim());
+              }}
+            />
+          </div>
+        </div>
       </div>
 
       {/* Right column */}
       <div className="lg:col-span-3">
-        <Sidebar 
-          metrics={metrics} 
-          keyword={keyword} 
+        <Sidebar
+          metrics={metrics}
+          keyword={keyword}
           onKeywordSelect={(kw) => {
             setKeyword(kw);
             const text = getPlainText();
@@ -462,6 +502,8 @@ export function Editor() {
       </div>
     </div>
   );
+
+
 }
 
 /* --- Stats & Sidebar components --- */
