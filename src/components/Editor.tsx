@@ -5,6 +5,7 @@ import { useLiveMetrics } from "../lib/useLiveMetrics";
 import type { Metrics } from "../lib/types";
 import { TrendingKeywords } from "./TrendingKeywords";
 import RelatedKeywords from "./RelatedKeywords";
+import { GoogleAdsense } from "./GoogleAdsense"; // adjust path if needed
 
 export function Editor() {
   const divRef = useRef<HTMLDivElement | null>(null);
@@ -445,6 +446,13 @@ export function Editor() {
               data-placeholder="Start typing here or paste your content..."
               style={{ maxHeight: "70vh", overflowY: "auto" }}
             />
+            {/* In-content ad (below editor) */}
+            <div className="mt-4 flex justify-center">
+              <GoogleAdsense
+                adSlot={process.env.NEXT_PUBLIC_AD_SLOT_HEADER || ""}
+                style={{ display: "block", width: "100%", minHeight: 90 }}
+              />
+            </div>
 
           </div>
 
@@ -618,6 +626,14 @@ function Sidebar({
 
       {/* Trending Keywords */}
       <TrendingKeywords onKeywordClick={onKeywordSelect} />
+
+       {/* Sidebar ad */}
+       <div className="bg-white dark:bg-gray-800 rounded-lg shadow-lg p-4 transition-colors duration-200">
+        <GoogleAdsense
+          adSlot={process.env.NEXT_PUBLIC_AD_SLOT_SIDEBAR || ""}
+          style={{ display: "block", width: "100%", minHeight: 250 }}
+        />
+      </div>
     </div>
   );
 }

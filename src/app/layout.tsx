@@ -1,9 +1,9 @@
-// src/app/layout.tsx
 import "./globals.css";
 import type { Metadata } from "next";
 import Script from "next/script";
 import { ThemeProvider } from "@/contexts/ThemeContext";
 import { ThemeToggle } from "@/components/ThemeToggle";
+import { GoogleAnalytics } from "@/components/GoogleAnalytics";
 
 export const metadata: Metadata = {
   title: "Character Counter – Word & Character Count Tool",
@@ -42,33 +42,40 @@ export default function RootLayout({
 }: {
   children: React.ReactNode;
 }) {
+  const gaId = process.env.NEXT_PUBLIC_GA_ID;
+  const adsenseId = process.env.NEXT_PUBLIC_GOOGLE_ADSENSE_ID;
+
   return (
     <html lang="en" suppressHydrationWarning>
       <head>
-        {/* Favicon / basic links */}
         <link rel="icon" href="/favicon.ico" />
 
-        {/* ✅ JSON-LD: same on server + client, no conditional logic */}
+        {/* Structured data for SEO */}
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(structuredData) }}
         />
 
-        {/* ✅ AdSense: use Next <Script> so it loads after hydration, no mismatch */}
-        {process.env.NEXT_PUBLIC_GOOGLE_ADSENSE_ID && (
+        {/* Google AdSense – load once, after hydration */}
+        {adsenseId && (
           <Script
-            id="adsense-loader"
+            id="adsense-script"
             strategy="afterInteractive"
-            src={`https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=${process.env.NEXT_PUBLIC_GOOGLE_ADSENSE_ID}`}
+            async
+            src={`https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=${adsenseId}`}
             crossOrigin="anonymous"
           />
         )}
       </head>
       <body className="bg-gray-50 text-gray-900 dark:bg-gray-950 dark:text-gray-50">
-        {/* ✅ ThemeProvider wraps everything that uses useTheme() */}
         <ThemeProvider>
           {children}
+
+          {/* Floating theme toggle, if you’re using it globally */}
           <ThemeToggle />
+
+          {/* Google Analytics 4 */}
+          {gaId && <GoogleAnalytics measurementId={gaId} />}
         </ThemeProvider>
       </body>
     </html>
