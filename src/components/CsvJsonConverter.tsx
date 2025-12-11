@@ -161,6 +161,10 @@ export function CsvJsonConverter() {
                                     padding: { top: 16 },
                                     wordWrap: 'off',
                                     scrollBeyondLastLine: false,
+                                    renderLineHighlight: 'none',
+                                    overviewRulerBorder: false,
+                                    overviewRulerLanes: 0,
+                                    hideCursorInOverviewRuler: true,
                                 }}
                                 className="h-full"
                             />
@@ -225,6 +229,10 @@ export function CsvJsonConverter() {
                                 readOnly: true,
                                 padding: { top: 16 },
                                 scrollBeyondLastLine: false,
+                                renderLineHighlight: 'none',
+                                overviewRulerBorder: false,
+                                overviewRulerLanes: 0,
+                                hideCursorInOverviewRuler: true,
                             }}
                         />
                     </div>

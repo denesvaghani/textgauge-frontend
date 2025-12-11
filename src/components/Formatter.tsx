@@ -175,14 +175,16 @@ export function Formatter({
             </div>
 
             {/* Top Ad Slot - Compact */}
-            <div className="flex justify-center shrink-0">
-              <div className="w-full max-w-[728px] h-[90px] rounded-lg overflow-hidden bg-slate-100/50 dark:bg-slate-800/50">
-                <GoogleAdsense
-                  adSlot={process.env.NEXT_PUBLIC_AD_SLOT_HEADER || "example_slot"}
-                  style={{ display: 'block', width: '100%', height: '100%' }}
-                />
+            {process.env.NEXT_PUBLIC_AD_SLOT_HEADER && (
+              <div className="flex justify-center shrink-0">
+                <div className="w-full max-w-[728px] h-[90px] rounded-lg overflow-hidden bg-slate-100/50 dark:bg-slate-800/50">
+                  <GoogleAdsense
+                    adSlot={process.env.NEXT_PUBLIC_AD_SLOT_HEADER}
+                    style={{ display: 'block', width: '100%', height: '100%' }}
+                  />
+                </div>
               </div>
-            </div>
+            )}
           </div>
         </div>
       </header>
@@ -254,6 +256,9 @@ export function Formatter({
                   wordWrap: 'on',
                   padding: { top: 16, bottom: 16 },
                   renderLineHighlight: 'none', // cleaner look
+                  overviewRulerBorder: false,
+                  overviewRulerLanes: 0,
+                  hideCursorInOverviewRuler: true,
                 }}
               />
             </div >
@@ -431,6 +436,9 @@ export function Formatter({
                       wordWrap: 'on',
                       padding: { top: 16, bottom: 16 },
                       renderLineHighlight: 'none',
+                      overviewRulerBorder: false,
+                      overviewRulerLanes: 0,
+                      hideCursorInOverviewRuler: true,
                     }}
                   />
                 )}
