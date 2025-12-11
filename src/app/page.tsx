@@ -18,7 +18,7 @@ export default function Page() {
             Character Counter & Text Tools
           </h1>
           <p className="text-lg md:text-xl text-slate-600 dark:text-slate-300 max-w-2xl mx-auto leading-relaxed">
-            Free online tools to <strong>count characters</strong>, format <strong>JSON</strong> & <strong>YAML</strong>, and analyze text.
+            Free online tools to <strong>count characters</strong>, convert <strong>CSV to JSON</strong>, format <strong>JSON</strong> & <strong>YAML</strong>, and analyze text.
             Clean, privacy-focused, and developer-friendly.
           </p>
         </div>
@@ -33,7 +33,18 @@ export default function Page() {
 
       {/* Tools Grid */}
       <section className="max-w-[1920px] mx-auto px-4 sm:px-6 lg:px-8 py-16">
-        <div className="grid md:grid-cols-2 gap-6">
+        <div className="grid md:grid-cols-3 gap-6">
+          <a href="/csv-to-json" className="group p-6 rounded-2xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 hover:border-indigo-500/50 dark:hover:border-indigo-500/50 hover:shadow-lg hover:shadow-indigo-500/10 transition-all duration-200">
+            <div className="flex items-center justify-between mb-4">
+              <div className="p-3 bg-indigo-50 dark:bg-indigo-900/20 rounded-xl text-indigo-600 dark:text-indigo-400 group-hover:scale-110 transition-transform duration-200">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><path d="M4 15h16"></path><path d="M4 11h16"></path></svg>
+              </div>
+              <span className="text-slate-300 dark:text-slate-600 group-hover:text-indigo-500 transition-colors">→</span>
+            </div>
+            <h3 className="text-xl font-bold text-slate-900 dark:text-white mb-2 group-hover:text-indigo-600 dark:group-hover:text-indigo-400 transition-colors">CSV to JSON</h3>
+            <p className="text-slate-600 dark:text-slate-400">Convert large CSV files to JSON instantly. Supports 25MB+ files with drag & drop.</p>
+          </a>
+
           <a href="/json-formatter" className="group p-6 rounded-2xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 hover:border-indigo-500/50 dark:hover:border-indigo-500/50 hover:shadow-lg hover:shadow-indigo-500/10 transition-all duration-200">
             <div className="flex items-center justify-between mb-4">
               <div className="p-3 bg-indigo-50 dark:bg-indigo-900/20 rounded-xl text-indigo-600 dark:text-indigo-400 group-hover:scale-110 transition-transform duration-200">
@@ -73,6 +84,15 @@ export default function Page() {
                 Instantly <strong>count characters</strong> and <strong>count words</strong> as you type.
                 Perfect for Twitter posts (280 chars), meta descriptions (155-160 chars), essays, and articles.
                 We also track sentences, paragraphs, and reading time.
+              </p>
+            </div>
+            <div>
+              <h3 className="font-bold text-base mb-2 text-slate-900 dark:text-white flex items-center gap-2">
+                <span className="w-1.5 h-1.5 rounded-full bg-indigo-500"></span> CSV to JSON Converter
+              </h3>
+              <p className="leading-relaxed">
+                Convert massive CSV datasets to structured JSON format right in your browser.
+                Our <strong>Client-side CSV Parser</strong> handles 25MB+ files securely without server uploads.
               </p>
             </div>
             <div>
