@@ -3,7 +3,6 @@
 import { useState, useEffect, useCallback } from "react";
 import Editor from "@monaco-editor/react";
 import {
-  Play,
   Trash2,
   Copy,
   Minimize2,
@@ -12,7 +11,8 @@ import {
   Globe,
   Check,
   AlertTriangle,
-  ArrowLeft
+  ArrowLeft,
+  Wand2 // Swapped Play for Wand2 for a more magical/modern feel, or keep Play if preferred. Let's stick to sleek icons.
 } from "lucide-react";
 import { UrlLoader } from "./UrlLoader";
 import { GoogleAdsense } from "./GoogleAdsense"; // Ensure this path is correct
@@ -161,21 +161,23 @@ export function Formatter({
   };
 
   return (
-    // Changed root to h-screen flex flex-col for full window height
-    <div className="h-screen flex flex-col bg-gray-50 dark:bg-gray-950 text-gray-900 dark:text-gray-50 transition-colors duration-200 overflow-hidden">
+    // Modern Gradient Background or distinct Neutral
+    <div className="h-screen flex flex-col bg-slate-50 dark:bg-slate-950 text-slate-900 dark:text-slate-50 transition-colors duration-200 overflow-hidden font-sans">
 
-      {/* Header Section - Reduced padding from py-4 to py-2 */}
-      <header className="shrink-0 bg-white dark:bg-gray-900 shadow-sm border-b border-gray-200 dark:border-gray-800 transition-colors duration-200 z-10">
-        <div className="max-w-[1920px] mx-auto px-4 sm:px-6 lg:px-8 py-2">
+      {/* Header Section - Minimal & Clean with Glassmorphism */}
+      <header className="shrink-0 bg-white/80 dark:bg-slate-900/80 backdrop-blur-md shadow-sm border-b border-slate-200 dark:border-slate-800 z-10 sticky top-0">
+        <div className="max-w-[1920px] mx-auto px-4 sm:px-6 lg:px-8 py-3">
           <div className="flex flex-col md:flex-row md:items-center justify-between gap-4">
-            <div>
-              <h1 className="text-lg sm:text-xl font-bold text-gray-900 dark:text-white leading-tight">{title}</h1>
-              <p className="text-xs text-gray-600 dark:text-gray-400 max-w-3xl hidden sm:block">{description}</p>
+            <div className="flex flex-col gap-0.5">
+              <h1 className="text-xl sm:text-2xl font-extrabold tracking-tight text-slate-900 dark:text-white bg-clip-text text-transparent bg-gradient-to-r from-indigo-600 to-violet-600 dark:from-indigo-400 dark:to-violet-400 w-fit">
+                {title}
+              </h1>
+              <p className="text-sm text-slate-500 dark:text-slate-400 max-w-2xl font-medium hidden sm:block">{description}</p>
             </div>
 
-            {/* Top Ad Slot - Made more compact if possible */}
+            {/* Top Ad Slot - Compact */}
             <div className="flex justify-center shrink-0">
-              <div className="w-full max-w-[728px] h-[90px] overflow-hidden">
+              <div className="w-full max-w-[728px] h-[90px] rounded-lg overflow-hidden bg-slate-100/50 dark:bg-slate-800/50">
                 <GoogleAdsense
                   adSlot={process.env.NEXT_PUBLIC_AD_SLOT_HEADER || "example_slot"}
                   style={{ display: 'block', width: '100%', height: '100%' }}
@@ -186,48 +188,52 @@ export function Formatter({
         </div>
       </header>
 
-      {/* Main Content - Flex-1 to fill remaining space, min-h-0 to allow nested scrolling */}
-      <main className="flex-1 flex flex-col min-h-0 w-full max-w-[1920px] mx-auto px-4 sm:px-6 lg:px-8 py-2">
+      {/* Main Content */}
+      <main className="flex-1 flex flex-col min-h-0 w-full max-w-[1920px] mx-auto px-4 sm:px-6 lg:px-8 py-4">
 
-        {/* 3-Column Layout - h-full to take all available space */}
-        <div className="flex flex-col lg:flex-row gap-4 h-full">
+        {/* Layout Container */}
+        <div className="flex flex-col lg:flex-row gap-6 h-full">
 
           {/* LEFT COLUMN: Input Editor */}
-          <div className="flex-1 flex flex-col bg-white dark:bg-gray-900 rounded-lg shadow-sm border border-gray-200 dark:border-gray-800 lg:w-[40%] min-h-0">
+          <div className="flex-1 flex flex-col bg-white dark:bg-slate-900 rounded-xl shadow-sm ring-1 ring-slate-900/5 dark:ring-white/10 lg:w-[40%] min-h-0 overflow-hidden transition-all duration-200">
             {/* Toolbar */}
-            <div className="shrink-0 px-3 py-2 border-b border-gray-200 dark:border-gray-800 flex flex-wrap items-center justify-between bg-gray-50 dark:bg-gray-800/50 rounded-t-lg gap-2">
-              <div className="flex items-center gap-2">
-                <span className="text-xs font-bold text-gray-500 dark:text-gray-400 uppercase tracking-wider">Input</span>
-                <span className="text-[10px] text-gray-400 bg-gray-200 dark:bg-gray-700 px-1.5 py-0.5 rounded border border-gray-300 dark:border-gray-600">Auto-saved</span>
+            <div className="shrink-0 px-4 py-3 border-b border-slate-100 dark:border-slate-800 flex items-center justify-between bg-white dark:bg-slate-900">
+              <div className="flex items-center gap-3">
+                <span className="text-xs font-bold text-slate-400 dark:text-slate-500 uppercase tracking-widest">Input</span>
+                {/* Modern Badge */}
+                <span className="flex items-center gap-1.5 px-2 py-0.5 rounded-full bg-emerald-50 dark:bg-emerald-950/30 border border-emerald-100 dark:border-emerald-900/50">
+                  <div className="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse"></div>
+                  <span className="text-[10px] font-medium text-emerald-600 dark:text-emerald-400">Auto-saved</span>
+                </span>
               </div>
               <div className="flex items-center gap-1">
                 <button
                   onClick={() => document.getElementById("file-upload")?.click()}
-                  className="p-1.5 text-gray-600 hover:bg-gray-200 dark:text-gray-300 dark:hover:bg-gray-700 rounded transition-colors"
+                  className="p-1.5 text-slate-500 hover:text-indigo-600 hover:bg-indigo-50 dark:text-slate-400 dark:hover:text-indigo-400 dark:hover:bg-indigo-900/20 rounded-md transition-all duration-200"
                   title="Upload File"
                 >
-                  <Upload size={16} />
+                  <Upload size={18} strokeWidth={2} />
                   <input type="file" id="file-upload" className="hidden" accept=".json,.yaml,.yml,.txt" onChange={handleFileUpload} />
                 </button>
                 <button
                   onClick={() => setIsUrlModalOpen(true)}
-                  className="p-1.5 text-gray-600 hover:bg-gray-200 dark:text-gray-300 dark:hover:bg-gray-700 rounded transition-colors"
+                  className="p-1.5 text-slate-500 hover:text-indigo-600 hover:bg-indigo-50 dark:text-slate-400 dark:hover:text-indigo-400 dark:hover:bg-indigo-900/20 rounded-md transition-all duration-200"
                   title="Load from URL"
                 >
-                  <Globe size={16} />
+                  <Globe size={18} strokeWidth={2} />
                 </button>
                 <button
                   onClick={handleClear}
-                  className="p-1.5 text-red-500 hover:bg-red-50 dark:hover:bg-red-900/20 rounded transition-colors"
+                  className="p-1.5 text-slate-400 hover:text-red-600 hover:bg-red-50 dark:text-slate-500 dark:hover:text-red-400 dark:hover:bg-red-900/20 rounded-md transition-all duration-200"
                   title="Clear"
                 >
-                  <Trash2 size={16} />
+                  <Trash2 size={18} strokeWidth={2} />
                 </button>
               </div>
             </div>
 
             {/* Editor Area */}
-            <div className="flex-1 relative overflow-hidden min-h-0">
+            <div className="flex-1 relative min-h-0 bg-slate-50/30 dark:bg-black/20">
               <Editor
                 height="100%"
                 defaultLanguage={inputType}
@@ -238,20 +244,23 @@ export function Formatter({
                 options={{
                   minimap: { enabled: false },
                   fontSize: 13,
+                  fontFamily: "'JetBrains Mono', 'Fira Code', 'Consolas', monospace", // Better font stack if available
                   scrollBeyondLastLine: false,
                   automaticLayout: true,
                   tabSize: tabSize,
                   formatOnPaste: true,
-                  wordWrap: 'on'
+                  wordWrap: 'on',
+                  padding: { top: 16, bottom: 16 },
+                  renderLineHighlight: 'none', // cleaner look
                 }}
               />
             </div>
 
             {/* Status Bar */}
-            <div className="shrink-0 px-3 py-1.5 bg-gray-50 dark:bg-gray-800/30 border-t border-gray-200 dark:border-gray-800 flex justify-between text-xs text-gray-500 dark:text-gray-400 font-mono">
-              <div className="flex gap-3">
-                <span>{getStats(inputCode).lines} Lines</span>
-                <span>{getStats(inputCode).chars} Chars</span>
+            <div className="shrink-0 px-4 py-2 border-t border-slate-100 dark:border-slate-800 flex justify-between items-center text-[11px] text-slate-400 dark:text-slate-500 font-medium font-mono bg-white dark:bg-slate-900">
+              <div className="flex gap-4">
+                <span>{getStats(inputCode).lines} LN</span>
+                <span>{getStats(inputCode).chars} CH</span>
               </div>
               <div>
                 {(getStats(inputCode).size / 1024).toFixed(2)} KB
@@ -260,25 +269,27 @@ export function Formatter({
           </div>
 
           {/* MIDDLE COLUMN: Controls */}
-          <div className="flex flex-col gap-3 lg:w-[220px] shrink-0 h-full overflow-y-auto">
+          <div className="flex flex-col gap-4 lg:w-[240px] shrink-0 h-full overflow-y-auto py-2">
 
-            {/* Main Actions */}
-            <div className="flex flex-col gap-2 bg-white dark:bg-gray-900 p-3 rounded-lg shadow-sm border border-gray-200 dark:border-gray-800 shrink-0">
+            {/* Main Actions - Premium Gradient Button */}
+            <div className="flex flex-col gap-3 shrink-0">
               <button
                 onClick={handleFormat}
-                className="flex items-center justify-center gap-2 w-full py-2 bg-blue-600 hover:bg-blue-700 text-white font-bold rounded shadow-sm hover:shadow transition-all active:scale-[0.98] border border-blue-600 group text-sm"
-                title="Ctrl + Enter"
+                className="relative group w-full py-3.5 px-4 rounded-xl font-bold text-white shadow-lg shadow-indigo-500/20 transition-all duration-200 hover:-translate-y-0.5 hover:shadow-indigo-500/30 active:translate-y-0 active:scale-[0.98] overflow-hidden"
               >
-                <Play size={16} className="fill-current group-hover:scale-110 transition-transform" />
-                Beautify {">>"}
+                <div className="absolute inset-0 bg-gradient-to-r from-indigo-600 to-violet-600 dark:from-indigo-500 dark:to-violet-600 transition-all duration-300 group-hover:scale-105"></div>
+                <div className="relative flex items-center justify-center gap-2">
+                  <Wand2 size={18} className="transition-transform group-hover:rotate-12" />
+                  <span>Beautify</span>
+                </div>
               </button>
 
               {onMinify && (
                 <button
                   onClick={handleMinify}
-                  className="flex items-center justify-center gap-2 w-full py-2 bg-white dark:bg-gray-800 border border-gray-300 dark:border-gray-600 hover:bg-gray-50 dark:hover:bg-gray-700 text-gray-700 dark:text-gray-200 font-medium rounded shadow-sm transition-all active:scale-[0.98] text-sm"
+                  className="group w-full py-3 px-4 bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 hover:border-slate-300 dark:hover:border-slate-600 hover:bg-slate-50 dark:hover:bg-slate-700/50 text-slate-700 dark:text-slate-200 font-semibold rounded-xl shadow-sm transition-all duration-200 flex items-center justify-center gap-2 active:scale-[0.98]"
                 >
-                  <Minimize2 size={16} />
+                  <Minimize2 size={18} className="text-slate-400 group-hover:text-slate-600 dark:group-hover:text-slate-300 transition-colors" />
                   Minify
                 </button>
               )}
@@ -290,44 +301,49 @@ export function Formatter({
                     setOutputCode("");
                   }
                 }}
-                className="flex items-center justify-center gap-2 w-full py-2 bg-white dark:bg-gray-800 border border-gray-300 dark:border-gray-600 hover:bg-gray-50 dark:hover:bg-gray-700 text-gray-700 dark:text-gray-200 font-medium rounded shadow-sm transition-all active:scale-[0.98] text-sm"
+                className="group w-full py-3 px-4 bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 hover:border-slate-300 dark:hover:border-slate-600 hover:bg-slate-50 dark:hover:bg-slate-700/50 text-slate-700 dark:text-slate-200 font-semibold rounded-xl shadow-sm transition-all duration-200 flex items-center justify-center gap-2 active:scale-[0.98]"
                 title="Replace Input with Output"
               >
-                <ArrowLeft size={16} />
-                {"<< Replace"}
+                <ArrowLeft size={18} className="text-slate-400 group-hover:text-slate-600 dark:group-hover:text-slate-300 transition-colors" />
+                Replace Input
               </button>
             </div>
 
-            {/* Tab Settings */}
-            <div className="bg-white dark:bg-gray-900 p-3 rounded-lg shadow-sm border border-gray-200 dark:border-gray-800 shrink-0">
-              <label className="block text-xs font-semibold text-gray-500 dark:text-gray-400 uppercase tracking-wider mb-2">
-                Tab Size
+            {/* Tab Settings Card */}
+            <div className="bg-white dark:bg-slate-900 p-4 rounded-xl shadow-sm ring-1 ring-slate-900/5 dark:ring-white/10 shrink-0">
+              <label className="block text-xs font-bold text-slate-400 dark:text-slate-500 uppercase tracking-widest mb-3">
+                Configuration
               </label>
-              <select
-                value={tabSize}
-                onChange={(e) => setTabSize(Number(e.target.value))}
-                className="w-full p-2 border border-gray-300 dark:border-gray-600 rounded bg-white dark:bg-gray-800 text-sm text-gray-800 dark:text-white outline-none focus:ring-2 focus:ring-blue-500"
-              >
-                <option value={2}>2 Spaces</option>
-                <option value={3}>3 Spaces</option>
-                <option value={4}>4 Spaces</option>
-                <option value={8}>8 Spaces</option>
-              </select>
+              <div className="relative">
+                <select
+                  value={tabSize}
+                  onChange={(e) => setTabSize(Number(e.target.value))}
+                  className="w-full appearance-none p-2.5 pl-3 pr-8 border border-slate-200 dark:border-slate-700 rounded-lg bg-slate-50 dark:bg-slate-950/50 text-sm font-medium text-slate-700 dark:text-slate-200 outline-none focus:ring-2 focus:ring-indigo-500/20 focus:border-indigo-500 transition-all cursor-pointer"
+                >
+                  <option value={2}>2 Spaces</option>
+                  <option value={3}>3 Spaces</option>
+                  <option value={4}>4 Spaces</option>
+                  <option value={8}>8 Spaces</option>
+                </select>
+                <div className="absolute right-3 top-1/2 -translate-y-1/2 pointer-events-none text-slate-400">
+                  <svg width="10" height="6" viewBox="0 0 10 6" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M1 1L5 5L9 1" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+                  </svg>
+                </div>
+              </div>
             </div>
-
-            {/* Fix the select onChange bug here manually in the string */}
 
             {sampleData && (
               <button
                 onClick={handleLoadSample}
-                className="text-xs text-blue-600 dark:text-blue-400 hover:underline text-center shrink-0"
+                className="text-xs font-semibold text-indigo-500 dark:text-indigo-400 hover:text-indigo-600 dark:hover:text-indigo-300 hover:underline text-center shrink-0 transition-colors"
               >
                 Load Sample Data
               </button>
             )}
 
-            {/* Ad Slot - Sticky/Sidebar style */}
-            <div className="flex-1 rounded overflow-hidden min-h-[250px] flex items-center justify-center bg-transparent">
+            {/* Ad Slot - Cleaner container */}
+            <div className="flex-1 rounded-xl overflow-hidden min-h-[250px] flex items-center justify-center bg-slate-100/50 dark:bg-slate-800/30 border border-dashed border-slate-200 dark:border-slate-800">
               <GoogleAdsense
                 adSlot={process.env.NEXT_PUBLIC_AD_SLOT_SIDEBAR || "example_sidebar"}
                 style={{ display: 'block', width: '100%' }}
@@ -337,20 +353,22 @@ export function Formatter({
           </div>
 
           {/* RIGHT COLUMN: Output Editor */}
-          <div className="flex-1 flex flex-col bg-white dark:bg-gray-900 rounded-lg shadow-sm border border-gray-200 dark:border-gray-800 lg:w-[40%] min-h-0">
+          <div className="flex-1 flex flex-col bg-white dark:bg-slate-900 rounded-xl shadow-sm ring-1 ring-slate-900/5 dark:ring-white/10 lg:w-[40%] min-h-0 overflow-hidden transition-all duration-200">
             {/* Toolbar */}
-            <div className="shrink-0 px-3 py-2 border-b border-gray-200 dark:border-gray-800 flex flex-wrap items-center justify-between bg-gray-50 dark:bg-gray-800/50 rounded-t-lg gap-2">
-              <div className="flex items-center gap-2">
-                <span className="text-xs font-bold text-gray-500 dark:text-gray-400 uppercase tracking-wider">Output</span>
+            <div className="shrink-0 px-4 py-3 border-b border-slate-100 dark:border-slate-800 flex items-center justify-between bg-white dark:bg-slate-900">
+              <div className="flex items-center gap-3">
+                <span className="text-xs font-bold text-slate-400 dark:text-slate-500 uppercase tracking-widest">Output</span>
               </div>
-              <div className="flex items-center gap-1">
+              <div className="flex items-center gap-2">
                 <button
                   onClick={handleCopy}
-                  className={`flex items-center gap-1.5 px-2 py-1 rounded transition-colors text-xs font-medium ${copied ? "bg-green-100 text-green-700 dark:bg-green-900/30 dark:text-green-400" : "text-gray-600 hover:bg-gray-200 dark:text-gray-300 dark:hover:bg-gray-700"
+                  className={`flex items-center gap-2 px-3 py-1.5 rounded-md transition-all duration-200 text-xs font-bold ${copied
+                    ? "bg-emerald-100 text-emerald-700 dark:bg-emerald-900/30 dark:text-emerald-400"
+                    : "bg-slate-100 hover:bg-slate-200 text-slate-600 dark:bg-slate-800 dark:hover:bg-slate-700 dark:text-slate-300"
                     }`}
                   title="Copy to Clipboard"
                 >
-                  {copied ? <Check size={14} /> : <Copy size={14} />}
+                  {copied ? <Check size={14} strokeWidth={3} /> : <Copy size={14} strokeWidth={2} />}
                   {copied ? "Copied" : "Copy"}
                 </button>
                 <button
@@ -363,24 +381,26 @@ export function Formatter({
                     a.click();
                     URL.revokeObjectURL(url);
                   }}
-                  className="p-1.5 text-gray-600 hover:bg-gray-200 dark:text-gray-300 dark:hover:bg-gray-700 rounded transition-colors"
+                  className="p-1.5 text-slate-500 hover:text-indigo-600 hover:bg-indigo-50 dark:text-slate-400 dark:hover:text-indigo-400 dark:hover:bg-indigo-900/20 rounded-md transition-all duration-200"
                   title="Download"
                 >
-                  <Download size={16} />
+                  <Download size={18} strokeWidth={2} />
                 </button>
               </div>
             </div>
 
             {/* Editor/Error Area */}
-            <div className="flex-1 relative overflow-hidden bg-gray-50 dark:bg-gray-900/30 min-h-0">
+            <div className="flex-1 relative min-h-0 bg-slate-50/30 dark:bg-black/20">
               {error ? (
-                <div className="absolute inset-0 p-6 z-10 overflow-auto bg-white/95 dark:bg-gray-900/95">
-                  <div className="rounded-lg border border-red-200 bg-red-50 p-4 dark:border-red-900/30 dark:bg-red-900/10">
-                    <div className="flex items-center gap-2 text-red-700 dark:text-red-400 font-bold mb-2">
-                      <AlertTriangle size={20} />
+                <div className="absolute inset-0 p-6 z-10 overflow-auto bg-white/95 dark:bg-slate-900/95 backdrop-blur-sm">
+                  <div className="rounded-xl border border-red-200 bg-red-50 p-6 dark:border-red-900/30 dark:bg-red-900/10 shadow-sm">
+                    <div className="flex items-center gap-3 text-red-700 dark:text-red-400 font-bold mb-3">
+                      <div className="p-2 bg-red-100 dark:bg-red-900/30 rounded-lg">
+                        <AlertTriangle size={20} />
+                      </div>
                       <span>Validation Error</span>
                     </div>
-                    <pre className="text-sm text-red-600 dark:text-red-300 whitespace-pre-wrap font-mono">
+                    <pre className="text-sm text-red-600 dark:text-red-300 whitespace-pre-wrap font-mono leading-relaxed pl-11">
                       {error}
                     </pre>
                   </div>
@@ -396,19 +416,22 @@ export function Formatter({
                     readOnly: true,
                     minimap: { enabled: false },
                     fontSize: 13,
+                    fontFamily: "'JetBrains Mono', 'Fira Code', 'Consolas', monospace",
                     scrollBeyondLastLine: false,
                     automaticLayout: true,
-                    wordWrap: 'on'
+                    wordWrap: 'on',
+                    padding: { top: 16, bottom: 16 },
+                    renderLineHighlight: 'none',
                   }}
                 />
               )}
             </div>
 
             {/* Status Bar */}
-            <div className="shrink-0 px-3 py-1.5 bg-gray-50 dark:bg-gray-800/30 border-t border-gray-200 dark:border-gray-800 flex justify-between text-xs text-gray-500 dark:text-gray-400 font-mono">
-              <div className="flex gap-3">
-                <span>{getStats(outputCode).lines} Lines</span>
-                <span>{getStats(outputCode).chars} Chars</span>
+            <div className="shrink-0 px-4 py-2 border-t border-slate-100 dark:border-slate-800 flex justify-between items-center text-[11px] text-slate-400 dark:text-slate-500 font-medium font-mono bg-white dark:bg-slate-900">
+              <div className="flex gap-4">
+                <span>{getStats(outputCode).lines} LN</span>
+                <span>{getStats(outputCode).chars} CH</span>
               </div>
               <div>
                 {(getStats(outputCode).size / 1024).toFixed(2)} KB
