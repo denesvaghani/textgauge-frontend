@@ -294,21 +294,10 @@ export function Editor() {
           <div className="flex flex-col overflow-hidden rounded-lg border border-slate-200 bg-white shadow-sm dark:border-slate-700 dark:bg-slate-950">
             {/* Toolbar */}
             <div className="flex flex-wrap items-center gap-2 border-b border-slate-200 bg-slate-50 px-3 py-2 text-xs dark:border-slate-700 dark:bg-slate-900/60">
-              {/* Left cluster: formatting + case tools */}
-              <div className="flex flex-wrap items-center gap-2">
-                {/* Clear */}
-                <button
-                  type="button"
-                  onMouseDown={(e) => {
-                    e.preventDefault();
-                    clearAll();
-                  }}
-                  className="rounded-md bg-rose-500 px-3 py-1.5 font-bold text-white shadow-sm shadow-rose-500/20 hover:bg-rose-600 hover:shadow-rose-500/30 transition-all active:scale-95"
-                >
-                  Clear
-                </button>
+              {/* Left cluster: History -> Formatting -> Transformations */}
+              <div className="flex flex-wrap items-center gap-1.5 sm:gap-2">
 
-                {/* Undo */}
+                {/* History Group */}
                 <button
                   type="button"
                   onMouseDown={(e) => {
@@ -316,12 +305,12 @@ export function Editor() {
                     if (canUndo) undo();
                   }}
                   disabled={!canUndo}
+                  title="Undo"
                   className="rounded-md bg-white border border-slate-200 px-3 py-1.5 font-semibold text-slate-700 shadow-sm hover:bg-slate-50 hover:text-slate-900 disabled:opacity-50 disabled:cursor-not-allowed dark:bg-slate-800 dark:border-slate-700 dark:text-slate-200 dark:hover:bg-slate-700 transition-all active:scale-95"
                 >
                   Undo
                 </button>
 
-                {/* Redo */}
                 <button
                   type="button"
                   onMouseDown={(e) => {
@@ -329,6 +318,7 @@ export function Editor() {
                     if (canRedo) redo();
                   }}
                   disabled={!canRedo}
+                  title="Redo"
                   className="rounded-md bg-white border border-slate-200 px-3 py-1.5 font-semibold text-slate-700 shadow-sm hover:bg-slate-50 hover:text-slate-900 disabled:opacity-50 disabled:cursor-not-allowed dark:bg-slate-800 dark:border-slate-700 dark:text-slate-200 dark:hover:bg-slate-700 transition-all active:scale-95"
                 >
                   Redo
@@ -336,25 +326,26 @@ export function Editor() {
 
                 <div className="w-px h-5 bg-slate-300 dark:bg-slate-700 mx-1"></div>
 
-                {/* Bold */}
+                {/* Formatting Group */}
                 <button
                   type="button"
                   onMouseDown={(e) => {
                     e.preventDefault();
                     exec("bold");
                   }}
+                  title="Bold"
                   className="rounded-md bg-white border border-slate-200 px-3 py-1.5 font-bold text-slate-700 shadow-sm hover:border-indigo-300 hover:text-indigo-600 dark:bg-slate-800 dark:border-slate-700 dark:text-slate-200 dark:hover:border-indigo-500 dark:hover:text-indigo-400 transition-all"
                 >
                   B
                 </button>
 
-                {/* Italic */}
                 <button
                   type="button"
                   onMouseDown={(e) => {
                     e.preventDefault();
                     exec("italic");
                   }}
+                  title="Italic"
                   className="rounded-md bg-white border border-slate-200 px-3 py-1.5 italic text-slate-700 shadow-sm hover:border-indigo-300 hover:text-indigo-600 dark:bg-slate-800 dark:border-slate-700 dark:text-slate-200 dark:hover:border-indigo-500 dark:hover:text-indigo-400 transition-all"
                 >
                   i
@@ -362,45 +353,57 @@ export function Editor() {
 
                 <div className="w-px h-5 bg-slate-300 dark:bg-slate-700 mx-1"></div>
 
-                {/* Title case */}
+                {/* Case Transformations */}
                 <button
                   type="button"
                   onMouseDown={(e) => {
                     e.preventDefault();
                     transformSelection(toTitleCase);
                   }}
-                  className="rounded-md bg-emerald-500 px-3 py-1.5 font-bold text-white shadow-sm shadow-emerald-500/20 hover:bg-emerald-600 hover:shadow-emerald-500/30 transition-all"
+                  title="Title Case"
+                  className="rounded-md bg-emerald-500 px-2 sm:px-3 py-1.5 font-bold text-white shadow-sm shadow-emerald-500/20 hover:bg-emerald-600 hover:shadow-emerald-500/30 transition-all"
                 >
                   Aa
                 </button>
 
-                {/* lowercase */}
                 <button
                   type="button"
                   onMouseDown={(e) => {
                     e.preventDefault();
                     transformSelection((s) => s.toLowerCase());
                   }}
-                  className="rounded-md bg-emerald-500 px-3 py-1.5 font-bold text-white shadow-sm shadow-emerald-500/20 hover:bg-emerald-600 hover:shadow-emerald-500/30 transition-all"
+                  title="lowercase"
+                  className="rounded-md bg-emerald-500 px-2 sm:px-3 py-1.5 font-bold text-white shadow-sm shadow-emerald-500/20 hover:bg-emerald-600 hover:shadow-emerald-500/30 transition-all"
                 >
                   abc
                 </button>
 
-                {/* snake_case */}
                 <button
                   type="button"
                   onMouseDown={(e) => {
                     e.preventDefault();
                     transformSelection(toSnakeCase);
                   }}
-                  className="rounded-md bg-emerald-500 px-3 py-1.5 font-bold text-white shadow-sm shadow-emerald-500/20 hover:bg-emerald-600 hover:shadow-emerald-500/30 transition-all"
+                  title="snake_case"
+                  className="rounded-md bg-emerald-500 px-2 sm:px-3 py-1.5 font-bold text-white shadow-sm shadow-emerald-500/20 hover:bg-emerald-600 hover:shadow-emerald-500/30 transition-all"
                 >
                   snake_case
                 </button>
               </div>
 
-              {/* Right cluster: AI rephrase */}
-              <div className="ml-auto flex items-center">
+              {/* Right cluster: Actions (Clear + AI) */}
+              <div className="ml-auto flex items-center gap-2">
+                <button
+                  type="button"
+                  onMouseDown={(e) => {
+                    e.preventDefault();
+                    clearAll();
+                  }}
+                  className="rounded-md bg-white border border-rose-200 px-3 py-1.5 text-xs font-semibold text-rose-600 shadow-sm hover:bg-rose-50 hover:text-rose-700 dark:bg-rose-900/10 dark:border-rose-900/30 dark:text-rose-400 dark:hover:bg-rose-900/20 transition-all active:scale-95"
+                >
+                  Clear
+                </button>
+
                 <button
                   type="button"
                   onMouseDown={(e) => {
