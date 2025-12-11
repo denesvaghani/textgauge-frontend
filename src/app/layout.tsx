@@ -38,6 +38,7 @@ const structuredData = {
 };
 
 import { Navigation } from "@/components/Navigation";
+import { Footer } from "@/components/Footer";
 import { CopyProtection } from "@/components/CopyProtection";
 
 export default function RootLayout({
@@ -75,6 +76,7 @@ export default function RootLayout({
           <CopyProtection />
           <Navigation />
           {children}
+          <Footer />
 
           {/* Floating theme toggle, if you’re using it globally */}
           <ThemeToggle />
