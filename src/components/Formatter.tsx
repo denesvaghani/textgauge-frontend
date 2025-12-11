@@ -131,12 +131,12 @@ export function Formatter({
 
       {/* Header Section */}
       <header className="bg-white dark:bg-gray-900 shadow-sm border-b border-gray-200 dark:border-gray-800 transition-colors duration-200">
-        <div className="max-w-[1920px] mx-auto px-4 sm:px-6 lg:px-8 py-6">
-          <h1 className="text-2xl sm:text-3xl font-bold text-gray-900 dark:text-white">{title}</h1>
-          <p className="mt-2 text-gray-600 dark:text-gray-400 max-w-3xl">{description}</p>
+        <div className="max-w-[1920px] mx-auto px-4 sm:px-6 lg:px-8 py-4"> {/* Reduced py-6 to py-4 */}
+          <h1 className="text-xl sm:text-2xl font-bold text-gray-900 dark:text-white">{title}</h1> {/* Reduced text size slightly */}
+          <p className="mt-1 text-sm text-gray-600 dark:text-gray-400 max-w-3xl">{description}</p>
 
           {/* Top Ad Slot placement */}
-          <div className="mt-4 flex justify-center min-h-[90px] w-full rounded overflow-hidden">
+          <div className="mt-3 flex justify-center min-h-[90px] w-full rounded overflow-hidden">
             <GoogleAdsense
               adSlot={process.env.NEXT_PUBLIC_AD_SLOT_HEADER || "example_slot"}
               style={{ display: 'block', width: '100%', maxWidth: '970px', height: '90px' }}
@@ -145,10 +145,10 @@ export function Formatter({
         </div>
       </header>
 
-      <main className="max-w-[1920px] mx-auto px-4 sm:px-6 lg:px-8 py-8">
+      <main className="max-w-[1920px] mx-auto px-4 sm:px-6 lg:px-8 py-4"> {/* Reduced py-8 to py-4 */}
 
         {/* 3-Column Layout */}
-        <div className="flex flex-col lg:flex-row gap-4 h-[calc(100vh-350px)] min-h-[600px]">
+        <div className="flex flex-col lg:flex-row gap-4 h-[calc(100vh-250px)] min-h-[600px]"> {/* Adjusted height calc */}
 
           {/* LEFT COLUMN: Input Editor (Allocating ~40% width) */}
           <div className="flex-1 flex flex-col bg-white dark:bg-gray-900 rounded-lg shadow-sm border border-gray-200 dark:border-gray-800 lg:w-[40%]">
@@ -193,7 +193,6 @@ export function Formatter({
                 theme={editorTheme}
                 value={inputCode}
                 onChange={(val) => setInputCode(val || "")}
-
                 options={{
                   minimap: { enabled: false },
                   fontSize: 13,
@@ -214,21 +213,35 @@ export function Formatter({
             <div className="flex flex-col gap-3 bg-white dark:bg-gray-900 p-4 rounded-lg shadow-sm border border-gray-200 dark:border-gray-800">
               <button
                 onClick={handleFormat}
-                className="flex items-center justify-center gap-2 w-full py-3 bg-blue-600 hover:bg-blue-700 text-white font-bold rounded-lg shadow-md hover:shadow-lg transition-all active:scale-[0.98]"
+                className="flex items-center justify-center gap-2 w-full py-2.5 bg-blue-600 hover:bg-blue-700 text-white font-bold rounded shadow-sm hover:shadow transition-all active:scale-[0.98] border border-blue-600"
               >
-                <Play size={18} className="fill-current" />
-                Beautify
+                <Play size={16} className="fill-current" />
+                Beautify {">>"}
               </button>
 
               {onMinify && (
                 <button
                   onClick={handleMinify}
-                  className="flex items-center justify-center gap-2 w-full py-3 bg-white dark:bg-gray-800 border-2 border-gray-200 dark:border-gray-700 hover:border-blue-500 dark:hover:border-blue-500 hover:text-blue-600 dark:hover:text-blue-400 text-gray-700 dark:text-gray-200 font-bold rounded-lg transition-all active:scale-[0.98]"
+                  className="flex items-center justify-center gap-2 w-full py-2.5 bg-white dark:bg-gray-800 border border-gray-300 dark:border-gray-600 hover:bg-gray-50 dark:hover:bg-gray-700 text-gray-700 dark:text-gray-200 font-medium rounded shadow-sm transition-all active:scale-[0.98]"
                 >
-                  <Minimize2 size={18} />
+                  <Minimize2 size={16} />
                   Minify
                 </button>
               )}
+
+              <button
+                onClick={() => {
+                  if (outputCode) {
+                    setInputCode(outputCode);
+                    setOutputCode("");
+                  }
+                }}
+                className="flex items-center justify-center gap-2 w-full py-2.5 bg-white dark:bg-gray-800 border border-gray-300 dark:border-gray-600 hover:bg-gray-50 dark:hover:bg-gray-700 text-gray-700 dark:text-gray-200 font-medium rounded shadow-sm transition-all active:scale-[0.98]"
+                title="Replace Input with Output"
+              >
+                <ArrowLeft size={16} />
+                {"<< Replace"}
+              </button>
             </div>
 
             {/* Tab Settings */}
@@ -275,20 +288,6 @@ export function Formatter({
                 <span className="text-xs font-bold text-gray-500 dark:text-gray-400 uppercase tracking-wider">Output</span>
               </div>
               <div className="flex items-center gap-1">
-                <button
-                  onClick={() => {
-                    if (outputCode) {
-                      setInputCode(outputCode);
-                      setOutputCode(""); // Optional: clear output to show "moved" state? Or keep it? Usually keep or clear. "Reversible" implies swapping or just moving. Let's just copy to input.
-                    }
-                  }}
-                  className="flex items-center gap-1.5 px-2 py-1 text-gray-600 hover:bg-gray-200 dark:text-gray-300 dark:hover:bg-gray-700 rounded transition-colors text-xs font-medium"
-                  title="Use as Input"
-                >
-                  <ArrowLeft size={14} />
-                  <span>Use as Input</span>
-                </button>
-                <div className="w-px h-4 bg-gray-300 dark:bg-gray-700 mx-1" />
                 <button
                   onClick={handleCopy}
                   className={`flex items-center gap-1.5 px-2 py-1 rounded transition-colors text-xs font-medium ${copied ? "bg-green-100 text-green-700 dark:bg-green-900/30 dark:text-green-400" : "text-gray-600 hover:bg-gray-200 dark:text-gray-300 dark:hover:bg-gray-700"
