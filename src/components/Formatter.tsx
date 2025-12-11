@@ -156,13 +156,12 @@ export function Formatter({
     return {
       chars: text.length,
       lines: text.split('\n').length,
-      size: new Blob([text]).size // approximate bytes
+      size: new Blob([text]).size
     };
   };
 
   return (
-    // Modern Gradient Background or distinct Neutral
-    <div className="h-screen flex flex-col bg-slate-50 dark:bg-slate-950 text-slate-900 dark:text-slate-50 transition-colors duration-200 overflow-hidden font-sans">
+    <div className="h-screen supports-[height:100dvh]:h-[100dvh] flex flex-col bg-slate-50 dark:bg-slate-950 text-slate-900 dark:text-slate-50 transition-colors duration-200 overflow-hidden font-sans">
 
       {/* Header Section - Minimal & Clean with Glassmorphism */}
       <header className="shrink-0 bg-white/80 dark:bg-slate-900/80 backdrop-blur-md shadow-sm border-b border-slate-200 dark:border-slate-800 z-10 sticky top-0">
@@ -208,6 +207,7 @@ export function Formatter({
               </div>
               <div className="flex items-center gap-1">
                 <button
+                  type="button"
                   onClick={() => document.getElementById("file-upload")?.click()}
                   className="p-1.5 text-slate-500 hover:text-indigo-600 hover:bg-indigo-50 dark:text-slate-400 dark:hover:text-indigo-400 dark:hover:bg-indigo-900/20 rounded-md transition-all duration-200"
                   title="Upload File"
@@ -216,6 +216,7 @@ export function Formatter({
                   <input type="file" id="file-upload" className="hidden" accept=".json,.yaml,.yml,.txt" onChange={handleFileUpload} />
                 </button>
                 <button
+                  type="button"
                   onClick={() => setIsUrlModalOpen(true)}
                   className="p-1.5 text-slate-500 hover:text-indigo-600 hover:bg-indigo-50 dark:text-slate-400 dark:hover:text-indigo-400 dark:hover:bg-indigo-900/20 rounded-md transition-all duration-200"
                   title="Load from URL"
@@ -223,6 +224,7 @@ export function Formatter({
                   <Globe size={16} strokeWidth={2} />
                 </button>
                 <button
+                  type="button"
                   onClick={handleClear}
                   className="p-1.5 text-slate-400 hover:text-red-600 hover:bg-red-50 dark:text-slate-500 dark:hover:text-red-400 dark:hover:bg-red-900/20 rounded-md transition-all duration-200"
                   title="Clear"
@@ -233,7 +235,7 @@ export function Formatter({
             </div>
 
             {/* Editor Area */}
-            <div className="flex-1 relative min-h-0 bg-slate-50/30 dark:bg-black/20">
+            <div className="flex-1 relative min-h-0 bg-slate-50/30 dark:bg-black/20" >
               <Editor
                 height="100%"
                 defaultLanguage={inputType}
@@ -254,10 +256,10 @@ export function Formatter({
                   renderLineHighlight: 'none', // cleaner look
                 }}
               />
-            </div>
+            </div >
 
             {/* Status Bar */}
-            <div className="shrink-0 px-3 py-1.5 border-t border-slate-100 dark:border-slate-800 flex justify-between items-center text-[10px] text-slate-400 dark:text-slate-500 font-medium font-mono bg-white dark:bg-slate-900">
+            < div className="shrink-0 px-3 py-1.5 border-t border-slate-100 dark:border-slate-800 flex justify-between items-center text-[10px] text-slate-400 dark:text-slate-500 font-medium font-mono bg-white dark:bg-slate-900" >
               <div className="flex gap-3">
                 <span>{getStats(inputCode).lines} LN</span>
                 <span>{getStats(inputCode).chars} CH</span>
@@ -265,14 +267,14 @@ export function Formatter({
               <div>
                 {(getStats(inputCode).size / 1024).toFixed(2)} KB
               </div>
-            </div>
-          </div>
+            </div >
+          </div >
 
           {/* MIDDLE COLUMN: Controls - Narrower & Cleaner */}
-          <div className="flex flex-col gap-3 lg:w-[200px] shrink-0 h-full overflow-y-auto py-1 scrollbar-hide">
+          < div className="flex flex-col gap-3 lg:w-[200px] shrink-0 h-full overflow-y-auto py-1 scrollbar-hide" >
 
             {/* Main Actions - Premium Gradient Button */}
-            <div className="flex flex-col gap-2 shrink-0">
+            < div className="flex flex-col gap-2 shrink-0" >
               <button
                 onClick={handleFormat}
                 className="relative group w-full py-3 px-3 rounded-lg font-bold text-white shadow-md shadow-indigo-500/20 transition-all duration-200 hover:-translate-y-0.5 hover:shadow-indigo-500/30 active:translate-y-0 active:scale-[0.98] overflow-hidden"
@@ -284,15 +286,17 @@ export function Formatter({
                 </div>
               </button>
 
-              {onMinify && (
-                <button
-                  onClick={handleMinify}
-                  className="group w-full py-2.5 px-3 bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 hover:border-slate-300 dark:hover:border-slate-600 hover:bg-slate-50 dark:hover:bg-slate-700/50 text-slate-700 dark:text-slate-200 font-semibold text-sm rounded-lg shadow-sm transition-all duration-200 flex items-center justify-center gap-2 active:scale-[0.98]"
-                >
-                  <Minimize2 size={16} className="text-slate-400 group-hover:text-slate-600 dark:group-hover:text-slate-300 transition-colors" />
-                  Minify
-                </button>
-              )}
+              {
+                onMinify && (
+                  <button
+                    onClick={handleMinify}
+                    className="group w-full py-2.5 px-3 bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 hover:border-slate-300 dark:hover:border-slate-600 hover:bg-slate-50 dark:hover:bg-slate-700/50 text-slate-700 dark:text-slate-200 font-semibold text-sm rounded-lg shadow-sm transition-all duration-200 flex items-center justify-center gap-2 active:scale-[0.98]"
+                  >
+                    <Minimize2 size={16} className="text-slate-400 group-hover:text-slate-600 dark:group-hover:text-slate-300 transition-colors" />
+                    Minify
+                  </button>
+                )
+              }
 
               <button
                 onClick={() => {
@@ -307,10 +311,10 @@ export function Formatter({
                 <ArrowLeft size={16} className="text-slate-400 group-hover:text-slate-600 dark:group-hover:text-slate-300 transition-colors" />
                 Swap
               </button>
-            </div>
+            </div >
 
             {/* Tab Settings Card */}
-            <div className="bg-white dark:bg-slate-900 p-3 rounded-lg shadow-sm ring-1 ring-slate-900/5 dark:ring-white/10 shrink-0">
+            < div className="bg-white dark:bg-slate-900 p-3 rounded-lg shadow-sm ring-1 ring-slate-900/5 dark:ring-white/10 shrink-0" >
               <label className="block text-[10px] font-bold text-slate-400 dark:text-slate-500 uppercase tracking-widest mb-2">
                 Indentation
               </label>
@@ -331,7 +335,7 @@ export function Formatter({
                   </svg>
                 </div>
               </div>
-            </div>
+            </div >
 
             {sampleData && (
               <button
@@ -343,21 +347,23 @@ export function Formatter({
             )}
 
             {/* Ad Slot - Conditionally Rendered */}
-            {process.env.NEXT_PUBLIC_AD_SLOT_SIDEBAR && (
-              <div className="flex-1 rounded-lg overflow-hidden min-h-[150px] flex items-center justify-center bg-slate-100/50 dark:bg-slate-800/30 border border-dashed border-slate-200 dark:border-slate-800">
-                <GoogleAdsense
-                  adSlot={process.env.NEXT_PUBLIC_AD_SLOT_SIDEBAR}
-                  style={{ display: 'block', width: '100%' }}
-                />
-              </div>
-            )}
+            {
+              process.env.NEXT_PUBLIC_AD_SLOT_SIDEBAR && (
+                <div className="flex-1 rounded-lg overflow-hidden min-h-[150px] flex items-center justify-center bg-slate-100/50 dark:bg-slate-800/30 border border-dashed border-slate-200 dark:border-slate-800">
+                  <GoogleAdsense
+                    adSlot={process.env.NEXT_PUBLIC_AD_SLOT_SIDEBAR}
+                    style={{ display: 'block', width: '100%' }}
+                  />
+                </div>
+              )
+            }
 
-          </div>
+          </div >
 
           {/* RIGHT COLUMN: Output Editor */}
-          <div className="flex-1 flex flex-col bg-white dark:bg-slate-900 rounded-xl shadow-sm ring-1 ring-slate-900/5 dark:ring-white/10 lg:w-[calc(50%-110px)] min-h-0 overflow-hidden transition-all duration-200">
+          < div className="flex-1 flex flex-col bg-white dark:bg-slate-900 rounded-xl shadow-sm ring-1 ring-slate-900/5 dark:ring-white/10 lg:w-[calc(50%-110px)] min-h-0 overflow-hidden transition-all duration-200" >
             {/* Toolbar */}
-            <div className="shrink-0 px-3 py-2 border-b border-slate-100 dark:border-slate-800 flex items-center justify-between bg-white dark:bg-slate-900">
+            < div className="shrink-0 px-3 py-2 border-b border-slate-100 dark:border-slate-800 flex items-center justify-between bg-white dark:bg-slate-900" >
               <div className="flex items-center gap-3">
                 <span className="text-[10px] font-bold text-slate-400 dark:text-slate-500 uppercase tracking-widest">Output</span>
               </div>
@@ -389,48 +395,49 @@ export function Formatter({
                   <Download size={16} strokeWidth={2} />
                 </button>
               </div>
-            </div>
+            </div >
 
             {/* Editor/Error Area */}
-            <div className="flex-1 relative min-h-0 bg-slate-50/30 dark:bg-black/20">
-              {error ? (
-                <div className="absolute inset-0 p-6 z-10 overflow-auto bg-white/95 dark:bg-slate-900/95 backdrop-blur-sm">
-                  <div className="rounded-xl border border-red-200 bg-red-50 p-6 dark:border-red-900/30 dark:bg-red-900/10 shadow-sm">
-                    <div className="flex items-center gap-3 text-red-700 dark:text-red-400 font-bold mb-3">
-                      <div className="p-2 bg-red-100 dark:bg-red-900/30 rounded-lg">
-                        <AlertTriangle size={20} />
+            < div className="flex-1 relative min-h-0 bg-slate-50/30 dark:bg-black/20" >
+              {
+                error ? (
+                  <div className="absolute inset-0 p-6 z-10 overflow-auto bg-white/95 dark:bg-slate-900/95 backdrop-blur-sm" >
+                    <div className="rounded-xl border border-red-200 bg-red-50 p-6 dark:border-red-900/30 dark:bg-red-900/10 shadow-sm">
+                      <div className="flex items-center gap-3 text-red-700 dark:text-red-400 font-bold mb-3">
+                        <div className="p-2 bg-red-100 dark:bg-red-900/30 rounded-lg">
+                          <AlertTriangle size={20} />
+                        </div>
+                        <span>Validation Error</span>
                       </div>
-                      <span>Validation Error</span>
+                      <pre className="text-sm text-red-600 dark:text-red-300 whitespace-pre-wrap font-mono leading-relaxed pl-11">
+                        {error}
+                      </pre>
                     </div>
-                    <pre className="text-sm text-red-600 dark:text-red-300 whitespace-pre-wrap font-mono leading-relaxed pl-11">
-                      {error}
-                    </pre>
                   </div>
-                </div>
-              ) : (
-                <Editor
-                  height="100%"
-                  defaultLanguage={outputType === 'text' ? 'plaintext' : outputType}
-                  language={outputType === 'text' ? 'plaintext' : outputType}
-                  theme={editorTheme}
-                  value={outputCode}
-                  options={{
-                    readOnly: true,
-                    minimap: { enabled: false },
-                    fontSize: 13,
-                    fontFamily: "'JetBrains Mono', 'Fira Code', 'Consolas', monospace",
-                    scrollBeyondLastLine: false,
-                    automaticLayout: true,
-                    wordWrap: 'on',
-                    padding: { top: 16, bottom: 16 },
-                    renderLineHighlight: 'none',
-                  }}
-                />
-              )}
-            </div>
+                ) : (
+                  <Editor
+                    height="100%"
+                    defaultLanguage={outputType === 'text' ? 'plaintext' : outputType}
+                    language={outputType === 'text' ? 'plaintext' : outputType}
+                    theme={editorTheme}
+                    value={outputCode}
+                    options={{
+                      readOnly: true,
+                      minimap: { enabled: false },
+                      fontSize: 13,
+                      fontFamily: "'JetBrains Mono', 'Fira Code', 'Consolas', monospace",
+                      scrollBeyondLastLine: false,
+                      automaticLayout: true,
+                      wordWrap: 'on',
+                      padding: { top: 16, bottom: 16 },
+                      renderLineHighlight: 'none',
+                    }}
+                  />
+                )}
+            </div >
 
             {/* Status Bar */}
-            <div className="shrink-0 px-3 py-1.5 border-t border-slate-100 dark:border-slate-800 flex justify-between items-center text-[10px] text-slate-400 dark:text-slate-500 font-medium font-mono bg-white dark:bg-slate-900">
+            < div className="shrink-0 px-3 py-1.5 border-t border-slate-100 dark:border-slate-800 flex justify-between items-center text-[10px] text-slate-400 dark:text-slate-500 font-medium font-mono bg-white dark:bg-slate-900" >
               <div className="flex gap-3">
                 <span>{getStats(outputCode).lines} LN</span>
                 <span>{getStats(outputCode).chars} CH</span>
@@ -438,17 +445,17 @@ export function Formatter({
               <div>
                 {(getStats(outputCode).size / 1024).toFixed(2)} KB
               </div>
-            </div>
-          </div>
+            </div >
+          </div >
 
-        </div>
-      </main>
+        </div >
+      </main >
 
       <UrlLoader
         isOpen={isUrlModalOpen}
         onClose={() => setIsUrlModalOpen(false)}
         onLoad={handleLoadUrl}
       />
-    </div>
+    </div >
   );
 }

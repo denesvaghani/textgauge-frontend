@@ -289,7 +289,55 @@ export function Editor() {
 
         {/* Card 2: Editor & Tools */}
         <div className="rounded-lg bg-white p-6 shadow-xl transition-colors duration-200 dark:bg-gray-800">
-          {/* Editor wrapper: toolbar + editor */}
+
+          {/* SEO Keyword Input - Moved Above the Fold */}
+          <div className="mb-6 rounded-lg border border-blue-200 bg-blue-50 p-4 transition-colors duration-200 dark:border-gray-600 dark:bg-gray-900/40">
+            <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3">
+              <div className="flex-1">
+                <label className="flex items-center text-sm font-semibold text-gray-700 dark:text-gray-200 mb-2">
+                  <span className="mr-2 text-blue-600">🎯</span>
+                  Target SEO Keyword
+                </label>
+                <div className="relative">
+                  <input
+                    type="text"
+                    value={keyword}
+                    onChange={(e) => {
+                      const next = e.target.value;
+                      setKeyword(next);
+                      const text = getPlainText();
+                      analyze(text, next.trim());
+                    }}
+                    placeholder="e.g., best laptops under 50000"
+                    className="w-full rounded-md border border-blue-300 bg-white px-3 py-2 pl-9 text-sm text-gray-900 outline-none ring-offset-0 focus:border-blue-500 focus:ring-2 focus:ring-blue-500/20 dark:border-gray-600 dark:bg-gray-900 dark:text-white"
+                  />
+                  <div className="absolute left-3 top-1/2 -translate-y-1/2 pointer-events-none text-gray-400">
+                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
+                  </div>
+                </div>
+              </div>
+
+              {keyword && (
+                <div className="shrink-0 flex items-center px-3 py-2 bg-blue-100 dark:bg-blue-900/30 text-blue-800 dark:text-blue-300 rounded-md text-xs font-medium">
+                  Tracking active
+                </div>
+              )}
+            </div>
+
+            <div className="mt-3">
+              <RelatedKeywords
+                keyword={keyword}
+                onSelectKeyword={(selectedKeyword) => {
+                  setKeyword(selectedKeyword);
+                  const text = getPlainText();
+                  analyze(text, selectedKeyword.trim());
+                }}
+              />
+            </div>
+          </div>
+
+
+          {/* Key Editor wrapper: toolbar + editor */}
           <div className="overflow-hidden rounded-lg border border-gray-200 dark:border-gray-700">
             {/* Toolbar */}
             <div className="flex flex-wrap items-center gap-2 border-b border-gray-200 bg-gray-50 px-3 py-2 text-xs dark:border-gray-700 dark:bg-gray-900/40">
@@ -317,7 +365,7 @@ export function Editor() {
                   disabled={!canUndo}
                   className="rounded-md bg-gray-300 px-3 py-1.5 font-semibold text-gray-800 hover:bg-gray-400 disabled:cursor-not-allowed disabled:opacity-50"
                 >
-                  ↩️ Undo
+                  ↪️ Undo
                 </button>
 
                 {/* Redo */}
@@ -456,44 +504,6 @@ export function Editor() {
             </div>
 
           </div>
-
-          {/* SEO Keyword Input below editor */}
-          <div className="mt-5 rounded-lg border border-blue-200 bg-blue-50 p-4 transition-colors duration-200 dark:border-gray-600 dark:bg-gray-900/40">
-            <label className="mb-2 flex items-center text-sm font-semibold text-gray-700 dark:text-gray-200">
-              <span className="mr-2 text-blue-600">🎯</span>
-              Target SEO Keyword (optional)
-            </label>
-            <input
-              type="text"
-              value={keyword}
-              onChange={(e) => {
-                const next = e.target.value;
-                setKeyword(next);
-                const text = getPlainText();
-                analyze(text, next.trim());
-              }}
-              placeholder="e.g., best laptops under 50000"
-              className="w-full rounded-md border border-blue-300 bg-white px-3 py-2 text-sm text-gray-900 outline-none ring-offset-0 focus:border-blue-500 focus:ring-2 focus:ring-blue-500 dark:border-gray-600 dark:bg-gray-900 dark:text-white"
-            />
-            {keyword && (
-              <p className="mt-2 text-xs text-gray-600 dark:text-gray-400">
-                Tracking{" "}
-                <span className="font-semibold text-blue-700 dark:text-blue-300">
-                  &quot;{keyword}&quot;
-                </span>{" "}
-                for keyword density.
-              </p>
-            )}
-
-            <RelatedKeywords
-              keyword={keyword}
-              onSelectKeyword={(selectedKeyword) => {
-                setKeyword(selectedKeyword);
-                const text = getPlainText();
-                analyze(text, selectedKeyword.trim());
-              }}
-            />
-          </div>
         </div>
       </div>
 
@@ -628,13 +638,15 @@ function Sidebar({
       {/* Trending Keywords */}
       <TrendingKeywords onKeywordClick={onKeywordSelect} />
 
-      {/* Sidebar ad */}
-      <div className="bg-white dark:bg-gray-800 rounded-lg shadow-lg p-4 transition-colors duration-200">
-        <GoogleAdsense
-          adSlot={process.env.NEXT_PUBLIC_AD_SLOT_SIDEBAR || ""}
-          style={{ display: "block", width: "100%", minHeight: 250 }}
-        />
-      </div>
+      {/* Sidebar ad - Conditionally Rendered */}
+      {process.env.NEXT_PUBLIC_AD_SLOT_SIDEBAR && (
+        <div className="bg-white dark:bg-gray-800 rounded-lg shadow-lg p-4 transition-colors duration-200">
+          <GoogleAdsense
+            adSlot={process.env.NEXT_PUBLIC_AD_SLOT_SIDEBAR}
+            style={{ display: "block", width: "100%", minHeight: 250 }}
+          />
+        </div>
+      )}
     </div>
   );
 }
