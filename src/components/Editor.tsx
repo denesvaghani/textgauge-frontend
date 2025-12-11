@@ -290,65 +290,8 @@ export function Editor() {
         {/* Card 2: Editor & Tools */}
         <div className="rounded-lg bg-white p-6 shadow-xl transition-colors duration-200 dark:bg-slate-900">
 
-          {/* SEO Keyword Input - Premium Design with Visual Feedback */}
-          <div className="mb-6 relative group z-20">
-            {/* Glossy background effect */}
-            <div className={`absolute -inset-0.5 rounded-xl bg-gradient-to-r from-blue-400 via-indigo-400 to-violet-400 opacity-20 dark:opacity-40 blur transition duration-1000 group-hover:duration-200 group-hover:opacity-60 ${!keyword ? 'animate-pulse' : ''}`}></div>
-
-            <div className="relative rounded-xl border border-blue-100 bg-white p-4 transition-colors duration-200 dark:border-slate-800 dark:bg-slate-950/80 backdrop-blur-sm">
-              <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3">
-                <div className="flex-1">
-                  <label className="flex items-center text-sm font-bold text-slate-700 dark:text-slate-200 mb-2">
-                    <span className="mr-2 flex items-center justify-center w-5 h-5 rounded-full bg-blue-100 text-blue-600 dark:bg-blue-900/50 dark:text-blue-400 text-xs">🎯</span>
-                    Target SEO Keyword
-                    {!keyword && <span className="ml-2 text-xs font-normal text-slate-400 dark:text-slate-500 animate-pulse">(Recommended)</span>}
-                  </label>
-                  <div className="relative">
-                    <input
-                      type="text"
-                      value={keyword}
-                      onChange={(e) => {
-                        const next = e.target.value;
-                        setKeyword(next);
-                        const text = getPlainText();
-                        analyze(text, next.trim());
-                      }}
-                      placeholder="e.g., best laptops under 50000"
-                      className="w-full rounded-lg border border-slate-200 bg-slate-50/50 px-4 py-2.5 pl-10 text-sm font-medium text-slate-900 outline-none transition-all placeholder:text-slate-400 focus:border-indigo-500 focus:bg-white focus:ring-4 focus:ring-indigo-500/10 dark:border-slate-700 dark:bg-slate-900/50 dark:text-white dark:focus:bg-slate-900 dark:focus:ring-indigo-400/10"
-                    />
-                    <div className="absolute left-3 top-1/2 -translate-y-1/2 pointer-events-none text-slate-400">
-                      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
-                    </div>
-                  </div>
-                </div>
-
-                {keyword && (
-                  <div className="shrink-0 flex items-center gap-2 px-3 py-2 bg-indigo-50 dark:bg-indigo-900/30 text-indigo-700 dark:text-indigo-300 rounded-lg text-xs font-bold ring-1 ring-indigo-100 dark:ring-indigo-800">
-                    <span className="relative flex h-2 w-2">
-                      <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-indigo-400 opacity-75"></span>
-                      <span className="relative inline-flex rounded-full h-2 w-2 bg-indigo-500"></span>
-                    </span>
-                    Monitoring
-                  </div>
-                )}
-              </div>
-
-              <div className="mt-3">
-                <RelatedKeywords
-                  keyword={keyword}
-                  onSelectKeyword={(selectedKeyword) => {
-                    setKeyword(selectedKeyword);
-                    const text = getPlainText();
-                    analyze(text, selectedKeyword.trim());
-                  }}
-                />
-              </div>
-            </div>
-          </div>
-
-
-          {/* Key Editor wrapper: toolbar + editor */}
-          <div className="overflow-hidden rounded-lg border border-slate-200 dark:border-slate-700 shadow-sm">
+          {/* Key Editor wrapper: toolbar + editor + SEO + Ad */}
+          <div className="flex flex-col overflow-hidden rounded-lg border border-slate-200 bg-white shadow-sm dark:border-slate-700 dark:bg-slate-950">
             {/* Toolbar */}
             <div className="flex flex-wrap items-center gap-2 border-b border-slate-200 bg-slate-50 px-3 py-2 text-xs dark:border-slate-700 dark:bg-slate-900/60">
               {/* Left cluster: formatting + case tools */}
@@ -489,7 +432,7 @@ export function Editor() {
               </div>
             )}
 
-            {/* Editor */}
+            {/* Editor Text Area */}
             <div
               ref={divRef}
               contentEditable
@@ -497,7 +440,7 @@ export function Editor() {
               className="
                 w-full
                 min-h-[260px] sm:min-h-[340px] lg:min-h-[420px]
-                bg-white dark:bg-slate-950
+                bg-transparent
                 px-6
                 py-5
                 text-base
@@ -509,8 +452,63 @@ export function Editor() {
               data-placeholder="Start typing here or paste your content..."
               style={{ maxHeight: "70vh", overflowY: "auto" }}
             />
+
+            {/* SEO Keyword Input - Integrated Footer Style */}
+            <div className="border-t border-slate-100 dark:border-slate-800 bg-slate-50/50 dark:bg-slate-900/30 p-4">
+              <div className="relative group">
+                <div className="flex flex-col sm:flex-row sm:items-center gap-3">
+                  <div className="flex-1 relative">
+                    <div className="absolute left-3 top-1/2 -translate-y-1/2 pointer-events-none text-slate-400">
+                      <span className="flex items-center justify-center w-5 h-5 rounded-full bg-slate-200 text-slate-600 dark:bg-slate-800 dark:text-slate-400 text-[10px]">🎯</span>
+                    </div>
+                    <input
+                      type="text"
+                      value={keyword}
+                      onChange={(e) => {
+                        const next = e.target.value;
+                        setKeyword(next);
+                        const text = getPlainText();
+                        analyze(text, next.trim());
+                      }}
+                      placeholder="Target SEO Keyword (e.g., best laptops under 50000)"
+                      className="w-full rounded-lg border border-slate-200 bg-white px-4 py-2.5 pl-10 text-sm font-medium text-slate-900 outline-none transition-all placeholder:text-slate-400 focus:border-indigo-500 focus:ring-4 focus:ring-indigo-500/10 dark:border-slate-700 dark:bg-slate-900 dark:text-white dark:focus:border-indigo-400 dark:focus:ring-indigo-400/10"
+                    />
+                    {!keyword && (
+                      <div className="absolute right-3 top-1/2 -translate-y-1/2 pointer-events-none">
+                        <span className="flex h-2 w-2">
+                          <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-indigo-400 opacity-75"></span>
+                          <span className="relative inline-flex rounded-full h-2 w-2 bg-indigo-500"></span>
+                        </span>
+                      </div>
+                    )}
+                  </div>
+                  {keyword && (
+                    <div className="shrink-0 flex items-center gap-2 px-3 py-2 bg-indigo-50 dark:bg-indigo-900/30 text-indigo-700 dark:text-indigo-300 rounded-lg text-xs font-bold ring-1 ring-indigo-100 dark:ring-indigo-800">
+                      <span className="relative flex h-2 w-2">
+                        <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-indigo-400 opacity-75"></span>
+                        <span className="relative inline-flex rounded-full h-2 w-2 bg-indigo-500"></span>
+                      </span>
+                      Monitoring
+                    </div>
+                  )}
+                </div>
+
+                {/* Related Keywords (Collapsible/Hidden by default if empty?) */}
+                <div className="mt-2">
+                  <RelatedKeywords
+                    keyword={keyword}
+                    onSelectKeyword={(selectedKeyword) => {
+                      setKeyword(selectedKeyword);
+                      const text = getPlainText();
+                      analyze(text, selectedKeyword.trim());
+                    }}
+                  />
+                </div>
+              </div>
+            </div>
+
             {/* In-content ad (below editor) */}
-            <div className="mt-4 flex justify-center">
+            <div className="border-t border-slate-100 dark:border-slate-800 bg-slate-50 dark:bg-slate-900/50 p-4 flex justify-center">
               <GoogleAdsense
                 adSlot={process.env.NEXT_PUBLIC_AD_SLOT_HEADER || ""}
                 style={{ display: "block", width: "100%", minHeight: 90 }}
