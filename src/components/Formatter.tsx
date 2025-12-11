@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect, useCallback } from "react";
 import Editor from "@monaco-editor/react";
 import {
   Play,
@@ -42,6 +42,7 @@ export function Formatter({
   const { theme } = useTheme();
   // Monaco theme: 'vs' (light), 'vs-dark' (dark)
   const editorTheme = theme === "dark" ? "vs-dark" : "light";
+  const storageKey = `textgauge_input_${inputType}`;
 
   const [inputCode, setInputCode] = useState(defaultValue);
   const [outputCode, setOutputCode] = useState("");
@@ -49,11 +50,27 @@ export function Formatter({
   const [tabSize, setTabSize] = useState(2);
   const [isUrlModalOpen, setIsUrlModalOpen] = useState(false);
   const [copied, setCopied] = useState(false);
+  const [mounted, setMounted] = useState(false);
 
-  // Ref to the input editor instance to potentially grab value directly or manipulate
+  // Auto-load from storage on mount
+  useEffect(() => {
+    setMounted(true);
+    const saved = localStorage.getItem(storageKey);
+    if (saved) {
+      setInputCode(saved);
+    }
+  }, [storageKey]);
 
+  // Auto-save to storage
+  useEffect(() => {
+    if (!mounted) return;
+    const timeout = setTimeout(() => {
+      localStorage.setItem(storageKey, inputCode);
+    }, 500); // 500ms debounce
+    return () => clearTimeout(timeout);
+  }, [inputCode, mounted, storageKey]);
 
-  const handleFormat = async () => {
+  const handleFormat = useCallback(async () => {
     setError(null);
     if (!inputCode.trim()) {
       setOutputCode("");
@@ -65,11 +82,10 @@ export function Formatter({
     } catch (err: unknown) {
       const msg = err instanceof Error ? err.message : String(err);
       setError(msg);
-      // Determine if error line number is available (often in 'msg')
     }
-  };
+  }, [inputCode, tabSize, onTransform]);
 
-  const handleMinify = async () => {
+  const handleMinify = useCallback(async () => {
     setError(null);
     if (!onMinify || !inputCode.trim()) return;
     try {
@@ -79,7 +95,19 @@ export function Formatter({
       const msg = err instanceof Error ? err.message : String(err);
       setError(msg);
     }
-  };
+  }, [inputCode, onMinify]);
+
+  // Keyboard Shortcuts
+  useEffect(() => {
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if ((e.metaKey || e.ctrlKey) && e.key === 'Enter') {
+        e.preventDefault();
+        handleFormat();
+      }
+    };
+    window.addEventListener('keydown', handleKeyDown);
+    return () => window.removeEventListener('keydown', handleKeyDown);
+  }, [handleFormat]);
 
   const handleCopy = () => {
     if (!outputCode) return;
@@ -92,16 +120,15 @@ export function Formatter({
     setInputCode("");
     setOutputCode("");
     setError(null);
+    localStorage.removeItem(storageKey);
   };
 
   const handleLoadUrl = async (url: string) => {
     try {
       const res = await fetch(url);
-      if (!res.ok) throw new Error(`Myailed to fetch: ${res.statusText}`);
+      if (!res.ok) throw new Error(`Failed to fetch: ${res.statusText}`);
       const text = await res.text();
       setInputCode(text);
-      // Auto-format on load
-      // setTimeout(() => handleFormat(), 100); 
     } catch (err: unknown) {
       throw err; // Passed back to UrlLoader
     }
@@ -118,7 +145,6 @@ export function Formatter({
       }
     };
     reader.readAsText(file);
-    // Reset value so same file can be selected again
     e.target.value = "";
   };
 
@@ -126,13 +152,21 @@ export function Formatter({
     if (sampleData) setInputCode(sampleData);
   };
 
+  const getStats = (text: string) => {
+    return {
+      chars: text.length,
+      lines: text.split('\n').length,
+      size: new Blob([text]).size // approximate bytes
+    };
+  };
+
   return (
     <div className="min-h-screen bg-gray-50 dark:bg-gray-950 text-gray-900 dark:text-gray-50 transition-colors duration-200">
 
       {/* Header Section */}
       <header className="bg-white dark:bg-gray-900 shadow-sm border-b border-gray-200 dark:border-gray-800 transition-colors duration-200">
-        <div className="max-w-[1920px] mx-auto px-4 sm:px-6 lg:px-8 py-4"> {/* Reduced py-6 to py-4 */}
-          <h1 className="text-xl sm:text-2xl font-bold text-gray-900 dark:text-white">{title}</h1> {/* Reduced text size slightly */}
+        <div className="max-w-[1920px] mx-auto px-4 sm:px-6 lg:px-8 py-4">
+          <h1 className="text-xl sm:text-2xl font-bold text-gray-900 dark:text-white">{title}</h1>
           <p className="mt-1 text-sm text-gray-600 dark:text-gray-400 max-w-3xl">{description}</p>
 
           {/* Top Ad Slot placement */}
@@ -145,18 +179,18 @@ export function Formatter({
         </div>
       </header>
 
-      <main className="max-w-[1920px] mx-auto px-4 sm:px-6 lg:px-8 py-4"> {/* Reduced py-8 to py-4 */}
+      <main className="max-w-[1920px] mx-auto px-4 sm:px-6 lg:px-8 py-4">
 
         {/* 3-Column Layout */}
-        <div className="flex flex-col lg:flex-row gap-4 h-[calc(100vh-250px)] min-h-[600px]"> {/* Adjusted height calc */}
+        <div className="flex flex-col lg:flex-row gap-4 h-[calc(100vh-250px)] min-h-[600px]">
 
-          {/* LEFT COLUMN: Input Editor (Allocating ~40% width) */}
+          {/* LEFT COLUMN: Input Editor */}
           <div className="flex-1 flex flex-col bg-white dark:bg-gray-900 rounded-lg shadow-sm border border-gray-200 dark:border-gray-800 lg:w-[40%]">
             {/* Toolbar */}
             <div className="px-3 py-2 border-b border-gray-200 dark:border-gray-800 flex flex-wrap items-center justify-between bg-gray-50 dark:bg-gray-800/50 rounded-t-lg gap-2">
               <div className="flex items-center gap-2">
                 <span className="text-xs font-bold text-gray-500 dark:text-gray-400 uppercase tracking-wider">Input</span>
-                {/* Check for errors icon */}
+                <span className="text-[10px] text-gray-400 bg-gray-200 dark:bg-gray-700 px-1.5 py-0.5 rounded border border-gray-300 dark:border-gray-600">Auto-saved</span>
               </div>
               <div className="flex items-center gap-1">
                 <button
@@ -204,18 +238,30 @@ export function Formatter({
                 }}
               />
             </div>
+
+            {/* Status Bar */}
+            <div className="px-3 py-1.5 bg-gray-50 dark:bg-gray-800/30 border-t border-gray-200 dark:border-gray-800 flex justify-between text-xs text-gray-500 dark:text-gray-400 font-mono">
+              <div className="flex gap-3">
+                <span>{getStats(inputCode).lines} Lines</span>
+                <span>{getStats(inputCode).chars} Chars</span>
+              </div>
+              <div>
+                {(getStats(inputCode).size / 1024).toFixed(2)} KB
+              </div>
+            </div>
           </div>
 
-          {/* MIDDLE COLUMN: Controls (Allocating ~200px fixed or ~15%) */}
+          {/* MIDDLE COLUMN: Controls */}
           <div className="flex flex-col gap-4 lg:w-[220px] shrink-0">
 
             {/* Main Actions */}
             <div className="flex flex-col gap-3 bg-white dark:bg-gray-900 p-4 rounded-lg shadow-sm border border-gray-200 dark:border-gray-800">
               <button
                 onClick={handleFormat}
-                className="flex items-center justify-center gap-2 w-full py-2.5 bg-blue-600 hover:bg-blue-700 text-white font-bold rounded shadow-sm hover:shadow transition-all active:scale-[0.98] border border-blue-600"
+                className="flex items-center justify-center gap-2 w-full py-2.5 bg-blue-600 hover:bg-blue-700 text-white font-bold rounded shadow-sm hover:shadow transition-all active:scale-[0.98] border border-blue-600 group"
+                title="Ctrl + Enter"
               >
-                <Play size={16} className="fill-current" />
+                <Play size={16} className="fill-current group-hover:scale-110 transition-transform" />
                 Beautify {">>"}
               </button>
 
@@ -280,7 +326,7 @@ export function Formatter({
 
           </div>
 
-          {/* RIGHT COLUMN: Output Editor (Allocating ~40% width) */}
+          {/* RIGHT COLUMN: Output Editor */}
           <div className="flex-1 flex flex-col bg-white dark:bg-gray-900 rounded-lg shadow-sm border border-gray-200 dark:border-gray-800 lg:w-[40%]">
             {/* Toolbar */}
             <div className="px-3 py-2 border-b border-gray-200 dark:border-gray-800 flex flex-wrap items-center justify-between bg-gray-50 dark:bg-gray-800/50 rounded-t-lg gap-2">
@@ -346,6 +392,17 @@ export function Formatter({
                   }}
                 />
               )}
+            </div>
+
+            {/* Status Bar */}
+            <div className="px-3 py-1.5 bg-gray-50 dark:bg-gray-800/30 border-t border-gray-200 dark:border-gray-800 flex justify-between text-xs text-gray-500 dark:text-gray-400 font-mono">
+              <div className="flex gap-3">
+                <span>{getStats(outputCode).lines} Lines</span>
+                <span>{getStats(outputCode).chars} Chars</span>
+              </div>
+              <div>
+                {(getStats(outputCode).size / 1024).toFixed(2)} KB
+              </div>
             </div>
           </div>
 
