@@ -24,7 +24,7 @@ export function middleware(request: NextRequest) {
     script-src 'self' 'unsafe-eval' 'unsafe-inline' https://www.google-analytics.com https://cdn.jsdelivr.net; 
     style-src 'self' 'unsafe-inline' https://fonts.googleapis.com;
     img-src 'self' blob: data: https://www.google-analytics.com;
-    font-src 'self' data: https://fonts.gstatic.com;
+    font-src 'self' data: https://fonts.gstatic.com https://cdn.jsdelivr.net;
     connect-src 'self' https://trends.google.com https://www.google-analytics.com;
     frame-ancestors 'none';
   `.replace(/\s{2,}/g, ' ').trim();
