@@ -1,14 +1,15 @@
 'use client';
 
-import { useState } from 'react';
-import { 
-  getTopTrending, 
+import { useState, useEffect } from 'react';
+import {
+  getRandomTrending,
   getBySearchVolume,
   getCategoryEmoji,
   getTrendingIcon,
   getDifficultyColor,
-  type TrendingKeyword 
+  type TrendingKeyword
 } from '@/data/trendingKeywords';
+import { RefreshCw } from 'lucide-react';
 
 interface TrendingKeywordsProps {
   onKeywordClick: (keyword: string) => void;
@@ -16,49 +17,78 @@ interface TrendingKeywordsProps {
 
 export function TrendingKeywords({ onKeywordClick }: TrendingKeywordsProps) {
   const [view, setView] = useState<'trending' | 'popular'>('trending');
-  
-  const keywords = view === 'trending' 
-    ? getTopTrending(6) 
-    : getBySearchVolume().slice(0, 6);
+  const [items, setItems] = useState<TrendingKeyword[]>([]);
+  const [isRefreshing, setIsRefreshing] = useState(false);
+
+  // Initial fetch and view change handler (instant)
+  useEffect(() => {
+    updateItems();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [view]);
+
+  const updateItems = () => {
+    if (view === 'trending') {
+      setItems(getRandomTrending(6));
+    } else {
+      const allPopular = getBySearchVolume();
+      const shuffled = [...allPopular].sort(() => 0.5 - Math.random());
+      setItems(shuffled.slice(0, 6));
+    }
+  };
+
+  const handleRefresh = () => {
+    setIsRefreshing(true);
+    // Add small delay for visual feedback
+    setTimeout(() => {
+      updateItems();
+      setIsRefreshing(false);
+    }, 400);
+  };
 
   return (
-    <div className="bg-white dark:bg-gray-800 rounded-lg shadow-lg p-6 transition-colors duration-200">
+    <div className="bg-white dark:bg-slate-950 rounded-lg shadow-lg p-6 transition-colors duration-200 border border-slate-200 dark:border-slate-800">
       {/* Header */}
       <div className="flex items-center justify-between mb-4">
-        <h3 className="text-lg font-bold text-gray-800 dark:text-white flex items-center gap-2">
+        <h3 className="text-lg font-bold text-slate-800 dark:text-white flex items-center gap-2">
           🔥 Trending Keywords
         </h3>
+        <button
+          onClick={handleRefresh}
+          disabled={isRefreshing}
+          className={`p-1.5 rounded-full hover:bg-slate-100 dark:hover:bg-slate-800 text-slate-500 hover:text-blue-500 transition-all ${isRefreshing ? 'animate-spin text-blue-500' : ''}`}
+          title="Refresh keywords"
+        >
+          <RefreshCw size={16} />
+        </button>
       </div>
 
       {/* View Toggle */}
       <div className="flex gap-2 mb-4">
         <button
           onClick={() => setView('trending')}
-          className={`flex-1 py-2 px-3 rounded-lg text-xs font-semibold transition-colors ${ 
-            view === 'trending'
-              ? 'bg-blue-500 text-white'
-              : 'bg-gray-100 dark:bg-gray-700 text-gray-600 dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-gray-600'
-          }`}
+          className={`flex-1 py-2 px-3 rounded-lg text-xs font-semibold transition-colors ${view === 'trending'
+            ? 'bg-blue-600 text-white shadow-md shadow-blue-500/20'
+            : 'bg-slate-100 dark:bg-slate-900/50 text-slate-600 dark:text-slate-400 hover:bg-slate-200 dark:hover:bg-slate-800'
+            }`}
         >
           📈 Trending
         </button>
         <button
           onClick={() => setView('popular')}
-          className={`flex-1 py-2 px-3 rounded-lg text-xs font-semibold transition-colors ${
-            view === 'popular'
-              ? 'bg-blue-500 text-white'
-              : 'bg-gray-100 dark:bg-gray-700 text-gray-600 dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-gray-600'
-          }`}
+          className={`flex-1 py-2 px-3 rounded-lg text-xs font-semibold transition-colors ${view === 'popular'
+            ? 'bg-blue-600 text-white shadow-md shadow-blue-500/20'
+            : 'bg-slate-100 dark:bg-slate-900/50 text-slate-600 dark:text-slate-400 hover:bg-slate-200 dark:hover:bg-slate-800'
+            }`}
         >
           🔥 Popular
         </button>
       </div>
 
       {/* Keywords List */}
-      <div className="space-y-2 max-h-[300px] overflow-y-auto">
-        {keywords.map((kw, index) => (
+      <div className={`space-y-2 max-h-[300px] overflow-y-auto transition-opacity duration-200 ${isRefreshing ? 'opacity-50' : 'opacity-100'}`}>
+        {items.map((kw, index) => (
           <KeywordCard
-            key={index}
+            key={`${kw.keyword}-${index}`}
             keyword={kw}
             onClick={() => onKeywordClick(kw.keyword)}
           />
@@ -73,15 +103,15 @@ export function TrendingKeywords({ onKeywordClick }: TrendingKeywordsProps) {
   );
 }
 
-function KeywordCard({ 
-  keyword, 
-  onClick 
-}: { 
-  keyword: TrendingKeyword; 
+function KeywordCard({
+  keyword,
+  onClick
+}: {
+  keyword: TrendingKeyword;
   onClick: () => void;
 }) {
   const difficultyColor = getDifficultyColor(keyword.difficulty);
-  
+
   return (
     <button
       onClick={onClick}

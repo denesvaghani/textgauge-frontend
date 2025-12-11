@@ -41,7 +41,7 @@ export const trendingKeywords: TrendingKeyword[] = [
     difficulty: 'high',
     trending: 'up',
   },
-  
+
   // Writing & Content Creation
   {
     keyword: 'character counter',
@@ -71,7 +71,7 @@ export const trendingKeywords: TrendingKeyword[] = [
     difficulty: 'medium',
     trending: 'steady',
   },
-  
+
   // SEO Keywords
   {
     keyword: 'SEO optimization',
@@ -101,7 +101,7 @@ export const trendingKeywords: TrendingKeyword[] = [
     difficulty: 'medium',
     trending: 'steady',
   },
-  
+
   // Social Media
   {
     keyword: 'Instagram captions',
@@ -124,7 +124,7 @@ export const trendingKeywords: TrendingKeyword[] = [
     difficulty: 'low',
     trending: 'up',
   },
-  
+
   // Marketing
   {
     keyword: 'email marketing',
@@ -140,7 +140,7 @@ export const trendingKeywords: TrendingKeyword[] = [
     difficulty: 'medium',
     trending: 'steady',
   },
-  
+
   // More Writing Tools
   {
     keyword: 'text counter',
@@ -212,7 +212,7 @@ export const trendingKeywords: TrendingKeyword[] = [
     difficulty: 'low',
     trending: 'steady',
   },
-  
+
   // General Use Cases
   {
     keyword: 'copy and paste',
@@ -261,6 +261,16 @@ export function getTopTrending(limit: number = 5): TrendingKeyword[] {
 }
 
 /**
+ * Get N random trending keywords
+ */
+export function getRandomTrending(limit: number = 6): TrendingKeyword[] {
+  const shuffled = [...trendingKeywords]
+    .filter(k => k.trending === 'up' || k.trending === 'new') // Prioritize hot topics
+    .sort(() => 0.5 - Math.random());
+  return shuffled.slice(0, limit);
+}
+
+/**
  * Get keywords sorted by search volume
  */
 export function getBySearchVolume(): TrendingKeyword[] {
@@ -276,7 +286,7 @@ export function getBySearchVolume(): TrendingKeyword[] {
  */
 export function searchKeywords(query: string): TrendingKeyword[] {
   const lowerQuery = query.toLowerCase();
-  return trendingKeywords.filter(k => 
+  return trendingKeywords.filter(k =>
     k.keyword.toLowerCase().includes(lowerQuery)
   );
 }
