@@ -1,136 +1,349 @@
 "use client";
 
 import { useState } from "react";
-import { ThemeToggle } from "@/components/ThemeToggle";
+import Editor from "@monaco-editor/react";
+import {
+  Play,
+  Trash2,
+  Copy,
+  Minimize2,
+  Download,
+  Upload,
+  Globe,
+  Check,
+  AlertTriangle
+} from "lucide-react";
+import { UrlLoader } from "./UrlLoader";
+import { GoogleAdsense } from "./GoogleAdsense"; // Ensure this path is correct
+import { useTheme } from "@/contexts/ThemeContext";
 
 interface FormatterProps {
   title: string;
   description: string;
-  inputType: "json" | "yaml" | "text";
+  inputType: "json" | "yaml";
   outputType: "json" | "yaml" | "text";
-  // Function to transform input -> output
-  transform: (input: string) => string | Promise<string>;
-  // Validation function (optional)
-  validate?: (input: string) => boolean | string | null;
-  placeholderInput?: string;
+  defaultValue?: string;
+  onTransform: (input: string, tabSize: number) => Promise<string>;
+  onMinify?: (input: string) => Promise<string>;
+  sampleData?: string;
 }
 
 export function Formatter({
   title,
   description,
-  transform,
-  placeholderInput = "",
+  inputType,
+  outputType,
+  defaultValue = "",
+  onTransform,
+  onMinify,
+  sampleData
 }: FormatterProps) {
-  const [input, setInput] = useState("");
-  const [output, setOutput] = useState("");
+  const { theme } = useTheme();
+  // Monaco theme: 'vs' (light), 'vs-dark' (dark)
+  const editorTheme = theme === "dark" ? "vs-dark" : "light";
+
+  const [inputCode, setInputCode] = useState(defaultValue);
+  const [outputCode, setOutputCode] = useState("");
   const [error, setError] = useState<string | null>(null);
+  const [tabSize, setTabSize] = useState(2);
+  const [isUrlModalOpen, setIsUrlModalOpen] = useState(false);
   const [copied, setCopied] = useState(false);
+
+  // Ref to the input editor instance to potentially grab value directly or manipulate
+
 
   const handleFormat = async () => {
     setError(null);
-    if (!input.trim()) {
-      setOutput("");
+    if (!inputCode.trim()) {
+      setOutputCode("");
       return;
     }
-
     try {
-      const result = await transform(input);
-      setOutput(result);
+      const result = await onTransform(inputCode, tabSize);
+      setOutputCode(result);
     } catch (err: unknown) {
-      console.error(err);
-      const message = err instanceof Error ? err.message : "An error occurred while formatting.";
-      setError(message);
-      setOutput("");
+      const msg = err instanceof Error ? err.message : String(err);
+      setError(msg);
+      // Determine if error line number is available (often in 'msg')
+    }
+  };
+
+  const handleMinify = async () => {
+    setError(null);
+    if (!onMinify || !inputCode.trim()) return;
+    try {
+      const result = await onMinify(inputCode);
+      setOutputCode(result);
+    } catch (err: unknown) {
+      const msg = err instanceof Error ? err.message : String(err);
+      setError(msg);
     }
   };
 
   const handleCopy = () => {
-    if (!output) return;
-    navigator.clipboard.writeText(output);
+    if (!outputCode) return;
+    navigator.clipboard.writeText(outputCode);
     setCopied(true);
     setTimeout(() => setCopied(false), 2000);
   };
 
   const handleClear = () => {
-    setInput("");
-    setOutput("");
+    setInputCode("");
+    setOutputCode("");
     setError(null);
+  };
+
+  const handleLoadUrl = async (url: string) => {
+    try {
+      const res = await fetch(url);
+      if (!res.ok) throw new Error(`Myailed to fetch: ${res.statusText}`);
+      const text = await res.text();
+      setInputCode(text);
+      // Auto-format on load
+      // setTimeout(() => handleFormat(), 100); 
+    } catch (err: unknown) {
+      throw err; // Passed back to UrlLoader
+    }
+  };
+
+  const handleFileUpload = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0];
+    if (!file) return;
+    const reader = new FileReader();
+    reader.onload = (ev) => {
+      const text = ev.target?.result;
+      if (typeof text === "string") {
+        setInputCode(text);
+      }
+    };
+    reader.readAsText(file);
+    // Reset value so same file can be selected again
+    e.target.value = "";
+  };
+
+  const handleLoadSample = () => {
+    if (sampleData) setInputCode(sampleData);
   };
 
   return (
     <div className="min-h-screen bg-gray-50 dark:bg-gray-950 text-gray-900 dark:text-gray-50 transition-colors duration-200">
-      <ThemeToggle />
 
-      <header className="bg-white dark:bg-gray-900 shadow-sm transition-colors duration-200">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
-          <h1 className="text-3xl font-bold text-gray-900 dark:text-white">{title}</h1>
-          <p className="mt-2 text-gray-600 dark:text-gray-400">{description}</p>
+      {/* Header Section */}
+      <header className="bg-white dark:bg-gray-900 shadow-sm border-b border-gray-200 dark:border-gray-800 transition-colors duration-200">
+        <div className="max-w-[1920px] mx-auto px-4 sm:px-6 lg:px-8 py-6">
+          <h1 className="text-2xl sm:text-3xl font-bold text-gray-900 dark:text-white">{title}</h1>
+          <p className="mt-2 text-gray-600 dark:text-gray-400 max-w-3xl">{description}</p>
+
+          {/* Top Ad Slot placement */}
+          <div className="mt-4 flex justify-center min-h-[90px] w-full bg-gray-100 dark:bg-gray-900/50 rounded overflow-hidden">
+            <GoogleAdsense
+              adSlot={process.env.NEXT_PUBLIC_AD_SLOT_HEADER || "example_slot"}
+              style={{ display: 'block', width: '100%', maxWidth: '970px', height: '90px' }}
+            />
+          </div>
         </div>
       </header>
 
-      <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 h-[calc(100vh-250px)] min-h-[500px]">
-          {/* Input Section */}
-          <div className="flex flex-col h-full bg-white dark:bg-gray-900 rounded-lg shadow-sm border border-gray-200 dark:border-gray-800">
-            <div className="p-4 border-b border-gray-200 dark:border-gray-800 flex justify-between items-center bg-gray-50 dark:bg-gray-800/50 rounded-t-lg">
-              <h2 className="font-semibold text-gray-700 dark:text-gray-200">Input</h2>
-              <div className="flex gap-2">
+      <main className="max-w-[1920px] mx-auto px-4 sm:px-6 lg:px-8 py-8">
+
+        {/* 3-Column Layout */}
+        <div className="flex flex-col lg:flex-row gap-4 h-[calc(100vh-350px)] min-h-[600px]">
+
+          {/* LEFT COLUMN: Input Editor (Allocating ~40% width) */}
+          <div className="flex-1 flex flex-col bg-white dark:bg-gray-900 rounded-lg shadow-sm border border-gray-200 dark:border-gray-800 lg:w-[40%]">
+            {/* Toolbar */}
+            <div className="px-3 py-2 border-b border-gray-200 dark:border-gray-800 flex flex-wrap items-center justify-between bg-gray-50 dark:bg-gray-800/50 rounded-t-lg gap-2">
+              <div className="flex items-center gap-2">
+                <span className="text-xs font-bold text-gray-500 dark:text-gray-400 uppercase tracking-wider">Input</span>
+                {/* Check for errors icon */}
+              </div>
+              <div className="flex items-center gap-1">
                 <button
-                  onClick={handleClear}
-                  className="px-3 py-1.5 text-xs font-medium text-red-600 hover:bg-red-50 dark:text-red-400 dark:hover:bg-red-900/20 rounded transition-colors"
+                  onClick={() => document.getElementById("file-upload")?.click()}
+                  className="p-1.5 text-gray-600 hover:bg-gray-200 dark:text-gray-300 dark:hover:bg-gray-700 rounded transition-colors"
+                  title="Upload File"
                 >
-                  Clear
+                  <Upload size={16} />
+                  <input type="file" id="file-upload" className="hidden" accept=".json,.yaml,.yml,.txt" onChange={handleFileUpload} />
                 </button>
                 <button
-                  onClick={handleFormat}
-                  className="px-4 py-1.5 text-xs font-medium bg-blue-600 text-white hover:bg-blue-700 rounded shadow-sm transition-colors"
+                  onClick={() => setIsUrlModalOpen(true)}
+                  className="p-1.5 text-gray-600 hover:bg-gray-200 dark:text-gray-300 dark:hover:bg-gray-700 rounded transition-colors"
+                  title="Load from URL"
                 >
-                  Format
+                  <Globe size={16} />
+                </button>
+                <button
+                  onClick={handleClear}
+                  className="p-1.5 text-red-500 hover:bg-red-50 dark:hover:bg-red-900/20 rounded transition-colors"
+                  title="Clear"
+                >
+                  <Trash2 size={16} />
                 </button>
               </div>
             </div>
-            <textarea
-              value={input}
-              onChange={(e) => setInput(e.target.value)}
-              placeholder={placeholderInput}
-              className="flex-1 w-full p-4 bg-transparent outline-none resize-none font-mono text-sm leading-relaxed text-gray-800 dark:text-gray-200 placeholder-gray-400 dark:placeholder-gray-600 rounded-b-lg scrollbar-thin scrollbar-thumb-gray-300 dark:scrollbar-thumb-gray-700"
-              spellCheck={false}
-            />
+
+            {/* Editor Area */}
+            <div className="flex-1 relative overflow-hidden">
+              <Editor
+                height="100%"
+                defaultLanguage={inputType}
+                language={inputType}
+                theme={editorTheme}
+                value={inputCode}
+                onChange={(val) => setInputCode(val || "")}
+
+                options={{
+                  minimap: { enabled: false },
+                  fontSize: 13,
+                  scrollBeyondLastLine: false,
+                  automaticLayout: true,
+                  tabSize: tabSize,
+                  formatOnPaste: true,
+                  wordWrap: 'on'
+                }}
+              />
+            </div>
           </div>
 
-          {/* Output Section */}
-          <div className="flex flex-col h-full bg-white dark:bg-gray-900 rounded-lg shadow-sm border border-gray-200 dark:border-gray-800">
-            <div className="p-4 border-b border-gray-200 dark:border-gray-800 flex justify-between items-center bg-gray-50 dark:bg-gray-800/50 rounded-t-lg">
-              <h2 className="font-semibold text-gray-700 dark:text-gray-200">Output</h2>
+          {/* MIDDLE COLUMN: Controls (Allocating ~200px fixed or ~15%) */}
+          <div className="flex flex-col gap-4 lg:w-[220px] shrink-0">
+
+            {/* Main Actions */}
+            <div className="flex flex-col gap-2 bg-white dark:bg-gray-900 p-4 rounded-lg shadow-sm border border-gray-200 dark:border-gray-800">
               <button
-                onClick={handleCopy}
-                disabled={!output}
-                className={`px-3 py-1.5 text-xs font-medium rounded transition-colors ${copied
-                    ? "bg-green-100 text-green-700 dark:bg-green-900/30 dark:text-green-400"
-                    : "text-gray-600 hover:bg-gray-100 dark:text-gray-400 dark:hover:bg-gray-800"
-                  } disabled:opacity-50 disabled:cursor-not-allowed`}
+                onClick={handleFormat}
+                className="flex items-center justify-center gap-2 w-full py-2.5 bg-blue-600 hover:bg-blue-700 text-white font-semibold rounded-md shadow-sm transition-all active:scale-[0.98]"
               >
-                {copied ? "Copied!" : "Copy Output"}
+                <Play size={16} className="fill-current" />
+                Beautify
               </button>
+
+              {onMinify && (
+                <button
+                  onClick={handleMinify}
+                  className="flex items-center justify-center gap-2 w-full py-2.5 bg-white dark:bg-gray-800 border border-gray-300 dark:border-gray-600 hover:bg-gray-50 dark:hover:bg-gray-700 text-gray-700 dark:text-gray-200 font-medium rounded-md shadow-sm transition-all active:scale-[0.98]"
+                >
+                  <Minimize2 size={16} />
+                  Minify
+                </button>
+              )}
             </div>
 
-            <div className="relative flex-1 w-full rounded-b-lg overflow-hidden bg-gray-50 dark:bg-gray-950/50">
+            {/* Tab Settings */}
+            <div className="bg-white dark:bg-gray-900 p-4 rounded-lg shadow-sm border border-gray-200 dark:border-gray-800">
+              <label className="block text-xs font-semibold text-gray-500 dark:text-gray-400 uppercase tracking-wider mb-2">
+                Tab Size
+              </label>
+              <select
+                value={tabSize}
+                onChange={(e) => setTabSize(Number(e.target.value))}
+                className="w-full p-2 border border-gray-300 dark:border-gray-600 rounded bg-white dark:bg-gray-800 text-sm text-gray-800 dark:text-white outline-none focus:ring-2 focus:ring-blue-500"
+              >
+                <option value={2}>2 Spaces</option>
+                <option value={3}>3 Spaces</option>
+                <option value={4}>4 Spaces</option>
+                <option value={8}>8 Spaces</option>
+              </select>
+            </div>
+
+            {sampleData && (
+              <button
+                onClick={handleLoadSample}
+                className="text-xs text-blue-600 dark:text-blue-400 hover:underline text-center"
+              >
+                Load Sample Data
+              </button>
+            )}
+
+            {/* Ad Slot - Sticky/Sidebar style */}
+            <div className="flex-1 bg-gray-100 dark:bg-gray-900/50 rounded overflow-hidden min-h-[250px] flex items-center justify-center">
+              <GoogleAdsense
+                adSlot={process.env.NEXT_PUBLIC_AD_SLOT_SIDEBAR || "example_sidebar"}
+                style={{ display: 'block', width: '100%' }}
+              />
+            </div>
+
+          </div>
+
+          {/* RIGHT COLUMN: Output Editor (Allocating ~40% width) */}
+          <div className="flex-1 flex flex-col bg-white dark:bg-gray-900 rounded-lg shadow-sm border border-gray-200 dark:border-gray-800 lg:w-[40%]">
+            {/* Toolbar */}
+            <div className="px-3 py-2 border-b border-gray-200 dark:border-gray-800 flex flex-wrap items-center justify-between bg-gray-50 dark:bg-gray-800/50 rounded-t-lg gap-2">
+              <div className="flex items-center gap-2">
+                <span className="text-xs font-bold text-gray-500 dark:text-gray-400 uppercase tracking-wider">Output</span>
+              </div>
+              <div className="flex items-center gap-1">
+                <button
+                  onClick={handleCopy}
+                  className={`flex items-center gap-1.5 px-2 py-1 rounded transition-colors text-xs font-medium ${copied ? "bg-green-100 text-green-700 dark:bg-green-900/30 dark:text-green-400" : "text-gray-600 hover:bg-gray-200 dark:text-gray-300 dark:hover:bg-gray-700"
+                    }`}
+                  title="Copy to Clipboard"
+                >
+                  {copied ? <Check size={14} /> : <Copy size={14} />}
+                  {copied ? "Copied" : "Copy"}
+                </button>
+                <button
+                  onClick={() => {
+                    // Download functionality requires simple Blob creation
+                    const blob = new Blob([outputCode], { type: "text/plain" });
+                    const url = URL.createObjectURL(blob);
+                    const a = document.createElement("a");
+                    a.href = url;
+                    a.download = `formatted.${outputType}`;
+                    a.click();
+                    URL.revokeObjectURL(url);
+                  }}
+                  className="p-1.5 text-gray-600 hover:bg-gray-200 dark:text-gray-300 dark:hover:bg-gray-700 rounded transition-colors"
+                  title="Download"
+                >
+                  <Download size={16} />
+                </button>
+              </div>
+            </div>
+
+            {/* Editor/Error Area */}
+            <div className="flex-1 relative overflow-hidden bg-gray-50 dark:bg-gray-900/30">
               {error ? (
-                <div className="absolute inset-0 p-4 text-red-600 dark:text-red-400 font-mono text-sm overflow-auto">
-                  <strong className="block mb-2">Error:</strong>
-                  {error}
+                <div className="absolute inset-0 p-6 z-10 overflow-auto bg-white/95 dark:bg-gray-900/95">
+                  <div className="rounded-lg border border-red-200 bg-red-50 p-4 dark:border-red-900/30 dark:bg-red-900/10">
+                    <div className="flex items-center gap-2 text-red-700 dark:text-red-400 font-bold mb-2">
+                      <AlertTriangle size={20} />
+                      <span>Validation Error</span>
+                    </div>
+                    <pre className="text-sm text-red-600 dark:text-red-300 whitespace-pre-wrap font-mono">
+                      {error}
+                    </pre>
+                  </div>
                 </div>
               ) : (
-                <textarea
-                  readOnly
-                  value={output}
-                  className="w-full h-full p-4 bg-transparent outline-none resize-none font-mono text-sm leading-relaxed text-gray-800 dark:text-gray-200 rounded-b-lg scrollbar-thin scrollbar-thumb-gray-300 dark:scrollbar-thumb-gray-700"
+                <Editor
+                  height="100%"
+                  defaultLanguage={outputType === 'text' ? 'plaintext' : outputType}
+                  language={outputType === 'text' ? 'plaintext' : outputType}
+                  theme={editorTheme}
+                  value={outputCode}
+                  options={{
+                    readOnly: true,
+                    minimap: { enabled: false },
+                    fontSize: 13,
+                    scrollBeyondLastLine: false,
+                    automaticLayout: true,
+                    wordWrap: 'on'
+                  }}
                 />
               )}
             </div>
           </div>
+
         </div>
       </main>
+
+      <UrlLoader
+        isOpen={isUrlModalOpen}
+        onClose={() => setIsUrlModalOpen(false)}
+        onLoad={handleLoadUrl}
+      />
     </div>
   );
 }
