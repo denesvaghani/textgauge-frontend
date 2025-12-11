@@ -11,7 +11,8 @@ import {
   Upload,
   Globe,
   Check,
-  AlertTriangle
+  AlertTriangle,
+  ArrowLeft
 } from "lucide-react";
 import { UrlLoader } from "./UrlLoader";
 import { GoogleAdsense } from "./GoogleAdsense"; // Ensure this path is correct
@@ -135,7 +136,7 @@ export function Formatter({
           <p className="mt-2 text-gray-600 dark:text-gray-400 max-w-3xl">{description}</p>
 
           {/* Top Ad Slot placement */}
-          <div className="mt-4 flex justify-center min-h-[90px] w-full bg-gray-100 dark:bg-gray-900/50 rounded overflow-hidden">
+          <div className="mt-4 flex justify-center min-h-[90px] w-full rounded overflow-hidden">
             <GoogleAdsense
               adSlot={process.env.NEXT_PUBLIC_AD_SLOT_HEADER || "example_slot"}
               style={{ display: 'block', width: '100%', maxWidth: '970px', height: '90px' }}
@@ -210,21 +211,21 @@ export function Formatter({
           <div className="flex flex-col gap-4 lg:w-[220px] shrink-0">
 
             {/* Main Actions */}
-            <div className="flex flex-col gap-2 bg-white dark:bg-gray-900 p-4 rounded-lg shadow-sm border border-gray-200 dark:border-gray-800">
+            <div className="flex flex-col gap-3 bg-white dark:bg-gray-900 p-4 rounded-lg shadow-sm border border-gray-200 dark:border-gray-800">
               <button
                 onClick={handleFormat}
-                className="flex items-center justify-center gap-2 w-full py-2.5 bg-blue-600 hover:bg-blue-700 text-white font-semibold rounded-md shadow-sm transition-all active:scale-[0.98]"
+                className="flex items-center justify-center gap-2 w-full py-3 bg-blue-600 hover:bg-blue-700 text-white font-bold rounded-lg shadow-md hover:shadow-lg transition-all active:scale-[0.98]"
               >
-                <Play size={16} className="fill-current" />
+                <Play size={18} className="fill-current" />
                 Beautify
               </button>
 
               {onMinify && (
                 <button
                   onClick={handleMinify}
-                  className="flex items-center justify-center gap-2 w-full py-2.5 bg-white dark:bg-gray-800 border border-gray-300 dark:border-gray-600 hover:bg-gray-50 dark:hover:bg-gray-700 text-gray-700 dark:text-gray-200 font-medium rounded-md shadow-sm transition-all active:scale-[0.98]"
+                  className="flex items-center justify-center gap-2 w-full py-3 bg-white dark:bg-gray-800 border-2 border-gray-200 dark:border-gray-700 hover:border-blue-500 dark:hover:border-blue-500 hover:text-blue-600 dark:hover:text-blue-400 text-gray-700 dark:text-gray-200 font-bold rounded-lg transition-all active:scale-[0.98]"
                 >
-                  <Minimize2 size={16} />
+                  <Minimize2 size={18} />
                   Minify
                 </button>
               )}
@@ -257,7 +258,7 @@ export function Formatter({
             )}
 
             {/* Ad Slot - Sticky/Sidebar style */}
-            <div className="flex-1 bg-gray-100 dark:bg-gray-900/50 rounded overflow-hidden min-h-[250px] flex items-center justify-center">
+            <div className="flex-1 rounded overflow-hidden min-h-[250px] flex items-center justify-center">
               <GoogleAdsense
                 adSlot={process.env.NEXT_PUBLIC_AD_SLOT_SIDEBAR || "example_sidebar"}
                 style={{ display: 'block', width: '100%' }}
@@ -275,6 +276,20 @@ export function Formatter({
               </div>
               <div className="flex items-center gap-1">
                 <button
+                  onClick={() => {
+                    if (outputCode) {
+                      setInputCode(outputCode);
+                      setOutputCode(""); // Optional: clear output to show "moved" state? Or keep it? Usually keep or clear. "Reversible" implies swapping or just moving. Let's just copy to input.
+                    }
+                  }}
+                  className="flex items-center gap-1.5 px-2 py-1 text-gray-600 hover:bg-gray-200 dark:text-gray-300 dark:hover:bg-gray-700 rounded transition-colors text-xs font-medium"
+                  title="Use as Input"
+                >
+                  <ArrowLeft size={14} />
+                  <span>Use as Input</span>
+                </button>
+                <div className="w-px h-4 bg-gray-300 dark:bg-gray-700 mx-1" />
+                <button
                   onClick={handleCopy}
                   className={`flex items-center gap-1.5 px-2 py-1 rounded transition-colors text-xs font-medium ${copied ? "bg-green-100 text-green-700 dark:bg-green-900/30 dark:text-green-400" : "text-gray-600 hover:bg-gray-200 dark:text-gray-300 dark:hover:bg-gray-700"
                     }`}
@@ -285,7 +300,6 @@ export function Formatter({
                 </button>
                 <button
                   onClick={() => {
-                    // Download functionality requires simple Blob creation
                     const blob = new Blob([outputCode], { type: "text/plain" });
                     const url = URL.createObjectURL(blob);
                     const a = document.createElement("a");
