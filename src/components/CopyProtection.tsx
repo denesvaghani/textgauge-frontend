@@ -64,12 +64,22 @@ export function CopyProtection() {
       }
 
       /* Re-enable selection for inputs and editors */
-      input, textarea, .monaco-editor, [contenteditable="true"], .allow-select, .selectable-text {
+      input, textarea, [contenteditable="true"], .allow-select, .selectable-text {
         -webkit-user-select: text !important;
-        -moz-user-select: text !important;
-        -ms-user-select: text !important;
         user-select: text !important;
         cursor: text;
+      }
+      
+      /* Monaco specific handling: Ensure its internal parts work but don't force visibility */
+      .monaco-editor, .monaco-editor .inputarea {
+        -webkit-user-select: text !important;
+        user-select: text !important;
+      }
+      
+      /* Ensure hidden inputs stay hidden */
+      .monaco-editor textarea {
+         background-color: transparent !important;
+         color: transparent !important;
       }
       
       /* Ensure images are not draggable (prevents saving by drag) */
