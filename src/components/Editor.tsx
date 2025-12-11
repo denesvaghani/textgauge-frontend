@@ -288,59 +288,69 @@ export function Editor() {
         </div>
 
         {/* Card 2: Editor & Tools */}
-        <div className="rounded-lg bg-white p-6 shadow-xl transition-colors duration-200 dark:bg-gray-800">
+        <div className="rounded-lg bg-white p-6 shadow-xl transition-colors duration-200 dark:bg-slate-900">
 
-          {/* SEO Keyword Input - Moved Above the Fold */}
-          <div className="mb-6 rounded-lg border border-blue-200 bg-blue-50 p-4 transition-colors duration-200 dark:border-gray-600 dark:bg-gray-900/40">
-            <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3">
-              <div className="flex-1">
-                <label className="flex items-center text-sm font-semibold text-gray-700 dark:text-gray-200 mb-2">
-                  <span className="mr-2 text-blue-600">🎯</span>
-                  Target SEO Keyword
-                </label>
-                <div className="relative">
-                  <input
-                    type="text"
-                    value={keyword}
-                    onChange={(e) => {
-                      const next = e.target.value;
-                      setKeyword(next);
-                      const text = getPlainText();
-                      analyze(text, next.trim());
-                    }}
-                    placeholder="e.g., best laptops under 50000"
-                    className="w-full rounded-md border border-blue-300 bg-white px-3 py-2 pl-9 text-sm text-gray-900 outline-none ring-offset-0 focus:border-blue-500 focus:ring-2 focus:ring-blue-500/20 dark:border-gray-600 dark:bg-gray-900 dark:text-white"
-                  />
-                  <div className="absolute left-3 top-1/2 -translate-y-1/2 pointer-events-none text-gray-400">
-                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
+          {/* SEO Keyword Input - Premium Design with Visual Feedback */}
+          <div className="mb-6 relative group z-20">
+            {/* Glossy background effect */}
+            <div className={`absolute -inset-0.5 rounded-xl bg-gradient-to-r from-blue-400 via-indigo-400 to-violet-400 opacity-20 dark:opacity-40 blur transition duration-1000 group-hover:duration-200 group-hover:opacity-60 ${!keyword ? 'animate-pulse' : ''}`}></div>
+
+            <div className="relative rounded-xl border border-blue-100 bg-white p-4 transition-colors duration-200 dark:border-slate-800 dark:bg-slate-950/80 backdrop-blur-sm">
+              <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3">
+                <div className="flex-1">
+                  <label className="flex items-center text-sm font-bold text-slate-700 dark:text-slate-200 mb-2">
+                    <span className="mr-2 flex items-center justify-center w-5 h-5 rounded-full bg-blue-100 text-blue-600 dark:bg-blue-900/50 dark:text-blue-400 text-xs">🎯</span>
+                    Target SEO Keyword
+                    {!keyword && <span className="ml-2 text-xs font-normal text-slate-400 dark:text-slate-500 animate-pulse">(Recommended)</span>}
+                  </label>
+                  <div className="relative">
+                    <input
+                      type="text"
+                      value={keyword}
+                      onChange={(e) => {
+                        const next = e.target.value;
+                        setKeyword(next);
+                        const text = getPlainText();
+                        analyze(text, next.trim());
+                      }}
+                      placeholder="e.g., best laptops under 50000"
+                      className="w-full rounded-lg border border-slate-200 bg-slate-50/50 px-4 py-2.5 pl-10 text-sm font-medium text-slate-900 outline-none transition-all placeholder:text-slate-400 focus:border-indigo-500 focus:bg-white focus:ring-4 focus:ring-indigo-500/10 dark:border-slate-700 dark:bg-slate-900/50 dark:text-white dark:focus:bg-slate-900 dark:focus:ring-indigo-400/10"
+                    />
+                    <div className="absolute left-3 top-1/2 -translate-y-1/2 pointer-events-none text-slate-400">
+                      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
+                    </div>
                   </div>
                 </div>
+
+                {keyword && (
+                  <div className="shrink-0 flex items-center gap-2 px-3 py-2 bg-indigo-50 dark:bg-indigo-900/30 text-indigo-700 dark:text-indigo-300 rounded-lg text-xs font-bold ring-1 ring-indigo-100 dark:ring-indigo-800">
+                    <span className="relative flex h-2 w-2">
+                      <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-indigo-400 opacity-75"></span>
+                      <span className="relative inline-flex rounded-full h-2 w-2 bg-indigo-500"></span>
+                    </span>
+                    Monitoring
+                  </div>
+                )}
               </div>
 
-              {keyword && (
-                <div className="shrink-0 flex items-center px-3 py-2 bg-blue-100 dark:bg-blue-900/30 text-blue-800 dark:text-blue-300 rounded-md text-xs font-medium">
-                  Tracking active
-                </div>
-              )}
-            </div>
-
-            <div className="mt-3">
-              <RelatedKeywords
-                keyword={keyword}
-                onSelectKeyword={(selectedKeyword) => {
-                  setKeyword(selectedKeyword);
-                  const text = getPlainText();
-                  analyze(text, selectedKeyword.trim());
-                }}
-              />
+              <div className="mt-3">
+                <RelatedKeywords
+                  keyword={keyword}
+                  onSelectKeyword={(selectedKeyword) => {
+                    setKeyword(selectedKeyword);
+                    const text = getPlainText();
+                    analyze(text, selectedKeyword.trim());
+                  }}
+                />
+              </div>
             </div>
           </div>
 
 
           {/* Key Editor wrapper: toolbar + editor */}
-          <div className="overflow-hidden rounded-lg border border-gray-200 dark:border-gray-700">
+          <div className="overflow-hidden rounded-lg border border-slate-200 dark:border-slate-700 shadow-sm">
             {/* Toolbar */}
-            <div className="flex flex-wrap items-center gap-2 border-b border-gray-200 bg-gray-50 px-3 py-2 text-xs dark:border-gray-700 dark:bg-gray-900/40">
+            <div className="flex flex-wrap items-center gap-2 border-b border-slate-200 bg-slate-50 px-3 py-2 text-xs dark:border-slate-700 dark:bg-slate-900/60">
               {/* Left cluster: formatting + case tools */}
               <div className="flex flex-wrap items-center gap-2">
                 {/* Clear */}
@@ -350,9 +360,9 @@ export function Editor() {
                     e.preventDefault();
                     clearAll();
                   }}
-                  className="rounded-md bg-red-500 px-3 py-1.5 font-semibold text-white hover:bg-red-600"
+                  className="rounded-md bg-rose-500 px-3 py-1.5 font-bold text-white shadow-sm shadow-rose-500/20 hover:bg-rose-600 hover:shadow-rose-500/30 transition-all active:scale-95"
                 >
-                  🗑️ Clear
+                  Clear
                 </button>
 
                 {/* Undo */}
@@ -363,9 +373,9 @@ export function Editor() {
                     if (canUndo) undo();
                   }}
                   disabled={!canUndo}
-                  className="rounded-md bg-gray-300 px-3 py-1.5 font-semibold text-gray-800 hover:bg-gray-400 disabled:cursor-not-allowed disabled:opacity-50"
+                  className="rounded-md bg-white border border-slate-200 px-3 py-1.5 font-semibold text-slate-700 shadow-sm hover:bg-slate-50 hover:text-slate-900 disabled:opacity-50 disabled:cursor-not-allowed dark:bg-slate-800 dark:border-slate-700 dark:text-slate-200 dark:hover:bg-slate-700 transition-all active:scale-95"
                 >
-                  ↪️ Undo
+                  Undo
                 </button>
 
                 {/* Redo */}
@@ -376,10 +386,12 @@ export function Editor() {
                     if (canRedo) redo();
                   }}
                   disabled={!canRedo}
-                  className="rounded-md bg-gray-300 px-3 py-1.5 font-semibold text-gray-800 hover:bg-gray-400 disabled:cursor-not-allowed disabled:opacity-50"
+                  className="rounded-md bg-white border border-slate-200 px-3 py-1.5 font-semibold text-slate-700 shadow-sm hover:bg-slate-50 hover:text-slate-900 disabled:opacity-50 disabled:cursor-not-allowed dark:bg-slate-800 dark:border-slate-700 dark:text-slate-200 dark:hover:bg-slate-700 transition-all active:scale-95"
                 >
-                  ↪️ Redo
+                  Redo
                 </button>
+
+                <div className="w-px h-5 bg-slate-300 dark:bg-slate-700 mx-1"></div>
 
                 {/* Bold */}
                 <button
@@ -388,7 +400,7 @@ export function Editor() {
                     e.preventDefault();
                     exec("bold");
                   }}
-                  className="rounded-md bg-blue-500 px-3 py-1.5 font-bold text-white hover:bg-blue-600"
+                  className="rounded-md bg-white border border-slate-200 px-3 py-1.5 font-bold text-slate-700 shadow-sm hover:border-indigo-300 hover:text-indigo-600 dark:bg-slate-800 dark:border-slate-700 dark:text-slate-200 dark:hover:border-indigo-500 dark:hover:text-indigo-400 transition-all"
                 >
                   B
                 </button>
@@ -400,10 +412,12 @@ export function Editor() {
                     e.preventDefault();
                     exec("italic");
                   }}
-                  className="rounded-md bg-blue-500 px-3 py-1.5 italic text-white hover:bg-blue-600"
+                  className="rounded-md bg-white border border-slate-200 px-3 py-1.5 italic text-slate-700 shadow-sm hover:border-indigo-300 hover:text-indigo-600 dark:bg-slate-800 dark:border-slate-700 dark:text-slate-200 dark:hover:border-indigo-500 dark:hover:text-indigo-400 transition-all"
                 >
-                  /
+                  i
                 </button>
+
+                <div className="w-px h-5 bg-slate-300 dark:bg-slate-700 mx-1"></div>
 
                 {/* Title case */}
                 <button
@@ -412,7 +426,7 @@ export function Editor() {
                     e.preventDefault();
                     transformSelection(toTitleCase);
                   }}
-                  className="rounded-md bg-green-500 px-3 py-1.5 font-semibold text-white hover:bg-green-600"
+                  className="rounded-md bg-emerald-500 px-3 py-1.5 font-bold text-white shadow-sm shadow-emerald-500/20 hover:bg-emerald-600 hover:shadow-emerald-500/30 transition-all"
                 >
                   Aa
                 </button>
@@ -424,7 +438,7 @@ export function Editor() {
                     e.preventDefault();
                     transformSelection((s) => s.toLowerCase());
                   }}
-                  className="rounded-md bg-green-500 px-3 py-1.5 font-semibold text-white hover:bg-green-600"
+                  className="rounded-md bg-emerald-500 px-3 py-1.5 font-bold text-white shadow-sm shadow-emerald-500/20 hover:bg-emerald-600 hover:shadow-emerald-500/30 transition-all"
                 >
                   abc
                 </button>
@@ -436,7 +450,7 @@ export function Editor() {
                     e.preventDefault();
                     transformSelection(toSnakeCase);
                   }}
-                  className="rounded-md bg-green-500 px-3 py-1.5 font-semibold text-white hover:bg-green-600"
+                  className="rounded-md bg-emerald-500 px-3 py-1.5 font-bold text-white shadow-sm shadow-emerald-500/20 hover:bg-emerald-600 hover:shadow-emerald-500/30 transition-all"
                 >
                   snake_case
                 </button>
@@ -451,8 +465,7 @@ export function Editor() {
                     handleRephrase();
                   }}
                   disabled={isRephrasing}
-                  className={`flex items-center gap-1 rounded-full border border-purple-500 bg-purple-500 px-4 py-1.5 text-xs sm:text-sm font-semibold text-white shadow-sm hover:bg-purple-600 hover:border-purple-600 disabled:cursor-not-allowed disabled:opacity-60`}
-
+                  className={`flex items-center gap-1.5 rounded-full bg-gradient-to-r from-violet-500 to-fuchsia-500 px-4 py-1.5 text-xs sm:text-sm font-bold text-white shadow-md shadow-violet-500/20 hover:shadow-violet-500/40 hover:scale-105 transition-all disabled:opacity-70 disabled:cursor-not-allowed`}
                 >
                   {isRephrasing ? (
                     <>
@@ -484,13 +497,14 @@ export function Editor() {
               className="
                 w-full
                 min-h-[260px] sm:min-h-[340px] lg:min-h-[420px]
-                bg-white dark:bg-gray-900
-                px-4 sm:px-5 lg:px-6
-                py-4 sm:py-5
-                text-sm sm:text-base
+                bg-white dark:bg-slate-950
+                px-6
+                py-5
+                text-base
                 leading-relaxed
-                text-gray-900 dark:text-white
+                text-slate-900 dark:text-slate-100
                 outline-none
+                placeholder:text-slate-400
               "
               data-placeholder="Start typing here or paste your content..."
               style={{ maxHeight: "70vh", overflowY: "auto" }}
