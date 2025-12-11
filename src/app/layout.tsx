@@ -37,6 +37,8 @@ const structuredData = {
     "Free online character counter and word count tool. Instantly count characters, words, sentences, and paragraphs, and analyze keyword density for SEO.",
 };
 
+import { Navigation } from "@/components/Navigation";
+
 export default function RootLayout({
   children,
 }: {
@@ -69,6 +71,7 @@ export default function RootLayout({
       </head>
       <body className="bg-gray-50 text-gray-900 dark:bg-gray-950 dark:text-gray-50">
         <ThemeProvider>
+          <Navigation />
           {children}
 
           {/* Floating theme toggle, if you’re using it globally */}
