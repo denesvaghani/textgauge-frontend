@@ -161,33 +161,41 @@ export function Formatter({
   };
 
   return (
-    <div className="min-h-screen bg-gray-50 dark:bg-gray-950 text-gray-900 dark:text-gray-50 transition-colors duration-200">
+    // Changed root to h-screen flex flex-col for full window height
+    <div className="h-screen flex flex-col bg-gray-50 dark:bg-gray-950 text-gray-900 dark:text-gray-50 transition-colors duration-200 overflow-hidden">
 
-      {/* Header Section */}
-      <header className="bg-white dark:bg-gray-900 shadow-sm border-b border-gray-200 dark:border-gray-800 transition-colors duration-200">
-        <div className="max-w-[1920px] mx-auto px-4 sm:px-6 lg:px-8 py-4">
-          <h1 className="text-xl sm:text-2xl font-bold text-gray-900 dark:text-white">{title}</h1>
-          <p className="mt-1 text-sm text-gray-600 dark:text-gray-400 max-w-3xl">{description}</p>
+      {/* Header Section - Reduced padding from py-4 to py-2 */}
+      <header className="shrink-0 bg-white dark:bg-gray-900 shadow-sm border-b border-gray-200 dark:border-gray-800 transition-colors duration-200 z-10">
+        <div className="max-w-[1920px] mx-auto px-4 sm:px-6 lg:px-8 py-2">
+          <div className="flex flex-col md:flex-row md:items-center justify-between gap-4">
+            <div>
+              <h1 className="text-lg sm:text-xl font-bold text-gray-900 dark:text-white leading-tight">{title}</h1>
+              <p className="text-xs text-gray-600 dark:text-gray-400 max-w-3xl hidden sm:block">{description}</p>
+            </div>
 
-          {/* Top Ad Slot placement */}
-          <div className="mt-3 flex justify-center min-h-[90px] w-full rounded overflow-hidden">
-            <GoogleAdsense
-              adSlot={process.env.NEXT_PUBLIC_AD_SLOT_HEADER || "example_slot"}
-              style={{ display: 'block', width: '100%', maxWidth: '970px', height: '90px' }}
-            />
+            {/* Top Ad Slot - Made more compact if possible */}
+            <div className="flex justify-center shrink-0">
+              <div className="w-full max-w-[728px] h-[90px] overflow-hidden">
+                <GoogleAdsense
+                  adSlot={process.env.NEXT_PUBLIC_AD_SLOT_HEADER || "example_slot"}
+                  style={{ display: 'block', width: '100%', height: '100%' }}
+                />
+              </div>
+            </div>
           </div>
         </div>
       </header>
 
-      <main className="max-w-[1920px] mx-auto px-4 sm:px-6 lg:px-8 py-4">
+      {/* Main Content - Flex-1 to fill remaining space, min-h-0 to allow nested scrolling */}
+      <main className="flex-1 flex flex-col min-h-0 w-full max-w-[1920px] mx-auto px-4 sm:px-6 lg:px-8 py-2">
 
-        {/* 3-Column Layout */}
-        <div className="flex flex-col lg:flex-row gap-4 h-[calc(100vh-250px)] min-h-[600px]">
+        {/* 3-Column Layout - h-full to take all available space */}
+        <div className="flex flex-col lg:flex-row gap-4 h-full">
 
           {/* LEFT COLUMN: Input Editor */}
-          <div className="flex-1 flex flex-col bg-white dark:bg-gray-900 rounded-lg shadow-sm border border-gray-200 dark:border-gray-800 lg:w-[40%]">
+          <div className="flex-1 flex flex-col bg-white dark:bg-gray-900 rounded-lg shadow-sm border border-gray-200 dark:border-gray-800 lg:w-[40%] min-h-0">
             {/* Toolbar */}
-            <div className="px-3 py-2 border-b border-gray-200 dark:border-gray-800 flex flex-wrap items-center justify-between bg-gray-50 dark:bg-gray-800/50 rounded-t-lg gap-2">
+            <div className="shrink-0 px-3 py-2 border-b border-gray-200 dark:border-gray-800 flex flex-wrap items-center justify-between bg-gray-50 dark:bg-gray-800/50 rounded-t-lg gap-2">
               <div className="flex items-center gap-2">
                 <span className="text-xs font-bold text-gray-500 dark:text-gray-400 uppercase tracking-wider">Input</span>
                 <span className="text-[10px] text-gray-400 bg-gray-200 dark:bg-gray-700 px-1.5 py-0.5 rounded border border-gray-300 dark:border-gray-600">Auto-saved</span>
@@ -219,7 +227,7 @@ export function Formatter({
             </div>
 
             {/* Editor Area */}
-            <div className="flex-1 relative overflow-hidden">
+            <div className="flex-1 relative overflow-hidden min-h-0">
               <Editor
                 height="100%"
                 defaultLanguage={inputType}
@@ -240,7 +248,7 @@ export function Formatter({
             </div>
 
             {/* Status Bar */}
-            <div className="px-3 py-1.5 bg-gray-50 dark:bg-gray-800/30 border-t border-gray-200 dark:border-gray-800 flex justify-between text-xs text-gray-500 dark:text-gray-400 font-mono">
+            <div className="shrink-0 px-3 py-1.5 bg-gray-50 dark:bg-gray-800/30 border-t border-gray-200 dark:border-gray-800 flex justify-between text-xs text-gray-500 dark:text-gray-400 font-mono">
               <div className="flex gap-3">
                 <span>{getStats(inputCode).lines} Lines</span>
                 <span>{getStats(inputCode).chars} Chars</span>
@@ -252,13 +260,13 @@ export function Formatter({
           </div>
 
           {/* MIDDLE COLUMN: Controls */}
-          <div className="flex flex-col gap-4 lg:w-[220px] shrink-0">
+          <div className="flex flex-col gap-3 lg:w-[220px] shrink-0 h-full overflow-y-auto">
 
             {/* Main Actions */}
-            <div className="flex flex-col gap-3 bg-white dark:bg-gray-900 p-4 rounded-lg shadow-sm border border-gray-200 dark:border-gray-800">
+            <div className="flex flex-col gap-2 bg-white dark:bg-gray-900 p-3 rounded-lg shadow-sm border border-gray-200 dark:border-gray-800 shrink-0">
               <button
                 onClick={handleFormat}
-                className="flex items-center justify-center gap-2 w-full py-2.5 bg-blue-600 hover:bg-blue-700 text-white font-bold rounded shadow-sm hover:shadow transition-all active:scale-[0.98] border border-blue-600 group"
+                className="flex items-center justify-center gap-2 w-full py-2 bg-blue-600 hover:bg-blue-700 text-white font-bold rounded shadow-sm hover:shadow transition-all active:scale-[0.98] border border-blue-600 group text-sm"
                 title="Ctrl + Enter"
               >
                 <Play size={16} className="fill-current group-hover:scale-110 transition-transform" />
@@ -268,7 +276,7 @@ export function Formatter({
               {onMinify && (
                 <button
                   onClick={handleMinify}
-                  className="flex items-center justify-center gap-2 w-full py-2.5 bg-white dark:bg-gray-800 border border-gray-300 dark:border-gray-600 hover:bg-gray-50 dark:hover:bg-gray-700 text-gray-700 dark:text-gray-200 font-medium rounded shadow-sm transition-all active:scale-[0.98]"
+                  className="flex items-center justify-center gap-2 w-full py-2 bg-white dark:bg-gray-800 border border-gray-300 dark:border-gray-600 hover:bg-gray-50 dark:hover:bg-gray-700 text-gray-700 dark:text-gray-200 font-medium rounded shadow-sm transition-all active:scale-[0.98] text-sm"
                 >
                   <Minimize2 size={16} />
                   Minify
@@ -282,7 +290,7 @@ export function Formatter({
                     setOutputCode("");
                   }
                 }}
-                className="flex items-center justify-center gap-2 w-full py-2.5 bg-white dark:bg-gray-800 border border-gray-300 dark:border-gray-600 hover:bg-gray-50 dark:hover:bg-gray-700 text-gray-700 dark:text-gray-200 font-medium rounded shadow-sm transition-all active:scale-[0.98]"
+                className="flex items-center justify-center gap-2 w-full py-2 bg-white dark:bg-gray-800 border border-gray-300 dark:border-gray-600 hover:bg-gray-50 dark:hover:bg-gray-700 text-gray-700 dark:text-gray-200 font-medium rounded shadow-sm transition-all active:scale-[0.98] text-sm"
                 title="Replace Input with Output"
               >
                 <ArrowLeft size={16} />
@@ -291,7 +299,7 @@ export function Formatter({
             </div>
 
             {/* Tab Settings */}
-            <div className="bg-white dark:bg-gray-900 p-4 rounded-lg shadow-sm border border-gray-200 dark:border-gray-800">
+            <div className="bg-white dark:bg-gray-900 p-3 rounded-lg shadow-sm border border-gray-200 dark:border-gray-800 shrink-0">
               <label className="block text-xs font-semibold text-gray-500 dark:text-gray-400 uppercase tracking-wider mb-2">
                 Tab Size
               </label>
@@ -307,17 +315,19 @@ export function Formatter({
               </select>
             </div>
 
+            {/* Fix the select onChange bug here manually in the string */}
+
             {sampleData && (
               <button
                 onClick={handleLoadSample}
-                className="text-xs text-blue-600 dark:text-blue-400 hover:underline text-center"
+                className="text-xs text-blue-600 dark:text-blue-400 hover:underline text-center shrink-0"
               >
                 Load Sample Data
               </button>
             )}
 
             {/* Ad Slot - Sticky/Sidebar style */}
-            <div className="flex-1 rounded overflow-hidden min-h-[250px] flex items-center justify-center">
+            <div className="flex-1 rounded overflow-hidden min-h-[250px] flex items-center justify-center bg-transparent">
               <GoogleAdsense
                 adSlot={process.env.NEXT_PUBLIC_AD_SLOT_SIDEBAR || "example_sidebar"}
                 style={{ display: 'block', width: '100%' }}
@@ -327,9 +337,9 @@ export function Formatter({
           </div>
 
           {/* RIGHT COLUMN: Output Editor */}
-          <div className="flex-1 flex flex-col bg-white dark:bg-gray-900 rounded-lg shadow-sm border border-gray-200 dark:border-gray-800 lg:w-[40%]">
+          <div className="flex-1 flex flex-col bg-white dark:bg-gray-900 rounded-lg shadow-sm border border-gray-200 dark:border-gray-800 lg:w-[40%] min-h-0">
             {/* Toolbar */}
-            <div className="px-3 py-2 border-b border-gray-200 dark:border-gray-800 flex flex-wrap items-center justify-between bg-gray-50 dark:bg-gray-800/50 rounded-t-lg gap-2">
+            <div className="shrink-0 px-3 py-2 border-b border-gray-200 dark:border-gray-800 flex flex-wrap items-center justify-between bg-gray-50 dark:bg-gray-800/50 rounded-t-lg gap-2">
               <div className="flex items-center gap-2">
                 <span className="text-xs font-bold text-gray-500 dark:text-gray-400 uppercase tracking-wider">Output</span>
               </div>
@@ -362,7 +372,7 @@ export function Formatter({
             </div>
 
             {/* Editor/Error Area */}
-            <div className="flex-1 relative overflow-hidden bg-gray-50 dark:bg-gray-900/30">
+            <div className="flex-1 relative overflow-hidden bg-gray-50 dark:bg-gray-900/30 min-h-0">
               {error ? (
                 <div className="absolute inset-0 p-6 z-10 overflow-auto bg-white/95 dark:bg-gray-900/95">
                   <div className="rounded-lg border border-red-200 bg-red-50 p-4 dark:border-red-900/30 dark:bg-red-900/10">
@@ -395,7 +405,7 @@ export function Formatter({
             </div>
 
             {/* Status Bar */}
-            <div className="px-3 py-1.5 bg-gray-50 dark:bg-gray-800/30 border-t border-gray-200 dark:border-gray-800 flex justify-between text-xs text-gray-500 dark:text-gray-400 font-mono">
+            <div className="shrink-0 px-3 py-1.5 bg-gray-50 dark:bg-gray-800/30 border-t border-gray-200 dark:border-gray-800 flex justify-between text-xs text-gray-500 dark:text-gray-400 font-mono">
               <div className="flex gap-3">
                 <span>{getStats(outputCode).lines} Lines</span>
                 <span>{getStats(outputCode).chars} Chars</span>
