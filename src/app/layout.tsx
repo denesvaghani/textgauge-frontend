@@ -38,6 +38,7 @@ const structuredData = {
 };
 
 import { Navigation } from "@/components/Navigation";
+import { CopyProtection } from "@/components/CopyProtection";
 
 export default function RootLayout({
   children,
