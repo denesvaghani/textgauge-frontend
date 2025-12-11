@@ -5,164 +5,131 @@ import { ThemeToggle } from "@/components/ThemeToggle";
 
 export default function Page() {
   return (
-    <main className="bg-gray-100 dark:bg-gray-900 min-h-screen transition-colors duration-200">
+    <main className="bg-slate-50 dark:bg-slate-950 min-h-screen transition-colors duration-200 pb-12">
       <ThemeToggle />
-      <header className="bg-white dark:bg-gray-800 shadow-sm transition-colors duration-200">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4">
-          <h1 className="text-3xl font-bold text-gray-900 dark:text-white">
-            <strong>Character Counter</strong> - Free <strong>Word Count</strong> & <strong>Character Count</strong> Tool
+
+      {/* Hero Section */}
+      <section className="bg-white/50 dark:bg-slate-900/50 border-b border-slate-200 dark:border-slate-800 pt-12 pb-16 transition-colors duration-200">
+        <div className="max-w-[1920px] mx-auto px-4 sm:px-6 lg:px-8 text-center">
+          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-indigo-50 dark:bg-indigo-900/30 border border-indigo-100 dark:border-indigo-800 text-indigo-600 dark:text-indigo-400 text-xs font-bold uppercase tracking-wider mb-6">
+            ✨ Free Developer Tools
+          </div>
+          <h1 className="text-4xl md:text-5xl font-extrabold text-slate-900 dark:text-white tracking-tight mb-4">
+            Character Counter & Text Tools
           </h1>
-          <p className="text-gray-600 dark:text-gray-300 mt-2">
-            Free online <strong>character counter</strong> and <strong>word count</strong> tool.
-            Instantly <strong>count characters</strong>, <strong>count words</strong>, sentences, and paragraphs.
-            Convert case, find repeating phrases, and analyze keyword density for SEO.
-            Perfect for writers, bloggers, and content creators.
+          <p className="text-lg md:text-xl text-slate-600 dark:text-slate-300 max-w-2xl mx-auto leading-relaxed">
+            Free online tools to <strong>count characters</strong>, format <strong>JSON</strong> & <strong>YAML</strong>, and analyze text.
+            Clean, privacy-focused, and developer-friendly.
           </p>
         </div>
-      </header>
-      <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
-        <Editor />
+      </section>
+
+      {/* Editor Section */}
+      <section className="max-w-[1920px] mx-auto px-4 sm:px-6 lg:px-8 -mt-8">
+        <div className="bg-white dark:bg-slate-900 rounded-2xl shadow-xl ring-1 ring-slate-900/5 dark:ring-white/10 overflow-hidden">
+          <Editor />
+        </div>
+      </section>
+
+      {/* Tools Grid */}
+      <section className="max-w-[1920px] mx-auto px-4 sm:px-6 lg:px-8 py-16">
+        <div className="grid md:grid-cols-2 gap-6">
+          <a href="/json-formatter" className="group p-6 rounded-2xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 hover:border-indigo-500/50 dark:hover:border-indigo-500/50 hover:shadow-lg hover:shadow-indigo-500/10 transition-all duration-200">
+            <div className="flex items-center justify-between mb-4">
+              <div className="p-3 bg-indigo-50 dark:bg-indigo-900/20 rounded-xl text-indigo-600 dark:text-indigo-400 group-hover:scale-110 transition-transform duration-200">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="16" y1="13" x2="8" y2="13"></line><line x1="16" y1="17" x2="8" y2="17"></line><polyline points="10 9 9 9 8 9"></polyline></svg>
+              </div>
+              <span className="text-slate-300 dark:text-slate-600 group-hover:text-indigo-500 transition-colors">→</span>
+            </div>
+            <h3 className="text-xl font-bold text-slate-900 dark:text-white mb-2 group-hover:text-indigo-600 dark:group-hover:text-indigo-400 transition-colors">JSON Formatter</h3>
+            <p className="text-slate-600 dark:text-slate-400">Validate, beautify, and minify JSON data with our advanced Monaco-based editor.</p>
+          </a>
+
+          <a href="/yaml-formatter" className="group p-6 rounded-2xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 hover:border-indigo-500/50 dark:hover:border-indigo-500/50 hover:shadow-lg hover:shadow-indigo-500/10 transition-all duration-200">
+            <div className="flex items-center justify-between mb-4">
+              <div className="p-3 bg-indigo-50 dark:bg-indigo-900/20 rounded-xl text-indigo-600 dark:text-indigo-400 group-hover:scale-110 transition-transform duration-200">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M14.5 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7.5L14.5 2z"></path><polyline points="14 2 14 8 20 8"></polyline><path d="M4 14.8V19"></path><path d="M20 12.5v1.8"></path><path d="M4 12.8V9"></path><path d="M20 17v1.8"></path></svg>
+              </div>
+              <span className="text-slate-300 dark:text-slate-600 group-hover:text-indigo-500 transition-colors">→</span>
+            </div>
+            <h3 className="text-xl font-bold text-slate-900 dark:text-white mb-2 group-hover:text-indigo-600 dark:group-hover:text-indigo-400 transition-colors">YAML Formatter</h3>
+            <p className="text-slate-600 dark:text-slate-400">Convert, validate, and format YAML files with syntax highlighting and error detection.</p>
+          </a>
+        </div>
       </section>
 
       {/* SEO Content Section */}
-      <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
-        <div className="bg-white dark:bg-gray-800 rounded-lg shadow-sm p-6 transition-colors duration-200">
-          <h2 className="text-2xl font-bold text-gray-900 dark:text-white mb-4">
-            Free Character Counter & Word Count Tool
+      <section className="max-w-[1920px] mx-auto px-4 sm:px-6 lg:px-8 pb-16">
+        <div className="bg-white dark:bg-slate-900 rounded-2xl shadow-sm border border-slate-200 dark:border-slate-800 p-8 transition-colors duration-200">
+          <h2 className="text-2xl font-bold text-slate-900 dark:text-white mb-6">
+            Everything you need to analyze text
           </h2>
-          <div className="grid md:grid-cols-2 gap-6 text-sm text-gray-700 dark:text-gray-300">
+          <div className="grid md:grid-cols-2 gap-x-12 gap-y-8 text-sm text-slate-600 dark:text-slate-300">
             <div>
-              <h3 className="font-semibold text-lg mb-2 dark:text-white">📊 Character Count & Word Count</h3>
-              <p>
+              <h3 className="font-bold text-base mb-2 text-slate-900 dark:text-white flex items-center gap-2">
+                <span className="w-1.5 h-1.5 rounded-full bg-indigo-500"></span> Character & Word Count
+              </h3>
+              <p className="leading-relaxed">
                 Instantly <strong>count characters</strong> and <strong>count words</strong> as you type.
-                Our free <strong>character counter</strong> and <strong>word counter</strong> shows real-time statistics
-                including sentences, paragraphs, reading time, and speaking time. Perfect for Twitter posts (280 characters),
-                meta descriptions (155-160 characters), SMS messages, essays, and articles.
+                Perfect for Twitter posts (280 chars), meta descriptions (155-160 chars), essays, and articles.
+                We also track sentences, paragraphs, and reading time.
               </p>
             </div>
             <div>
-              <h3 className="font-semibold text-lg mb-2 dark:text-white">🔄 Convert the Case</h3>
-              <p>
-                Convert case online free - transform text to Title Case, lowercase, UPPERCASE, or snake_case.
-                Apply italic formatting and other text transformations with one click. Perfect for formatting
-                content quickly.
+              <h3 className="font-bold text-base mb-2 text-slate-900 dark:text-white flex items-center gap-2">
+                <span className="w-1.5 h-1.5 rounded-full bg-indigo-500"></span> Case Converter
+              </h3>
+              <p className="leading-relaxed">
+                Transform text to Title Case, lowercase, UPPERCASE, or snake_case instantly.
+                Format your content quickly without retyping.
               </p>
             </div>
             <div>
-              <h3 className="font-semibold text-lg mb-2 dark:text-white">🔍 Find Repeating Phrases</h3>
-              <p>
-                Detect repeating phrases automatically. Our tool identifies repeated 3-word phrases
-                in your content, helping you improve readability and avoid redundancy. Great for
-                content editing and quality improvement.
+              <h3 className="font-bold text-base mb-2 text-slate-900 dark:text-white flex items-center gap-2">
+                <span className="w-1.5 h-1.5 rounded-full bg-indigo-500"></span> Repeats Finder
+              </h3>
+              <p className="leading-relaxed">
+                Detect repeated phrases automatically. Our tool identifies redundant 3-word phrases
+                to help you improve readability and style.
               </p>
             </div>
             <div>
-              <h3 className="font-semibold text-lg mb-2 dark:text-white">🎯 SEO Keyword Density</h3>
-              <p>
-                Free SEO tool with keyword density checker. Track keyword occurrences, analyze density
-                percentage, calculate reading time, and optimize your content for search engines.
-                Essential for content creators and bloggers.
+              <h3 className="font-bold text-base mb-2 text-slate-900 dark:text-white flex items-center gap-2">
+                <span className="w-1.5 h-1.5 rounded-full bg-indigo-500"></span> SEO Analysis
+              </h3>
+              <p className="leading-relaxed">
+                Analyze keyword density and structure. Essential for content writers looking to optimize
+                articles for search engines.
               </p>
             </div>
-          </div>
-        </div>
-      </section>
-
-      {/* More Tools Section */}
-      <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
-        <div className="bg-white dark:bg-gray-800 rounded-lg shadow-sm p-6 transition-colors duration-200">
-          <h2 className="text-2xl font-bold text-gray-900 dark:text-white mb-4">
-            More Free Developer Tools
-          </h2>
-          <div className="grid md:grid-cols-2 gap-6 text-sm">
-            <a href="/json-formatter" className="block p-4 rounded-lg border border-gray-200 dark:border-gray-700 hover:border-blue-500 hover:shadow-md transition-all">
-              <h3 className="font-semibold text-lg mb-1 text-blue-600 dark:text-blue-400">JSON Formatter & Validator →</h3>
-              <p className="text-gray-600 dark:text-gray-300">Format, validate, and beautify your JSON data instantly.</p>
-            </a>
-            <a href="/yaml-formatter" className="block p-4 rounded-lg border border-gray-200 dark:border-gray-700 hover:border-blue-500 hover:shadow-md transition-all">
-              <h3 className="font-semibold text-lg mb-1 text-blue-600 dark:text-blue-400">YAML Formatter & Validator →</h3>
-              <p className="text-gray-600 dark:text-gray-300">Format YAML, convert JSON to YAML, and validate syntax.</p>
-            </a>
           </div>
         </div>
       </section>
 
       {/* FAQ Section */}
-      <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
-        <div className="bg-white dark:bg-gray-800 rounded-lg shadow-sm p-6 transition-colors duration-200">
-          <h2 className="text-2xl font-bold text-gray-900 dark:text-white mb-4">
-            Frequently Asked Questions
-          </h2>
-          <div className="space-y-4">
-            <details className="bg-gray-50 dark:bg-gray-700 p-4 rounded-lg transition-colors duration-200">
-              <summary className="font-semibold cursor-pointer text-gray-800 dark:text-white">
-                How do I count characters in my text?
+      <section className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 pb-16">
+        <h2 className="text-2xl font-bold text-center text-slate-900 dark:text-white mb-8">
+          Frequently Asked Questions
+        </h2>
+        <div className="space-y-4">
+          {[
+            { q: "How do I count characters in my text?", a: "Simply paste or type your text in the editor above. The character count updates instantly as you type." },
+            { q: "Is this tool free?", a: "Yes, 100% free with no limits. Analyze as much text as you need." },
+            { q: "Does it count spaces?", a: "Yes, we provide counts both with and without spaces to suit your needs." },
+            { q: "Is my text private?", a: "ABSOLUTELY. All analysis happens in your browser. Your text is never sent to our servers." }
+          ].map((faq, i) => (
+            <details key={i} className="group bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-xl overflow-hidden transition-all duration-200">
+              <summary className="flex items-center justify-between p-5 font-semibold cursor-pointer text-slate-800 dark:text-white hover:bg-slate-50 dark:hover:bg-slate-800/50 transition-colors">
+                {faq.q}
+                <span className="text-slate-400 group-open:rotate-180 transition-transform">▼</span>
               </summary>
-              <p className="mt-2 text-gray-700 dark:text-gray-300 text-sm">
-                Simply paste or type your text in the editor above. The <strong>character count</strong>
-                updates instantly as you type. Our free <strong>character counter</strong> counts all
-                characters including spaces, punctuation, and special characters. The tool also shows
-                <strong> word count</strong>, sentence count, and paragraph count simultaneously.
-              </p>
+              <div className="px-5 pb-5 text-slate-600 dark:text-slate-300 text-sm leading-relaxed border-t border-slate-100 dark:border-slate-800/50 pt-4">
+                {faq.a}
+              </div>
             </details>
-
-            <details className="bg-gray-50 dark:bg-gray-700 p-4 rounded-lg transition-colors duration-200">
-              <summary className="font-semibold cursor-pointer text-gray-800 dark:text-white">
-                Can I count words and characters at the same time?
-              </summary>
-              <p className="mt-2 text-gray-700 dark:text-gray-300 text-sm">
-                Yes! Our tool displays both <strong>word count</strong> and <strong>character count</strong> simultaneously.
-                You&apos;ll also see sentence count, paragraph count, reading time, and speaking time. It&apos;s a complete
-                text analysis tool for all your content needs.
-              </p>
-            </details>
-
-            <details className="bg-gray-50 dark:bg-gray-700 p-4 rounded-lg transition-colors duration-200">
-              <summary className="font-semibold cursor-pointer text-gray-800 dark:text-white">
-                Is this character counter free to use?
-              </summary>
-              <p className="mt-2 text-gray-700 dark:text-gray-300 text-sm">
-                Absolutely! Our <strong>character counter</strong> and <strong>word count</strong> tool is 100% free
-                with no registration required. Count unlimited characters and words without any restrictions.
-                No hidden fees, no paywalls - completely free forever.
-              </p>
-            </details>
-
-            <details className="bg-gray-50 dark:bg-gray-700 p-4 rounded-lg transition-colors duration-200">
-              <summary className="font-semibold cursor-pointer text-gray-800 dark:text-white">
-                Does the character count include spaces?
-              </summary>
-              <p className="mt-2 text-gray-700 dark:text-gray-300 text-sm">
-                Yes, our <strong>character counter</strong> includes spaces by default. This is the standard
-                for most platforms including Twitter (280 character limit), SMS messages (160 characters),
-                and SEO meta descriptions (155-160 characters). All spaces and punctuation are counted.
-              </p>
-            </details>
-
-            <details className="bg-gray-50 dark:bg-gray-700 p-4 rounded-lg transition-colors duration-200">
-              <summary className="font-semibold cursor-pointer text-gray-800 dark:text-white">
-                What is the word count limit?
-              </summary>
-              <p className="mt-2 text-gray-700 dark:text-gray-300 text-sm">
-                There is no limit! You can <strong>count words</strong> and <strong>count characters</strong> for
-                any length of text - from a single sentence to entire books. Our <strong>word counter</strong>
-                handles unlimited text instantly with real-time updates.
-              </p>
-            </details>
-
-            <details className="bg-gray-50 dark:bg-gray-700 p-4 rounded-lg transition-colors duration-200">
-              <summary className="font-semibold cursor-pointer text-gray-800 dark:text-white">
-                How accurate is the word count?
-              </summary>
-              <p className="mt-2 text-gray-700 dark:text-gray-300 text-sm">
-                Our <strong>word count</strong> tool is extremely accurate. It counts words based on industry-standard
-                algorithms, treating any sequence of characters separated by spaces as a word. The count matches
-                what you&apos;d get from Microsoft Word, Google Docs, and other professional word processors.
-              </p>
-            </details>
-          </div>
+          ))}
         </div>
-      </section >
-    </main >
+      </section>
+    </main>
   );
 }
