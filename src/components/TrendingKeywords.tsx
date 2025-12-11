@@ -20,29 +20,47 @@ export function TrendingKeywords({ onKeywordClick }: TrendingKeywordsProps) {
   const [items, setItems] = useState<TrendingKeyword[]>([]);
   const [isRefreshing, setIsRefreshing] = useState(false);
 
-  // Initial fetch and view change handler (instant)
+  // Initial fetch and view change handler
   useEffect(() => {
     updateItems();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [view]);
 
-  const updateItems = () => {
-    if (view === 'trending') {
-      setItems(getRandomTrending(6));
-    } else {
-      const allPopular = getBySearchVolume();
-      const shuffled = [...allPopular].sort(() => 0.5 - Math.random());
-      setItems(shuffled.slice(0, 6));
+  const updateItems = async () => {
+    setIsRefreshing(true);
+
+    try {
+      if (view === 'trending') {
+        try {
+          // Fetch from our local API which proxies Google Trends RSS
+          const res = await fetch('/api/trending-keywords');
+          if (!res.ok) throw new Error('API failed');
+          const data = await res.json();
+
+          if (data.keywords && data.keywords.length > 0) {
+            setItems(data.keywords.slice(0, 6));
+          } else {
+            // Fallback to random static if empty
+            setItems(getRandomTrending(6));
+          }
+        } catch (err) {
+          console.error('Failed to load trending keywords', err);
+          // Fallback silence
+          setItems(getRandomTrending(6));
+        }
+      } else {
+        // Popular is static curated list
+        const allPopular = getBySearchVolume();
+        const shuffled = [...allPopular].sort(() => 0.5 - Math.random());
+        setItems(shuffled.slice(0, 6));
+      }
+    } finally {
+      setIsRefreshing(false);
     }
   };
 
   const handleRefresh = () => {
-    setIsRefreshing(true);
-    // Add small delay for visual feedback
-    setTimeout(() => {
-      updateItems();
-      setIsRefreshing(false);
-    }, 400);
+    updateItems();
   };
 
   return (
