@@ -97,6 +97,24 @@ export default function Page() {
             </div>
             <div>
               <h3 className="font-bold text-base mb-2 text-slate-900 dark:text-white flex items-center gap-2">
+                <span className="w-1.5 h-1.5 rounded-full bg-indigo-500"></span> JSON Formatter
+              </h3>
+              <p className="leading-relaxed">
+                Validate, beautify, and minify JSON data instantly. Our Monaco-powered editor
+                helps you fix syntax errors and format messy JSON for readability.
+              </p>
+            </div>
+            <div>
+              <h3 className="font-bold text-base mb-2 text-slate-900 dark:text-white flex items-center gap-2">
+                <span className="w-1.5 h-1.5 rounded-full bg-indigo-500"></span> YAML Formatter
+              </h3>
+              <p className="leading-relaxed">
+                Convert, validate, and format YAML files with ease. Includes syntax highlighting
+                and automatic error detection to ensure your configs are perfect.
+              </p>
+            </div>
+            <div>
+              <h3 className="font-bold text-base mb-2 text-slate-900 dark:text-white flex items-center gap-2">
                 <span className="w-1.5 h-1.5 rounded-full bg-indigo-500"></span> Case Converter
               </h3>
               <p className="leading-relaxed">
@@ -134,8 +152,9 @@ export default function Page() {
         <div className="space-y-4">
           {[
             { q: "How do I count characters in my text?", a: "Simply paste or type your text in the editor above. The character count updates instantly as you type." },
+            { q: "Can I convert CSV to JSON?", a: "Yes! Use our CSV to JSON tool to convert large files (up to 25MB) entirely in your browser. It's fast, secure, and free." },
+            { q: "Do you support JSON and YAML formatting?", a: "Absolutely. We offer dedicated formatters for both JSON and YAML with syntax highlighting, error validation, and minification." },
             { q: "Is this tool free?", a: "Yes, 100% free with no limits. Analyze as much text as you need." },
-            { q: "Does it count spaces?", a: "Yes, we provide counts both with and without spaces to suit your needs." },
             { q: "Is my text private?", a: "ABSOLUTELY. All analysis happens in your browser. Your text is never sent to our servers." }
           ].map((faq, i) => (
             <details key={i} className="group bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-xl overflow-hidden transition-all duration-200">
