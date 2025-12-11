@@ -16,16 +16,17 @@ export function ThemeProvider({ children }: { children: React.ReactNode }) {
   const [mounted, setMounted] = useState(false);
 
   useEffect(() => {
+    // eslint-disable-next-line react-hooks/set-state-in-effect
     setMounted(true);
     // Check localStorage or system preference
     const savedTheme = localStorage.getItem('theme') as Theme | null;
     const systemTheme = window.matchMedia('(prefers-color-scheme: dark)').matches
       ? 'dark'
       : 'light';
-    
+
     const initialTheme = savedTheme || systemTheme;
     setTheme(initialTheme);
-    
+
     // Set initial theme immediately to prevent flash
     if (initialTheme === 'dark') {
       document.documentElement.classList.add('dark');
@@ -34,14 +35,14 @@ export function ThemeProvider({ children }: { children: React.ReactNode }) {
 
   useEffect(() => {
     if (!mounted) return;
-    
+
     const root = document.documentElement;
     if (theme === 'dark') {
       root.classList.add('dark');
     } else {
       root.classList.remove('dark');
     }
-    
+
     localStorage.setItem('theme', theme);
   }, [theme, mounted]);
 

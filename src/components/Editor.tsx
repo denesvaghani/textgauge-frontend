@@ -67,10 +67,10 @@ export function Editor() {
 
   const undo = () => {
     if (historyState.index <= 0) return;
-    
+
     const nextIndex = historyState.index - 1;
     const html = historyState.items[nextIndex];
-    
+
     if (divRef.current) {
       divRef.current.innerHTML = html;
       // Wait for DOM to update before analyzing
@@ -79,16 +79,16 @@ export function Editor() {
         analyze(text, keyword.trim());
       }, 0);
     }
-    
+
     setHistoryState((prev) => ({ ...prev, index: nextIndex }));
   };
 
   const redo = () => {
     if (historyState.index >= historyState.items.length - 1) return;
-    
+
     const nextIndex = historyState.index + 1;
     const html = historyState.items[nextIndex];
-    
+
     if (divRef.current) {
       divRef.current.innerHTML = html;
       // Wait for DOM to update before analyzing
@@ -97,7 +97,7 @@ export function Editor() {
         analyze(text, keyword.trim());
       }, 0);
     }
-    
+
     setHistoryState((prev) => ({ ...prev, index: nextIndex }));
   };
 
@@ -125,7 +125,7 @@ export function Editor() {
       node.nodeValue = fn(original);
     });
   };
-  
+
   // Transform all text in the editor, preserving structure
   const transformAllText = (fn: (s: string) => string) => {
     if (!divRef.current) return;
@@ -175,7 +175,7 @@ export function Editor() {
       analyze(getPlainText(), keyword.trim());
     }
   };
-  
+
 
   const toTitleCase = (str: string) =>
     str.replace(/\w\S*/g, (t) => t[0].toUpperCase() + t.slice(1).toLowerCase());
@@ -183,12 +183,12 @@ export function Editor() {
   const toSnakeCase = (str: string) => {
     // Check if already in snake_case (contains underscores, no spaces, all lowercase)
     const isSnakeCase = str.includes('_') && !str.includes(' ') && str === str.toLowerCase();
-    
+
     if (isSnakeCase) {
       // Convert back to normal text: replace underscores with spaces
       return str.replace(/_/g, ' ');
     }
-    
+
     // Convert to snake_case
     return str
       .toLowerCase()
@@ -208,7 +208,7 @@ export function Editor() {
 
   const handleRephrase = async () => {
     setRephraseError(null);
-    
+
     // Get selected text or all text
     const sel = window.getSelection();
     const selectedText = sel?.toString() || "";
@@ -230,7 +230,7 @@ export function Editor() {
       const response = await fetch('/api/rephrase', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ 
+        body: JSON.stringify({
           text: textToRephrase,
           tone: 'professional'
         }),
@@ -266,15 +266,16 @@ export function Editor() {
         analyze(getPlainText(), keyword.trim());
       }
 
-    } catch (error: any) {
+    } catch (error: unknown) {
       console.error('Rephrase error:', error);
-      setRephraseError(error.message || 'Failed to rephrase text');
+      const msg = error instanceof Error ? error.message : 'Failed to rephrase text';
+      setRephraseError(msg);
     } finally {
       setIsRephrasing(false);
     }
   };
 
-  return  (
+  return (
     <div className="grid grid-cols-1 gap-6 lg:grid-cols-12">
       {/* Left column */}
       <div className="space-y-6 lg:col-span-9">
@@ -478,7 +479,7 @@ export function Editor() {
               <p className="mt-2 text-xs text-gray-600 dark:text-gray-400">
                 Tracking{" "}
                 <span className="font-semibold text-blue-700 dark:text-blue-300">
-                  "{keyword}"
+                  &quot;{keyword}&quot;
                 </span>{" "}
                 for keyword density.
               </p>
@@ -552,12 +553,12 @@ function StatsBar({ metrics }: { metrics: Metrics }) {
   );
 }
 
-function Sidebar({ 
-  metrics, 
+function Sidebar({
+  metrics,
   keyword,
-  onKeywordSelect 
-}: { 
-  metrics: Metrics; 
+  onKeywordSelect
+}: {
+  metrics: Metrics;
   keyword: string;
   onKeywordSelect: (keyword: string) => void;
 }) {
@@ -576,7 +577,7 @@ function Sidebar({
           <div className="mb-3 px-3 py-2 bg-blue-50 dark:bg-gray-700 rounded-lg transition-colors duration-200">
             <span className="text-xs text-gray-600 dark:text-gray-400">Tracking:</span>
             <p className="text-sm font-semibold text-blue-700 dark:text-blue-400 break-words">
-              "{keyword}"
+              &quot;{keyword}&quot;
             </p>
           </div>
         )}
@@ -627,8 +628,8 @@ function Sidebar({
       {/* Trending Keywords */}
       <TrendingKeywords onKeywordClick={onKeywordSelect} />
 
-       {/* Sidebar ad */}
-       <div className="bg-white dark:bg-gray-800 rounded-lg shadow-lg p-4 transition-colors duration-200">
+      {/* Sidebar ad */}
+      <div className="bg-white dark:bg-gray-800 rounded-lg shadow-lg p-4 transition-colors duration-200">
         <GoogleAdsense
           adSlot={process.env.NEXT_PUBLIC_AD_SLOT_SIDEBAR || ""}
           style={{ display: "block", width: "100%", minHeight: 250 }}

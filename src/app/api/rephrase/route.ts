@@ -49,7 +49,7 @@ export async function POST(req: Request) {
       original: result.original,
       model: result.model,
     });
-  } catch (error: any) {
+  } catch (error: unknown) {
     console.error("Rephrase API error:", error);
     return NextResponse.json(
       {
@@ -70,11 +70,12 @@ export async function GET() {
       keyStats: stats,
       configured: (stats?.totalKeys ?? 0) > 0,
     });
-  } catch (error: any) {
+  } catch (error: unknown) {
+    const msg = error instanceof Error ? error.message : "Failed to read key stats";
     return NextResponse.json(
       {
         status: "error",
-        message: error?.message || "Failed to read key stats",
+        message: msg,
       },
       { status: 500 },
     );

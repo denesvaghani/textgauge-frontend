@@ -92,10 +92,11 @@ export async function rephraseText(
         usedKey: apiKey,
         model: modelName,
       };
-    } catch (err: any) {
+    } catch (err: unknown) {
+      const msg = err instanceof Error ? err.message : String(err);
       console.error(
         `Rephrase attempt ${attempt} failed:`,
-        err?.message || err,
+        msg,
       );
       reportKeyFailure(apiKey);
       lastError = err;
@@ -107,8 +108,8 @@ export async function rephraseText(
     rephrased: text,
     success: false,
     error:
-      (lastError as any)?.message ||
-      "AI rephrase service is currently unavailable. Please try again later.",
+      lastError instanceof Error ? lastError.message :
+        "AI rephrase service is currently unavailable. Please try again later.",
   };
 }
 

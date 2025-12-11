@@ -112,7 +112,7 @@ export default function Page() {
               </summary>
               <p className="mt-2 text-gray-700 dark:text-gray-300 text-sm">
                 Yes! Our tool displays both <strong>word count</strong> and <strong>character count</strong> simultaneously.
-                You'll also see sentence count, paragraph count, reading time, and speaking time. It's a complete
+                You&apos;ll also see sentence count, paragraph count, reading time, and speaking time. It&apos;s a complete
                 text analysis tool for all your content needs.
               </p>
             </details>
@@ -157,7 +157,7 @@ export default function Page() {
               <p className="mt-2 text-gray-700 dark:text-gray-300 text-sm">
                 Our <strong>word count</strong> tool is extremely accurate. It counts words based on industry-standard
                 algorithms, treating any sequence of characters separated by spaces as a word. The count matches
-                what you'd get from Microsoft Word, Google Docs, and other professional word processors.
+                what you&apos;d get from Microsoft Word, Google Docs, and other professional word processors.
               </p>
             </details>
           </div>
