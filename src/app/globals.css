@@ -44,13 +44,11 @@ body {
 
 .monaco-editor .native-edit-context {
   position: absolute !important;
-  /* top/left removed to allow Monaco to position it at the cursor */
+  opacity: 0 !important;
+  /* Removed z-index and pointer-events to ensure correct interaction */
   width: 1px !important;
   height: 1px !important;
-  opacity: 0 !important;
-  z-index: -1 !important;
-  pointer-events: none !important;
-  /* Let clicks pass through to Monaco */
+  overflow: hidden !important;
 }
 
 .monaco-editor textarea {
