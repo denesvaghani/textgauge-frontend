@@ -1,7 +1,8 @@
 "use client";
 
 import { useState, useEffect, useCallback } from "react";
-import Editor from "@monaco-editor/react";
+import { TextGaugeEditor } from "@/components/TextGaugeEditor";
+import * as monaco from "monaco-editor";
 import {
   Trash2,
   Copy,
@@ -17,7 +18,6 @@ import {
 import { UrlLoader } from "./UrlLoader";
 import { GoogleAdsense } from "./GoogleAdsense"; // Ensure this path is correct
 import { useTheme } from "@/contexts/ThemeContext";
-import { CLEAN_MONACO_OPTIONS } from "@/config/monaco";
 
 interface FormatterProps {
   title: string;
@@ -43,7 +43,7 @@ export function Formatter({
   const { theme } = useTheme();
   // Monaco theme: 'vs' (light), 'vs-dark' (dark)
   const editorTheme = theme === "dark" ? "vs-dark" : "light";
-  const storageKey = `textgauge_input_${inputType}`;
+  const storageKey = `textgauge_input_${inputType} `;
 
   const [inputCode, setInputCode] = useState(defaultValue);
   const [outputCode, setOutputCode] = useState("");
@@ -127,7 +127,7 @@ export function Formatter({
   const handleLoadUrl = async (url: string) => {
     try {
       const res = await fetch(url);
-      if (!res.ok) throw new Error(`Failed to fetch: ${res.statusText}`);
+      if (!res.ok) throw new Error(`Failed to fetch: ${res.statusText} `);
       const text = await res.text();
       setInputCode(text);
     } catch (err: unknown) {
@@ -239,15 +239,13 @@ export function Formatter({
 
             {/* Editor Area */}
             <div className="flex-1 relative min-h-0 bg-slate-50/30 dark:bg-black/20" >
-              <Editor
-                height="100%"
-                defaultLanguage={inputType}
+              <TextGaugeEditor
+                className="h-full"
                 language={inputType}
                 theme={editorTheme}
                 value={inputCode}
                 onChange={(val) => setInputCode(val || "")}
                 options={{
-                  ...CLEAN_MONACO_OPTIONS,
                   tabSize: tabSize,
                 }}
               />
@@ -365,10 +363,10 @@ export function Formatter({
               <div className="flex items-center gap-2">
                 <button
                   onClick={handleCopy}
-                  className={`flex items-center gap-1.5 px-2.5 py-1 rounded-md transition-all duration-200 text-xs font-bold ${copied
-                    ? "bg-emerald-100 text-emerald-700 dark:bg-emerald-900/30 dark:text-emerald-400"
-                    : "bg-slate-100 hover:bg-slate-200 text-slate-600 dark:bg-slate-800 dark:hover:bg-slate-700 dark:text-slate-300"
-                    }`}
+                  className={`flex items - center gap - 1.5 px - 2.5 py - 1 rounded - md transition - all duration - 200 text - xs font - bold ${copied
+                      ? "bg-emerald-100 text-emerald-700 dark:bg-emerald-900/30 dark:text-emerald-400"
+                      : "bg-slate-100 hover:bg-slate-200 text-slate-600 dark:bg-slate-800 dark:hover:bg-slate-700 dark:text-slate-300"
+                    } `}
                   title="Copy to Clipboard"
                 >
                   {copied ? <Check size={14} strokeWidth={3} /> : <Copy size={14} strokeWidth={2} />}
@@ -380,7 +378,7 @@ export function Formatter({
                     const url = URL.createObjectURL(blob);
                     const a = document.createElement("a");
                     a.href = url;
-                    a.download = `formatted.${outputType}`;
+                    a.download = `formatted.${outputType} `;
                     a.click();
                     URL.revokeObjectURL(url);
                   }}
@@ -410,14 +408,13 @@ export function Formatter({
                     </div>
                   </div>
                 ) : (
-                  <Editor
-                    height="100%"
-                    defaultLanguage={outputType === 'text' ? 'plaintext' : outputType}
+                  <TextGaugeEditor
+                    className="h-full"
+                    width="100%"
                     language={outputType === 'text' ? 'plaintext' : outputType}
                     theme={editorTheme}
                     value={outputCode}
                     options={{
-                      ...CLEAN_MONACO_OPTIONS,
                       readOnly: true,
                     }}
                   />
