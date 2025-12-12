@@ -61,6 +61,8 @@ body {
   border: none !important;
   background-color: transparent !important;
   color: transparent !important;
+  caret-color: transparent !important;
+  /* Hide native cursor to prevent it appearing "stuck" */
   opacity: 0 !important;
   user-select: text !important;
   /* Critical for cursor movement */

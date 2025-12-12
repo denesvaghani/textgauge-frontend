@@ -189,7 +189,7 @@ export function CsvJsonConverter() {
 
                                 <Editor
                                     height="100%"
-                                    defaultLanguage="csv"
+                                    defaultLanguage="plaintext"
                                     value={csvInput}
                                     onChange={(val) => {
                                         setCsvInput(val || '');
