@@ -203,6 +203,9 @@ export function CsvJsonConverter() {
                                         },
                                         matchBrackets: 'never',
                                         renderWhitespace: 'none',
+                                        selectionHighlight: false,
+                                        occurrencesHighlight: 'off',
+                                        renderLineHighlightOnlyWhenFocus: false,
                                     }}
                                     className="h-full"
                                 />
@@ -284,6 +287,9 @@ export function CsvJsonConverter() {
                                     },
                                     matchBrackets: 'never',
                                     renderWhitespace: 'none',
+                                    selectionHighlight: false,
+                                    occurrencesHighlight: 'off',
+                                    renderLineHighlightOnlyWhenFocus: false,
                                 }}
                             />
                         </div>

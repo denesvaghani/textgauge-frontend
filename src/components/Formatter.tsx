@@ -271,6 +271,9 @@ export function Formatter({
                   },
                   matchBrackets: 'never',
                   renderWhitespace: 'none',
+                  selectionHighlight: false,
+                  occurrencesHighlight: 'off',
+                  renderLineHighlightOnlyWhenFocus: false,
                 }}
               />
             </div >
@@ -463,6 +466,9 @@ export function Formatter({
                       },
                       matchBrackets: 'never',
                       renderWhitespace: 'none',
+                      selectionHighlight: false,
+                      occurrencesHighlight: 'off',
+                      renderLineHighlightOnlyWhenFocus: false,
                     }}
                   />
                 )}

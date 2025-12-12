@@ -91,6 +91,22 @@ export function CopyProtection() {
           overflow: hidden !important;
         }
       
+      /* Aggressively hide Monaco "decorations" that look like border lines */
+      .monaco-editor .current-line, 
+      .monaco-editor .current-line-exact {
+        border: none !important;
+        background: transparent !important;
+        display: none !important;
+      }
+      
+      /* Ensure no focus outline on the editor container */
+      .monaco-editor-container:focus,
+      .monaco-editor:focus,
+      .monaco-editor .inputarea:focus {
+        outline: none !important;
+        box-shadow: none !important;
+      }
+
       /* Ensure images are not draggable (prevents saving by drag) */
       img {
         -webkit-user-drag: none;
