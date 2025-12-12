@@ -66,15 +66,21 @@ body {
 /* 
   Fix for Monaco Editor's hidden input area.
   1. Hide the resize handle and outline (Visuals).
-  2. Force absolute positioning to remove it from layout flow (Fixes "Gap" at top).
-  3. Do NOT set top/left/width/height! Let Monaco handle that for cursor tracking.
+  2. Collapse dimensions to 1px to prevent "Gap"/"Layout Shift" (Visuals).
+  3. Do NOT set position/top/left! Let Monaco handle that for cursor tracking.
 */
 .monaco-editor textarea {
-  position: absolute !important;
-  overflow: hidden !important;
   resize: none !important;
   outline: none !important;
   border: none !important;
   background-color: transparent !important;
   color: transparent !important;
+
+  /* Collapse to 1px to remove from layout flow visually */
+  width: 1px !important;
+  height: 1px !important;
+  min-width: 0 !important;
+  min-height: 0 !important;
+  padding: 0 !important;
+  margin: 0 !important;
 }
