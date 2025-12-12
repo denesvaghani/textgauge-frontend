@@ -70,7 +70,15 @@ body {
   2. Collapse dimensions to 1px (Visuals).
   3. Do NOT set properties that interfere with cursor tracking (no position:absolute on wrapper!).
 */
+/*
+  Fix for Monaco Editor's hidden input area.
+  1. Hide the resize handle and outline (Visuals).
+  2. Collapse dimensions to 1px (Visuals).
+  3. Force absolute positioning to remove from flow (Fixes Gap) AND allow Monaco to move it (Fixes Cursor).
+  4. Do NOT use overflow:hidden, as it clips the caret logic in some browsers.
+*/
 .monaco-editor textarea {
+  position: absolute !important;
   resize: none !important;
   outline: none !important;
   border: none !important;
