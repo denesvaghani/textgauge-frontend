@@ -1,9 +1,7 @@
 import "./globals.css";
 import type { Metadata } from "next";
-import Script from "next/script";
 import { ThemeProvider } from "@/contexts/ThemeContext";
 import { ThemeToggle } from "@/components/ThemeToggle";
-import { GoogleAnalytics } from "@/components/GoogleAnalytics";
 
 export const metadata: Metadata = {
   title: "Character Counter – Word & Character Count Tool",
@@ -40,6 +38,7 @@ const structuredData = {
 import { Navigation } from "@/components/Navigation";
 import { Footer } from "@/components/Footer";
 import { CopyProtection } from "@/components/CopyProtection";
+import { CookieConsent } from "@/components/CookieConsent";
 
 export default function RootLayout({
   children,
@@ -59,17 +58,6 @@ export default function RootLayout({
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(structuredData) }}
         />
-
-        {/* Google AdSense – load once, after hydration */}
-        {adsenseId && (
-          <Script
-            id="adsense-script"
-            strategy="afterInteractive"
-            async
-            src={`https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=${adsenseId}`}
-            crossOrigin="anonymous"
-          />
-        )}
       </head>
       <body className="bg-slate-50 text-slate-900 dark:bg-slate-950 dark:text-slate-50 font-sans antialiased selection:bg-indigo-100 dark:selection:bg-indigo-900/30">
         <ThemeProvider>
@@ -81,8 +69,8 @@ export default function RootLayout({
           {/* Floating theme toggle, if you’re using it globally */}
           <ThemeToggle />
 
-          {/* Google Analytics 4 */}
-          {gaId && <GoogleAnalytics measurementId={gaId} />}
+          {/* Cookie Consent & Analytics Wrapper */}
+          <CookieConsent gaId={gaId} adsenseId={adsenseId} />
         </ThemeProvider>
       </body>
     </html>
