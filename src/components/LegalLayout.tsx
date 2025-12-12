@@ -31,7 +31,7 @@ export function LegalLayout({ title, date, children }: LegalLayoutProps) {
                         <div className="prose prose-slate dark:prose-invert max-w-none 
               prose-headings:font-bold prose-headings:tracking-tight 
               prose-a:text-indigo-600 dark:prose-a:text-indigo-400 prose-a:no-underline hover:prose-a:underline
-              prose-img:rounded-xl">
+              prose-img:rounded-xl leading-relaxed text-slate-600 dark:text-slate-300">
                             {children}
                         </div>
                     </div>
