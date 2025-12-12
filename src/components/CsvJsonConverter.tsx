@@ -139,22 +139,33 @@ export function CsvJsonConverter() {
                     {/* Input Section */}
                     <div className="flex flex-col gap-4">
                         <div className="bg-white dark:bg-slate-950 rounded-xl shadow-sm border border-slate-200 dark:border-slate-800 flex flex-col h-full overflow-hidden">
-                            <div className="p-4 border-b border-slate-200 dark:border-slate-800 flex items-center justify-between bg-slate-50 dark:bg-slate-900/50">
-                                <span className="font-semibold text-slate-700 dark:text-slate-300 flex items-center gap-2">
-                                    <FileText size={18} /> CSV Input
-                                </span>
+                            <div className="shrink-0 px-3 py-2 border-b border-slate-100 dark:border-slate-800 flex items-center justify-between bg-white dark:bg-slate-900">
                                 <div className="flex items-center gap-2">
-                                    <label className="cursor-pointer px-3 py-1.5 bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-md text-sm font-medium hover:bg-slate-50 dark:hover:bg-slate-700 transition-colors flex items-center gap-2 shadow-sm">
-                                        <Upload size={14} />
-                                        <span>Upload File</span>
-                                        <input type="file" accept=".csv,.txt" onChange={handleFileUpload} className="hidden" />
-                                    </label>
+                                    <span className="text-[10px] font-bold text-slate-400 dark:text-slate-500 uppercase tracking-widest">CSV Input</span>
+                                    {/* Modern Badge */}
+                                    <span className="flex items-center gap-1.5 px-1.5 py-0.5 rounded-full bg-emerald-50 dark:bg-emerald-950/30 border border-emerald-100 dark:border-emerald-900/50">
+                                        <div className={`w-1 h-1 rounded-full ${csvInput ? 'bg-emerald-500 animate-pulse' : 'bg-slate-300 dark:bg-slate-600'}`}></div>
+                                        <span className="text-[9px] font-medium text-emerald-600 dark:text-emerald-400">{fileName ? 'File Loaded' : 'Active'}</span>
+                                    </span>
+                                </div>
+                                <div className="flex items-center gap-1">
+                                    <button
+                                        type="button"
+                                        onClick={() => document.getElementById("csv-upload")?.click()}
+                                        className="p-1.5 text-slate-500 hover:text-indigo-600 hover:bg-indigo-50 dark:text-slate-400 dark:hover:text-indigo-400 dark:hover:bg-indigo-900/20 rounded-md transition-all duration-200"
+                                        title="Upload CSV"
+                                    >
+                                        <Upload size={16} strokeWidth={2} />
+                                        <input type="file" id="csv-upload" accept=".csv,.txt" onChange={handleFileUpload} className="hidden" />
+                                    </button>
                                     {(csvInput || fileName) && (
                                         <button
+                                            type="button"
                                             onClick={handleReset}
-                                            className="px-3 py-1.5 text-xs font-semibold text-rose-600 hover:bg-rose-50 dark:hover:bg-rose-900/20 rounded-md transition-colors"
+                                            className="p-1.5 text-slate-400 hover:text-red-600 hover:bg-red-50 dark:text-slate-500 dark:hover:text-red-400 dark:hover:bg-red-900/20 rounded-md transition-all duration-200"
+                                            title="Clear"
                                         >
-                                            Clear
+                                            <div className="w-4 h-4 flex items-center justify-center font-bold">×</div>
                                         </button>
                                     )}
                                 </div>
@@ -229,26 +240,28 @@ export function CsvJsonConverter() {
 
                     {/* Output Section */}
                     <div className="bg-white dark:bg-slate-950 rounded-xl shadow-sm border border-slate-200 dark:border-slate-800 flex flex-col h-full overflow-hidden">
-                        <div className="p-4 border-b border-slate-200 dark:border-slate-800 flex items-center justify-between bg-slate-50 dark:bg-slate-900/50">
-                            <span className="font-semibold text-slate-700 dark:text-slate-300 flex items-center gap-2">
-                                <span className="text-yellow-500 text-lg">{'{ }'}</span> JSON Output
-                            </span>
+                        <div className="shrink-0 px-3 py-2 border-b border-slate-100 dark:border-slate-800 flex items-center justify-between bg-white dark:bg-slate-900">
+                            <span className="text-[10px] font-bold text-slate-400 dark:text-slate-500 uppercase tracking-widest">JSON Output</span>
                             <div className="flex items-center gap-2">
                                 <button
                                     onClick={handleCopy}
                                     disabled={!jsonOutput}
-                                    className="p-2 text-slate-500 hover:text-blue-600 dark:text-slate-400 dark:hover:text-blue-400 hover:bg-blue-50 dark:hover:bg-blue-900/20 rounded-md transition-colors disabled:opacity-50"
-                                    title="Copy JSON"
+                                    className={`flex items-center gap-1.5 px-2.5 py-1 rounded-md transition-all duration-200 text-xs font-bold ${copied
+                                        ? "bg-emerald-100 text-emerald-700 dark:bg-emerald-900/30 dark:text-emerald-400"
+                                        : "bg-slate-100 hover:bg-slate-200 text-slate-600 dark:bg-slate-800 dark:hover:bg-slate-700 dark:text-slate-300"
+                                        } disabled:opacity-50`}
+                                    title="Copy to Clipboard"
                                 >
-                                    {copied ? <Check size={18} /> : <Copy size={18} />}
+                                    {copied ? <Check size={14} strokeWidth={3} /> : <Copy size={14} strokeWidth={2} />}
+                                    {copied ? "Copied" : "Copy"}
                                 </button>
                                 <button
                                     onClick={handleDownload}
                                     disabled={!jsonOutput}
-                                    className="p-2 text-slate-500 hover:text-emerald-600 dark:text-slate-400 dark:hover:text-emerald-400 hover:bg-emerald-50 dark:hover:bg-emerald-900/20 rounded-md transition-colors disabled:opacity-50"
-                                    title="Download JSON"
+                                    className="p-1.5 text-slate-500 hover:text-indigo-600 hover:bg-indigo-50 dark:text-slate-400 dark:hover:text-indigo-400 dark:hover:bg-indigo-900/20 rounded-md transition-all duration-200 disabled:opacity-50"
+                                    title="Download"
                                 >
-                                    <Download size={18} />
+                                    <Download size={16} strokeWidth={2} />
                                 </button>
                             </div>
                         </div>
