@@ -30,8 +30,80 @@ body {
   background: var(--background);
   color: var(--foreground);
   font-family: Arial, Helvetica, sans-serif;
+  /* Prevent selection artifacts globally, re-enable in editors */
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
 }
 
+/* Re-enable selection for inputs and editors */
+input, textarea, [contenteditable="true"], .allow-select, .selectable-text {
+  -webkit-user-select: text !important;
+  user-select: text !important;
+  cursor: text;
+}
+
+/* Monaco specific handling */
+.monaco-editor, .monaco-editor .inputarea {
+  -webkit-user-select: text !important;
+  user-select: text !important;
+}
+
+/* 
+   CRITICAL MONACO FIXES 
+   1. Fix "Table/Grid" look: Hide decorations
+   2. Fix "Blue Box": Remove outlines/borders from hidden input
+   3. Fix "Layout Shift": Remove hidden input from flow
+   4. Fix "Cursor Stuck": Do NOT force top/left, let Monaco position it
+*/
+
+/* Hide grid guides / decorations */
+.monaco-editor .current-line, 
+.monaco-editor .current-line-exact {
+  border: none !important;
+  background: transparent !important;
+  display: none !important;
+}
+
+.monaco-editor .lines-content .cigr {
+  display: none !important; /* Indent guides */
+}
+
+/* Hide the hidden input area completely but keep it functional */
+.monaco-editor textarea,
+.monaco-editor .inputarea {
+  background-color: transparent !important;
+  color: transparent !important;
+  border: none !important;
+  outline: none !important;
+  box-shadow: none !important;
+  resize: none !important;
+  
+  /* Fix Layout Shift (The "Table Gap") */
+  position: absolute !important;
+  width: 1px !important;
+  height: 1px !important;
+  overflow: hidden !important;
+  margin: 0 !important;
+  padding: 0 !important;
+  
+  /* Make invisible */
+  opacity: 0 !important;
+  
+  /* IMPORTANT: Do NOT force top/left. Monaco moves this element to track the cursor. 
+     Forcing it breaks cursor movement. */
+}
+
+/* Ensure no focus outline on the editor container */
+.monaco-editor-container:focus,
+.monaco-editor:focus,
+.monaco-editor .inputarea:focus {
+  outline: none !important;
+  box-shadow: none !important;
+}
+
+/* Content Editable placeholders */
 [contenteditable][data-placeholder]:empty:before {
   content: attr(data-placeholder);
   color: #9ca3af;
@@ -42,23 +114,9 @@ body {
   color: #6b7280;
 }
 
-/* Paragraph indicators - show ¶ symbol at end of each paragraph */
-[contenteditable] div:not(:empty):after {
-  content: '¶';
-  color: #cbd5e1;
-  margin-left: 4px;
-  font-size: 0.9em;
-  opacity: 0.3;
+/* Image protection */
+img {
+  -webkit-user-drag: none;
+  user-drag: none;
   pointer-events: none;
-  user-select: none;
-}
-
-.dark [contenteditable] div:not(:empty):after {
-  color: #64748b;
-  opacity: 0.4;
-}
-
-/* Hide paragraph indicator when typing at end of line */
-[contenteditable] div:focus:after {
-  opacity: 0.2;
 }
