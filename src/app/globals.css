@@ -81,7 +81,7 @@ body {
   /* Ensure it doesn't take up visual space or flow space */
   width: 1px !important;
   height: 1px !important;
-  overflow: hidden !important;
+  /* overflow: hidden removed to prevent clipping cursor logic */
   opacity: 0 !important;
   padding: 0 !important;
   margin: 0 !important;

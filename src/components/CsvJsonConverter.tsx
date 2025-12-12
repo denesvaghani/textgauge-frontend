@@ -5,10 +5,15 @@ import Papa from 'papaparse';
 import Editor from '@monaco-editor/react';
 import { Upload, FileText, Download, Copy, AlertCircle, Check } from 'lucide-react';
 import { GoogleAdsense } from './GoogleAdsense';
+import { useTheme } from "@/contexts/ThemeContext";
 
 const MAX_FILE_SIZE = 25 * 1024 * 1024; // 25MB
 
 export function CsvJsonConverter() {
+    const { theme } = useTheme();
+    // Monaco theme: 'vs' (light), 'vs-dark' (dark)
+    const editorTheme = theme === "dark" ? "vs-dark" : "light";
+
     const [csvInput, setCsvInput] = useState('');
     const [jsonOutput, setJsonOutput] = useState('');
     const [error, setError] = useState<string | null>(null);
@@ -179,10 +184,10 @@ export function CsvJsonConverter() {
                                         setCsvInput(val || '');
                                         setFileName(null); // Clear filename if manually editing
                                     }}
-                                    theme="vs-dark"
+                                    theme={editorTheme}
                                     options={{
                                         minimap: { enabled: false },
-                                        fontSize: 14,
+                                        fontSize: 13,
                                         padding: { top: 12 },
                                         wordWrap: 'off',
                                         automaticLayout: true,
@@ -253,10 +258,10 @@ export function CsvJsonConverter() {
                                 height="100%"
                                 defaultLanguage="json"
                                 value={jsonOutput}
-                                theme="vs-dark"
+                                theme={editorTheme}
                                 options={{
                                     minimap: { enabled: false }, // Output doesn't need minimap usually for clean look
-                                    fontSize: 14,
+                                    fontSize: 13,
                                     readOnly: true,
                                     padding: { top: 12 },
                                     automaticLayout: true,
