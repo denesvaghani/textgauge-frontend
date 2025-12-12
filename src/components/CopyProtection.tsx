@@ -75,12 +75,14 @@ export function CopyProtection() {
         -webkit-user-select: text !important;
         user-select: text !important;
       }
-      
-      /* Ensure hidden inputs stay hidden */
-      .monaco-editor textarea {
-         background-color: transparent !important;
-         color: transparent !important;
-      }
+            /* Ensure Monaco Editor's hidden textarea doesn't show up or have resize handles */
+        .monaco-editor textarea {
+          color: transparent !important;
+          background: transparent !important;
+          resize: none !important;
+          outline: none !important;
+          box-shadow: none !important;
+        }
       
       /* Ensure images are not draggable (prevents saving by drag) */
       img {

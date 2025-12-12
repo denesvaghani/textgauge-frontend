@@ -40,11 +40,6 @@ export function CookieConsent({ gaId, adsenseId }: CookieConsentProps) {
         setShowBanner(false);
     };
 
-    const handleCreate = () => {
-        // For implicit consent, "close" effectively means accept/hide
-        handleAccept();
-    }
-
     // REVENUE FRIENDLY LOGIC:
     // Load scripts if consent is TRUE (accepted) OR NULL (implied/default).
     // Only block if explicitly FALSE (user disabled it previously).
