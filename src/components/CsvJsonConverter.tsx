@@ -1,8 +1,9 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, useRef } from 'react';
 import Papa from 'papaparse';
-import Editor from '@monaco-editor/react';
+import Editor, { OnMount } from '@monaco-editor/react';
+import type { editor } from 'monaco-editor';
 import { Upload, FileText, Download, Copy, AlertCircle, Check } from 'lucide-react';
 import { GoogleAdsense } from './GoogleAdsense';
 import { useTheme } from "@/contexts/ThemeContext";
@@ -20,6 +21,27 @@ export function CsvJsonConverter() {
     const [isProcessing, setIsProcessing] = useState(false);
     const [fileName, setFileName] = useState<string | null>(null);
     const [copied, setCopied] = useState(false);
+
+    // Refs for Monaco editor instances
+    const inputEditorRef = useRef<editor.IStandaloneCodeEditor | null>(null);
+    const outputEditorRef = useRef<editor.IStandaloneCodeEditor | null>(null);
+
+    // Handler for when input editor mounts - forces layout recalculation
+    const handleInputEditorMount: OnMount = (editorInstance) => {
+        inputEditorRef.current = editorInstance;
+        setTimeout(() => {
+            editorInstance.layout();
+            editorInstance.focus();
+        }, 100);
+    };
+
+    // Handler for when output editor mounts
+    const handleOutputEditorMount: OnMount = (editorInstance) => {
+        outputEditorRef.current = editorInstance;
+        setTimeout(() => {
+            editorInstance.layout();
+        }, 100);
+    };
 
     const handleFileUpload = (e: React.ChangeEvent<HTMLInputElement>) => {
         const file = e.target.files?.[0];
@@ -196,6 +218,7 @@ export function CsvJsonConverter() {
                                         setFileName(null); // Clear filename if manually editing
                                     }}
                                     theme={editorTheme}
+                                    onMount={handleInputEditorMount}
                                     options={{
                                         minimap: { enabled: false },
                                         fontSize: 13,
@@ -270,6 +293,7 @@ export function CsvJsonConverter() {
                                 defaultLanguage="json"
                                 value={jsonOutput}
                                 theme={editorTheme}
+                                onMount={handleOutputEditorMount}
                                 options={{
                                     minimap: { enabled: false }, // Output doesn't need minimap usually for clean look
                                     fontSize: 13,

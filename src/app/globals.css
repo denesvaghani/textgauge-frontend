@@ -33,42 +33,7 @@ body {
 }
 
 /* 
-  CRITICAL MONACO FIX - FINAL ITERATION
-  1. Wrapper (.native-edit-context): 
-     - Absolute position (Fixes Gap).
-     - z-index: -1 (Prevents blocking clicks).
-     - opacity: 0 (Visual hiding).
-  2. Input (textarea):
-     - user-select: text (Ensures cursor/selection works).
+  Monaco Editor - No overrides.
+  Previous aggressive CSS was breaking cursor positioning.
+  Let Monaco handle its own rendering completely.
 */
-
-.monaco-editor .native-edit-context {
-  position: absolute !important;
-  opacity: 0 !important;
-  /* Removed z-index and pointer-events to ensure correct interaction */
-  width: 1px !important;
-  height: 1px !important;
-  overflow: hidden !important;
-}
-
-.monaco-editor textarea {
-  display: block !important;
-  position: absolute !important;
-  resize: none !important;
-  outline: none !important;
-  border: none !important;
-  background-color: transparent !important;
-  color: transparent !important;
-  caret-color: transparent !important;
-  /* Hide native cursor to prevent it appearing "stuck" */
-  opacity: 0 !important;
-  user-select: text !important;
-  /* Critical for cursor movement */
-
-  width: 1px !important;
-  height: 1px !important;
-  min-width: 0 !important;
-  min-height: 0 !important;
-  padding: 0 !important;
-  margin: 0 !important;
-}

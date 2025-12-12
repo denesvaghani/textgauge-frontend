@@ -1,7 +1,8 @@
 "use client";
 
-import { useState, useEffect, useCallback } from "react";
-import Editor from "@monaco-editor/react";
+import { useState, useEffect, useCallback, useRef } from "react";
+import Editor, { OnMount } from "@monaco-editor/react";
+import type { editor } from "monaco-editor";
 import {
   Trash2,
   Copy,
@@ -51,6 +52,28 @@ export function Formatter({
   const [isUrlModalOpen, setIsUrlModalOpen] = useState(false);
   const [copied, setCopied] = useState(false);
   const [mounted, setMounted] = useState(false);
+
+  // Refs for Monaco editor instances
+  const inputEditorRef = useRef<editor.IStandaloneCodeEditor | null>(null);
+  const outputEditorRef = useRef<editor.IStandaloneCodeEditor | null>(null);
+
+  // Handler for when input editor mounts - forces layout recalculation
+  const handleInputEditorMount: OnMount = (editorInstance) => {
+    inputEditorRef.current = editorInstance;
+    // Force layout after mount to fix cursor positioning issues
+    setTimeout(() => {
+      editorInstance.layout();
+      editorInstance.focus();
+    }, 100);
+  };
+
+  // Handler for when output editor mounts
+  const handleOutputEditorMount: OnMount = (editorInstance) => {
+    outputEditorRef.current = editorInstance;
+    setTimeout(() => {
+      editorInstance.layout();
+    }, 100);
+  };
 
   // Auto-load from storage on mount
   useEffect(() => {
@@ -245,6 +268,7 @@ export function Formatter({
                 theme={editorTheme}
                 value={inputCode}
                 onChange={(val) => setInputCode(val || "")}
+                onMount={handleInputEditorMount}
                 options={{
                   minimap: { enabled: false },
                   fontSize: 13,
@@ -429,6 +453,7 @@ export function Formatter({
                     language={outputType === 'text' ? 'plaintext' : outputType}
                     theme={editorTheme}
                     value={outputCode}
+                    onMount={handleOutputEditorMount}
                     options={{
                       readOnly: true,
                       minimap: { enabled: false },
