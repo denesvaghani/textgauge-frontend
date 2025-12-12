@@ -77,18 +77,25 @@ export function CopyProtection() {
       }
         /* Ensure Monaco Editor's hidden textarea doesn't show up or have resize handles, 
            and doesn't obstruct the view (force small size) */
-        .monaco-editor textarea {
+        /* Ensure Monaco Editor's hidden textarea doesn't show up or have resize handles, 
+           and doesn't obstruct the view (force small size) */
+        .monaco-editor textarea,
+        .monaco-editor .inputarea {
           color: transparent !important;
           background: transparent !important;
           resize: none !important;
           outline: none !important;
           box-shadow: none !important;
           border: none !important;
-          width: 1px !important; /* Force small so no resize handle appears */
+          width: 1px !important;
           height: 1px !important;
           margin: 0 !important;
           padding: 0 !important;
           overflow: hidden !important;
+          position: absolute !important; /* Fix flow issue */
+          opacity: 0 !important; /* Ensure invisible */
+          top: 0 !important;
+          left: 0 !important;
         }
       
       /* Aggressively hide Monaco "decorations" that look like border lines */
