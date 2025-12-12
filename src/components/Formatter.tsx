@@ -1,8 +1,7 @@
 "use client";
 
 import { useState, useEffect, useCallback } from "react";
-import { TextGaugeEditor } from "@/components/TextGaugeEditor";
-import * as monaco from "monaco-editor";
+import Editor from "@monaco-editor/react";
 import {
   Trash2,
   Copy,
@@ -43,7 +42,7 @@ export function Formatter({
   const { theme } = useTheme();
   // Monaco theme: 'vs' (light), 'vs-dark' (dark)
   const editorTheme = theme === "dark" ? "vs-dark" : "light";
-  const storageKey = `textgauge_input_${inputType} `;
+  const storageKey = `textgauge_input_${inputType}`;
 
   const [inputCode, setInputCode] = useState(defaultValue);
   const [outputCode, setOutputCode] = useState("");
@@ -127,7 +126,7 @@ export function Formatter({
   const handleLoadUrl = async (url: string) => {
     try {
       const res = await fetch(url);
-      if (!res.ok) throw new Error(`Failed to fetch: ${res.statusText} `);
+      if (!res.ok) throw new Error(`Failed to fetch: ${res.statusText}`);
       const text = await res.text();
       setInputCode(text);
     } catch (err: unknown) {
@@ -239,14 +238,32 @@ export function Formatter({
 
             {/* Editor Area */}
             <div className="flex-1 relative min-h-0 bg-slate-50/30 dark:bg-black/20" >
-              <TextGaugeEditor
-                className="h-full"
+              <Editor
+                height="100%"
+                defaultLanguage={inputType}
                 language={inputType}
                 theme={editorTheme}
                 value={inputCode}
                 onChange={(val) => setInputCode(val || "")}
                 options={{
+                  minimap: { enabled: false },
+                  fontSize: 13,
+                  fontFamily: "'JetBrains Mono', 'Fira Code', 'Consolas', monospace", // Better font stack if available
+                  scrollBeyondLastLine: false,
+                  automaticLayout: true,
                   tabSize: tabSize,
+                  formatOnPaste: true,
+                  wordWrap: 'on',
+                  padding: { top: 12, bottom: 12 },
+                  lineNumbers: 'off',
+                  glyphMargin: false,
+                  folding: false,
+                  lineDecorationsWidth: 0,
+                  lineNumbersMinChars: 0,
+                  renderLineHighlight: 'none', // cleaner look
+                  overviewRulerBorder: false,
+                  overviewRulerLanes: 0,
+                  hideCursorInOverviewRuler: true,
                 }}
               />
             </div >
@@ -363,10 +380,10 @@ export function Formatter({
               <div className="flex items-center gap-2">
                 <button
                   onClick={handleCopy}
-                  className={`flex items - center gap - 1.5 px - 2.5 py - 1 rounded - md transition - all duration - 200 text - xs font - bold ${copied
-                      ? "bg-emerald-100 text-emerald-700 dark:bg-emerald-900/30 dark:text-emerald-400"
-                      : "bg-slate-100 hover:bg-slate-200 text-slate-600 dark:bg-slate-800 dark:hover:bg-slate-700 dark:text-slate-300"
-                    } `}
+                  className={`flex items-center gap-1.5 px-2.5 py-1 rounded-md transition-all duration-200 text-xs font-bold ${copied
+                    ? "bg-emerald-100 text-emerald-700 dark:bg-emerald-900/30 dark:text-emerald-400"
+                    : "bg-slate-100 hover:bg-slate-200 text-slate-600 dark:bg-slate-800 dark:hover:bg-slate-700 dark:text-slate-300"
+                    }`}
                   title="Copy to Clipboard"
                 >
                   {copied ? <Check size={14} strokeWidth={3} /> : <Copy size={14} strokeWidth={2} />}
@@ -378,7 +395,7 @@ export function Formatter({
                     const url = URL.createObjectURL(blob);
                     const a = document.createElement("a");
                     a.href = url;
-                    a.download = `formatted.${outputType} `;
+                    a.download = `formatted.${outputType}`;
                     a.click();
                     URL.revokeObjectURL(url);
                   }}
@@ -408,14 +425,30 @@ export function Formatter({
                     </div>
                   </div>
                 ) : (
-                  <TextGaugeEditor
-                    className="h-full"
-                    width="100%"
+                  <Editor
+                    height="100%"
+                    defaultLanguage={outputType === 'text' ? 'plaintext' : outputType}
                     language={outputType === 'text' ? 'plaintext' : outputType}
                     theme={editorTheme}
                     value={outputCode}
                     options={{
                       readOnly: true,
+                      minimap: { enabled: false },
+                      fontSize: 13,
+                      fontFamily: "'JetBrains Mono', 'Fira Code', 'Consolas', monospace",
+                      scrollBeyondLastLine: false,
+                      automaticLayout: true,
+                      wordWrap: 'on',
+                      padding: { top: 12, bottom: 12 },
+                      lineNumbers: 'off',
+                      glyphMargin: false,
+                      folding: false,
+                      lineDecorationsWidth: 0,
+                      lineNumbersMinChars: 0,
+                      renderLineHighlight: 'none',
+                      overviewRulerBorder: false,
+                      overviewRulerLanes: 0,
+                      hideCursorInOverviewRuler: true,
                     }}
                   />
                 )}

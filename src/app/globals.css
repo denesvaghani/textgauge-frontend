@@ -30,91 +30,8 @@ body {
   background: var(--background);
   color: var(--foreground);
   font-family: Arial, Helvetica, sans-serif;
-  /* Prevent selection artifacts globally, re-enable in editors */
-  -webkit-user-select: none;
-  -moz-user-select: none;
-  -ms-user-select: none;
-  user-select: none;
 }
 
-/* Re-enable selection for inputs and editors */
-input,
-textarea,
-[contenteditable="true"],
-.allow-select,
-.selectable-text {
-  -webkit-user-select: text !important;
-  user-select: text !important;
-  cursor: text;
-}
-
-/*
-   CRITICAL MONACO FIXES - "NUCLEAR OPTION"
-   Removes ALL visual noise, borders, outlines, rings, and unwanted artifacts.
-*/
-
-/* 1. Container: Prevent browser selection (Double-click Blue Box) */
-.monaco-editor,
-.monaco-editor-container {
-  -webkit-user-select: none !important;
-  user-select: none !important;
-  outline: none !important;
-  box-shadow: none !important;
-  border: none !important;
-}
-
-/* 2. Focus: Kill all focus rings */
-.monaco-editor.focused,
-.monaco-editor-container.focused,
-.monaco-editor .inputarea:focus {
-  outline: none !important;
-  box-shadow: none !important;
-}
-
-/* 3. Lines & Cursor: Hide grid/decorations */
-.monaco-editor .current-line,
-.monaco-editor .current-line-exact {
-  border: none !important;
-  background: transparent !important;
-  display: none !important;
-}
-
-.monaco-editor .lines-content .cigr {
-  display: none !important;
-}
-
-/* Guides */
-
-/* 4. Hidden Input: Hide completely but allow typing */
-.monaco-editor textarea,
-.monaco-editor .inputarea {
-  /* Visual Hiding ONLY - Do NOT touch layout/position (Monaco handles that) */
-  background-color: transparent !important;
-  color: transparent !important;
-  border: none !important;
-  outline: none !important;
-  box-shadow: none !important;
-
-  /* Make invisible */
-  opacity: 0 !important;
-
-  /* Interaction: Must be selectable for typing */
-  -webkit-user-select: text !important;
-  user-select: text !important;
-  cursor: text !important;
-}
-
-/* 5. Selection: Customize color to fit theme (optional, improves feel) */
-.monaco-editor .selected-text {
-  background-color: rgba(99, 102, 241, 0.2) !important;
-  /* Indigo-500/20 */
-}
-
-.dark .monaco-editor .selected-text {
-  background-color: rgba(99, 102, 241, 0.3) !important;
-}
-
-/* Content Editable placeholders */
 [contenteditable][data-placeholder]:empty:before {
   content: attr(data-placeholder);
   color: #9ca3af;
@@ -125,9 +42,23 @@ textarea,
   color: #6b7280;
 }
 
-/* Image protection */
-img {
-  -webkit-user-drag: none;
-  user-drag: none;
+/* Paragraph indicators - show ¶ symbol at end of each paragraph */
+[contenteditable] div:not(:empty):after {
+  content: '¶';
+  color: #cbd5e1;
+  margin-left: 4px;
+  font-size: 0.9em;
+  opacity: 0.3;
   pointer-events: none;
+  user-select: none;
+}
+
+.dark [contenteditable] div:not(:empty):after {
+  color: #64748b;
+  opacity: 0.4;
+}
+
+/* Hide paragraph indicator when typing at end of line */
+[contenteditable] div:focus:after {
+  opacity: 0.2;
 }

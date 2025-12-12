@@ -2,7 +2,7 @@
 
 import { useState } from 'react';
 import Papa from 'papaparse';
-import { TextGaugeEditor } from '@/components/TextGaugeEditor';
+import Editor from '@monaco-editor/react';
 import { Upload, FileText, Download, Copy, AlertCircle, Check } from 'lucide-react';
 import { GoogleAdsense } from './GoogleAdsense';
 
@@ -21,7 +21,7 @@ export function CsvJsonConverter() {
         if (!file) return;
 
         if (file.size > MAX_FILE_SIZE) {
-            setError(`File size exceeds limit(Max: 25MB).Your file: ${(file.size / 1024 / 1024).toFixed(2)} MB`);
+            setError(`File size exceeds limit (Max: 25MB). Your file: ${(file.size / 1024 / 1024).toFixed(2)}MB`);
             return;
         }
 
@@ -38,7 +38,7 @@ export function CsvJsonConverter() {
                 setIsProcessing(false);
             },
             error: (err) => {
-                setError(`Parsing Error: ${err.message} `);
+                setError(`Parsing Error: ${err.message}`);
                 setIsProcessing(false);
             }
         });
@@ -66,7 +66,7 @@ export function CsvJsonConverter() {
                 setFileName(null);
             },
             error: (err: Papa.ParseError) => {
-                setError(`Parsing Error: ${err.message} `);
+                setError(`Parsing Error: ${err.message}`);
                 setIsProcessing(false);
             }
         } as Papa.ParseConfig);
@@ -171,11 +171,32 @@ export function CsvJsonConverter() {
                                     </div>
                                 )}
 
-                                <TextGaugeEditor
+                                <Editor
+                                    height="100%"
+                                    defaultLanguage="csv"
                                     value={csvInput}
-                                    onChange={(value) => setCsvInput(value || '')}
-                                    language="csv"
+                                    onChange={(val) => {
+                                        setCsvInput(val || '');
+                                        setFileName(null); // Clear filename if manually editing
+                                    }}
                                     theme="vs-dark"
+                                    options={{
+                                        minimap: { enabled: false },
+                                        fontSize: 14,
+                                        padding: { top: 12 },
+                                        wordWrap: 'off',
+                                        automaticLayout: true,
+                                        lineNumbers: 'off',
+                                        glyphMargin: false,
+                                        folding: false,
+                                        lineDecorationsWidth: 0,
+                                        lineNumbersMinChars: 0,
+                                        scrollBeyondLastLine: false,
+                                        renderLineHighlight: 'none',
+                                        overviewRulerBorder: false,
+                                        overviewRulerLanes: 0,
+                                        hideCursorInOverviewRuler: true,
+                                    }}
                                     className="h-full"
                                 />
                             </div>
@@ -228,12 +249,27 @@ export function CsvJsonConverter() {
                         </div>
 
                         <div className="flex-1 min-h-0 bg-[#1e1e1e]">
-                            <TextGaugeEditor
-                                language="json"
+                            <Editor
+                                height="100%"
+                                defaultLanguage="json"
                                 value={jsonOutput}
                                 theme="vs-dark"
                                 options={{
+                                    minimap: { enabled: false }, // Output doesn't need minimap usually for clean look
+                                    fontSize: 14,
                                     readOnly: true,
+                                    padding: { top: 12 },
+                                    automaticLayout: true,
+                                    lineNumbers: 'off',
+                                    glyphMargin: false,
+                                    folding: false,
+                                    lineDecorationsWidth: 0,
+                                    lineNumbersMinChars: 0,
+                                    scrollBeyondLastLine: false,
+                                    renderLineHighlight: 'none',
+                                    overviewRulerBorder: false,
+                                    overviewRulerLanes: 0,
+                                    hideCursorInOverviewRuler: true,
                                 }}
                             />
                         </div>
