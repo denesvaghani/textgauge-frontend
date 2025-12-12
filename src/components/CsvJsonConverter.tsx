@@ -253,7 +253,7 @@ export function CsvJsonConverter() {
                             </div>
                         </div>
 
-                        <div className="flex-1 min-h-0 bg-[#1e1e1e]">
+                        <div className="flex-1 min-h-0 bg-slate-50/30 dark:bg-black/20">
                             <Editor
                                 height="100%"
                                 defaultLanguage="json"

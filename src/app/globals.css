@@ -64,40 +64,21 @@ body {
 }
 
 /* 
+/*
   Fix for Monaco Editor's hidden input area.
   1. Hide the resize handle and outline (Visuals).
-  2. Collapse dimensions to 1px to prevent "Gap"/"Layout Shift" (Visuals).
-  3. Do NOT set position/top/left! Let Monaco handle that for cursor tracking.
+  2. Collapse dimensions to 1px (Visuals).
+  3. Do NOT set properties that interfere with cursor tracking (no position:absolute on wrapper!).
 */
-/* 
-  CRITICAL MONACO FIX
-  1. Target the Wrapper (.native-edit-context): Force 'absolute' to remove from flow (Fixes Gap).
-  2. Target the Input (textarea): 1px dimensions + resize:none (Fixes Visuals).
-  3. Do NOT touch top/left coordinates. Monaco specifically manages these for cursor tracking.
-*/
-
-.monaco-editor .native-edit-context {
-  position: absolute !important;
-  /* Ensure it doesn't take up visual space or flow space */
-  width: 1px !important;
-  height: 1px !important;
-  /* overflow: hidden removed to prevent clipping cursor logic */
-  opacity: 0 !important;
-  padding: 0 !important;
-  margin: 0 !important;
-  border: none !important;
-}
-
 .monaco-editor textarea {
-  position: absolute !important;
-  /* Ensure absolute within the absolute wrapper */
   resize: none !important;
   outline: none !important;
   border: none !important;
   background-color: transparent !important;
   color: transparent !important;
+  opacity: 0 !important;
 
-  /* Collapse dimensions */
+  /* Collapse dimensions safely */
   width: 1px !important;
   height: 1px !important;
   min-width: 0 !important;
