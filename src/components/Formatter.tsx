@@ -1,8 +1,7 @@
 "use client";
 
-import { useState, useEffect, useCallback, useRef } from "react";
-import Editor, { OnMount } from "@monaco-editor/react";
-import type { editor } from "monaco-editor";
+import { useState, useEffect, useCallback } from "react";
+import Editor from "@monaco-editor/react";
 import {
   Trash2,
   Copy,
@@ -52,28 +51,6 @@ export function Formatter({
   const [isUrlModalOpen, setIsUrlModalOpen] = useState(false);
   const [copied, setCopied] = useState(false);
   const [mounted, setMounted] = useState(false);
-
-  // Refs for Monaco editor instances
-  const inputEditorRef = useRef<editor.IStandaloneCodeEditor | null>(null);
-  const outputEditorRef = useRef<editor.IStandaloneCodeEditor | null>(null);
-
-  // Handler for when input editor mounts - forces layout recalculation
-  const handleInputEditorMount: OnMount = (editorInstance) => {
-    inputEditorRef.current = editorInstance;
-    // Force layout after mount to fix cursor positioning issues
-    setTimeout(() => {
-      editorInstance.layout();
-      editorInstance.focus();
-    }, 100);
-  };
-
-  // Handler for when output editor mounts
-  const handleOutputEditorMount: OnMount = (editorInstance) => {
-    outputEditorRef.current = editorInstance;
-    setTimeout(() => {
-      editorInstance.layout();
-    }, 100);
-  };
 
   // Auto-load from storage on mount
   useEffect(() => {
@@ -198,16 +175,14 @@ export function Formatter({
             </div>
 
             {/* Top Ad Slot - Compact */}
-            {process.env.NEXT_PUBLIC_AD_SLOT_HEADER && (
-              <div className="flex justify-center shrink-0">
-                <div className="w-full max-w-[728px] h-[90px] rounded-lg overflow-hidden bg-slate-100/50 dark:bg-slate-800/50">
-                  <GoogleAdsense
-                    adSlot={process.env.NEXT_PUBLIC_AD_SLOT_HEADER}
-                    style={{ display: 'block', width: '100%', height: '100%' }}
-                  />
-                </div>
+            <div className="flex justify-center shrink-0">
+              <div className="w-full max-w-[728px] h-[90px] rounded-lg overflow-hidden bg-slate-100/50 dark:bg-slate-800/50">
+                <GoogleAdsense
+                  adSlot={process.env.NEXT_PUBLIC_AD_SLOT_HEADER || "example_slot"}
+                  style={{ display: 'block', width: '100%', height: '100%' }}
+                />
               </div>
-            )}
+            </div>
           </div>
         </div>
       </header>
@@ -263,20 +238,22 @@ export function Formatter({
             <div className="flex-1 relative min-h-0 bg-slate-50/30 dark:bg-black/20" >
               <Editor
                 height="100%"
-                defaultLanguage="plaintext"
-                language="plaintext"
+                defaultLanguage={inputType}
+                language={inputType}
                 theme={editorTheme}
                 value={inputCode}
                 onChange={(val) => setInputCode(val || "")}
-                onMount={handleInputEditorMount}
                 options={{
-                  // MINIMAL CONFIG FOR DEBUGGING CURSOR ISSUE
-                  automaticLayout: true,
-                  fontSize: 13,
-                  lineNumbers: 'on',
                   minimap: { enabled: false },
+                  fontSize: 13,
+                  fontFamily: "'JetBrains Mono', 'Fira Code', 'Consolas', monospace", // Better font stack if available
                   scrollBeyondLastLine: false,
+                  automaticLayout: true,
+                  tabSize: tabSize,
+                  formatOnPaste: true,
                   wordWrap: 'on',
+                  padding: { top: 16, bottom: 16 },
+                  renderLineHighlight: 'none', // cleaner look
                 }}
               />
             </div >
@@ -444,7 +421,6 @@ export function Formatter({
                     language={outputType === 'text' ? 'plaintext' : outputType}
                     theme={editorTheme}
                     value={outputCode}
-                    onMount={handleOutputEditorMount}
                     options={{
                       readOnly: true,
                       minimap: { enabled: false },
@@ -453,14 +429,8 @@ export function Formatter({
                       scrollBeyondLastLine: false,
                       automaticLayout: true,
                       wordWrap: 'on',
-                      padding: { top: 12, bottom: 12 },
-                      lineNumbers: 'on',
-                      glyphMargin: true,
-                      folding: true,
-                      renderLineHighlight: 'all',
-                      overviewRulerBorder: false,
-                      overviewRulerLanes: 0,
-                      hideCursorInOverviewRuler: true,
+                      padding: { top: 16, bottom: 16 },
+                      renderLineHighlight: 'none',
                     }}
                   />
                 )}

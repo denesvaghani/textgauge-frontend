@@ -32,8 +32,33 @@ body {
   font-family: Arial, Helvetica, sans-serif;
 }
 
-/* 
-  Monaco Editor - No overrides.
-  Previous aggressive CSS was breaking cursor positioning.
-  Let Monaco handle its own rendering completely.
-*/
+[contenteditable][data-placeholder]:empty:before {
+  content: attr(data-placeholder);
+  color: #9ca3af;
+  pointer-events: none;
+}
+
+.dark [contenteditable][data-placeholder]:empty:before {
+  color: #6b7280;
+}
+
+/* Paragraph indicators - show ¶ symbol at end of each paragraph */
+[contenteditable] div:not(:empty):after {
+  content: '¶';
+  color: #cbd5e1;
+  margin-left: 4px;
+  font-size: 0.9em;
+  opacity: 0.3;
+  pointer-events: none;
+  user-select: none;
+}
+
+.dark [contenteditable] div:not(:empty):after {
+  color: #64748b;
+  opacity: 0.4;
+}
+
+/* Hide paragraph indicator when typing at end of line */
+[contenteditable] div:focus:after {
+  opacity: 0.2;
+}

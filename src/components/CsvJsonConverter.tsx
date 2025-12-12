@@ -1,47 +1,20 @@
 'use client';
 
-import { useState, useRef } from 'react';
+import { useState } from 'react';
 import Papa from 'papaparse';
-import Editor, { OnMount } from '@monaco-editor/react';
-import type { editor } from 'monaco-editor';
+import Editor from '@monaco-editor/react';
 import { Upload, FileText, Download, Copy, AlertCircle, Check } from 'lucide-react';
 import { GoogleAdsense } from './GoogleAdsense';
-import { useTheme } from "@/contexts/ThemeContext";
 
 const MAX_FILE_SIZE = 25 * 1024 * 1024; // 25MB
 
 export function CsvJsonConverter() {
-    const { theme } = useTheme();
-    // Monaco theme: 'vs' (light), 'vs-dark' (dark)
-    const editorTheme = theme === "dark" ? "vs-dark" : "light";
-
     const [csvInput, setCsvInput] = useState('');
     const [jsonOutput, setJsonOutput] = useState('');
     const [error, setError] = useState<string | null>(null);
     const [isProcessing, setIsProcessing] = useState(false);
     const [fileName, setFileName] = useState<string | null>(null);
     const [copied, setCopied] = useState(false);
-
-    // Refs for Monaco editor instances
-    const inputEditorRef = useRef<editor.IStandaloneCodeEditor | null>(null);
-    const outputEditorRef = useRef<editor.IStandaloneCodeEditor | null>(null);
-
-    // Handler for when input editor mounts - forces layout recalculation
-    const handleInputEditorMount: OnMount = (editorInstance) => {
-        inputEditorRef.current = editorInstance;
-        setTimeout(() => {
-            editorInstance.layout();
-            editorInstance.focus();
-        }, 100);
-    };
-
-    // Handler for when output editor mounts
-    const handleOutputEditorMount: OnMount = (editorInstance) => {
-        outputEditorRef.current = editorInstance;
-        setTimeout(() => {
-            editorInstance.layout();
-        }, 100);
-    };
 
     const handleFileUpload = (e: React.ChangeEvent<HTMLInputElement>) => {
         const file = e.target.files?.[0];
@@ -161,33 +134,22 @@ export function CsvJsonConverter() {
                     {/* Input Section */}
                     <div className="flex flex-col gap-4">
                         <div className="bg-white dark:bg-slate-950 rounded-xl shadow-sm border border-slate-200 dark:border-slate-800 flex flex-col h-full overflow-hidden">
-                            <div className="shrink-0 px-3 py-2 border-b border-slate-100 dark:border-slate-800 flex items-center justify-between bg-white dark:bg-slate-900">
+                            <div className="p-4 border-b border-slate-200 dark:border-slate-800 flex items-center justify-between bg-slate-50 dark:bg-slate-900/50">
+                                <span className="font-semibold text-slate-700 dark:text-slate-300 flex items-center gap-2">
+                                    <FileText size={18} /> CSV Input
+                                </span>
                                 <div className="flex items-center gap-2">
-                                    <span className="text-[10px] font-bold text-slate-400 dark:text-slate-500 uppercase tracking-widest">CSV Input</span>
-                                    {/* Modern Badge */}
-                                    <span className="flex items-center gap-1.5 px-1.5 py-0.5 rounded-full bg-emerald-50 dark:bg-emerald-950/30 border border-emerald-100 dark:border-emerald-900/50">
-                                        <div className={`w-1 h-1 rounded-full ${csvInput ? 'bg-emerald-500 animate-pulse' : 'bg-slate-300 dark:bg-slate-600'}`}></div>
-                                        <span className="text-[9px] font-medium text-emerald-600 dark:text-emerald-400">{fileName ? 'File Loaded' : 'Active'}</span>
-                                    </span>
-                                </div>
-                                <div className="flex items-center gap-1">
-                                    <button
-                                        type="button"
-                                        onClick={() => document.getElementById("csv-upload")?.click()}
-                                        className="p-1.5 text-slate-500 hover:text-indigo-600 hover:bg-indigo-50 dark:text-slate-400 dark:hover:text-indigo-400 dark:hover:bg-indigo-900/20 rounded-md transition-all duration-200"
-                                        title="Upload CSV"
-                                    >
-                                        <Upload size={16} strokeWidth={2} />
-                                        <input type="file" id="csv-upload" accept=".csv,.txt" onChange={handleFileUpload} className="hidden" />
-                                    </button>
+                                    <label className="cursor-pointer px-3 py-1.5 bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-md text-sm font-medium hover:bg-slate-50 dark:hover:bg-slate-700 transition-colors flex items-center gap-2 shadow-sm">
+                                        <Upload size={14} />
+                                        <span>Upload File</span>
+                                        <input type="file" accept=".csv,.txt" onChange={handleFileUpload} className="hidden" />
+                                    </label>
                                     {(csvInput || fileName) && (
                                         <button
-                                            type="button"
                                             onClick={handleReset}
-                                            className="p-1.5 text-slate-400 hover:text-red-600 hover:bg-red-50 dark:text-slate-500 dark:hover:text-red-400 dark:hover:bg-red-900/20 rounded-md transition-all duration-200"
-                                            title="Clear"
+                                            className="px-3 py-1.5 text-xs font-semibold text-rose-600 hover:bg-rose-50 dark:hover:bg-rose-900/20 rounded-md transition-colors"
                                         >
-                                            <div className="w-4 h-4 flex items-center justify-center font-bold">×</div>
+                                            Clear
                                         </button>
                                     )}
                                 </div>
@@ -211,25 +173,26 @@ export function CsvJsonConverter() {
 
                                 <Editor
                                     height="100%"
-                                    defaultLanguage="plaintext"
+                                    defaultLanguage="csv"
                                     value={csvInput}
                                     onChange={(val) => {
                                         setCsvInput(val || '');
                                         setFileName(null); // Clear filename if manually editing
                                     }}
-                                    theme={editorTheme}
-                                    onMount={handleInputEditorMount}
+                                    theme="vs-dark"
                                     options={{
                                         minimap: { enabled: false },
-                                        fontSize: 13,
+                                        fontSize: 14,
                                         padding: { top: 12 },
                                         wordWrap: 'off',
                                         automaticLayout: true,
-                                        lineNumbers: 'on',
-                                        glyphMargin: true,
-                                        folding: true,
+                                        lineNumbers: 'off',
+                                        glyphMargin: false,
+                                        folding: false,
+                                        lineDecorationsWidth: 0,
+                                        lineNumbersMinChars: 0,
                                         scrollBeyondLastLine: false,
-                                        renderLineHighlight: 'all',
+                                        renderLineHighlight: 'none',
                                         overviewRulerBorder: false,
                                         overviewRulerLanes: 0,
                                         hideCursorInOverviewRuler: true,
@@ -261,50 +224,49 @@ export function CsvJsonConverter() {
 
                     {/* Output Section */}
                     <div className="bg-white dark:bg-slate-950 rounded-xl shadow-sm border border-slate-200 dark:border-slate-800 flex flex-col h-full overflow-hidden">
-                        <div className="shrink-0 px-3 py-2 border-b border-slate-100 dark:border-slate-800 flex items-center justify-between bg-white dark:bg-slate-900">
-                            <span className="text-[10px] font-bold text-slate-400 dark:text-slate-500 uppercase tracking-widest">JSON Output</span>
+                        <div className="p-4 border-b border-slate-200 dark:border-slate-800 flex items-center justify-between bg-slate-50 dark:bg-slate-900/50">
+                            <span className="font-semibold text-slate-700 dark:text-slate-300 flex items-center gap-2">
+                                <span className="text-yellow-500 text-lg">{'{ }'}</span> JSON Output
+                            </span>
                             <div className="flex items-center gap-2">
                                 <button
                                     onClick={handleCopy}
                                     disabled={!jsonOutput}
-                                    className={`flex items-center gap-1.5 px-2.5 py-1 rounded-md transition-all duration-200 text-xs font-bold ${copied
-                                        ? "bg-emerald-100 text-emerald-700 dark:bg-emerald-900/30 dark:text-emerald-400"
-                                        : "bg-slate-100 hover:bg-slate-200 text-slate-600 dark:bg-slate-800 dark:hover:bg-slate-700 dark:text-slate-300"
-                                        } disabled:opacity-50`}
-                                    title="Copy to Clipboard"
+                                    className="p-2 text-slate-500 hover:text-blue-600 dark:text-slate-400 dark:hover:text-blue-400 hover:bg-blue-50 dark:hover:bg-blue-900/20 rounded-md transition-colors disabled:opacity-50"
+                                    title="Copy JSON"
                                 >
-                                    {copied ? <Check size={14} strokeWidth={3} /> : <Copy size={14} strokeWidth={2} />}
-                                    {copied ? "Copied" : "Copy"}
+                                    {copied ? <Check size={18} /> : <Copy size={18} />}
                                 </button>
                                 <button
                                     onClick={handleDownload}
                                     disabled={!jsonOutput}
-                                    className="p-1.5 text-slate-500 hover:text-indigo-600 hover:bg-indigo-50 dark:text-slate-400 dark:hover:text-indigo-400 dark:hover:bg-indigo-900/20 rounded-md transition-all duration-200 disabled:opacity-50"
-                                    title="Download"
+                                    className="p-2 text-slate-500 hover:text-emerald-600 dark:text-slate-400 dark:hover:text-emerald-400 hover:bg-emerald-50 dark:hover:bg-emerald-900/20 rounded-md transition-colors disabled:opacity-50"
+                                    title="Download JSON"
                                 >
-                                    <Download size={16} strokeWidth={2} />
+                                    <Download size={18} />
                                 </button>
                             </div>
                         </div>
 
-                        <div className="flex-1 min-h-0 bg-slate-50/30 dark:bg-black/20">
+                        <div className="flex-1 min-h-0 bg-[#1e1e1e]">
                             <Editor
                                 height="100%"
                                 defaultLanguage="json"
                                 value={jsonOutput}
-                                theme={editorTheme}
-                                onMount={handleOutputEditorMount}
+                                theme="vs-dark"
                                 options={{
                                     minimap: { enabled: false }, // Output doesn't need minimap usually for clean look
-                                    fontSize: 13,
+                                    fontSize: 14,
                                     readOnly: true,
                                     padding: { top: 12 },
                                     automaticLayout: true,
-                                    lineNumbers: 'on',
-                                    glyphMargin: true,
-                                    folding: true,
+                                    lineNumbers: 'off',
+                                    glyphMargin: false,
+                                    folding: false,
+                                    lineDecorationsWidth: 0,
+                                    lineNumbersMinChars: 0,
                                     scrollBeyondLastLine: false,
-                                    renderLineHighlight: 'all',
+                                    renderLineHighlight: 'none',
                                     overviewRulerBorder: false,
                                     overviewRulerLanes: 0,
                                     hideCursorInOverviewRuler: true,
