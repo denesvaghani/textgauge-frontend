@@ -32,52 +32,30 @@ body {
   font-family: Arial, Helvetica, sans-serif;
 }
 
-[contenteditable][data-placeholder]:empty:before {
-  content: attr(data-placeholder);
-  color: #9ca3af;
-  pointer-events: none;
-}
-
-.dark [contenteditable][data-placeholder]:empty:before {
-  color: #6b7280;
-}
-
-/* Paragraph indicators - show ¶ symbol at end of each paragraph */
-[contenteditable] div:not(:empty):after {
-  content: '¶';
-  color: #cbd5e1;
-  margin-left: 4px;
-  font-size: 0.9em;
-  opacity: 0.3;
-  pointer-events: none;
-  user-select: none;
-}
-
-.dark [contenteditable] div:not(:empty):after {
-  color: #64748b;
-  opacity: 0.4;
-}
-
-/* Hide paragraph indicator when typing at end of line */
-[contenteditable] div:focus:after {
-  opacity: 0.2;
-}
-
 /* 
-/*
-  Fix for Monaco Editor's hidden input area.
-  1. Hide the resize handle and outline (Visuals).
-  2. Collapse dimensions to 1px (Visuals).
-  3. Do NOT set properties that interfere with cursor tracking (no position:absolute on wrapper!).
+  CRITICAL MONACO FIX - FINAL ITERATION
+  1. Wrapper (.native-edit-context): 
+     - Absolute position (Fixes Gap).
+     - z-index: -1 (Prevents blocking clicks).
+     - opacity: 0 (Visual hiding).
+  2. Input (textarea):
+     - user-select: text (Ensures cursor/selection works).
 */
-/*
-  Fix for Monaco Editor's hidden input area.
-  1. Hide the resize handle and outline (Visuals).
-  2. Collapse dimensions to 1px (Visuals).
-  3. Force absolute positioning to remove from flow (Fixes Gap) AND allow Monaco to move it (Fixes Cursor).
-  4. Do NOT use overflow:hidden, as it clips the caret logic in some browsers.
-*/
+
+.monaco-editor .native-edit-context {
+  position: absolute !important;
+  top: 0 !important;
+  left: 0 !important;
+  width: 1px !important;
+  height: 1px !important;
+  opacity: 0 !important;
+  z-index: -1 !important;
+  pointer-events: none !important;
+  /* Let clicks pass through to Monaco */
+}
+
 .monaco-editor textarea {
+  display: block !important;
   position: absolute !important;
   resize: none !important;
   outline: none !important;
@@ -85,8 +63,9 @@ body {
   background-color: transparent !important;
   color: transparent !important;
   opacity: 0 !important;
+  user-select: text !important;
+  /* Critical for cursor movement */
 
-  /* Collapse dimensions safely */
   width: 1px !important;
   height: 1px !important;
   min-width: 0 !important;
