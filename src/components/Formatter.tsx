@@ -270,22 +270,13 @@ export function Formatter({
                 onChange={(val) => setInputCode(val || "")}
                 onMount={handleInputEditorMount}
                 options={{
-                  minimap: { enabled: false },
-                  fontSize: 13,
-                  fontFamily: "'JetBrains Mono', 'Fira Code', 'Consolas', monospace", // Better font stack if available
-                  scrollBeyondLastLine: false,
+                  // MINIMAL CONFIG FOR DEBUGGING CURSOR ISSUE
                   automaticLayout: true,
-                  tabSize: tabSize,
-                  formatOnPaste: true,
-                  wordWrap: 'on',
-                  padding: { top: 12, bottom: 12 },
+                  fontSize: 13,
                   lineNumbers: 'on',
-                  glyphMargin: true,
-                  folding: true,
-                  renderLineHighlight: 'all', // clearer highlight
-                  overviewRulerBorder: false,
-                  overviewRulerLanes: 0,
-                  hideCursorInOverviewRuler: true,
+                  minimap: { enabled: false },
+                  scrollBeyondLastLine: false,
+                  wordWrap: 'on',
                 }}
               />
             </div >
