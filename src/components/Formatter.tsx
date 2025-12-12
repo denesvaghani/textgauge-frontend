@@ -240,8 +240,8 @@ export function Formatter({
             <div className="flex-1 relative min-h-0 bg-slate-50/30 dark:bg-black/20" >
               <Editor
                 height="100%"
-                defaultLanguage={inputType}
-                language={inputType}
+                defaultLanguage="plaintext"
+                language="plaintext"
                 theme={editorTheme}
                 value={inputCode}
                 onChange={(val) => setInputCode(val || "")}
