@@ -260,10 +260,17 @@ export function Formatter({
                   folding: false,
                   lineDecorationsWidth: 0,
                   lineNumbersMinChars: 0,
-                  renderLineHighlight: 'none', // cleaner look
+                  renderLineHighlight: 'none',
                   overviewRulerBorder: false,
                   overviewRulerLanes: 0,
                   hideCursorInOverviewRuler: true,
+                  guides: {
+                    indentation: false,
+                    bracketPairs: false,
+                    bracketPairsHorizontal: false
+                  },
+                  matchBrackets: 'never',
+                  renderWhitespace: 'none',
                 }}
               />
             </div >
@@ -449,6 +456,13 @@ export function Formatter({
                       overviewRulerBorder: false,
                       overviewRulerLanes: 0,
                       hideCursorInOverviewRuler: true,
+                      guides: {
+                        indentation: false,
+                        bracketPairs: false,
+                        bracketPairsHorizontal: false
+                      },
+                      matchBrackets: 'never',
+                      renderWhitespace: 'none',
                     }}
                   />
                 )}

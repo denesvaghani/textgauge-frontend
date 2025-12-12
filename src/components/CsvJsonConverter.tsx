@@ -196,6 +196,13 @@ export function CsvJsonConverter() {
                                         overviewRulerBorder: false,
                                         overviewRulerLanes: 0,
                                         hideCursorInOverviewRuler: true,
+                                        guides: {
+                                            indentation: false,
+                                            bracketPairs: false,
+                                            bracketPairsHorizontal: false
+                                        },
+                                        matchBrackets: 'never',
+                                        renderWhitespace: 'none',
                                     }}
                                     className="h-full"
                                 />
@@ -270,6 +277,13 @@ export function CsvJsonConverter() {
                                     overviewRulerBorder: false,
                                     overviewRulerLanes: 0,
                                     hideCursorInOverviewRuler: true,
+                                    guides: {
+                                        indentation: false,
+                                        bracketPairs: false,
+                                        bracketPairsHorizontal: false
+                                    },
+                                    matchBrackets: 'never',
+                                    renderWhitespace: 'none',
                                 }}
                             />
                         </div>
