@@ -48,31 +48,30 @@ textarea,
   cursor: text;
 }
 
-/* Monaco specific handling */
-/* CRITICAL: The container must NOT be selectable by the browser, 
-   otherwise double-clicking selects the whole "box" (blue highlight).
-   Monaco handles text selection internally. */
-.monaco-editor {
-  -webkit-user-select: none !important;
-  user-select: none !important;
-}
-
-/* The input area MUST be selectable for IME/typing to work, 
-   but it is hidden/absolute so it won't show a box. */
-.monaco-editor .inputarea {
-  -webkit-user-select: text !important;
-  user-select: text !important;
-}
-
-/* 
-   CRITICAL MONACO FIXES 
-   1. Fix "Table/Grid" look: Hide decorations
-   2. Fix "Blue Box": Remove outlines/borders from hidden input
-   3. Fix "Layout Shift": Remove hidden input from flow
-   4. Fix "Cursor Stuck": Do NOT force top/left, let Monaco position it
+/*
+   CRITICAL MONACO FIXES - "NUCLEAR OPTION"
+   Removes ALL visual noise, borders, outlines, rings, and unwanted artifacts.
 */
 
-/* Hide grid guides / decorations */
+/* 1. Container: Prevent browser selection (Double-click Blue Box) */
+.monaco-editor,
+.monaco-editor-container {
+  -webkit-user-select: none !important;
+  user-select: none !important;
+  outline: none !important;
+  box-shadow: none !important;
+  border: none !important;
+}
+
+/* 2. Focus: Kill all focus rings */
+.monaco-editor.focused,
+.monaco-editor-container.focused,
+.monaco-editor .inputarea:focus {
+  outline: none !important;
+  box-shadow: none !important;
+}
+
+/* 3. Lines & Cursor: Hide grid/decorations */
 .monaco-editor .current-line,
 .monaco-editor .current-line-exact {
   border: none !important;
@@ -82,40 +81,37 @@ textarea,
 
 .monaco-editor .lines-content .cigr {
   display: none !important;
-  /* Indent guides */
 }
 
-/* Hide the hidden input area completely but keep it functional */
+/* Guides */
+
+/* 4. Hidden Input: Hide completely but allow typing */
 .monaco-editor textarea,
 .monaco-editor .inputarea {
+  /* Visual Hiding ONLY - Do NOT touch layout/position (Monaco handles that) */
   background-color: transparent !important;
   color: transparent !important;
   border: none !important;
   outline: none !important;
   box-shadow: none !important;
-  resize: none !important;
-
-  /* Fix Layout Shift (The "Table Gap") */
-  position: absolute !important;
-  width: 1px !important;
-  height: 1px !important;
-  overflow: hidden !important;
-  margin: 0 !important;
-  padding: 0 !important;
 
   /* Make invisible */
   opacity: 0 !important;
 
-  /* IMPORTANT: Do NOT force top/left. Monaco moves this element to track the cursor. 
-     Forcing it breaks cursor movement. */
+  /* Interaction: Must be selectable for typing */
+  -webkit-user-select: text !important;
+  user-select: text !important;
+  cursor: text !important;
 }
 
-/* Ensure no focus outline on the editor container */
-.monaco-editor-container:focus,
-.monaco-editor:focus,
-.monaco-editor .inputarea:focus {
-  outline: none !important;
-  box-shadow: none !important;
+/* 5. Selection: Customize color to fit theme (optional, improves feel) */
+.monaco-editor .selected-text {
+  background-color: rgba(99, 102, 241, 0.2) !important;
+  /* Indigo-500/20 */
+}
+
+.dark .monaco-editor .selected-text {
+  background-color: rgba(99, 102, 241, 0.3) !important;
 }
 
 /* Content Editable placeholders */

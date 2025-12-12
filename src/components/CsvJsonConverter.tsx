@@ -5,6 +5,7 @@ import Papa from 'papaparse';
 import Editor from '@monaco-editor/react';
 import { Upload, FileText, Download, Copy, AlertCircle, Check } from 'lucide-react';
 import { GoogleAdsense } from './GoogleAdsense';
+import { CLEAN_MONACO_OPTIONS } from '@/config/monaco';
 
 const MAX_FILE_SIZE = 25 * 1024 * 1024; // 25MB
 
@@ -181,31 +182,7 @@ export function CsvJsonConverter() {
                                     }}
                                     theme="vs-dark"
                                     options={{
-                                        minimap: { enabled: false },
-                                        fontSize: 14,
-                                        padding: { top: 12 },
-                                        wordWrap: 'off',
-                                        automaticLayout: true,
-                                        lineNumbers: 'off',
-                                        glyphMargin: false,
-                                        folding: false,
-                                        lineDecorationsWidth: 0,
-                                        lineNumbersMinChars: 0,
-                                        scrollBeyondLastLine: false,
-                                        renderLineHighlight: 'none',
-                                        overviewRulerBorder: false,
-                                        overviewRulerLanes: 0,
-                                        hideCursorInOverviewRuler: true,
-                                        guides: {
-                                            indentation: false,
-                                            bracketPairs: false,
-                                            bracketPairsHorizontal: false
-                                        },
-                                        matchBrackets: 'never',
-                                        renderWhitespace: 'none',
-                                        selectionHighlight: false,
-                                        occurrencesHighlight: 'off',
-                                        renderLineHighlightOnlyWhenFocus: false,
+                                        ...CLEAN_MONACO_OPTIONS,
                                     }}
                                     className="h-full"
                                 />
@@ -265,31 +242,8 @@ export function CsvJsonConverter() {
                                 value={jsonOutput}
                                 theme="vs-dark"
                                 options={{
-                                    minimap: { enabled: false }, // Output doesn't need minimap usually for clean look
-                                    fontSize: 14,
+                                    ...CLEAN_MONACO_OPTIONS,
                                     readOnly: true,
-                                    padding: { top: 12 },
-                                    automaticLayout: true,
-                                    lineNumbers: 'off',
-                                    glyphMargin: false,
-                                    folding: false,
-                                    lineDecorationsWidth: 0,
-                                    lineNumbersMinChars: 0,
-                                    scrollBeyondLastLine: false,
-                                    renderLineHighlight: 'none',
-                                    overviewRulerBorder: false,
-                                    overviewRulerLanes: 0,
-                                    hideCursorInOverviewRuler: true,
-                                    guides: {
-                                        indentation: false,
-                                        bracketPairs: false,
-                                        bracketPairsHorizontal: false
-                                    },
-                                    matchBrackets: 'never',
-                                    renderWhitespace: 'none',
-                                    selectionHighlight: false,
-                                    occurrencesHighlight: 'off',
-                                    renderLineHighlightOnlyWhenFocus: false,
                                 }}
                             />
                         </div>

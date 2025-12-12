@@ -17,6 +17,7 @@ import {
 import { UrlLoader } from "./UrlLoader";
 import { GoogleAdsense } from "./GoogleAdsense"; // Ensure this path is correct
 import { useTheme } from "@/contexts/ThemeContext";
+import { CLEAN_MONACO_OPTIONS } from "@/config/monaco";
 
 interface FormatterProps {
   title: string;
@@ -246,34 +247,8 @@ export function Formatter({
                 value={inputCode}
                 onChange={(val) => setInputCode(val || "")}
                 options={{
-                  minimap: { enabled: false },
-                  fontSize: 13,
-                  fontFamily: "'JetBrains Mono', 'Fira Code', 'Consolas', monospace", // Better font stack if available
-                  scrollBeyondLastLine: false,
-                  automaticLayout: true,
+                  ...CLEAN_MONACO_OPTIONS,
                   tabSize: tabSize,
-                  formatOnPaste: true,
-                  wordWrap: 'on',
-                  padding: { top: 12, bottom: 12 },
-                  lineNumbers: 'off',
-                  glyphMargin: false,
-                  folding: false,
-                  lineDecorationsWidth: 0,
-                  lineNumbersMinChars: 0,
-                  renderLineHighlight: 'none',
-                  overviewRulerBorder: false,
-                  overviewRulerLanes: 0,
-                  hideCursorInOverviewRuler: true,
-                  guides: {
-                    indentation: false,
-                    bracketPairs: false,
-                    bracketPairsHorizontal: false
-                  },
-                  matchBrackets: 'never',
-                  renderWhitespace: 'none',
-                  selectionHighlight: false,
-                  occurrencesHighlight: 'off',
-                  renderLineHighlightOnlyWhenFocus: false,
                 }}
               />
             </div >
@@ -442,33 +417,8 @@ export function Formatter({
                     theme={editorTheme}
                     value={outputCode}
                     options={{
+                      ...CLEAN_MONACO_OPTIONS,
                       readOnly: true,
-                      minimap: { enabled: false },
-                      fontSize: 13,
-                      fontFamily: "'JetBrains Mono', 'Fira Code', 'Consolas', monospace",
-                      scrollBeyondLastLine: false,
-                      automaticLayout: true,
-                      wordWrap: 'on',
-                      padding: { top: 12, bottom: 12 },
-                      lineNumbers: 'off',
-                      glyphMargin: false,
-                      folding: false,
-                      lineDecorationsWidth: 0,
-                      lineNumbersMinChars: 0,
-                      renderLineHighlight: 'none',
-                      overviewRulerBorder: false,
-                      overviewRulerLanes: 0,
-                      hideCursorInOverviewRuler: true,
-                      guides: {
-                        indentation: false,
-                        bracketPairs: false,
-                        bracketPairsHorizontal: false
-                      },
-                      matchBrackets: 'never',
-                      renderWhitespace: 'none',
-                      selectionHighlight: false,
-                      occurrencesHighlight: 'off',
-                      renderLineHighlightOnlyWhenFocus: false,
                     }}
                   />
                 )}
