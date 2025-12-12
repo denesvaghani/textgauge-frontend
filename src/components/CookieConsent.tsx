@@ -11,7 +11,7 @@ interface CookieConsentProps {
 }
 
 export function CookieConsent({ gaId, adsenseId }: CookieConsentProps) {
-    const [consent, setConsent] = useState<boolean | null>(null);
+    const [consent, setConsent] = useState<boolean | null>(null); // null = not yet decided
     const [showBanner, setShowBanner] = useState(false);
 
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -23,7 +23,11 @@ export function CookieConsent({ gaId, adsenseId }: CookieConsentProps) {
         } else if (stored === 'false') {
             setConsent(false);
         } else {
+            // IMPLIED CONSENT: We do NOT set consent to false. 
+            // We treat null as "implicitly accepted" for script loading, 
+            // but we still show the banner.
             setConsent(null);
+
             // Delay banner slightly for smoother UX
             const timer = setTimeout(() => setShowBanner(true), 1000);
             return () => clearTimeout(timer);
@@ -36,16 +40,20 @@ export function CookieConsent({ gaId, adsenseId }: CookieConsentProps) {
         setShowBanner(false);
     };
 
-    const handleDecline = () => {
-        localStorage.setItem('cookie_consent', 'false');
-        setConsent(false);
-        setShowBanner(false);
-    };
+    const handleCreate = () => {
+        // For implicit consent, "close" effectively means accept/hide
+        handleAccept();
+    }
+
+    // REVENUE FRIENDLY LOGIC:
+    // Load scripts if consent is TRUE (accepted) OR NULL (implied/default).
+    // Only block if explicitly FALSE (user disabled it previously).
+    const shouldLoadScripts = consent === true || consent === null;
 
     return (
         <>
             {/* Conditionally Load Scripts based on Consent */}
-            {consent === true && (
+            {shouldLoadScripts && (
                 <>
                     {gaId && <GoogleAnalytics measurementId={gaId} />}
                     {adsenseId && (
@@ -60,31 +68,21 @@ export function CookieConsent({ gaId, adsenseId }: CookieConsentProps) {
                 </>
             )}
 
-            {/* Banner */}
+            {/* Banner - Notice Only Style */}
             {showBanner && (
                 <div className="fixed bottom-0 left-0 right-0 z-[100] p-4 bg-white dark:bg-slate-900 border-t border-slate-200 dark:border-slate-800 shadow-2xl animate-in slide-in-from-bottom-full duration-300">
                     <div className="max-w-7xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-4">
                         <div className="flex-1 text-center sm:text-left">
-                            <h3 className="text-sm font-bold text-slate-900 dark:text-white mb-1">
-                                We respect your privacy
-                            </h3>
                             <p className="text-sm text-slate-600 dark:text-slate-400">
-                                We use cookies to analyze traffic and personalize content.
-                                You can choose to accept or decline. See our <Link href="/cookie-policy" className="underline hover:text-indigo-600 dark:hover:text-indigo-400">Cookie Policy</Link>.
+                                We use cookies to enhance your experience and analyze traffic. By continuing to visit this site you agree to our use of cookies. <Link href="/cookie-policy" className="underline hover:text-indigo-600 dark:hover:text-indigo-400">Learn more</Link>.
                             </p>
                         </div>
                         <div className="flex items-center gap-3 shrink-0">
                             <button
-                                onClick={handleDecline}
-                                className="px-4 py-2 text-sm font-medium text-slate-700 dark:text-slate-300 bg-slate-100 dark:bg-slate-800 hover:bg-slate-200 dark:hover:bg-slate-700 rounded-lg transition-colors"
-                            >
-                                Decline
-                            </button>
-                            <button
                                 onClick={handleAccept}
-                                className="px-4 py-2 text-sm font-bold text-white bg-indigo-600 hover:bg-indigo-700 rounded-lg shadow-sm transition-colors"
+                                className="px-6 py-2 text-sm font-bold text-white bg-indigo-600 hover:bg-indigo-700 rounded-lg shadow-sm transition-colors"
                             >
-                                Accept
+                                Got it
                             </button>
                         </div>
                     </div>

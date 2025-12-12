@@ -183,8 +183,14 @@ export function CsvJsonConverter() {
                                     options={{
                                         minimap: { enabled: false },
                                         fontSize: 14,
-                                        padding: { top: 16 },
+                                        padding: { top: 12 },
                                         wordWrap: 'off',
+                                        automaticLayout: true,
+                                        lineNumbers: 'off',
+                                        glyphMargin: false,
+                                        folding: false,
+                                        lineDecorationsWidth: 0,
+                                        lineNumbersMinChars: 0,
                                         scrollBeyondLastLine: false,
                                         renderLineHighlight: 'none',
                                         overviewRulerBorder: false,
@@ -249,10 +255,16 @@ export function CsvJsonConverter() {
                                 value={jsonOutput}
                                 theme="vs-dark"
                                 options={{
-                                    minimap: { enabled: true },
+                                    minimap: { enabled: false }, // Output doesn't need minimap usually for clean look
                                     fontSize: 14,
                                     readOnly: true,
-                                    padding: { top: 16 },
+                                    padding: { top: 12 },
+                                    automaticLayout: true,
+                                    lineNumbers: 'off',
+                                    glyphMargin: false,
+                                    folding: false,
+                                    lineDecorationsWidth: 0,
+                                    lineNumbersMinChars: 0,
                                     scrollBeyondLastLine: false,
                                     renderLineHighlight: 'none',
                                     overviewRulerBorder: false,
