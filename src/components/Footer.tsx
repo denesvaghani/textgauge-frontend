@@ -10,7 +10,6 @@ export function Footer() {
         { name: 'Character Counter', href: '/' },
         { name: 'JSON Formatter', href: '/json-formatter' },
         { name: 'YAML Formatter', href: '/yaml-formatter' },
-        { name: 'CSV to JSON', href: '/csv-to-json' },
     ];
 
     const legalLinks = [
