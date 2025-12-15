@@ -1,9 +1,25 @@
 "use client";
 
+import { usePathname, useSearchParams } from "next/navigation";
 import Script from "next/script";
+import { useEffect, Suspense } from "react";
 
-export function GoogleAnalytics({ measurementId }: { measurementId: string }) {
-  if (!measurementId) return null;
+function GoogleAnalyticsInner({ measurementId }: { measurementId: string }) {
+  const pathname = usePathname();
+  const searchParams = useSearchParams();
+
+  useEffect(() => {
+    if (!measurementId) return;
+    const url = pathname + (searchParams?.toString() ? `?${searchParams.toString()}` : "");
+
+    // @ts-ignore
+    if (typeof window !== "undefined" && window.gtag) {
+      // @ts-ignore
+      window.gtag("config", measurementId, {
+        page_path: url,
+      });
+    }
+  }, [pathname, searchParams, measurementId]);
 
   return (
     <>
@@ -24,5 +40,14 @@ export function GoogleAnalytics({ measurementId }: { measurementId: string }) {
         `}
       </Script>
     </>
+  );
+}
+
+export function GoogleAnalytics({ measurementId }: { measurementId: string }) {
+  if (!measurementId) return null;
+  return (
+    <Suspense fallback={null}>
+      <GoogleAnalyticsInner measurementId={measurementId} />
+    </Suspense>
   );
 }

@@ -1,7 +1,6 @@
 "use client";
 
 import { useState, useEffect, useCallback } from "react";
-import Editor from "@monaco-editor/react";
 import {
   Trash2,
   Copy,
@@ -12,11 +11,12 @@ import {
   Check,
   AlertTriangle,
   ArrowLeft,
-  Wand2 // Swapped Play for Wand2 for a more magical/modern feel, or keep Play if preferred. Let's stick to sleek icons.
+  Wand2
 } from "lucide-react";
 import { UrlLoader } from "./UrlLoader";
 import { GoogleAdsense } from "./GoogleAdsense"; // Ensure this path is correct
 import { useTheme } from "@/contexts/ThemeContext";
+import { SimpleCodeEditor } from "@/components/SimpleCodeEditor";
 
 interface FormatterProps {
   title: string;
@@ -40,8 +40,7 @@ export function Formatter({
   sampleData
 }: FormatterProps) {
   const { theme } = useTheme();
-  // Monaco theme: 'vs' (light), 'vs-dark' (dark)
-  const editorTheme = theme === "dark" ? "vs-dark" : "light";
+  // SimpleCodeEditor parses theme from class/context, usage here is simplified
   const storageKey = `textgauge_input_${inputType}`;
 
   const [inputCode, setInputCode] = useState(defaultValue);
@@ -49,7 +48,6 @@ export function Formatter({
   const [error, setError] = useState<string | null>(null);
   const [tabSize, setTabSize] = useState(2);
   const [isUrlModalOpen, setIsUrlModalOpen] = useState(false);
-  const [copied, setCopied] = useState(false);
   const [mounted, setMounted] = useState(false);
 
   // Auto-load from storage on mount
@@ -109,13 +107,6 @@ export function Formatter({
     return () => window.removeEventListener('keydown', handleKeyDown);
   }, [handleFormat]);
 
-  const handleCopy = () => {
-    if (!outputCode) return;
-    navigator.clipboard.writeText(outputCode);
-    setCopied(true);
-    setTimeout(() => setCopied(false), 2000);
-  };
-
   const handleClear = () => {
     setInputCode("");
     setOutputCode("");
@@ -153,6 +144,7 @@ export function Formatter({
   };
 
   const getStats = (text: string) => {
+    if (!text) return { lines: 0, chars: 0, size: 0 };
     return {
       chars: text.length,
       lines: text.split('\n').length,
@@ -236,25 +228,11 @@ export function Formatter({
 
             {/* Editor Area */}
             <div className="flex-1 relative min-h-0 bg-slate-50/30 dark:bg-black/20" >
-              <Editor
-                height="100%"
-                defaultLanguage={inputType}
-                language={inputType}
-                theme={editorTheme}
+              <SimpleCodeEditor
                 value={inputCode}
-                onChange={(val) => setInputCode(val || "")}
-                options={{
-                  minimap: { enabled: false },
-                  fontSize: 13,
-                  fontFamily: "'JetBrains Mono', 'Fira Code', 'Consolas', monospace", // Better font stack if available
-                  scrollBeyondLastLine: false,
-                  automaticLayout: true,
-                  tabSize: tabSize,
-                  formatOnPaste: true,
-                  wordWrap: 'on',
-                  padding: { top: 16, bottom: 16 },
-                  renderLineHighlight: 'none', // cleaner look
-                }}
+                onChange={setInputCode}
+                className="w-full h-full"
+                placeholder="Paste your code here..."
               />
             </div >
 
@@ -369,17 +347,6 @@ export function Formatter({
               </div>
               <div className="flex items-center gap-2">
                 <button
-                  onClick={handleCopy}
-                  className={`flex items-center gap-1.5 px-2.5 py-1 rounded-md transition-all duration-200 text-xs font-bold ${copied
-                    ? "bg-emerald-100 text-emerald-700 dark:bg-emerald-900/30 dark:text-emerald-400"
-                    : "bg-slate-100 hover:bg-slate-200 text-slate-600 dark:bg-slate-800 dark:hover:bg-slate-700 dark:text-slate-300"
-                    }`}
-                  title="Copy to Clipboard"
-                >
-                  {copied ? <Check size={14} strokeWidth={3} /> : <Copy size={14} strokeWidth={2} />}
-                  {copied ? "Copied" : "Copy"}
-                </button>
-                <button
                   onClick={() => {
                     const blob = new Blob([outputCode], { type: "text/plain" });
                     const url = URL.createObjectURL(blob);
@@ -415,23 +382,11 @@ export function Formatter({
                     </div>
                   </div>
                 ) : (
-                  <Editor
-                    height="100%"
-                    defaultLanguage={outputType === 'text' ? 'plaintext' : outputType}
-                    language={outputType === 'text' ? 'plaintext' : outputType}
-                    theme={editorTheme}
+                  <SimpleCodeEditor
                     value={outputCode}
-                    options={{
-                      readOnly: true,
-                      minimap: { enabled: false },
-                      fontSize: 13,
-                      fontFamily: "'JetBrains Mono', 'Fira Code', 'Consolas', monospace",
-                      scrollBeyondLastLine: false,
-                      automaticLayout: true,
-                      wordWrap: 'on',
-                      padding: { top: 16, bottom: 16 },
-                      renderLineHighlight: 'none',
-                    }}
+                    readOnly={true}
+                    className="w-full h-full"
+                    placeholder="Output will appear here..."
                   />
                 )}
             </div >
