@@ -24,10 +24,17 @@ export function SimpleCodeEditor({
 
     // Find & Replace State
     const [showFindReplace, setShowFindReplace] = useState(false);
+    const [showReplaceField, setShowReplaceField] = useState(false); // Toggle for replace row
     const [findText, setFindText] = useState("");
     const [replaceText, setReplaceText] = useState("");
     const [matchCount, setMatchCount] = useState(0);
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
     const [currentMatchIndex, setCurrentMatchIndex] = useState(-1);
+
+    // Search Options
+    const [matchCase, setMatchCase] = useState(false);
+    const [useRegex, setUseRegex] = useState(false);
+    const [wholeWord, setWholeWord] = useState(false);
 
     // Sync Scroll
     const handleScroll = () => {
@@ -45,51 +52,126 @@ export function SimpleCodeEditor({
         setTimeout(() => setCopied(false), 2000);
     };
 
-    // Find Logic
+    // Keyboard Shortcuts
     useEffect(() => {
-        if (!findText) {
+        const handleKeyDown = (e: KeyboardEvent) => {
+            if ((e.metaKey || e.ctrlKey) && e.key === 'f') {
+                e.preventDefault();
+                setShowFindReplace(true);
+                // Focus find input after render
+                setTimeout(() => document.getElementById('find-input')?.focus(), 0);
+            }
+            if (e.key === 'Escape' && showFindReplace) {
+                setShowFindReplace(false);
+                textareaRef.current?.focus();
+            }
+        };
+
+        window.addEventListener('keydown', handleKeyDown);
+        return () => window.removeEventListener('keydown', handleKeyDown);
+    }, [showFindReplace]);
+
+    // Build Regex
+    const getSearchRegex = () => {
+        if (!findText) return null;
+        try {
+            let pattern = findText;
+
+            if (!useRegex) {
+                // Escape special chars if not using regex
+                pattern = pattern.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+            }
+
+            if (wholeWord) {
+                // Determine boundary based on regex or plain text
+                // Simple \b works for simple words, but might fail for symbols
+                // For this editor, standard \b wrapper is acceptable
+                pattern = `\\b${pattern}\\b`;
+            }
+
+            const flags = matchCase ? 'g' : 'gi';
+            return new RegExp(pattern, flags);
+        } catch (e) {
+            return null;
+        }
+    };
+
+    // Find Logic (Count)
+    useEffect(() => {
+        const regex = getSearchRegex();
+        if (!regex || !findText) {
             setMatchCount(0);
             setCurrentMatchIndex(-1);
             return;
         }
-        // Simple count of occurrences
-        // Escape regex characters
-        try {
-            const escaped = findText.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
-            const regex = new RegExp(escaped, 'gi');
-            const matches = value.match(regex);
-            setMatchCount(matches ? matches.length : 0);
-        } catch (e) {
-            // invalid regex or other error, ignore
-            setMatchCount(0);
-        }
-    }, [findText, value]);
+        const matches = value.match(regex);
+        setMatchCount(matches ? matches.length : 0);
+    }, [findText, value, matchCase, useRegex, wholeWord]);
 
 
     const findNext = () => {
         if (!textareaRef.current || !findText) return;
 
-        // Naive Find Next using built-in browser capabilities isn't great for textareas. 
-        // We'll use selection range manipulation.
+        const regex = getSearchRegex();
+        if (!regex) return;
+
         const text = value;
-        const lowerText = text.toLowerCase();
-        const lowerFind = findText.toLowerCase();
-
         const startSearchPos = textareaRef.current.selectionEnd;
-        let nextIndex = lowerText.indexOf(lowerFind, startSearchPos);
 
-        // Wrap around
-        if (nextIndex === -1) {
-            nextIndex = lowerText.indexOf(lowerFind, 0);
+        // Convert regex to sticky or use exec loop?
+        // Simpler approach: match all, find first one after current pos
+        // But for huge files this is slow. 
+        // Let's use simple search logic:
+
+        let nextIndex = -1;
+
+        // We need to find the match location. 
+        // native 'search' doesn't support offset.
+        // We will execute regex against the substring? No, regex might anchor.
+        // Global exec loop is safer.
+
+        // Reset lastIndex
+        regex.lastIndex = 0;
+        let match;
+        let foundAfter = -1;
+        let firstMatch = -1;
+
+        while ((match = regex.exec(text)) !== null) {
+            if (firstMatch === -1) firstMatch = match.index;
+
+            if (match.index >= startSearchPos) {
+                foundAfter = match.index;
+                break;
+            }
+        }
+
+        if (foundAfter !== -1) {
+            nextIndex = foundAfter;
+        } else if (firstMatch !== -1) {
+            nextIndex = firstMatch; // Wrap around
         }
 
         if (nextIndex !== -1) {
             textareaRef.current.focus();
-            textareaRef.current.setSelectionRange(nextIndex, nextIndex + findText.length);
+            // We need to know the length of the *actual* match for highlighting (regex match length can vary)
+            // Re-run exec to get exact match length at that index?
+            // The logic above relied on the loop, so 'match' variable holds the correct data if foundAfter.
+            // If wrap around 'firstMatch', we need to re-find it?
 
-            // Update visual index for user (approximate since we just found the "next" one)
-            // For a true "1 of N", we'd need to map all indices. 
-            // This is a "simple" editor, so cyclical finding is acceptable.
+            // To be robust:
+            // Since we know the index, let's just match using the same regex but ensuring we hit that index?
+            // Actually, we can just store the length in the loop.
+
+            // Re-calc length for clarity:
+            const matchLength = match ? match[0].length : (() => {
+                // wrapped around case, need to re-find first match length
+                regex.lastIndex = 0;
+                return regex.exec(text)?.[0].length || 0;
+            })();
+
+            if (matchLength > 0) {
+                textareaRef.current.setSelectionRange(nextIndex, nextIndex + matchLength);
+            }
         }
     };
 
@@ -97,18 +179,32 @@ export function SimpleCodeEditor({
         if (readOnly || !onChange || !textareaRef.current || !findText) return;
 
         const textarea = textareaRef.current;
-
-        // Check if current selection matches findText (to avoid replacing something else)
         const start = textarea.selectionStart;
         const end = textarea.selectionEnd;
         const selectedText = value.substring(start, end);
 
-        if (selectedText.toLowerCase() === findText.toLowerCase()) {
-            // Perform replacement
+        // Check if current selection matches logic
+        // We need to verify if the selected text *matches* the search pattern
+        // Just checking string equality is not enough for Regex/Case Insensitive
+
+        let isMatch = false;
+        if (!useRegex && !matchCase && !wholeWord) {
+            isMatch = selectedText.toLowerCase() === findText.toLowerCase();
+        } else {
+            // Validate using regex against selected text
+            const regex = getSearchRegex();
+            if (regex) {
+                const match = selectedText.match(regex);
+                isMatch = match !== null && match[0] === selectedText;
+            } else {
+                isMatch = false;
+            }
+        }
+
+        if (isMatch || (selectedText && !useRegex && !matchCase)) { // Fallback for simple case
             const newValue = value.substring(0, start) + replaceText + value.substring(end);
             onChange(newValue);
 
-            // Restore caret/selection
             requestAnimationFrame(() => {
                 if (textareaRef.current) {
                     textareaRef.current.focus();
@@ -116,16 +212,15 @@ export function SimpleCodeEditor({
                 }
             });
         } else {
-            // If not selected, try to find next first?
             findNext();
         }
     };
 
     const replaceAll = () => {
         if (readOnly || !onChange || !findText) return;
+        const regex = getSearchRegex();
+        if (!regex) return;
 
-        const escaped = findText.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
-        const regex = new RegExp(escaped, 'gi');
         const newValue = value.replace(regex, replaceText);
         onChange(newValue);
     };
@@ -133,88 +228,124 @@ export function SimpleCodeEditor({
     return (
         <div className={`relative flex flex-col h-full border border-slate-200 dark:border-slate-800 rounded-lg overflow-hidden bg-white dark:bg-slate-900 ${className}`}>
 
-            {/* Toolbar / Header */}
-            <div className="flex items-center justify-between px-2 py-1.5 border-b border-slate-100 dark:border-slate-800 bg-slate-50 dark:bg-slate-800/50">
-                <div className="flex items-center gap-1">
-                    <button
-                        onClick={() => setShowFindReplace(!showFindReplace)}
-                        className={`p-1.5 rounded-md transition-colors ${showFindReplace ? 'bg-indigo-100 text-indigo-700 dark:bg-indigo-900/50 dark:text-indigo-300' : 'text-slate-500 hover:bg-slate-200 dark:text-slate-400 dark:hover:bg-slate-700'}`}
-                        title="Find & Replace"
-                    >
-                        <Search size={16} />
-                    </button>
-                    {showFindReplace && (
-                        <span className="text-xs text-slate-400 ml-1 hidden sm:inline">Find & Replace</span>
-                    )}
-                </div>
-
-                <div className="flex items-center gap-2">
-                    <button
-                        onClick={handleCopy}
-                        className="flex items-center gap-1.5 px-2 py-1 text-xs font-medium text-slate-600 dark:text-slate-300 bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded hover:bg-slate-50 dark:hover:bg-slate-700 transition-colors"
-                    >
-                        {copied ? <Check size={14} className="text-green-500" /> : <Copy size={14} />}
-                        {copied ? "Copied" : "Copy"}
-                    </button>
-                </div>
+            {/* Absolute Copy Button - Top Right (always visible, low profile) */}
+            <div className="absolute top-2 right-2 z-10">
+                <button
+                    onClick={handleCopy}
+                    className="p-1.5 text-slate-400 hover:text-indigo-600 hover:bg-slate-100 dark:hover:bg-slate-800 rounded-md transition-all"
+                    title="Copy"
+                >
+                    {copied ? <Check size={14} className="text-green-500" /> : <Copy size={14} />}
+                </button>
             </div>
 
-            {/* Find & Replace Panel */}
+            {/* Floating Find Widget */}
             {showFindReplace && (
-                <div className="p-2 border-b border-slate-100 dark:border-slate-800 bg-slate-50/50 dark:bg-slate-800/20 text-sm">
-                    <div className="flex flex-col sm:flex-row gap-2">
-                        <div className="flex-1 flex items-center gap-1">
-                            <div className="relative flex-1">
-                                <input
-                                    type="text"
-                                    placeholder="Find..."
-                                    value={findText}
-                                    onChange={(e) => setFindText(e.target.value)}
-                                    onKeyDown={(e) => e.key === 'Enter' && findNext()}
-                                    className="w-full pl-2 pr-12 py-1 rounded border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 text-slate-900 dark:text-slate-100 focus:ring-1 focus:ring-indigo-500 text-xs"
-                                />
-                                <div className="absolute right-1 top-1/2 -translate-y-1/2 text-[10px] text-slate-400">
-                                    {matchCount > 0 ? matchCount : '0'} matches
-                                </div>
+                <div className="absolute top-2 right-12 z-20 w-[320px] bg-white dark:bg-slate-900 rounded-lg shadow-xl ring-1 ring-slate-900/10 dark:ring-white/10 p-1.5 flex flex-col gap-1 animate-in fade-in slide-in-from-top-2 duration-200">
+
+                    {/* Find Row */}
+                    <div className="flex items-center gap-1">
+                        <div className="flex-1 relative flex items-center bg-slate-100 dark:bg-slate-800 rounded px-1 group focus-within:ring-1 focus-within:ring-indigo-500">
+                            {!readOnly && (
+                                <button
+                                    onClick={() => setShowReplaceField(!showReplaceField)}
+                                    className={`p-0.5 rounded text-slate-400 transition-transform duration-200 ${showReplaceField ? 'rotate-90' : ''}`}
+                                >
+                                    <ChevronRight size={12} />
+                                </button>
+                            )}
+                            <input
+                                id="find-input"
+                                type="text"
+                                placeholder="Find"
+                                value={findText}
+                                onChange={(e) => setFindText(e.target.value)}
+                                onKeyDown={(e) => {
+                                    if (e.key === 'Enter') findNext();
+                                    if (e.key === 'Escape') setShowFindReplace(false);
+                                }}
+                                className="flex-1 bg-transparent border-none outline-none text-xs text-slate-700 dark:text-slate-200 placeholder:text-slate-400 ml-1 h-6 min-w-0"
+                                autoFocus
+                            />
+
+                            {/* Search Options Toggles */}
+                            <div className="flex items-center gap-0.5 px-1">
+                                <button
+                                    onClick={() => setMatchCase(!matchCase)}
+                                    className={`p-0.5 text-[10px] font-bold rounded ${matchCase ? 'bg-indigo-100 text-indigo-700 dark:bg-indigo-900 dark:text-indigo-300' : 'text-slate-400 hover:text-slate-600 dark:hover:text-slate-300'}`}
+                                    title="Match Case"
+                                >
+                                    Aa
+                                </button>
+                                <button
+                                    onClick={() => setWholeWord(!wholeWord)}
+                                    className={`p-0.5 text-[10px] font-bold rounded ${wholeWord ? 'bg-indigo-100 text-indigo-700 dark:bg-indigo-900 dark:text-indigo-300' : 'text-slate-400 hover:text-slate-600 dark:hover:text-slate-300'}`}
+                                    title="Match Whole Word"
+                                >
+                                    ab
+                                </button>
+                                <button
+                                    onClick={() => setUseRegex(!useRegex)}
+                                    className={`p-0.5 text-[10px] font-bold rounded ${useRegex ? 'bg-indigo-100 text-indigo-700 dark:bg-indigo-900 dark:text-indigo-300' : 'text-slate-400 hover:text-slate-600 dark:hover:text-slate-300'}`}
+                                    title="Use Regular Expression"
+                                >
+                                    .*
+                                </button>
                             </div>
-                            <button onClick={findNext} className="p-1 text-slate-500 hover:text-indigo-600" title="Find Next">
-                                <ArrowDown size={16} />
-                            </button>
+
+                            {findText && (
+                                <button onClick={() => setFindText("")} className="text-slate-400 hover:text-slate-600 dark:hover:text-slate-300 p-0.5">
+                                    <X size={12} />
+                                </button>
+                            )}
                         </div>
 
-                        {!readOnly && (
-                            <div className="flex-1 flex items-center gap-1">
+                        <div className="flex items-center gap-0.5 pl-1">
+                            <button onClick={findNext} className="p-1 text-slate-500 hover:bg-slate-100 dark:hover:bg-slate-800 rounded" title="Find Next (Enter)">
+                                <ArrowDown size={14} />
+                            </button>
+                            {/* Match Count Badge */}
+                            <div className="text-[10px] text-slate-400 px-1 select-none min-w-[30px] text-right">
+                                {matchCount > 0 ? matchCount : ''}
+                            </div>
+                            <button onClick={() => setShowFindReplace(false)} className="p-1 text-slate-500 hover:bg-slate-100 dark:hover:bg-slate-800 rounded" title="Close (Esc)">
+                                <X size={14} />
+                            </button>
+                        </div>
+                    </div>
+
+                    {/* Replace Row - Collapsible */}
+                    {showReplaceField && !readOnly && (
+                        <div className="flex items-center gap-1">
+                            <div className="flex-1 relative flex items-center bg-slate-100 dark:bg-slate-800 rounded px-1 group ml-[22px] focus-within:ring-1 focus-within:ring-indigo-500">
                                 <input
                                     type="text"
-                                    placeholder="Replace with..."
+                                    placeholder="Replace"
                                     value={replaceText}
                                     onChange={(e) => setReplaceText(e.target.value)}
-                                    className="flex-1 px-2 py-1 rounded border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 text-slate-900 dark:text-slate-100 focus:ring-1 focus:ring-indigo-500 text-xs"
+                                    className="flex-1 bg-transparent border-none outline-none text-xs text-slate-700 dark:text-slate-200 placeholder:text-slate-400 h-6 min-w-0"
                                 />
-                                <button
-                                    onClick={replaceCurrent}
-                                    disabled={!findText}
-                                    className="px-2 py-1 bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded text-xs hover:bg-slate-50 dark:hover:bg-slate-700 disabled:opacity-50"
-                                    title="Replace current selection"
-                                >
-                                    Replace
+                                {replaceText && (
+                                    <button onClick={() => setReplaceText("")} className="text-slate-400 hover:text-slate-600 dark:hover:text-slate-300 p-0.5">
+                                        <X size={12} />
+                                    </button>
+                                )}
+                            </div>
+                            <div className="flex items-center gap-0.5">
+                                <button onClick={replaceCurrent} className="p-1 text-slate-500 hover:bg-slate-100 dark:hover:bg-slate-800 rounded" title="Replace">
+                                    <Replace size={14} />
                                 </button>
-                                <button
-                                    onClick={replaceAll}
-                                    disabled={!findText}
-                                    className="px-2 py-1 bg-indigo-50 text-indigo-700 dark:bg-indigo-900/30 dark:text-indigo-300 border border-indigo-100 dark:border-indigo-800 rounded text-xs font-medium hover:bg-indigo-100 dark:hover:bg-indigo-900/50 disabled:opacity-50"
-                                    title="Replace All"
-                                >
-                                    All
+                                <button onClick={replaceAll} className="p-1 text-slate-500 hover:bg-slate-100 dark:hover:bg-slate-800 rounded" title="Replace All">
+                                    <ReplaceAll size={14} />
                                 </button>
                             </div>
-                        )}
-                    </div>
+                        </div>
+                    )}
                 </div>
             )}
 
             {/* Editor Area */}
-            <div className="flex-1 flex relative min-h-0 bg-white dark:bg-slate-950">
+            <div className="flex-1 flex relative min-h-0 bg-white dark:bg-slate-950 group">
                 {/* Line Numbers */}
                 <div
                     ref={lineNumbersRef}
@@ -239,12 +370,6 @@ export function SimpleCodeEditor({
                     autoComplete="off"
                     autoCorrect="off"
                 />
-            </div>
-
-            {/* Footer Info (optional, small stats) */}
-            <div className="px-2 py-1 text-[10px] text-slate-400 dark:text-slate-600 border-t border-slate-100 dark:border-slate-800 bg-slate-50 dark:bg-slate-900 flex justify-end gap-2">
-                <span>{lineCount} lines</span>
-                <span>{value.length} chars</span>
             </div>
         </div>
     );
