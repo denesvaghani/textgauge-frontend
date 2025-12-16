@@ -1,0 +1,101 @@
+'use client';
+
+import Link from 'next/link';
+import { useTheme } from '@/contexts/ThemeContext';
+
+export function Footer() {
+    const { theme } = useTheme();
+
+    const toolLinks = [
+        { name: 'Character Counter', href: '/' },
+        { name: 'JSON Formatter', href: '/json-formatter' },
+        { name: 'YAML Formatter', href: '/yaml-formatter' },
+    ];
+
+    const legalLinks = [
+        { name: 'Privacy Policy', href: '/privacy' },
+        { name: 'Terms of Service', href: '/terms' },
+        { name: 'Cookie Policy', href: '/cookie-policy' },
+    ];
+
+    const companyLinks = [
+        { name: 'About Us', href: '/about' },
+        { name: 'Contact', href: '/contact' },
+    ];
+
+    return (
+        <footer className="border-t border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 mt-auto">
+            <div className="max-w-[1920px] mx-auto px-4 sm:px-6 lg:px-8 py-12">
+                <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
+                    {/* Brand Section */}
+                    <div>
+                        <Link href="/" className="text-2xl font-bold text-indigo-600 dark:text-indigo-400">
+                            TextGauge
+                        </Link>
+                        <p className="mt-4 text-sm text-slate-600 dark:text-slate-400">
+                            Free, secure, and privacy-focused developer tools for text analysis and data conversion.
+                        </p>
+                    </div>
+
+                    {/* Tools Section */}
+                    <div>
+                        <h3 className="font-semibold text-slate-900 dark:text-slate-100 mb-4">Tools</h3>
+                        <ul className="space-y-2">
+                            {toolLinks.map((link) => (
+                                <li key={link.href}>
+                                    <Link
+                                        href={link.href}
+                                        className="text-sm text-slate-600 dark:text-slate-400 hover:text-indigo-600 dark:hover:text-indigo-400 transition-colors"
+                                    >
+                                        {link.name}
+                                    </Link>
+                                </li>
+                            ))}
+                        </ul>
+                    </div>
+
+                    {/* Legal Section */}
+                    <div>
+                        <h3 className="font-semibold text-slate-900 dark:text-slate-100 mb-4">Legal</h3>
+                        <ul className="space-y-2">
+                            {legalLinks.map((link) => (
+                                <li key={link.href}>
+                                    <Link
+                                        href={link.href}
+                                        className="text-sm text-slate-600 dark:text-slate-400 hover:text-indigo-600 dark:hover:text-indigo-400 transition-colors"
+                                    >
+                                        {link.name}
+                                    </Link>
+                                </li>
+                            ))}
+                        </ul>
+                    </div>
+
+                    {/* Company Section */}
+                    <div>
+                        <h3 className="font-semibold text-slate-900 dark:text-slate-100 mb-4">Company</h3>
+                        <ul className="space-y-2">
+                            {companyLinks.map((link) => (
+                                <li key={link.href}>
+                                    <Link
+                                        href={link.href}
+                                        className="text-sm text-slate-600 dark:text-slate-400 hover:text-indigo-600 dark:hover:text-indigo-400 transition-colors"
+                                    >
+                                        {link.name}
+                                    </Link>
+                                </li>
+                            ))}
+                        </ul>
+                    </div>
+                </div>
+
+                {/* Bottom Bar */}
+                <div className="mt-12 pt-8 border-t border-slate-200 dark:border-slate-800">
+                    <p className="text-center text-sm text-slate-600 dark:text-slate-400">
+                        &copy; {new Date().getFullYear()} TextGauge. All rights reserved.
+                    </p>
+                </div>
+            </div>
+        </footer>
+    );
+}

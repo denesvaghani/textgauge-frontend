@@ -38,6 +38,8 @@ const structuredData = {
 };
 
 import { Navigation } from "@/components/Navigation";
+import { Footer } from "@/components/Footer";
+import { CookieConsent } from "@/components/CookieConsent";
 
 export default function RootLayout({
   children,
@@ -69,12 +71,16 @@ export default function RootLayout({
           />
         )}
       </head>
-      <body className="bg-slate-50 text-slate-900 dark:bg-slate-950 dark:text-slate-50 font-sans antialiased selection:bg-indigo-100 dark:selection:bg-indigo-900/30">
+      <body className="bg-slate-50 text-slate-900 dark:bg-slate-950 dark:text-slate-50 font-sans antialiased selection:bg-indigo-100 dark:selection:bg-indigo-900/30 flex flex-col min-h-screen">
         <ThemeProvider>
           <Navigation />
-          {children}
+          <main className="flex-1">
+            {children}
+          </main>
+          <Footer />
+          <CookieConsent />
 
-          {/* Floating theme toggle, if you’re using it globally */}
+          {/* Floating theme toggle, if you're using it globally */}
           <ThemeToggle />
 
           {/* Google Analytics 4 */}
