@@ -77,7 +77,7 @@ export default function TermsPage() {
             <h2>Contact Information</h2>
             <p>
                 If you have any questions about these Terms of Service, please contact us at:{' '}
-                <a href="mailto:legal@textgauge.com">legal@textgauge.com</a>
+                <a href="mailto:denesdvaghani9200@gmail.com">denesdvaghani9200@gmail.com</a>
             </p>
         </LegalLayout>
     );
