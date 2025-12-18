@@ -72,6 +72,7 @@ Jane Smith,jane@example.com,London,SW1A`;
                 ]}
                 discoverLinks={[]}
                 features={[
+                    "Reduce File Size: CSV files are typically 50-60% smaller than JSON for the same data.",
                     "Instant Conversion: Convert JSON data to CSV format in real-time.",
                     "Flatten Objects: Automatically flattens nested JSON objects into proper CSV columns.",
                     "Secure: All conversion happens in your browser. No data sent to servers.",
@@ -84,9 +85,14 @@ Jane Smith,jane@example.com,London,SW1A`;
                         id: "what-is-json",
                         title: "What is JSON to CSV conversion?",
                         content: (
-                            <p>
-                                JSON (JavaScript Object Notation) is a popular data format for APIs and web services, while CSV (Comma Separated Values) is widely used for spreadsheets and data analysis. Converting JSON to CSV simplifies complex data structures into rows and columns, making it easy to open in Excel, Google Sheets, or import into databases.
-                            </p>
+                            <>
+                                <p>
+                                    JSON (JavaScript Object Notation) is a popular data format for APIs and web services, while CSV (Comma Separated Values) is widely used for spreadsheets and data analysis. Converting JSON to CSV simplifies complex data structures into rows and columns, making it easy to open in Excel, Google Sheets, or import into databases.
+                                </p>
+                                <p className="mt-4">
+                                    <strong>File Size Advantage:</strong> CSV files are typically <strong>50-60% smaller</strong> than their JSON equivalents. JSON repeats field names for every record, while CSV lists headers once. For example, a 0.27 KB JSON file becomes just 0.12 KB as CSV - perfect for reducing bandwidth and storage costs.
+                                </p>
+                            </>
                         )
                     },
                     {
