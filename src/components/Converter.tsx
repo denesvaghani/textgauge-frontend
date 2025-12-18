@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect, useCallback } from "react";
+import { useState } from "react";
 import {
     Trash2,
     Copy,
@@ -9,27 +9,26 @@ import {
     Globe,
     Check,
     AlertTriangle,
-    ArrowLeftRight,
-    ArrowRight,
-    RefreshCw,
-    Loader2
+    ArrowRightLeft,
+    Wand2,
+    Minimize2
 } from "lucide-react";
-import { UrlLoader } from "./UrlLoader"; // Reusing existing
-import { GoogleAdsense } from "./GoogleAdsense"; // Reusing existing
-import { SimpleCodeEditor } from "@/components/SimpleCodeEditor"; // Reusing existing
+import { UrlLoader } from "./UrlLoader";
+import { GoogleAdsense } from "./GoogleAdsense";
+import { SimpleCodeEditor } from "@/components/SimpleCodeEditor";
 
 interface ConverterProps {
     title: string;
     description: string;
     leftTitle: string;
     rightTitle: string;
-    leftLanguage: "json" | "yaml" | "xml" | "text" | "csv"; // Added csv
-    rightLanguage: "json" | "yaml" | "xml" | "text" | "csv"; // Added csv
+    leftLanguage: "json" | "yaml" | "xml" | "text" | "csv";
+    rightLanguage: "json" | "yaml" | "xml" | "text" | "csv";
     onConvertLeftToRight: (input: string) => Promise<string> | string;
-    onConvertRightToLeft: (input: string) => Promise<string> | string;
+    onConvertRightToLeft: (input: string) => Promise<string> | string; // Kept for future Swap usage
     sampleData?: string;
     defaultLeft?: string;
-    options?: React.ReactNode; // For things like "Flatten" checkbox
+    options?: React.ReactNode;
 }
 
 export function Converter({
@@ -37,10 +36,10 @@ export function Converter({
     description,
     leftTitle,
     rightTitle,
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
     leftLanguage,
     rightLanguage,
     onConvertLeftToRight,
-    onConvertRightToLeft,
     sampleData,
     defaultLeft = "",
     options
@@ -48,15 +47,14 @@ export function Converter({
     const [leftCode, setLeftCode] = useState(defaultLeft);
     const [rightCode, setRightCode] = useState("");
     const [error, setError] = useState<string | null>(null);
-    const [isConverting, setIsConverting] = useState(false);
     const [isUrlModalOpen, setIsUrlModalOpen] = useState(false);
     const [copied, setCopied] = useState(false);
 
-    // Stats helper with commas
+    // Stats helper
     const getStats = (text: string) => {
         if (!text) return { lines: 0, chars: "0", size: "0 B" };
-        const chars = text.length;
-        const lines = text.split('\n').length;
+        const currChars = text.length;
+        const currLines = text.split('\n').length;
         const sizeBytes = new Blob([text]).size;
 
         let sizeStr = "";
@@ -65,30 +63,24 @@ export function Converter({
         else sizeStr = `${(sizeBytes / (1024 * 1024)).toFixed(2)} MB`;
 
         return {
-            chars: chars.toLocaleString(), // Comma separated
-            lines: lines.toLocaleString(),
+            chars: currChars.toLocaleString(),
+            lines: currLines.toLocaleString(),
             size: sizeStr
         };
     };
 
-    const handleConvert = async (direction: "left-to-right" | "right-to-left") => {
+    const handleConvert = async () => {
         setError(null);
-        setIsConverting(true);
         try {
-            if (direction === "left-to-right") {
-                if (!leftCode.trim()) { setRightCode(""); return; }
-                const res = await onConvertLeftToRight(leftCode);
-                setRightCode(res);
-            } else {
-                if (!rightCode.trim()) { setLeftCode(""); return; }
-                const res = await onConvertRightToLeft(rightCode);
-                setLeftCode(res);
+            if (!leftCode.trim()) {
+                setRightCode("");
+                return;
             }
+            const res = await onConvertLeftToRight(leftCode);
+            setRightCode(res);
         } catch (err: unknown) {
             const msg = err instanceof Error ? err.message : String(err);
             setError(msg);
-        } finally {
-            setIsConverting(false);
         }
     };
 
@@ -96,13 +88,6 @@ export function Converter({
         const temp = leftCode;
         setLeftCode(rightCode);
         setRightCode(temp);
-        // Ideally we would swap languages too if the parent component supported changing them,
-        // but for now we essentially swap content. 
-        // Usually a converter page is fixed (JSON -> CSV), so swapping content might mean
-        // putting CSV in JSON box which is wrong.
-        // BETTER UX: "Swap" usually implies changing the TOOL mode.
-        // For this generic component, let's assume it just swaps TEXT for now,
-        // but typically you use the "Right to Left" convert button for the reverse flow.
     };
 
     const handleCopy = (text: string) => {
@@ -130,138 +115,180 @@ export function Converter({
             if (typeof ev.target?.result === "string") setLeftCode(ev.target.result);
         };
         reader.readAsText(file);
-        e.target.value = ""; // reset
+        e.target.value = "";
     };
 
     return (
-        <div className="min-h-screen flex flex-col bg-slate-50 dark:bg-slate-950 text-slate-900 dark:text-slate-50 font-sans">
+        <div className="h-screen supports-[height:100dvh]:h-[100dvh] flex flex-col bg-slate-50 dark:bg-slate-950 text-slate-900 dark:text-slate-50 transition-colors duration-200 overflow-hidden font-sans">
 
-            {/* Header */}
-            <header className="shrink-0 bg-white/80 dark:bg-slate-900/80 backdrop-blur-md shadow-sm border-b border-slate-200 dark:border-slate-800 sticky top-0 z-20">
-                <div className="max-w-[1920px] mx-auto px-4 py-3 pb-8 md:pb-3"> {/* Added padding bottom for mobile spacing if needed */}
+            {/* Header - Identical to Formatter.tsx */}
+            <header className="shrink-0 bg-white/80 dark:bg-slate-900/80 backdrop-blur-md shadow-sm border-b border-slate-200 dark:border-slate-800 z-10 sticky top-0">
+                <div className="max-w-[1920px] mx-auto px-4 sm:px-6 lg:px-8 py-3">
                     <div className="flex flex-col md:flex-row md:items-center justify-between gap-4">
-                        <div>
-                            <h1 className="text-xl sm:text-2xl font-extrabold text-transparent bg-clip-text bg-gradient-to-r from-indigo-600 to-violet-600 dark:from-indigo-400 dark:to-violet-400">
+                        <div className="flex flex-col gap-0.5">
+                            <h1 className="text-xl sm:text-2xl font-extrabold tracking-tight text-slate-900 dark:text-white bg-clip-text text-transparent bg-gradient-to-r from-indigo-600 to-violet-600 dark:from-indigo-400 dark:to-violet-400 w-fit">
                                 {title}
                             </h1>
-                            <p className="text-sm text-slate-500 dark:text-slate-400 hidden sm:block">{description}</p>
+                            <p className="text-sm text-slate-500 dark:text-slate-400 max-w-2xl font-medium hidden sm:block">{description}</p>
                         </div>
 
-                        {/* Ad Slot */}
-                        {process.env.NEXT_PUBLIC_AD_SLOT_HEADER && (
-                            <div className="hidden md:block w-[320px] h-[50px] bg-slate-100 dark:bg-slate-800 rounded mx-auto overflow-hidden">
-                                <GoogleAdsense adSlot={process.env.NEXT_PUBLIC_AD_SLOT_HEADER} style={{ display: 'block', width: '100%', height: '100%' }} />
+                        {/* Top Ad Slot */}
+                        <div className="flex justify-center shrink-0">
+                            <div className="w-full max-w-[728px] h-[90px] rounded-lg overflow-hidden bg-slate-100/50 dark:bg-slate-800/50">
+                                <GoogleAdsense
+                                    adSlot={process.env.NEXT_PUBLIC_AD_SLOT_HEADER || "example_slot"}
+                                    style={{ display: 'block', width: '100%', height: '100%' }}
+                                />
                             </div>
-                        )}
+                        </div>
                     </div>
                 </div>
             </header>
 
-            {/* Main */}
-            <main className="flex-1 w-full max-w-[1920px] mx-auto px-4 py-6">
+            {/* Main Content */}
+            <main className="flex-1 flex flex-col min-h-0 w-full max-w-[1920px] mx-auto px-4 sm:px-6 lg:px-8 py-4">
 
-                {/* Controls / Options Bar */}
-                {(options || sampleData) && (
-                    <div className="mb-4 flex flex-wrap items-center justify-between gap-4 bg-white dark:bg-slate-900 p-3 rounded-lg border border-slate-200 dark:border-slate-800">
-                        <div className="flex items-center gap-4">
-                            {options}
-                        </div>
-                        {sampleData && (
-                            <button onClick={() => setLeftCode(sampleData)} className="text-sm text-indigo-600 hover:underline">
-                                Load Sample
-                            </button>
-                        )}
-                    </div>
-                )}
+                <div className="flex flex-col lg:flex-row gap-4 h-full">
 
-                <div className="flex flex-col lg:flex-row gap-6 h-[calc(100vh-250px)] min-h-[500px]">
-
-                    {/* LEFT PANEL */}
-                    <div className="flex-1 flex flex-col bg-white dark:bg-slate-900 rounded-xl shadow-sm border border-slate-200 dark:border-slate-800">
-                        <div className="flex items-center justify-between px-4 py-3 border-b border-slate-100 dark:border-slate-800">
-                            <span className="font-bold text-xs uppercase tracking-wider text-slate-500">{leftTitle}</span>
+                    {/* LEFT COLUMN: Input Editor */}
+                    <div className="flex-1 flex flex-col bg-white dark:bg-slate-900 rounded-xl shadow-sm ring-1 ring-slate-900/5 dark:ring-white/10 lg:w-[calc(50%-110px)] min-h-0 overflow-hidden transition-all duration-200">
+                        <div className="shrink-0 px-3 py-2 border-b border-slate-100 dark:border-slate-800 flex items-center justify-between bg-white dark:bg-slate-900">
+                            <div className="flex items-center gap-2">
+                                <span className="text-[10px] font-bold text-slate-400 dark:text-slate-500 uppercase tracking-widest">{leftTitle}</span>
+                            </div>
                             <div className="flex items-center gap-1">
-                                <button onClick={() => document.getElementById('file-upload')?.click()} className="p-1.5 hover:bg-slate-100 dark:hover:bg-slate-800 rounded transition" title="Upload">
-                                    <Upload size={16} className="text-slate-500" />
+                                <button onClick={() => document.getElementById('file-upload')?.click()} className="p-1.5 text-slate-500 hover:text-indigo-600 hover:bg-indigo-50 dark:text-slate-400 dark:hover:text-indigo-400 dark:hover:bg-indigo-900/20 rounded-md transition-all duration-200" title="Upload">
+                                    <Upload size={16} strokeWidth={2} />
                                     <input id="file-upload" type="file" className="hidden" onChange={handleFileUpload} />
                                 </button>
-                                <button onClick={() => setIsUrlModalOpen(true)} className="p-1.5 hover:bg-slate-100 dark:hover:bg-slate-800 rounded transition" title="URL">
-                                    <Globe size={16} className="text-slate-500" />
+                                <button onClick={() => setIsUrlModalOpen(true)} className="p-1.5 text-slate-500 hover:text-indigo-600 hover:bg-indigo-50 dark:text-slate-400 dark:hover:text-indigo-400 dark:hover:bg-indigo-900/20 rounded-md transition-all duration-200" title="Load URL">
+                                    <Globe size={16} strokeWidth={2} />
                                 </button>
-                                <button onClick={() => setLeftCode("")} className="p-1.5 hover:bg-red-50 dark:hover:bg-red-900/20 rounded transition" title="Clear">
-                                    <Trash2 size={16} className="text-slate-400 hover:text-red-500" />
+                                <button onClick={() => setLeftCode("")} className="p-1.5 text-slate-400 hover:text-red-600 hover:bg-red-50 dark:text-slate-500 dark:hover:text-red-400 dark:hover:bg-red-900/20 rounded-md transition-all duration-200" title="Clear">
+                                    <Trash2 size={16} strokeWidth={2} />
                                 </button>
                             </div>
                         </div>
-                        <div className="flex-1 relative bg-slate-50/50 dark:bg-black/20">
-                            <SimpleCodeEditor value={leftCode} onChange={setLeftCode} className="w-full h-full" placeholder="Input..." />
+
+                        <div className="flex-1 relative min-h-0 bg-slate-50/30 dark:bg-black/20">
+                            <SimpleCodeEditor value={leftCode} onChange={setLeftCode} className="w-full h-full" placeholder="Paste your input here..." />
                         </div>
-                        <div className="px-3 py-1.5 border-t border-slate-100 dark:border-slate-800 text-[10px] text-slate-400 flex justify-between font-mono">
+
+                        <div className="shrink-0 px-3 py-1.5 border-t border-slate-100 dark:border-slate-800 flex justify-between items-center text-[10px] text-slate-400 dark:text-slate-500 font-medium font-mono bg-white dark:bg-slate-900">
                             <div className="flex gap-3">
-                                <span>{getStats(leftCode).chars} Chars</span>
-                                <span>{getStats(leftCode).lines} Lines</span>
+                                <span>{getStats(leftCode).lines} LN</span>
+                                <span>{getStats(leftCode).chars} CH</span>
                             </div>
                             <span>{getStats(leftCode).size}</span>
                         </div>
                     </div>
 
-                    {/* CENTER ACTIONS */}
-                    <div className="flex lg:flex-col items-center justify-center gap-3 shrink-0">
+                    {/* MIDDLE COLUMN: Controls */}
+                    <div className="flex flex-col gap-3 lg:w-[200px] shrink-0 h-full overflow-y-auto py-1 scrollbar-hide">
+
+                        {/* Main Convert Button */}
                         <button
-                            onClick={() => handleConvert("left-to-right")}
-                            className="relative group p-3 rounded-full bg-gradient-to-r from-indigo-600 to-violet-600 shadow-lg shadow-indigo-500/30 text-white hover:scale-110 active:scale-95 transition-all"
-                            title="Convert to Output"
+                            onClick={handleConvert}
+                            className="relative group w-full py-3 px-3 rounded-lg font-bold text-white shadow-md shadow-indigo-500/20 transition-all duration-200 hover:-translate-y-0.5 hover:shadow-indigo-500/30 active:translate-y-0 active:scale-[0.98] overflow-hidden"
                         >
-                            {isConverting ? <Loader2 size={24} className="animate-spin" /> : <ArrowRight size={24} className="hidden lg:block" />}
-                            {isConverting ? <Loader2 size={24} className="animate-spin lg:hidden" /> : <ArrowRight size={24} className="lg:hidden rotate-90" />}
+                            <div className="absolute inset-0 bg-gradient-to-r from-indigo-600 to-violet-600 dark:from-indigo-500 dark:to-violet-600 transition-all duration-300 group-hover:scale-105"></div>
+                            <div className="relative flex items-center justify-center gap-2">
+                                <Wand2 size={16} className="transition-transform group-hover:rotate-12" />
+                                <span className="text-sm">Convert</span>
+                            </div>
                         </button>
 
-                        {/* Optional Reverse Convert if needed, usually mostly one-way usage in these tools */}
+                        {/* Swap Button */}
+                        <button
+                            onClick={handleSwap}
+                            className="group w-full py-2.5 px-3 bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 hover:border-slate-300 dark:hover:border-slate-600 hover:bg-slate-50 dark:hover:bg-slate-700/50 text-slate-700 dark:text-slate-200 font-semibold text-sm rounded-lg shadow-sm transition-all duration-200 flex items-center justify-center gap-2 active:scale-[0.98]"
+                        >
+                            <ArrowRightLeft size={16} className="text-slate-400 group-hover:text-slate-600 dark:group-hover:text-slate-300 transition-colors" />
+                            Swap
+                        </button>
+
+                        {/* Options Panel (e.g. Flatten) */}
+                        {options && (
+                            <div className="bg-white dark:bg-slate-900 p-3 rounded-lg shadow-sm ring-1 ring-slate-900/5 dark:ring-white/10 shrink-0">
+                                <label className="block text-[10px] font-bold text-slate-400 dark:text-slate-500 uppercase tracking-widest mb-2">Options</label>
+                                {options}
+                            </div>
+                        )}
+
+                        {sampleData && (
+                            <button onClick={() => setLeftCode(sampleData)} className="text-xs font-medium text-indigo-500 hover:text-indigo-600 hover:underline text-center shrink-0 py-1">
+                                Load Sample
+                            </button>
+                        )}
+
+                        {/* Sidebar Ad */}
+                        {process.env.NEXT_PUBLIC_AD_SLOT_SIDEBAR && (
+                            <div className="flex-1 rounded-lg overflow-hidden min-h-[150px] flex items-center justify-center bg-slate-100/50 dark:bg-slate-800/30 border border-dashed border-slate-200 dark:border-slate-800">
+                                <GoogleAdsense adSlot={process.env.NEXT_PUBLIC_AD_SLOT_SIDEBAR} style={{ display: 'block', width: '100%' }} />
+                            </div>
+                        )}
                     </div>
 
-                    {/* RIGHT PANEL */}
-                    <div className="flex-1 flex flex-col bg-white dark:bg-slate-900 rounded-xl shadow-sm border border-slate-200 dark:border-slate-800">
-                        <div className="flex items-center justify-between px-4 py-3 border-b border-slate-100 dark:border-slate-800">
-                            <span className="font-bold text-xs uppercase tracking-wider text-slate-500">{rightTitle}</span>
-                            <div className="flex items-center gap-1">
-                                <button onClick={() => handleCopy(rightCode)} className="p-1.5 hover:bg-slate-100 dark:hover:bg-slate-800 rounded transition" title="Copy">
-                                    {copied ? <Check size={16} className="text-green-500" /> : <Copy size={16} className="text-slate-500" />}
-                                </button>
+                    {/* RIGHT COLUMN: Output Editor */}
+                    <div className="flex-1 flex flex-col bg-white dark:bg-slate-900 rounded-xl shadow-sm ring-1 ring-slate-900/5 dark:ring-white/10 lg:w-[calc(50%-110px)] min-h-0 overflow-hidden transition-all duration-200">
+                        <div className="shrink-0 px-3 py-2 border-b border-slate-100 dark:border-slate-800 flex items-center justify-between bg-white dark:bg-slate-900">
+                            <div className="flex items-center gap-3">
+                                <span className="text-[10px] font-bold text-slate-400 dark:text-slate-500 uppercase tracking-widest">{rightTitle}</span>
+                            </div>
+                            <div className="flex items-center gap-2">
+                                {rightCode && (
+                                    <button
+                                        onClick={() => handleCopy(rightCode)}
+                                        className="p-1.5 text-slate-500 hover:text-indigo-600 hover:bg-indigo-50 dark:text-slate-400 dark:hover:text-indigo-400 dark:hover:bg-indigo-900/20 rounded-md transition-all duration-200"
+                                        title="Copy Output"
+                                    >
+                                        {copied ? <Check size={16} className="text-emerald-500" /> : <Copy size={16} strokeWidth={2} />}
+                                    </button>
+                                )}
                                 <button
                                     onClick={() => {
-                                        const blob = new Blob([rightCode], { type: 'text/plain' });
-                                        const link = document.createElement('a');
-                                        link.href = URL.createObjectURL(blob);
-                                        link.download = `converted.${rightLanguage}`;
-                                        link.click();
+                                        const blob = new Blob([rightCode], { type: "text/plain" });
+                                        const url = URL.createObjectURL(blob);
+                                        const a = document.createElement("a");
+                                        a.href = url;
+                                        a.download = `converted.${rightLanguage}`;
+                                        a.click();
+                                        URL.revokeObjectURL(url);
                                     }}
-                                    className="p-1.5 hover:bg-slate-100 dark:hover:bg-slate-800 rounded transition" title="Download">
-                                    <Download size={16} className="text-slate-500" />
+                                    className="p-1.5 text-slate-500 hover:text-indigo-600 hover:bg-indigo-50 dark:text-slate-400 dark:hover:text-indigo-400 dark:hover:bg-indigo-900/20 rounded-md transition-all duration-200"
+                                    title="Download"
+                                >
+                                    <Download size={16} strokeWidth={2} />
                                 </button>
                             </div>
                         </div>
-                        <div className="flex-1 relative bg-slate-50/50 dark:bg-black/20">
+
+                        <div className="flex-1 relative min-h-0 bg-slate-50/30 dark:bg-black/20">
                             {error ? (
-                                <div className="absolute inset-0 p-4">
-                                    <div className="bg-red-50 dark:bg-red-900/20 border border-red-200 dark:border-red-900 text-red-600 dark:text-red-400 p-4 rounded-lg text-sm font-mono">
-                                        <strong className="flex items-center gap-2 mb-2"><AlertTriangle size={16} /> Conversion Error</strong>
-                                        {error}
+                                <div className="absolute inset-0 p-6 z-10 overflow-auto bg-white/95 dark:bg-slate-900/95 backdrop-blur-sm">
+                                    <div className="rounded-xl border border-red-200 bg-red-50 p-6 dark:border-red-900/30 dark:bg-red-900/10 shadow-sm">
+                                        <div className="flex items-center gap-3 text-red-700 dark:text-red-400 font-bold mb-3">
+                                            <AlertTriangle size={20} />
+                                            <span>Conversion Error</span>
+                                        </div>
+                                        <pre className="text-sm text-red-600 dark:text-red-300 whitespace-pre-wrap font-mono leading-relaxed">{error}</pre>
                                     </div>
                                 </div>
                             ) : (
-                                <SimpleCodeEditor value={rightCode} readOnly className="w-full h-full" placeholder="Output..." />
+                                <SimpleCodeEditor value={rightCode} readOnly className="w-full h-full" placeholder="Result will appear here..." />
                             )}
                         </div>
-                        <div className="px-3 py-1.5 border-t border-slate-100 dark:border-slate-800 text-[10px] text-slate-400 flex justify-between font-mono">
+
+                        <div className="shrink-0 px-3 py-1.5 border-t border-slate-100 dark:border-slate-800 flex justify-between items-center text-[10px] text-slate-400 dark:text-slate-500 font-medium font-mono bg-white dark:bg-slate-900">
                             <div className="flex gap-3">
-                                <span>{getStats(rightCode).chars} Chars</span>
-                                <span>{getStats(rightCode).lines} Lines</span>
+                                <span>{getStats(rightCode).lines} LN</span>
+                                <span>{getStats(rightCode).chars} CH</span>
                             </div>
                             <span>{getStats(rightCode).size}</span>
                         </div>
                     </div>
-                </div>
 
+                </div>
             </main>
 
             <UrlLoader isOpen={isUrlModalOpen} onClose={() => setIsUrlModalOpen(false)} onLoad={handleLoadUrl} />
