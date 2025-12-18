@@ -111,33 +111,6 @@ export default function JsonFormatterPage() {
 
             {/* Educational Content Sections - Full Width */}
             <section className="max-w-[1920px] mx-auto pb-16 space-y-16">
-                {/* Helper Tasks */}
-                <div className="border-t border-slate-200 dark:border-slate-800 pt-12">
-                    <h2 className="text-2xl font-bold text-slate-900 dark:text-white mb-8">
-                        JSON Beautifier helps to perform below tasks:
-                    </h2>
-                    <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
-                        {[
-                            { label: "JSON Beautifier", href: "/json-formatter" },
-                            { label: "JSON Parser", href: "/json-formatter" },
-                            { label: "JSON Editor", href: "/json-formatter" },
-                            { label: "JSON Viewer", href: "/json-formatter" },
-                            { label: "JSON Formatter", href: "/json-formatter" },
-                            { label: "JSON Pretty Print", href: "/json-formatter" },
-                            { label: "JSON Minify", href: "/json-formatter" },
-                            { label: "JSON Validator", href: "/json-formatter" },
-                        ].map((link) => (
-                            <a
-                                key={link.label}
-                                href={link.href}
-                                className="px-4 py-2 text-center text-sm font-medium text-indigo-600 dark:text-indigo-400 bg-indigo-50 dark:bg-indigo-900/20 rounded-lg hover:bg-indigo-100 dark:hover:bg-indigo-900/30 transition-colors border border-indigo-200 dark:border-indigo-800"
-                            >
-                                {link.label}
-                            </a>
-                        ))}
-                    </div>
-                </div>
-
                 {/* What is JSON file? */}
                 <div id="what-is-json" className="border-t border-slate-200 dark:border-slate-800 pt-12">
                     <h2 className="text-2xl font-bold text-slate-900 dark:text-white mb-6">
@@ -172,6 +145,33 @@ export default function JsonFormatterPage() {
     "zip": "10001"
   }
 }`}</pre>
+                    </div>
+                </div>
+
+                {/* Helper Tasks */}
+                <div className="border-t border-slate-200 dark:border-slate-800 pt-12">
+                    <h2 className="text-2xl font-bold text-slate-900 dark:text-white mb-8">
+                        JSON Beautifier helps to perform below tasks:
+                    </h2>
+                    <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+                        {[
+                            { label: "JSON Beautifier", href: "/json-formatter" },
+                            { label: "JSON Parser", href: "/json-formatter" },
+                            { label: "JSON Editor", href: "/json-formatter" },
+                            { label: "JSON Viewer", href: "/json-formatter" },
+                            { label: "JSON Formatter", href: "/json-formatter" },
+                            { label: "JSON Pretty Print", href: "/json-formatter" },
+                            { label: "JSON Minify", href: "/json-formatter" },
+                            { label: "JSON Validator", href: "/json-formatter" },
+                        ].map((link) => (
+                            <a
+                                key={link.label}
+                                href={link.href}
+                                className="px-4 py-2 text-center text-sm font-medium text-indigo-600 dark:text-indigo-400 bg-indigo-50 dark:bg-indigo-900/20 rounded-lg hover:bg-indigo-100 dark:hover:bg-indigo-900/30 transition-colors border border-indigo-200 dark:border-indigo-800"
+                            >
+                                {link.label}
+                            </a>
+                        ))}
                     </div>
                 </div>
 

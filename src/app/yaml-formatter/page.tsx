@@ -113,32 +113,6 @@ export default function YamlFormatterPage() {
 
             {/* Educational Content Sections - Full Width */}
             <section className="max-w-[1920px] mx-auto pb-16 space-y-16">
-                {/* Helper Tasks */}
-                <div className="border-t border-slate-200 dark:border-slate-800 pt-12">
-                    <h2 className="text-2xl font-bold text-slate-900 dark:text-white mb-8">
-                        YAML Beautifier helps to perform below tasks:
-                    </h2>
-                    <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
-                        {[
-                            { label: "YAML Beautifier", href: "/yaml-formatter" },
-                            { label: "YAML Parser", href: "/yaml-formatter" },
-                            { label: "YAML Editor", href: "/yaml-formatter" },
-                            { label: "YAML Viewer", href: "/yaml-formatter" },
-                            { label: "YAML Formatter", href: "/yaml-formatter" },
-                            { label: "YAML Pretty Print", href: "/yaml-formatter" },
-                            { label: "YAML Validator", href: "/yaml-formatter" },
-                        ].map((link) => (
-                            <a
-                                key={link.label}
-                                href={link.href}
-                                className="px-4 py-2 text-center text-sm font-medium text-indigo-600 dark:text-indigo-400 bg-indigo-50 dark:bg-indigo-900/20 rounded-lg hover:bg-indigo-100 dark:hover:bg-indigo-900/30 transition-colors border border-indigo-200 dark:border-indigo-800"
-                            >
-                                {link.label}
-                            </a>
-                        ))}
-                    </div>
-                </div>
-
                 {/* What is YAML file? */}
                 <div id="what-is-yaml" className="border-t border-slate-200 dark:border-slate-800 pt-12">
                     <h2 className="text-2xl font-bold text-slate-900 dark:text-white mb-6">
@@ -173,6 +147,32 @@ dependencies:
 settings:
   debug: false
   max_connections: 100`}</pre>
+                    </div>
+                </div>
+
+                {/* Helper Tasks */}
+                <div className="border-t border-slate-200 dark:border-slate-800 pt-12">
+                    <h2 className="text-2xl font-bold text-slate-900 dark:text-white mb-8">
+                        YAML Beautifier helps to perform below tasks:
+                    </h2>
+                    <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+                        {[
+                            { label: "YAML Beautifier", href: "/yaml-formatter" },
+                            { label: "YAML Parser", href: "/yaml-formatter" },
+                            { label: "YAML Editor", href: "/yaml-formatter" },
+                            { label: "YAML Viewer", href: "/yaml-formatter" },
+                            { label: "YAML Formatter", href: "/yaml-formatter" },
+                            { label: "YAML Pretty Print", href: "/yaml-formatter" },
+                            { label: "YAML Validator", href: "/yaml-formatter" },
+                        ].map((link) => (
+                            <a
+                                key={link.label}
+                                href={link.href}
+                                className="px-4 py-2 text-center text-sm font-medium text-indigo-600 dark:text-indigo-400 bg-indigo-50 dark:bg-indigo-900/20 rounded-lg hover:bg-indigo-100 dark:hover:bg-indigo-900/30 transition-colors border border-indigo-200 dark:border-indigo-800"
+                            >
+                                {link.label}
+                            </a>
+                        ))}
                     </div>
                 </div>
 
