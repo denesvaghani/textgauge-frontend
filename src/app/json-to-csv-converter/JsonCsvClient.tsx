@@ -133,6 +133,21 @@ Jane Smith,jane@example.com,London,SW1A`;
 
             {/* Educational Content Sections - Full Width */}
             <section className="max-w-[1920px] mx-auto pb-16 space-y-16">
+                {/* What is JSON to CSV conversion? */}
+                <div id="what-is-json-to-csv" className="border-t border-slate-200 dark:border-slate-800 pt-12">
+                    <h2 className="text-2xl font-bold text-slate-900 dark:text-white mb-6">
+                        What is JSON to CSV conversion?
+                    </h2>
+                    <div className="prose prose-slate dark:prose-invert max-w-none">
+                        <p className="text-slate-600 dark:text-slate-300 leading-relaxed text-base">
+                            JSON (JavaScript Object Notation) is a popular data format for APIs and web services, while CSV (Comma Separated Values) is widely used for spreadsheets and data analysis. Converting JSON to CSV simplifies complex data structures into rows and columns, making it easy to open in Excel, Google Sheets, or import into databases.
+                        </p>
+                        <p className="text-slate-600 dark:text-slate-300 leading-relaxed text-base mt-4">
+                            <strong>File Size Advantage:</strong> CSV files are typically <strong>50-60% smaller</strong> than their JSON equivalents. JSON repeats field names for every record, while CSV lists headers once. For example, a 0.27 KB JSON file becomes just 0.12 KB as CSV - perfect for reducing bandwidth and storage costs.
+                        </p>
+                    </div>
+                </div>
+
                 {/* Helper Tasks */}
                 <div className="border-t border-slate-200 dark:border-slate-800 pt-12">
                     <h2 className="text-2xl font-bold text-slate-900 dark:text-white mb-8">
@@ -156,21 +171,6 @@ Jane Smith,jane@example.com,London,SW1A`;
                                 {link.label}
                             </a>
                         ))}
-                    </div>
-                </div>
-
-                {/* What is JSON to CSV conversion? */}
-                <div id="what-is-json-to-csv" className="border-t border-slate-200 dark:border-slate-800 pt-12">
-                    <h2 className="text-2xl font-bold text-slate-900 dark:text-white mb-6">
-                        What is JSON to CSV conversion?
-                    </h2>
-                    <div className="prose prose-slate dark:prose-invert max-w-none">
-                        <p className="text-slate-600 dark:text-slate-300 leading-relaxed text-base">
-                            JSON (JavaScript Object Notation) is a popular data format for APIs and web services, while CSV (Comma Separated Values) is widely used for spreadsheets and data analysis. Converting JSON to CSV simplifies complex data structures into rows and columns, making it easy to open in Excel, Google Sheets, or import into databases.
-                        </p>
-                        <p className="text-slate-600 dark:text-slate-300 leading-relaxed text-base mt-4">
-                            <strong>File Size Advantage:</strong> CSV files are typically <strong>50-60% smaller</strong> than their JSON equivalents. JSON repeats field names for every record, while CSV lists headers once. For example, a 0.27 KB JSON file becomes just 0.12 KB as CSV - perfect for reducing bandwidth and storage costs.
-                        </p>
                     </div>
                 </div>
 
