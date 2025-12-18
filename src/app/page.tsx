@@ -129,7 +129,7 @@ export default function Page() {
             { q: "Does it count spaces?", a: "Yes, we provide counts both with and without spaces to suit your needs." },
             { q: "Is my text private?", a: "ABSOLUTELY. All analysis happens in your browser. Your text is never sent to our servers." }
           ].map((faq, i) => (
-            <details key={i} className="group bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-xl overflow-hidden transition-all duration-200">
+            <details key={i} className="w-full group bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-xl overflow-hidden transition-all duration-200">
               <summary className="flex items-center justify-between p-5 font-semibold cursor-pointer text-slate-800 dark:text-white hover:bg-slate-50 dark:hover:bg-slate-800/50 transition-colors">
                 {faq.q}
                 <span className="text-slate-400 group-open:rotate-180 transition-transform">▼</span>

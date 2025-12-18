@@ -98,7 +98,7 @@ export default function YamlFormatterPage() {
                             a: "Our tool supports YAML 1.2 standard, which is compatible with most modern applications including Docker, Kubernetes, Ansible, and GitHub Actions configurations." 
                         }
                     ].map((faq, i) => (
-                        <details key={i} className="group bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-xl overflow-hidden transition-all duration-200">
+                        <details key={i} className="w-full group bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-xl overflow-hidden transition-all duration-200">
                             <summary className="flex items-center justify-between p-5 font-semibold cursor-pointer text-slate-800 dark:text-white hover:bg-slate-50 dark:hover:bg-slate-800/50 transition-colors">
                                 {faq.q}
                                 <span className="text-slate-400 group-open:rotate-180 transition-transform">▼</span>
