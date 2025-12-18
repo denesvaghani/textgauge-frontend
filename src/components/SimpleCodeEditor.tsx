@@ -365,14 +365,31 @@ export function SimpleCodeEditor({
                         style={{ paddingLeft: 'calc(2.5rem + 1rem)' }} // Account for line numbers + padding
                     >
                         <div className="p-4 text-sm font-mono leading-5 whitespace-pre">
-                            {value.split('\n').map((line, idx) => (
-                                <div 
-                                    key={idx} 
-                                    className={idx === 0 ? "font-bold text-indigo-600 dark:text-indigo-400" : "text-transparent"}
-                                >
-                                    {line}
-                                </div>
-                            ))}
+                            {value.split('\n').map((line, idx) => {
+                                if (idx === 0 && line.trim()) {
+                                    // Header row - special rendering
+                                    const headers = line.split(',');
+                                    return (
+                                        <div 
+                                            key={idx} 
+                                            className="font-semibold text-indigo-700 dark:text-indigo-300 bg-indigo-50/50 dark:bg-indigo-950/30 px-1 -mx-1 rounded"
+                                            style={{ letterSpacing: '0.02em' }}
+                                        >
+                                            {headers.map((header, i) => (
+                                                <span key={i}>
+                                                    {header}
+                                                    {i < headers.length - 1 && <span className="text-slate-400 dark:text-slate-600">,</span>}
+                                                </span>
+                                            ))}
+                                        </div>
+                                    );
+                                }
+                                return (
+                                    <div key={idx} className="text-transparent">
+                                        {line}
+                                    </div>
+                                );
+                            })}
                         </div>
                     </div>
                 )}
