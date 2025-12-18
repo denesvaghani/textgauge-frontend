@@ -110,6 +110,80 @@ export default function YamlFormatterPage() {
                     ))}
                 </div>
             </section>
+
+            {/* Educational Content Sections */}
+            <section className="max-w-[1920px] mx-auto px-4 sm:px-6 lg:px-8 pb-16 space-y-8">
+                {/* Helper Tasks */}
+                <div className="bg-white dark:bg-slate-900 rounded-2xl shadow-sm border border-slate-200 dark:border-slate-800 p-8 transition-colors duration-200">
+                    <h2 className="text-2xl font-bold text-slate-900 dark:text-white mb-6">
+                        YAML Beautifier helps to perform below tasks:
+                    </h2>
+                    <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+                        {[
+                            { label: "YAML Beautifier", href: "/yaml-formatter" },
+                            { label: "YAML Parser", href: "/yaml-formatter" },
+                            { label: "YAML Editor", href: "/yaml-formatter" },
+                            { label: "YAML Viewer", href: "/yaml-formatter" },
+                            { label: "YAML Formatter", href: "/yaml-formatter" },
+                            { label: "YAML Pretty Print", href: "/yaml-formatter" },
+                            { label: "YAML Validator", href: "/yaml-formatter" },
+                        ].map((link) => (
+                            <a
+                                key={link.label}
+                                href={link.href}
+                                className="px-4 py-2 text-center text-sm font-medium text-indigo-600 dark:text-indigo-400 bg-indigo-50 dark:bg-indigo-900/20 rounded-lg hover:bg-indigo-100 dark:hover:bg-indigo-900/30 transition-colors border border-indigo-200 dark:border-indigo-800"
+                            >
+                                {link.label}
+                            </a>
+                        ))}
+                    </div>
+                </div>
+
+                {/* What is YAML file? */}
+                <div id="what-is-yaml" className="bg-white dark:bg-slate-900 rounded-2xl shadow-sm border border-slate-200 dark:border-slate-800 p-8 transition-colors duration-200">
+                    <h2 className="text-2xl font-bold text-slate-900 dark:text-white mb-6">
+                        What is YAML file?
+                    </h2>
+                    <div className="prose prose-slate dark:prose-invert max-w-none">
+                        <p className="text-slate-600 dark:text-slate-300 leading-relaxed">
+                            YAML (YAML Ain't Markup Language) is a human-readable data serialization standard that can be used in conjunction with all programming languages and is often used to write configuration files.
+                        </p>
+                        <p className="text-slate-600 dark:text-slate-300 leading-relaxed mt-4">
+                            It caters to people using data rather than just computers processing it. YAML is often used for configuration files and in applications where data is being stored or transmitted.
+                        </p>
+                    </div>
+                </div>
+
+                {/* YAML Examples */}
+                <div id="yaml-examples" className="bg-white dark:bg-slate-900 rounded-2xl shadow-sm border border-slate-200 dark:border-slate-800 p-8 transition-colors duration-200">
+                    <h2 className="text-2xl font-bold text-slate-900 dark:text-white mb-6">
+                        YAML Examples
+                    </h2>
+                    <p className="text-slate-600 dark:text-slate-300 leading-relaxed mb-4">
+                        Here is a simple example of YAML data representing a server config:
+                    </p>
+                    <div className="bg-slate-100 dark:bg-slate-950 p-6 rounded-xl font-mono text-sm overflow-x-auto border border-slate-200 dark:border-slate-800">
+                        <pre className="text-slate-800 dark:text-slate-200">{`name: Production Server
+version: 1.0.0
+dependencies:
+  - name: nginx
+    version: 1.18.0
+  - name: postgresql
+    version: 13.2
+settings:
+  debug: false
+  max_connections: 100`}</pre>
+                    </div>
+                </div>
+
+                {/* Platform Compatibility */}
+                <div className="bg-gradient-to-r from-indigo-50 to-purple-50 dark:from-indigo-950/20 dark:to-purple-950/20 rounded-2xl border border-indigo-200 dark:border-indigo-800 p-6 text-center">
+                    <p className="text-slate-700 dark:text-slate-300 font-medium">
+                        YAML Formatter working properly in <strong>Windows</strong>, <strong>Mac</strong>, <strong>Linux</strong>, <strong>Chrome</strong>, <strong>Firefox</strong>, <strong>Safari</strong> and <strong>Edge</strong> and it's <strong className="text-indigo-600 dark:text-indigo-400">Free</strong>.
+                    </p>
+                </div>
+            </section>
         </div>
     );
 }
+```
