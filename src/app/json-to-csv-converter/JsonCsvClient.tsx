@@ -95,7 +95,7 @@ Jane Smith,jane@example.com,London,SW1A`;
             </section>
 
             {/* FAQ Section */}
-            <section className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 pb-16">
+            <section className="max-w-[1920px] mx-auto px-4 sm:px-6 lg:px-8 pb-16">
                 <h2 className="text-2xl font-bold text-center text-slate-900 dark:text-white mb-8">
                     Frequently Asked Questions
                 </h2>
