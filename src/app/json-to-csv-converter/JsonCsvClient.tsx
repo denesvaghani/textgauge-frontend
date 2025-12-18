@@ -57,8 +57,7 @@ Jane Smith,jane@example.com,London,SW1A`;
                 toolName="JSON to CSV"
                 description="JSON to CSV Converter works properly in Windows, Mac, Linux, Chrome, Firefox, Safari and Edge and it's Free."
                 knowMoreLinks={[
-                    { label: "What is JSON file?", href: "#what-is-json" },
-                    { label: "JSON Examples.", href: "#json-examples" },
+                    { label: "What is JSON to CSV?", href: "#what-is-json-to-csv" },
                 ]}
                 helperTasks={[
                     { label: "JSON Beautifier", href: "/json-formatter" },
@@ -82,7 +81,7 @@ Jane Smith,jane@example.com,London,SW1A`;
                 ]}
                 contentSections={[
                     {
-                        id: "what-is-json",
+                        id: "what-is-json-to-csv",
                         title: "What is JSON to CSV conversion?",
                         content: (
                             <>
@@ -92,27 +91,6 @@ Jane Smith,jane@example.com,London,SW1A`;
                                 <p className="mt-4">
                                     <strong>File Size Advantage:</strong> CSV files are typically <strong>50-60% smaller</strong> than their JSON equivalents. JSON repeats field names for every record, while CSV lists headers once. For example, a 0.27 KB JSON file becomes just 0.12 KB as CSV - perfect for reducing bandwidth and storage costs.
                                 </p>
-                            </>
-                        )
-                    },
-                    {
-                        id: "json-examples",
-                        title: "JSON Examples",
-                        content: (
-                            <>
-                                <p>Here is a simple example of JSON data representing a user:</p>
-                                <div className="bg-slate-100 dark:bg-slate-900 p-4 rounded-md font-mono text-xs overflow-x-auto border border-slate-200 dark:border-slate-800">
-                                    <pre>{`{
-  "name": "John Doe",
-  "age": 30,
-  "isStudent": false,
-  "courses": ["Math", "Science"],
-  "address": {
-    "city": "New York",
-    "zip": "10001"
-  }
-}`}</pre>
-                                </div>
                             </>
                         )
                     }
