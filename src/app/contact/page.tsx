@@ -75,7 +75,9 @@ export default function ContactPage() {
             <h2>Business Inquiries</h2>
             <p>
                 For partnership opportunities, advertising, or business-related questions, please contact:{' '}
-                <a href="mailto:denesdvaghani9200@gmail.com">denesdvaghani9200@gmail.com</a>
+                <a href="mailto:denesdvaghani9200@gmail.com" className="text-indigo-600 dark:text-indigo-400 hover:underline font-medium">
+                    denesdvaghani9200@gmail.com
+                </a>
             </p>
 
             <h2>Response Time</h2>
