@@ -369,7 +369,7 @@ export function Editor() {
                     e.preventDefault();
                     transformSelection(toTitleCase);
                   }}
-                  className="rounded-md bg-emerald-500 px-3 py-1.5 font-bold text-white shadow-sm shadow-emerald-500/20 hover:bg-emerald-600 hover:shadow-emerald-500/30 transition-all"
+                  className="rounded-md bg-emerald-500 px-3 py-1.5 font-bold text-white shadow-sm shadow-emerald-500/20 hover:bg-emerald-600 hover:shadow-emerald-500/30 transition-all active:scale-95"
                 >
                   Aa
                 </button>
@@ -381,7 +381,7 @@ export function Editor() {
                     e.preventDefault();
                     transformSelection((s) => s.toLowerCase());
                   }}
-                  className="rounded-md bg-emerald-500 px-3 py-1.5 font-bold text-white shadow-sm shadow-emerald-500/20 hover:bg-emerald-600 hover:shadow-emerald-500/30 transition-all"
+                  className="rounded-md bg-emerald-500 px-3 py-1.5 font-bold text-white shadow-sm shadow-emerald-500/20 hover:bg-emerald-600 hover:shadow-emerald-500/30 transition-all active:scale-95"
                 >
                   abc
                 </button>
@@ -393,7 +393,7 @@ export function Editor() {
                     e.preventDefault();
                     transformSelection(toSnakeCase);
                   }}
-                  className="rounded-md bg-emerald-500 px-3 py-1.5 font-bold text-white shadow-sm shadow-emerald-500/20 hover:bg-emerald-600 hover:shadow-emerald-500/30 transition-all"
+                  className="rounded-md bg-emerald-500 px-3 py-1.5 font-bold text-white shadow-sm shadow-emerald-500/20 hover:bg-emerald-600 hover:shadow-emerald-500/30 transition-all active:scale-95"
                 >
                   snake_case
                 </button>
