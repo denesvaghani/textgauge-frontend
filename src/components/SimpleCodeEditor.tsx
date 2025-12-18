@@ -9,6 +9,7 @@ interface SimpleCodeEditorProps {
     readOnly?: boolean;
     placeholder?: string;
     className?: string;
+    language?: "json" | "yaml" | "text" | "csv";
 }
 
 export function SimpleCodeEditor({
@@ -17,6 +18,7 @@ export function SimpleCodeEditor({
     readOnly = false,
     placeholder,
     className = "",
+    language = "text",
 }: SimpleCodeEditorProps) {
     const textareaRef = useRef<HTMLTextAreaElement>(null);
     const lineNumbersRef = useRef<HTMLDivElement>(null);
@@ -356,6 +358,25 @@ export function SimpleCodeEditor({
                     ))}
                 </div>
 
+                {/* CSV Syntax Highlighting Overlay */}
+                {language === "csv" && value && (
+                    <div 
+                        className="absolute top-0 left-0 right-0 bottom-0 pointer-events-none overflow-hidden"
+                        style={{ paddingLeft: 'calc(2.5rem + 1rem)' }} // Account for line numbers + padding
+                    >
+                        <div className="p-4 text-sm font-mono leading-5 whitespace-pre">
+                            {value.split('\n').map((line, idx) => (
+                                <div 
+                                    key={idx} 
+                                    className={idx === 0 ? "font-bold text-indigo-600 dark:text-indigo-400" : "text-transparent"}
+                                >
+                                    {line}
+                                </div>
+                            ))}
+                        </div>
+                    </div>
+                )}
+
                 {/* Text Area */}
                 <textarea
                     ref={textareaRef}
@@ -364,7 +385,9 @@ export function SimpleCodeEditor({
                     readOnly={readOnly}
                     onScroll={handleScroll}
                     placeholder={placeholder}
-                    className="flex-1 w-full h-full p-4 resize-none outline-none border-none bg-transparent text-sm font-mono leading-5 text-slate-800 dark:text-slate-200 placeholder:text-slate-300 whitespace-pre"
+                    className={`flex-1 w-full h-full p-4 resize-none outline-none border-none bg-transparent text-sm font-mono leading-5 placeholder:text-slate-300 whitespace-pre ${
+                        language === "csv" ? "text-slate-800 dark:text-slate-200" : "text-slate-800 dark:text-slate-200"
+                    }`}
                     spellCheck="false"
                     autoCapitalize="off"
                     autoComplete="off"

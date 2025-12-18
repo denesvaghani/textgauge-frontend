@@ -46,8 +46,8 @@ Jane Smith,jane@example.com,London,SW1A`;
             <Formatter
                 title="JSON to CSV Converter"
                 description="Convert JSON data to CSV format instantly. Support for nested objects, large files, and bidirectional conversion."
-                inputType={direction === "json-csv" ? "json" : "yaml"}
-                outputType={direction === "json-csv" ? "yaml" : "json"}
+                inputType={direction === "json-csv" ? "json" : "text"}
+                outputType={direction === "json-csv" ? "csv" : "json"}
                 onTransform={handleTransform}
                 sampleData={direction === "json-csv" ? sampleJson : sampleCsv}
             />
