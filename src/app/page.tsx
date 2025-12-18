@@ -10,7 +10,7 @@ export default function Page() {
 
       {/* Hero Section */}
       <section className="bg-white/50 dark:bg-slate-900/50 border-b border-slate-200 dark:border-slate-800 pt-12 pb-16 transition-colors duration-200">
-        <div className="max-w-[1920px] mx-auto text-center">
+        <div className="max-w-[1920px] mx-auto px-4 sm:px-6 lg:px-8 text-center">
           <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-indigo-50 dark:bg-indigo-900/30 border border-indigo-100 dark:border-indigo-800 text-indigo-600 dark:text-indigo-400 text-xs font-bold uppercase tracking-wider mb-6">
             ✨ Free Developer Tools
           </div>
@@ -25,14 +25,14 @@ export default function Page() {
       </section>
 
       {/* Editor Section */}
-      <section className="max-w-[1920px] mx-auto -mt-8">
+      <section className="max-w-[1920px] mx-auto px-4 sm:px-6 lg:px-8 -mt-8">
         <div className="bg-white dark:bg-slate-900 rounded-2xl shadow-xl ring-1 ring-slate-900/5 dark:ring-white/10 overflow-hidden">
           <Editor />
         </div>
       </section>
 
       {/* Tools Grid */}
-      <section className="max-w-[1920px] mx-auto py-16">
+      <section className="max-w-[1920px] mx-auto px-4 sm:px-6 lg:px-8 py-16">
         <div className="grid md:grid-cols-3 gap-6">
           <a href="/json-formatter" className="group p-6 rounded-2xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 hover:border-indigo-500/50 dark:hover:border-indigo-500/50 hover:shadow-lg hover:shadow-indigo-500/10 transition-all duration-200">
             <div className="flex items-center justify-between mb-4">
@@ -70,7 +70,7 @@ export default function Page() {
       </section>
 
       {/* SEO Content Section */}
-      <section className="max-w-[1920px] mx-auto pb-16">
+      <section className="max-w-[1920px] mx-auto px-4 sm:px-6 lg:px-8 pb-16">
         <div className="bg-white dark:bg-slate-900 rounded-2xl shadow-sm border border-slate-200 dark:border-slate-800 p-8 transition-colors duration-200">
           <h2 className="text-2xl font-bold text-slate-900 dark:text-white mb-6">
             Everything you need to analyze text
@@ -118,7 +118,7 @@ export default function Page() {
       </section>
 
       {/* FAQ Section */}
-      <section className="max-w-[1920px] mx-auto pb-16">
+      <section className="max-w-[1920px] mx-auto px-4 sm:px-6 lg:px-8 pb-16">
         <h2 className="text-2xl font-bold text-center text-slate-900 dark:text-white mb-8">
           Frequently Asked Questions
         </h2>

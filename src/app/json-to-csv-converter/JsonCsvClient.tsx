@@ -95,7 +95,7 @@ Jane Smith,jane@example.com,London,SW1A`;
             </section>
 
             {/* FAQ Section */}
-            <section className="max-w-[1920px] mx-auto pb-16">
+            <section className="max-w-[1920px] mx-auto px-4 sm:px-6 lg:px-8 pb-16">
                 <h2 className="text-2xl font-bold text-center text-slate-900 dark:text-white mb-8">
                     Frequently Asked Questions
                 </h2>
@@ -132,7 +132,7 @@ Jane Smith,jane@example.com,London,SW1A`;
             </section>
 
             {/* Educational Content Sections - Full Width */}
-            <section className="max-w-[1920px] mx-auto pb-16 space-y-16">
+            <section className="max-w-[1920px] mx-auto px-4 sm:px-6 lg:px-8 pb-16 space-y-16">
                 {/* What is JSON to CSV conversion? */}
                 <div id="what-is-json-to-csv" className="border-t border-slate-200 dark:border-slate-800 pt-12">
                     <h2 className="text-2xl font-bold text-slate-900 dark:text-white mb-6">
