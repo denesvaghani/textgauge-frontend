@@ -1,7 +1,6 @@
 "use client";
 
 import { Formatter } from "@/components/Formatter";
-import { SeoContent } from "@/components/SeoContent";
 
 export default function JsonFormatterPage() {
 
@@ -29,70 +28,86 @@ export default function JsonFormatterPage() {
                 onMinify={minifyJson}
                 sampleData={sampleData}
             />
-            <SeoContent
-                toolName="JSON"
-                description="JSON Formatter working proper in Windows, Mac, Linux, Chrome, Firefox, Safari and Edge and it's Free."
-                knowMoreLinks={[
-                    { label: "What is JSON file?", href: "#what-is-json" },
-                    { label: "JSON Examples.", href: "#json-examples" },
-                ]}
-                helperTasks={[
-                    { label: "JSON Beautifier", href: "/json-formatter" },
-                    { label: "JSON Parser", href: "/json-formatter" },
-                    { label: "JSON Editor", href: "/json-formatter" },
-                    { label: "JSON Viewer", href: "/json-formatter" },
-                    { label: "JSON Formatter", href: "/json-formatter" },
-                    { label: "JSON Pretty Print", href: "/json-formatter" },
-                    { label: "JSON Minify", href: "/json-formatter" },
-                    { label: "JSON Validator", href: "/json-formatter" },
-                ]}
-                discoverLinks={[]}
-                features={[
-                    "It helps to Change, add, move, remove, and duplicate fields and values.",
-                    "It's also a Sort arrays and objects.",
-                    "You can Search & highlight text in the tree view.",
-                    "Undo and redo all actions.",
-                    "JSON schema validation.",
-                    "You can Format JSON Data and also compact JSON Data."
-                ]}
-                contentSections={[
-                    {
-                        id: "what-is-json",
-                        title: "What is JSON file?",
-                        content: (
-                            <>
-                                <p>
-                                    JSON (JavaScript Object Notation) is a lightweight data-interchange format. It is easy for humans to read and write. It is easy for machines to parse and generate. It is based on a subset of the JavaScript Programming Language Standard ECMA-262 3rd Edition - December 1999.
-                                </p>
-                                <p>
-                                    JSON is a text format that is completely language independent but uses conventions that are familiar to programmers of the C-family of languages, including C, C++, C#, Java, JavaScript, Perl, Python, and many others. These properties make JSON an ideal data-interchange language.
-                                </p>
-                            </>
-                        )
-                    },
-                    {
-                        id: "json-examples",
-                        title: "JSON Examples",
-                        content: (
-                            <>
-                                <p>Here is a simple example of JSON data representing a user:</p>
-                                <div className="bg-slate-100 dark:bg-slate-900 p-4 rounded-md font-mono text-xs overflow-x-auto border border-slate-200 dark:border-slate-800">
-                                    <pre>{`{
-  "name": "John Doe",
-  "age": 30,
-  "isStudent": false,
-  "courses": ["Math", "Science"],
-  "address": {
-    "city": "New York",
-    "zip": "10001"
-  }
-}`}</pre>
-                                </div>
-                            </>
-                        )
-                    }
-                ]}
-            />
+            
+            {/* Key Features Section */}
+            <section className="max-w-[1920px] mx-auto px-4 sm:px-6 lg:px-8 pb-16">
+                <div className="bg-white dark:bg-slate-900 rounded-2xl shadow-sm border border-slate-200 dark:border-slate-800 p-8 transition-colors duration-200">
+                    <h2 className="text-2xl font-bold text-slate-900 dark:text-white mb-6">
+                        Key Features
+                    </h2>
+                    <div className="grid md:grid-cols-2 gap-x-12 gap-y-8 text-sm text-slate-600 dark:text-slate-300">
+                        <div>
+                            <h3 className="font-bold text-base mb-2 text-slate-900 dark:text-white flex items-center gap-2">
+                                <span className="w-1.5 h-1.5 rounded-full bg-indigo-500"></span> Format & Beautify
+                            </h3>
+                            <p className="leading-relaxed">
+                                Instantly format and beautify JSON with customizable indentation (2-space, 4-space, or custom tabs). Makes JSON readable and properly structured.
+                            </p>
+                        </div>
+                        <div>
+                            <h3 className="font-bold text-base mb-2 text-slate-900 dark:text-white flex items-center gap-2">
+                                <span className="w-1.5 h-1.5 rounded-full bg-indigo-500"></span> Minify JSON
+                            </h3>
+                            <p className="leading-relaxed">
+                                Compress JSON by removing whitespace and line breaks. Perfect for reducing file size and optimizing API responses.
+                            </p>
+                        </div>
+                        <div>
+                            <h3 className="font-bold text-base mb-2 text-slate-900 dark:text-white flex items-center gap-2">
+                                <span className="w-1.5 h-1.5 rounded-full bg-indigo-500"></span> Validation
+                            </h3>
+                            <p className="leading-relaxed">
+                                Automatically validates JSON structure and syntax. Get instant error messages with line numbers for quick debugging.
+                            </p>
+                        </div>
+                        <div>
+                            <h3 className="font-bold text-base mb-2 text-slate-900 dark:text-white flex items-center gap-2">
+                                <span className="w-1.5 h-1.5 rounded-full bg-indigo-500"></span> 100% Client-Side
+                            </h3>
+                            <p className="leading-relaxed">
+                                All processing happens in your browser. Your JSON data never leaves your device, ensuring complete privacy and security.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            {/* FAQ Section */}
+            <section className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 pb-16">
+                <h2 className="text-2xl font-bold text-center text-slate-900 dark:text-white mb-8">
+                    Frequently Asked Questions
+                </h2>
+                <div className="space-y-4">
+                    {[
+                        { 
+                            q: "How do I format JSON?", 
+                            a: "Simply paste your JSON data into the editor and click the 'Beautify' button. The tool will automatically format your JSON with proper indentation and structure." 
+                        },
+                        { 
+                            q: "Can I minify JSON to reduce file size?", 
+                            a: "Yes! Use the 'Minify' button to remove all unnecessary whitespace and line breaks from your JSON, making it more compact for storage or transmission." 
+                        },
+                        { 
+                            q: "Is my JSON data private and secure?", 
+                            a: "Absolutely! All JSON formatting and validation happens entirely in your browser. Your data is never uploaded to any server, ensuring complete privacy." 
+                        },
+                        { 
+                            q: "What JSON errors does this tool detect?", 
+                            a: "The tool detects syntax errors (missing commas, brackets, quotes), invalid structure, incorrect data types, and provides detailed error messages with line numbers to help you fix issues quickly." 
+                        }
+                    ].map((faq, i) => (
+                        <details key={i} className="group bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-xl overflow-hidden transition-all duration-200">
+                            <summary className="flex items-center justify-between p-5 font-semibold cursor-pointer text-slate-800 dark:text-white hover:bg-slate-50 dark:hover:bg-slate-800/50 transition-colors">
+                                {faq.q}
+                                <span className="text-slate-400 group-open:rotate-180 transition-transform">▼</span>
+                            </summary>
+                            <div className="px-5 pb-5 text-slate-600 dark:text-slate-300 text-sm leading-relaxed border-t border-slate-100 dark:border-slate-800/50 pt-4">
+                                {faq.a}
+                            </div>
+                        </details>
+                    ))}
+                </div>
+            </section>
         </div>
     );
 }

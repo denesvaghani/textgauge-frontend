@@ -1,7 +1,6 @@
 "use client";
 
 import { Formatter } from "@/components/Formatter";
-import { SeoContent } from "@/components/SeoContent";
 import { jsonToCsv, csvToJson } from "@/lib/converters/json-csv";
 import { useState } from "react";
 
@@ -52,50 +51,85 @@ Jane Smith,jane@example.com,London,SW1A`;
                 sampleData={direction === "json-csv" ? sampleJson : sampleCsv}
             />
             
-            {/* SEO Content */}
-            <SeoContent
-                toolName="JSON to CSV"
-                description="JSON to CSV Converter works properly in Windows, Mac, Linux, Chrome, Firefox, Safari and Edge and it's Free."
-                knowMoreLinks={[
-                    { label: "What is JSON to CSV?", href: "#what-is-json-to-csv" },
-                ]}
-                helperTasks={[
-                    { label: "JSON Beautifier", href: "/json-formatter" },
-                    { label: "JSON Parser", href: "/json-formatter" },
-                    { label: "JSON Editor", href: "/json-formatter" },
-                    { label: "JSON Viewer", href: "/json-formatter" },
-                    { label: "JSON Formatter", href: "/json-formatter" },
-                    { label: "JSON Pretty Print", href: "/json-formatter" },
-                    { label: "JSON Minify", href: "/json-formatter" },
-                    { label: "JSON Validator", href: "/json-formatter" },
-                ]}
-                discoverLinks={[]}
-                features={[
-                    "Reduce File Size: CSV files are typically 50-60% smaller than JSON for the same data.",
-                    "Instant Conversion: Convert JSON data to CSV format in real-time.",
-                    "Flatten Objects: Automatically flattens nested JSON objects into proper CSV columns.",
-                    "Secure: All conversion happens in your browser. No data sent to servers.",
-                    "Load from URL: Fetch JSON data directly from a URL.",
-                    "Bidirectional: You can also convert CSV back to JSON.",
-                    "Large File Support: Optimized for handling large datasets efficiently.",
-                ]}
-                contentSections={[
-                    {
-                        id: "what-is-json-to-csv",
-                        title: "What is JSON to CSV conversion?",
-                        content: (
-                            <>
-                                <p>
-                                    JSON (JavaScript Object Notation) is a popular data format for APIs and web services, while CSV (Comma Separated Values) is widely used for spreadsheets and data analysis. Converting JSON to CSV simplifies complex data structures into rows and columns, making it easy to open in Excel, Google Sheets, or import into databases.
-                                </p>
-                                <p className="mt-4">
-                                    <strong>File Size Advantage:</strong> CSV files are typically <strong>50-60% smaller</strong> than their JSON equivalents. JSON repeats field names for every record, while CSV lists headers once. For example, a 0.27 KB JSON file becomes just 0.12 KB as CSV - perfect for reducing bandwidth and storage costs.
-                                </p>
-                            </>
-                        )
-                    }
-                ]}
-            />
+            {/* Key Features Section */}
+            <section className="max-w-[1920px] mx-auto px-4 sm:px-6 lg:px-8 pb-16">
+                <div className="bg-white dark:bg-slate-900 rounded-2xl shadow-sm border border-slate-200 dark:border-slate-800 p-8 transition-colors duration-200">
+                    <h2 className="text-2xl font-bold text-slate-900 dark:text-white mb-6">
+                        Key Features
+                    </h2>
+                    <div className="grid md:grid-cols-2 gap-x-12 gap-y-8 text-sm text-slate-600 dark:text-slate-300">
+                        <div>
+                            <h3 className="font-bold text-base mb-2 text-slate-900 dark:text-white flex items-center gap-2">
+                                <span className="w-1.5 h-1.5 rounded-full bg-indigo-500"></span> Reduce File Size
+                            </h3>
+                            <p className="leading-relaxed">
+                                CSV files are typically <strong>50-60% smaller</strong> than equivalent JSON. Perfect for reducing bandwidth costs and speeding up data transfers.
+                            </p>
+                        </div>
+                        <div>
+                            <h3 className="font-bold text-base mb-2 text-slate-900 dark:text-white flex items-center gap-2">
+                                <span className="w-1.5 h-1.5 rounded-full bg-indigo-500"></span> Flatten Objects
+                            </h3>
+                            <p className="leading-relaxed">
+                                Automatically flattens nested JSON objects into CSV columns using dot notation. Makes complex API responses spreadsheet-ready.
+                            </p>
+                        </div>
+                        <div>
+                            <h3 className="font-bold text-base mb-2 text-slate-900 dark:text-white flex items-center gap-2">
+                                <span className="w-1.5 h-1.5 rounded-full bg-indigo-500"></span> Bidirectional Conversion
+                            </h3>
+                            <p className="leading-relaxed">
+                                Convert JSON to CSV and CSV back to JSON. Switch between formats seamlessly for different use cases and applications.
+                            </p>
+                        </div>
+                        <div>
+                            <h3 className="font-bold text-base mb-2 text-slate-900 dark:text-white flex items-center gap-2">
+                                <span className="w-1.5 h-1.5 rounded-full bg-indigo-500"></span> 100% Client-Side
+                            </h3>
+                            <p className="leading-relaxed">
+                                All conversion happens in your browser. Your data never leaves your device, ensuring complete privacy and security.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            {/* FAQ Section */}
+            <section className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 pb-16">
+                <h2 className="text-2xl font-bold text-center text-slate-900 dark:text-white mb-8">
+                    Frequently Asked Questions
+                </h2>
+                <div className="space-y-4">
+                    {[
+                        { 
+                            q: "How does JSON to CSV conversion work?", 
+                            a: "The tool converts JSON arrays into CSV format. Each JSON object becomes a row, and object properties become columns. Nested objects are automatically flattened using dot notation (e.g., 'address.city')." 
+                        },
+                        { 
+                            q: "Will my data be uploaded to servers?", 
+                            a: "No! All conversion happens 100% in your browser using JavaScript. Your JSON and CSV data never leaves your computer, ensuring complete privacy." 
+                        },
+                        { 
+                            q: "Can I convert CSV back to JSON?", 
+                            a: "Yes! The tool supports bidirectional conversion. Paste your CSV data and the tool will convert it back to properly formatted JSON, reconstructing nested objects from dot notation." 
+                        },
+                        { 
+                            q: "What happens to nested JSON objects?", 
+                            a: "Nested objects are automatically flattened into CSV columns using dot notation. For example, {\"user\": {\"name\": \"John\"}} becomes a column named 'user.name'. This makes complex JSON data spreadsheet-ready." 
+                        }
+                    ].map((faq, i) => (
+                        <details key={i} className="group bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-xl overflow-hidden transition-all duration-200">
+                            <summary className="flex items-center justify-between p-5 font-semibold cursor-pointer text-slate-800 dark:text-white hover:bg-slate-50 dark:hover:bg-slate-800/50 transition-colors">
+                                {faq.q}
+                                <span className="text-slate-400 group-open:rotate-180 transition-transform">▼</span>
+                            </summary>
+                            <div className="px-5 pb-5 text-slate-600 dark:text-slate-300 text-sm leading-relaxed border-t border-slate-100 dark:border-slate-800/50 pt-4">
+                                {faq.a}
+                            </div>
+                        </details>
+                    ))}
+                </div>
+            </section>
         </div>
     );
 }
