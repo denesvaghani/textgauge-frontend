@@ -73,7 +73,7 @@ export default function JsonFormatterPage() {
             </section>
 
             {/* FAQ Section */}
-            <section className="max-w-[1920px] mx-auto px-4 sm:px-6 lg:px-8 pb-16">
+            <section className="max-w-[1920px] mx-auto pb-16">
                 <h2 className="text-2xl font-bold text-center text-slate-900 dark:text-white mb-8">
                     Frequently Asked Questions
                 </h2>
@@ -106,6 +106,82 @@ export default function JsonFormatterPage() {
                             </div>
                         </details>
                     ))}
+                </div>
+            </section>
+
+            {/* Educational Content Sections - Full Width */}
+            <section className="max-w-[1920px] mx-auto pb-16 space-y-16">
+                {/* Helper Tasks */}
+                <div className="border-t border-slate-200 dark:border-slate-800 pt-12">
+                    <h2 className="text-2xl font-bold text-slate-900 dark:text-white mb-8">
+                        JSON Beautifier helps to perform below tasks:
+                    </h2>
+                    <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+                        {[
+                            { label: "JSON Beautifier", href: "/json-formatter" },
+                            { label: "JSON Parser", href: "/json-formatter" },
+                            { label: "JSON Editor", href: "/json-formatter" },
+                            { label: "JSON Viewer", href: "/json-formatter" },
+                            { label: "JSON Formatter", href: "/json-formatter" },
+                            { label: "JSON Pretty Print", href: "/json-formatter" },
+                            { label: "JSON Minify", href: "/json-formatter" },
+                            { label: "JSON Validator", href: "/json-formatter" },
+                        ].map((link) => (
+                            <a
+                                key={link.label}
+                                href={link.href}
+                                className="px-4 py-2 text-center text-sm font-medium text-indigo-600 dark:text-indigo-400 bg-indigo-50 dark:bg-indigo-900/20 rounded-lg hover:bg-indigo-100 dark:hover:bg-indigo-900/30 transition-colors border border-indigo-200 dark:border-indigo-800"
+                            >
+                                {link.label}
+                            </a>
+                        ))}
+                    </div>
+                </div>
+
+                {/* What is JSON file? */}
+                <div id="what-is-json" className="border-t border-slate-200 dark:border-slate-800 pt-12">
+                    <h2 className="text-2xl font-bold text-slate-900 dark:text-white mb-6">
+                        What is JSON file?
+                    </h2>
+                    <div className="prose prose-slate dark:prose-invert max-w-none">
+                        <p className="text-slate-600 dark:text-slate-300 leading-relaxed text-base">
+                            JSON (JavaScript Object Notation) is a lightweight data-interchange format. It is easy for humans to read and write. It is easy for machines to parse and generate. It is based on a subset of the JavaScript Programming Language Standard ECMA-262 3rd Edition - December 1999.
+                        </p>
+                        <p className="text-slate-600 dark:text-slate-300 leading-relaxed text-base mt-4">
+                            JSON is a text format that is completely language independent but uses conventions that are familiar to programmers of the C-family of languages, including C, C++, C#, Java, JavaScript, Perl, Python, and many others. These properties make JSON an ideal data-interchange language.
+                        </p>
+                    </div>
+                </div>
+
+                {/* JSON Examples */}
+                <div id="json-examples" className="border-t border-slate-200 dark:border-slate-800 pt-12">
+                    <h2 className="text-2xl font-bold text-slate-900 dark:text-white mb-6">
+                        JSON Examples
+                    </h2>
+                    <p className="text-slate-600 dark:text-slate-300 leading-relaxed mb-4 text-base">
+                        Here is a simple example of JSON data representing a user:
+                    </p>
+                    <div className="bg-slate-100 dark:bg-slate-950 p-6 rounded-xl font-mono text-sm overflow-x-auto border border-slate-200 dark:border-slate-800">
+                        <pre className="text-slate-800 dark:text-slate-200">{`{
+  "name": "John Doe",
+  "age": 30,
+  "isStudent": false,
+  "courses": ["Math", "Science"],
+  "address": {
+    "city": "New York",
+    "zip": "10001"
+  }
+}`}</pre>
+                    </div>
+                </div>
+
+                {/* Platform Compatibility */}
+                <div className="border-t border-slate-200 dark:border-slate-800 pt-12">
+                    <div className="bg-gradient-to-r from-indigo-50 to-purple-50 dark:from-indigo-950/20 dark:to-purple-950/20 rounded-2xl border border-indigo-200 dark:border-indigo-800 p-6 text-center">
+                        <p className="text-slate-700 dark:text-slate-300 font-medium text-base">
+                            JSON Formatter working properly in <strong>Windows</strong>, <strong>Mac</strong>, <strong>Linux</strong>, <strong>Chrome</strong>, <strong>Firefox</strong>, <strong>Safari</strong> and <strong>Edge</strong> and it's <strong className="text-indigo-600 dark:text-indigo-400">Free</strong>.
+                        </p>
+                    </div>
                 </div>
             </section>
         </div>

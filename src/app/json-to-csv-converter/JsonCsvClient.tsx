@@ -95,7 +95,7 @@ Jane Smith,jane@example.com,London,SW1A`;
             </section>
 
             {/* FAQ Section */}
-            <section className="max-w-[1920px] mx-auto px-4 sm:px-6 lg:px-8 pb-16">
+            <section className="max-w-[1920px] mx-auto pb-16">
                 <h2 className="text-2xl font-bold text-center text-slate-900 dark:text-white mb-8">
                     Frequently Asked Questions
                 </h2>
@@ -128,6 +128,59 @@ Jane Smith,jane@example.com,London,SW1A`;
                             </div>
                         </details>
                     ))}
+                </div>
+            </section>
+
+            {/* Educational Content Sections - Full Width */}
+            <section className="max-w-[1920px] mx-auto pb-16 space-y-16">
+                {/* Helper Tasks */}
+                <div className="border-t border-slate-200 dark:border-slate-800 pt-12">
+                    <h2 className="text-2xl font-bold text-slate-900 dark:text-white mb-8">
+                        JSON to CSV Converter helps to perform below tasks:
+                    </h2>
+                    <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+                        {[
+                            { label: "JSON Beautifier", href: "/json-formatter" },
+                            { label: "JSON Parser", href: "/json-formatter" },
+                            { label: "JSON Editor", href: "/json-formatter" },
+                            { label: "JSON Viewer", href: "/json-formatter" },
+                            { label: "JSON Formatter", href: "/json-formatter" },
+                            { label: "CSV to JSON", href: "/json-to-csv-converter" },
+                            { label: "JSON to CSV", href: "/json-to-csv-converter" },
+                        ].map((link) => (
+                            <a
+                                key={link.label}
+                                href={link.href}
+                                className="px-4 py-2 text-center text-sm font-medium text-indigo-600 dark:text-indigo-400 bg-indigo-50 dark:bg-indigo-900/20 rounded-lg hover:bg-indigo-100 dark:hover:bg-indigo-900/30 transition-colors border border-indigo-200 dark:border-indigo-800"
+                            >
+                                {link.label}
+                            </a>
+                        ))}
+                    </div>
+                </div>
+
+                {/* What is JSON to CSV conversion? */}
+                <div id="what-is-json-to-csv" className="border-t border-slate-200 dark:border-slate-800 pt-12">
+                    <h2 className="text-2xl font-bold text-slate-900 dark:text-white mb-6">
+                        What is JSON to CSV conversion?
+                    </h2>
+                    <div className="prose prose-slate dark:prose-invert max-w-none">
+                        <p className="text-slate-600 dark:text-slate-300 leading-relaxed text-base">
+                            JSON (JavaScript Object Notation) is a popular data format for APIs and web services, while CSV (Comma Separated Values) is widely used for spreadsheets and data analysis. Converting JSON to CSV simplifies complex data structures into rows and columns, making it easy to open in Excel, Google Sheets, or import into databases.
+                        </p>
+                        <p className="text-slate-600 dark:text-slate-300 leading-relaxed text-base mt-4">
+                            <strong>File Size Advantage:</strong> CSV files are typically <strong>50-60% smaller</strong> than their JSON equivalents. JSON repeats field names for every record, while CSV lists headers once. For example, a 0.27 KB JSON file becomes just 0.12 KB as CSV - perfect for reducing bandwidth and storage costs.
+                        </p>
+                    </div>
+                </div>
+
+                {/* Platform Compatibility */}
+                <div className="border-t border-slate-200 dark:border-slate-800 pt-12">
+                    <div className="bg-gradient-to-r from-indigo-50 to-purple-50 dark:from-indigo-950/20 dark:to-purple-950/20 rounded-2xl border border-indigo-200 dark:border-indigo-800 p-6 text-center">
+                        <p className="text-slate-700 dark:text-slate-300 font-medium text-base">
+                            JSON to CSV Converter working properly in <strong>Windows</strong>, <strong>Mac</strong>, <strong>Linux</strong>, <strong>Chrome</strong>, <strong>Firefox</strong>, <strong>Safari</strong> and <strong>Edge</strong> and it's <strong className="text-indigo-600 dark:text-indigo-400">Free</strong>.
+                        </p>
+                    </div>
                 </div>
             </section>
         </div>
