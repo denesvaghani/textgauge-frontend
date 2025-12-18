@@ -511,7 +511,7 @@ export function Editor() {
             <div className="border-t border-slate-100 dark:border-slate-800 bg-slate-50 dark:bg-slate-900/50 p-4 flex justify-center">
               <GoogleAdsense
                 adSlot={process.env.NEXT_PUBLIC_AD_SLOT_HEADER || ""}
-                style={{ display: "block", width: "100%", minHeight: 90 }}
+                style={{ display: "block", width: "100%", minHeight: 50 }}
               />
             </div>
 
@@ -655,7 +655,7 @@ function Sidebar({
         <div className="bg-white dark:bg-gray-800 rounded-lg shadow-lg p-4 transition-colors duration-200">
           <GoogleAdsense
             adSlot={process.env.NEXT_PUBLIC_AD_SLOT_SIDEBAR}
-            style={{ display: "block", width: "100%", minHeight: 250 }}
+            style={{ display: "block", width: "100%", minHeight: 150 }}
           />
         </div>
       )}
