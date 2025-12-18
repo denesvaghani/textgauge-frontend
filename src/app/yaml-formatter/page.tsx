@@ -112,7 +112,7 @@ export default function YamlFormatterPage() {
             </section>
 
             {/* Educational Content Sections - Full Width */}
-            <section className="max-w-[1920px] mx-auto px-4 sm:px-6 lg:px-8 pb-16 space-y-16">
+            <section className="max-w-[1920px] mx-auto pb-16 space-y-16">
                 {/* Helper Tasks */}
                 <div className="border-t border-slate-200 dark:border-slate-800 pt-12">
                     <h2 className="text-2xl font-bold text-slate-900 dark:text-white mb-8">
