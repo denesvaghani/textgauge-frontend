@@ -34,13 +34,6 @@ export function LegalLayout({ title, children }: LegalLayoutProps) {
                     {children}
                 </div>
             </main>
-
-            {/* Footer */}
-            <footer className="border-t border-slate-200 dark:border-slate-800 mt-16">
-                <div className="max-w-4xl mx-auto px-4 py-8 text-center text-sm text-slate-600 dark:text-slate-400">
-                    <p>&copy; {new Date().getFullYear()} TextGauge. All rights reserved.</p>
-                </div>
-            </footer>
         </div>
     );
 }
