@@ -15,7 +15,9 @@ import {
 } from "lucide-react";
 import { UrlLoader } from "./UrlLoader";
 import { GoogleAdsense } from "./GoogleAdsense";
-import { SimpleCodeEditor } from "@/components/SimpleCodeEditor";
+// ... imports
+import { useTheme } from "@/contexts/ThemeContext";
+import { CodeEditor } from "@/components/converter/CodeEditor";
 
 interface ConverterProps {
     title: string;
@@ -25,7 +27,7 @@ interface ConverterProps {
     leftLanguage: "json" | "yaml" | "xml" | "text" | "csv";
     rightLanguage: "json" | "yaml" | "xml" | "text" | "csv";
     onConvertLeftToRight: (input: string) => Promise<string> | string;
-    onConvertRightToLeft: (input: string) => Promise<string> | string; // Kept for future Swap usage
+    onConvertRightToLeft: (input: string) => Promise<string> | string;
     sampleData?: string;
     defaultLeft?: string;
     options?: React.ReactNode;
@@ -44,6 +46,7 @@ export function Converter({
     defaultLeft = "",
     options
 }: ConverterProps) {
+    const { theme } = useTheme(); // Get theme from context
     const [leftCode, setLeftCode] = useState(defaultLeft);
     const [rightCode, setRightCode] = useState("");
     const [error, setError] = useState<string | null>(null);
@@ -118,6 +121,8 @@ export function Converter({
         e.target.value = "";
     };
 
+    const editorTheme = theme === 'dark' ? 'vs-dark' : 'light';
+
     return (
         <div className="h-screen supports-[height:100dvh]:h-[100dvh] flex flex-col bg-slate-50 dark:bg-slate-950 text-slate-900 dark:text-slate-50 transition-colors duration-200 overflow-hidden font-sans">
 
@@ -171,7 +176,12 @@ export function Converter({
                         </div>
 
                         <div className="flex-1 relative min-h-0 bg-slate-50/30 dark:bg-black/20">
-                            <SimpleCodeEditor value={leftCode} onChange={setLeftCode} className="w-full h-full" placeholder="Paste your input here..." />
+                            <CodeEditor
+                                value={leftCode}
+                                onChange={(val) => setLeftCode(val || "")}
+                                language={leftLanguage}
+                                theme={editorTheme}
+                            />
                         </div>
 
                         <div className="shrink-0 px-3 py-1.5 border-t border-slate-100 dark:border-slate-800 flex justify-between items-center text-[10px] text-slate-400 dark:text-slate-500 font-medium font-mono bg-white dark:bg-slate-900">
@@ -275,7 +285,12 @@ export function Converter({
                                     </div>
                                 </div>
                             ) : (
-                                <SimpleCodeEditor value={rightCode} readOnly className="w-full h-full" placeholder="Result will appear here..." />
+                                <CodeEditor
+                                    value={rightCode}
+                                    readOnly={true}
+                                    language={rightLanguage}
+                                    theme={editorTheme}
+                                />
                             )}
                         </div>
 

@@ -8,9 +8,10 @@ interface CodeEditorProps {
     onChange?: (value: string | undefined) => void;
     language: string;
     readOnly?: boolean;
+    theme?: "vs-dark" | "light";
 }
 
-export const CodeEditor = ({ value, onChange, language, readOnly = false }: CodeEditorProps) => {
+export const CodeEditor = ({ value, onChange, language, readOnly = false, theme = "light" }: CodeEditorProps) => {
     const editorRef = useRef<any>(null);
 
     const handleEditorDidMount: OnMount = (editor, monaco) => {
@@ -18,14 +19,14 @@ export const CodeEditor = ({ value, onChange, language, readOnly = false }: Code
     };
 
     return (
-        <div className="h-full w-full border rounded-lg overflow-hidden bg-[#1e1e1e]">
+        <div className={`h-full w-full border rounded-lg overflow-hidden ${theme === 'vs-dark' ? 'bg-[#1e1e1e]' : 'bg-white'}`}>
             <Editor
                 height="100%"
                 defaultLanguage="json"
                 language={language}
                 value={value}
                 onChange={onChange}
-                theme="vs-dark"
+                theme={theme}
                 onMount={handleEditorDidMount}
                 options={{
                     readOnly,
