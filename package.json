@@ -15,13 +15,16 @@
     "js-yaml": "^4.1.1",
     "lucide-react": "^0.559.0",
     "next": "^16.0.8",
+    "papaparse": "^5.5.3",
     "react": "^19.2.1",
-    "react-dom": "^19.2.1"
+    "react-dom": "^19.2.1",
+    "smol-toml": "^1.5.2"
   },
   "devDependencies": {
     "@tailwindcss/postcss": "^4",
     "@types/js-yaml": "^4.0.9",
     "@types/node": "^20",
+    "@types/papaparse": "^5.5.2",
     "@types/react": "^19",
     "@types/react-dom": "^19",
     "babel-plugin-react-compiler": "1.0.0",
