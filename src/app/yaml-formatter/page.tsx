@@ -32,7 +32,7 @@ export default function YamlFormatterPage() {
             />
             
             {/* Key Features Section */}
-            <section className="max-w-[1920px] mx-auto px-4 sm:px-6 lg:px-8 pb-16">
+            <section className="max-w-[1920px] mx-auto pb-16">
                 <div className="bg-white dark:bg-slate-900 rounded-2xl shadow-sm border border-slate-200 dark:border-slate-800 p-8 transition-colors duration-200">
                     <h2 className="text-2xl font-bold text-slate-900 dark:text-white mb-6">
                         Key Features
