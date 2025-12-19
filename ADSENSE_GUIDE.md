@@ -25,6 +25,12 @@ NEXT_PUBLIC_GOOGLE_ADSENSE_ID=ca-pub-XXXXXXXXXXXXXXXX
 
 **Important**: Replace `XXXXXXXXXXXXXXXX` with your actual publisher ID.
 
+### 3b. Configure ads.txt
+Google requires an `ads.txt` file to authorize your domain.
+1. Open `public/ads.txt`.
+2. Replace `pub-XXXXXXXXXXXXXXXX` with your Publisher ID.
+   Example content: `google.com, pub-1234567890123456, DIRECT, f08c47fec0942fa0`
+
 ### 4. Create Ad Units in AdSense
 
 1. In AdSense Dashboard, go to **Ads** → **By ad unit**
