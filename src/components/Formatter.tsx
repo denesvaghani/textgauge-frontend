@@ -41,7 +41,7 @@ export function Formatter({
 }: FormatterProps) {
   const { theme } = useTheme();
   // SimpleCodeEditor parses theme from class/context, usage here is simplified
-  const storageKey = `textgauge_input_${inputType}`;
+  const storageKey = `textgauge_input_${inputType}_v2`;
 
   const [inputCode, setInputCode] = useState(defaultValue);
   const [outputCode, setOutputCode] = useState("");

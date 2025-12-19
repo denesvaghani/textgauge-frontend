@@ -1,9 +1,164 @@
 "use client";
 
-import { useState, useRef, useEffect } from "react";
+import { useState, useRef, useEffect, useMemo } from "react";
 import { Copy, Search, Check, X, ArrowDown, ArrowUp, Replace, ReplaceAll, ChevronDown, ChevronRight, type LucideIcon } from "lucide-react";
 
+// Escape HTML special characters
+function escapeHtml(text: string): string {
+    return text
+        .replace(/&/g, '&amp;')
+        .replace(/</g, '&lt;')
+        .replace(/>/g, '&gt;');
+}
+
+// Highlight JSON syntax with colors - using bold, saturated colors for readability
+function highlightJson(code: string): string {
+    if (!code.trim()) return '';
+    
+    // Regex to match JSON tokens - key pattern does NOT consume the colon
+    const tokenRegex = /("(?:[^"\\]|\\.)*")(?=\s*:)|("(?:[^"\\]|\\.)*")|(-?\d+\.?\d*(?:[eE][+-]?\d+)?)|(\btrue\b|\bfalse\b|\bnull\b)|([\[\]{}])|([:,])|(\s+)/g;
+    
+    let result = '';
+    let lastIndex = 0;
+    let match;
+    let expectingColon = false;
+    
+    while ((match = tokenRegex.exec(code)) !== null) {
+        // Add any unmatched text before this match
+        if (match.index > lastIndex) {
+            result += escapeHtml(code.substring(lastIndex, match.index));
+        }
+        
+        const [fullMatch, key, string, number, bool, bracket, punctuation, whitespace] = match;
+        
+        if (key) {
+            // Key (property name) - bold blue color
+            result += `<span class="text-blue-700 dark:text-blue-300 font-semibold">${escapeHtml(key)}</span>`;
+            expectingColon = true;
+        } else if (string) {
+            // String value - rich green
+            result += `<span class="text-green-700 dark:text-green-300">${escapeHtml(string)}</span>`;
+        } else if (number) {
+            // Number - vivid orange
+            result += `<span class="text-orange-600 dark:text-orange-400 font-medium">${escapeHtml(number)}</span>`;
+        } else if (bool) {
+            // Boolean or null - bold magenta/pink
+            result += `<span class="text-fuchsia-600 dark:text-fuchsia-400 font-semibold">${escapeHtml(bool)}</span>`;
+        } else if (bracket) {
+            // Brackets - darker gray for visibility
+            result += `<span class="text-slate-700 dark:text-slate-300 font-medium">${escapeHtml(bracket)}</span>`;
+        } else if (punctuation) {
+            // Colon and comma - visible dark color
+            result += `<span class="text-slate-600 dark:text-slate-400">${escapeHtml(punctuation)}</span>`;
+            expectingColon = false;
+        } else if (whitespace) {
+            // Preserve whitespace
+            result += whitespace;
+        } else {
+            result += escapeHtml(fullMatch);
+        }
+        
+        lastIndex = match.index + fullMatch.length;
+    }
+    
+    // Add remaining text
+    if (lastIndex < code.length) {
+        result += escapeHtml(code.substring(lastIndex));
+    }
+    
+    return result;
+}
+
+
+// Highlight YAML syntax with colors - matching JSON color scheme for consistency
+function highlightYaml(code: string): string {
+    if (!code.trim()) return '';
+    
+    const lines = code.split('\n');
+    const highlightedLines = lines.map(line => {
+        if (!line.trim()) return line;
+        
+        // Comment line
+        if (line.trim().startsWith('#')) {
+            return `<span class="text-gray-500 dark:text-gray-400 italic">${escapeHtml(line)}</span>`;
+        }
+        
+        // Check if it's a key-value line
+        const colonIndex = line.indexOf(':');
+        if (colonIndex > 0) {
+            const beforeColon = line.substring(0, colonIndex);
+            const afterColon = line.substring(colonIndex + 1);
+            
+            // Check for leading dash (array item with key)
+            const dashMatch = beforeColon.match(/^(\s*-\s*)/);
+            let keyPart = beforeColon;
+            let dashPart = '';
+            
+            if (dashMatch) {
+                dashPart = `<span class="text-teal-600 dark:text-teal-400 font-medium">${escapeHtml(dashMatch[1])}</span>`;
+                keyPart = beforeColon.substring(dashMatch[1].length);
+            }
+            
+            // Highlight key - bold blue
+            const highlightedKey = `<span class="text-blue-700 dark:text-blue-300 font-semibold">${escapeHtml(keyPart)}</span>`;
+            const colonSpan = `<span class="text-slate-600 dark:text-slate-400">:</span>`;
+            
+            // Highlight value
+            let highlightedValue = '';
+            const valueTrimmed = afterColon.trim();
+            
+            if (valueTrimmed === '') {
+                highlightedValue = afterColon; // Preserve whitespace
+            } else if (valueTrimmed === 'true' || valueTrimmed === 'false' || valueTrimmed === 'null' || valueTrimmed === '~') {
+                const leadingSpace = afterColon.match(/^(\s*)/)?.[1] || '';
+                highlightedValue = `${leadingSpace}<span class="text-fuchsia-600 dark:text-fuchsia-400 font-semibold">${escapeHtml(valueTrimmed)}</span>`;
+            } else if (/^-?\d+\.?\d*$/.test(valueTrimmed)) {
+                const leadingSpace = afterColon.match(/^(\s*)/)?.[1] || '';
+                highlightedValue = `${leadingSpace}<span class="text-orange-600 dark:text-orange-400 font-medium">${escapeHtml(valueTrimmed)}</span>`;
+            } else if (valueTrimmed.startsWith('"') || valueTrimmed.startsWith("'")) {
+                const leadingSpace = afterColon.match(/^(\s*)/)?.[1] || '';
+                highlightedValue = `${leadingSpace}<span class="text-green-700 dark:text-green-300">${escapeHtml(valueTrimmed)}</span>`;
+            } else if (valueTrimmed.startsWith('[') || valueTrimmed.startsWith('{')) {
+                const leadingSpace = afterColon.match(/^(\s*)/)?.[1] || '';
+                highlightedValue = `${leadingSpace}<span class="text-slate-700 dark:text-slate-300 font-medium">${escapeHtml(valueTrimmed)}</span>`;
+            } else {
+                // Plain string value (no quotes in YAML) - rich green
+                const leadingSpace = afterColon.match(/^(\s*)/)?.[1] || '';
+                highlightedValue = `${leadingSpace}<span class="text-green-700 dark:text-green-300">${escapeHtml(valueTrimmed)}</span>`;
+            }
+            
+            return dashPart + highlightedKey + colonSpan + highlightedValue;
+        }
+        
+        // Array item (just dash)
+        const arrayMatch = line.match(/^(\s*)(-\s*)(.*)$/);
+        if (arrayMatch) {
+            const [, indent, dash, value] = arrayMatch;
+            const dashSpan = `<span class="text-teal-600 dark:text-teal-400 font-medium">${escapeHtml(dash)}</span>`;
+            
+            let valueSpan = '';
+            const valueTrimmed = value.trim();
+            if (valueTrimmed === 'true' || valueTrimmed === 'false' || valueTrimmed === 'null') {
+                valueSpan = `<span class="text-fuchsia-600 dark:text-fuchsia-400 font-semibold">${escapeHtml(value)}</span>`;
+            } else if (/^-?\d+\.?\d*$/.test(valueTrimmed)) {
+                valueSpan = `<span class="text-orange-600 dark:text-orange-400 font-medium">${escapeHtml(value)}</span>`;
+            } else {
+                valueSpan = `<span class="text-green-700 dark:text-green-300">${escapeHtml(value)}</span>`;
+            }
+            
+            return indent + dashSpan + valueSpan;
+        }
+        
+        // Default - return as plain text
+        return escapeHtml(line);
+    });
+    
+    return highlightedLines.join('\n');
+}
+
+
 interface SimpleCodeEditorProps {
+
     value: string;
     onChange?: (value: string) => void;
     readOnly?: boolean;
@@ -22,6 +177,8 @@ export function SimpleCodeEditor({
 }: SimpleCodeEditorProps) {
     const textareaRef = useRef<HTMLTextAreaElement>(null);
     const lineNumbersRef = useRef<HTMLDivElement>(null);
+    const jsonOverlayRef = useRef<HTMLDivElement>(null);
+    const yamlOverlayRef = useRef<HTMLDivElement>(null);
     const [copied, setCopied] = useState(false);
 
     // Find & Replace State
@@ -40,10 +197,23 @@ export function SimpleCodeEditor({
 
     // Sync Scroll
     const handleScroll = () => {
-        if (textareaRef.current && lineNumbersRef.current) {
-            lineNumbersRef.current.scrollTop = textareaRef.current.scrollTop;
+        if (textareaRef.current) {
+            const scrollTop = textareaRef.current.scrollTop;
+            if (lineNumbersRef.current) {
+                lineNumbersRef.current.scrollTop = scrollTop;
+            }
+            if (jsonOverlayRef.current) {
+                jsonOverlayRef.current.scrollTop = scrollTop;
+            }
+            if (yamlOverlayRef.current) {
+                yamlOverlayRef.current.scrollTop = scrollTop;
+            }
         }
     };
+
+    // Memoize highlighted content to avoid re-rendering on scroll
+    const highlightedJson = useMemo(() => language === 'json' && value ? highlightJson(value) : '', [language, value]);
+    const highlightedYaml = useMemo(() => language === 'yaml' && value ? highlightYaml(value) : '', [language, value]);
 
     const lineCount = value.split("\n").length;
     const lineNumbers = Array.from({ length: lineCount }, (_, i) => i + 1);
@@ -351,48 +521,88 @@ export function SimpleCodeEditor({
                 {/* Line Numbers */}
                 <div
                     ref={lineNumbersRef}
-                    className="hidden sm:block w-10 shrink-0 text-right pr-2 pt-4 bg-slate-50 dark:bg-slate-900/50 text-slate-300 dark:text-slate-600 text-xs font-mono select-none overflow-hidden"
+                    className="hidden sm:block w-10 shrink-0 text-right pr-2 pt-4 pb-4 bg-slate-50 dark:bg-slate-900/50 text-slate-300 dark:text-slate-600 text-xs font-mono select-none overflow-hidden"
                 >
                     {lineNumbers.map(n => (
-                        <div key={n} className="h-5 leading-5">{n}</div>
+                        <div key={n} className="leading-[24px]">{n}</div>
                     ))}
                 </div>
+
+                {/* JSON Syntax Highlighting Overlay */}
+                {language === "json" && value && (
+                    <div 
+                        ref={jsonOverlayRef}
+                        className="absolute top-0 left-0 right-0 bottom-0 pointer-events-none overflow-auto"
+                        style={{ paddingLeft: 'calc(2.5rem)' }}
+                    >
+                        <pre 
+                            className="p-4 text-[14px] leading-[24px] whitespace-pre"
+                            style={{ fontFamily: "'JetBrains Mono', 'Fira Code', 'SF Mono', Menlo, Consolas, monospace" }}
+                            dangerouslySetInnerHTML={{ __html: highlightedJson }}
+                        />
+                    </div>
+                )}
+
+                {/* YAML Syntax Highlighting Overlay */}
+                {language === "yaml" && value && (
+                    <div 
+                        ref={yamlOverlayRef}
+                        className="absolute top-0 left-0 right-0 bottom-0 pointer-events-none overflow-auto"
+                        style={{ paddingLeft: 'calc(2.5rem)' }}
+                    >
+                        <pre 
+                            className="p-4 text-[14px] leading-[24px] whitespace-pre"
+                            style={{ fontFamily: "'JetBrains Mono', 'Fira Code', 'SF Mono', Menlo, Consolas, monospace" }}
+                            dangerouslySetInnerHTML={{ __html: highlightedYaml }}
+                        />
+                    </div>
+                )}
 
                 {/* CSV Syntax Highlighting Overlay */}
                 {language === "csv" && value && (
                     <div 
-                        className="absolute top-0 left-0 right-0 bottom-0 pointer-events-none overflow-hidden"
-                        style={{ paddingLeft: 'calc(2.5rem + 1rem)' }} // Account for line numbers + padding
+                        className="absolute top-0 left-0 right-0 bottom-0 pointer-events-none overflow-auto"
+                        style={{ paddingLeft: 'calc(2.5rem)' }}
                     >
-                        <div className="p-4 text-sm font-mono leading-5 whitespace-pre">
+                        <pre 
+                            className="p-4 text-[14px] leading-[24px] whitespace-pre"
+                            style={{ fontFamily: "'JetBrains Mono', 'Fira Code', 'SF Mono', Menlo, Consolas, monospace" }}
+                        >
                             {value.split('\n').map((line, idx) => {
                                 if (idx === 0 && line.trim()) {
-                                    // Header row - special rendering
+                                    // Header row - bold blue with highlight background
                                     const headers = line.split(',');
                                     return (
                                         <div 
                                             key={idx} 
-                                            className="font-semibold text-indigo-700 dark:text-indigo-300 bg-indigo-50/50 dark:bg-indigo-950/30 px-1 -mx-1 rounded"
-                                            style={{ letterSpacing: '0.02em' }}
+                                            className="font-bold text-blue-700 dark:text-blue-300 bg-blue-50/70 dark:bg-blue-950/40 px-2 -mx-2 rounded"
                                         >
                                             {headers.map((header, i) => (
                                                 <span key={i}>
-                                                    {header}
-                                                    {i < headers.length - 1 && <span className="text-slate-400 dark:text-slate-600">,</span>}
+                                                    <span className="text-blue-800 dark:text-blue-200">{header}</span>
+                                                    {i < headers.length - 1 && <span className="text-slate-500 dark:text-slate-400">,</span>}
                                                 </span>
                                             ))}
                                         </div>
                                     );
                                 }
+                                // Data rows - dark readable text
+                                const cells = line.split(',');
                                 return (
-                                    <div key={idx} className="text-transparent">
-                                        {line}
+                                    <div key={idx} className="text-slate-700 dark:text-slate-300">
+                                        {cells.map((cell, i) => (
+                                            <span key={i}>
+                                                <span>{cell}</span>
+                                                {i < cells.length - 1 && <span className="text-slate-400 dark:text-slate-500">,</span>}
+                                            </span>
+                                        ))}
                                     </div>
                                 );
                             })}
-                        </div>
+                        </pre>
                     </div>
                 )}
+
 
                 {/* Text Area */}
                 <textarea
@@ -402,15 +612,19 @@ export function SimpleCodeEditor({
                     readOnly={readOnly}
                     onScroll={handleScroll}
                     placeholder={placeholder}
-                    className={`flex-1 w-full h-full p-4 resize-none outline-none border-none bg-transparent text-sm font-mono leading-5 placeholder:text-slate-300 whitespace-pre ${
-                        language === "csv" ? "text-slate-800 dark:text-slate-200" : "text-slate-800 dark:text-slate-200"
+                    className={`flex-1 w-full h-full p-4 resize-none outline-none border-none bg-transparent text-[14px] leading-[24px] placeholder:text-slate-400 whitespace-pre ${
+                        (language === "json" || language === "yaml" || language === "csv") && value
+                            ? "text-transparent caret-slate-800 dark:caret-slate-200"
+                            : "text-slate-800 dark:text-slate-200"
                     }`}
+                    style={{ fontFamily: "'JetBrains Mono', 'Fira Code', 'SF Mono', Menlo, Consolas, monospace" }}
                     spellCheck="false"
                     autoCapitalize="off"
                     autoComplete="off"
                     autoCorrect="off"
                 />
             </div>
+
         </div>
     );
 }

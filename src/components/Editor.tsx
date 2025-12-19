@@ -443,14 +443,14 @@ export function Editor() {
                 bg-transparent
                 px-6
                 py-5
-                text-base
-                leading-relaxed
+                text-[14px]
+                leading-[24px]
                 text-slate-900 dark:text-slate-100
                 outline-none
                 placeholder:text-slate-400
               "
               data-placeholder="Start typing here or paste your content..."
-              style={{ maxHeight: "70vh", overflowY: "auto" }}
+              style={{ maxHeight: "70vh", overflowY: "auto", fontFamily: "'JetBrains Mono', 'Fira Code', 'SF Mono', Menlo, Consolas, monospace" }}
             />
 
             {/* SEO Keyword Input - Integrated Footer Style */}

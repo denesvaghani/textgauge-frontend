@@ -46,14 +46,7 @@ export default function YamlFormatterPage() {
                                 Instantly format and beautify YAML files with customizable indentation. Makes YAML configs readable and properly structured for Docker, Kubernetes, CI/CD pipelines.
                             </p>
                         </div>
-                        <div>
-                            <h3 className="font-bold text-base mb-2 text-slate-900 dark:text-white flex items-center gap-2">
-                                <span className="w-1.5 h-1.5 rounded-full bg-indigo-500"></span> JSON to YAML Conversion
-                            </h3>
-                            <p className="leading-relaxed">
-                                Automatically converts JSON data to YAML format. Perfect for transforming API responses into YAML configuration files.
-                            </p>
-                        </div>
+
                         <div>
                             <h3 className="font-bold text-base mb-2 text-slate-900 dark:text-white flex items-center gap-2">
                                 <span className="w-1.5 h-1.5 rounded-full bg-indigo-500"></span> Validation
@@ -85,10 +78,7 @@ export default function YamlFormatterPage() {
                             q: "How do I validate YAML?", 
                             a: "Simply paste your YAML content into the editor. The tool automatically validates the syntax and structure, displaying any errors with line numbers and descriptions to help you fix them quickly." 
                         },
-                        { 
-                            q: "Can I convert YAML to JSON or JSON to YAML?", 
-                            a: "Yes! Paste JSON data and click 'Beautify' to convert it to YAML format. The tool automatically detects the input format and handles the conversion." 
-                        },
+
                         { 
                             q: "Is my YAML data secure?", 
                             a: "Absolutely! All YAML parsing, validation, and formatting happens entirely in your browser. Your configuration files are never uploaded to any server, ensuring complete privacy." 
