@@ -1,36 +1,60 @@
 "use client";
 
 import { Formatter } from "@/components/Formatter";
+import { jsonToCsv, csvToJson } from "@/lib/converters/json-csv";
+import { useState } from "react";
 
-export default function JsonFormatterPage() {
+export default function JsonCsvClient() {
+    const [flatten, setFlatten] = useState(true);
+    const [direction, setDirection] = useState<"json-csv" | "csv-json">("json-csv");
 
-    const formatJson = async (input: string, tabSize: number) => {
-        // Basic validation / parse check
-        const parsed = JSON.parse(input);
-        return JSON.stringify(parsed, null, tabSize);
+    const sampleJson = `[
+  {
+    "name": "John Doe",
+    "email": "john@example.com",
+    "address": {
+      "city": "New York",
+      "zip": "10001"
+    }
+  },
+  {
+    "name": "Jane Smith",
+    "email": "jane@example.com",
+    "address": {
+      "city": "London",
+      "zip": "SW1A"
+    }
+  }
+]`;
+
+    const sampleCsv = `name,email,address.city,address.zip
+John Doe,john@example.com,New York,10001
+Jane Smith,jane@example.com,London,SW1A`;
+
+    // Transform function that handles both directions
+    const handleTransform = async (input: string, tabSize: number) => {
+        if (direction === "json-csv") {
+            return jsonToCsv(input, flatten);
+        } else {
+            return csvToJson(input);
+        }
     };
-
-    const minifyJson = async (input: string) => {
-        const parsed = JSON.parse(input);
-        return JSON.stringify(parsed);
-    };
-
-    const sampleData = `{\n  "name": "TextGauge",\n  "features": ["Count", "Format", "Analyze"],\n  "active": true\n}`;
 
     return (
         <div className="flex flex-col min-h-screen">
             <Formatter
-                title="JSON Formatter, Validator & Beautifier"
-                description="Free online tool to format, beautify, minify, and validate JSON. Fix JSON errors, structural issues, and format your code with 2-space, 4-space, or custom tab sizes. Prettier your JSON instantly."
-                inputType="json"
-                outputType="json"
-                onTransform={formatJson}
-                onMinify={minifyJson}
-                sampleData={sampleData}
+                id="json-csv-converter"
+                title="JSON to CSV Converter"
+                description="Convert JSON data to CSV format instantly. Support for nested objects, large files, and bidirectional conversion."
+                inputType={direction === "json-csv" ? "json" : "text"}
+                outputType={direction === "json-csv" ? "csv" : "json"}
+                onTransform={handleTransform}
+
+                sampleData={direction === "json-csv" ? sampleJson : sampleCsv}
             />
             
             {/* Key Features Section */}
-            <section className="w-full max-w-[1920px] mx-auto px-4 sm:px-6 lg:px-8 pb-16">
+            <section className="max-w-[1920px] mx-auto pb-16">
                 <div className="bg-white dark:bg-slate-900 rounded-2xl shadow-sm border border-slate-200 dark:border-slate-800 p-8 transition-colors duration-200">
                     <h2 className="text-2xl font-bold text-slate-900 dark:text-white mb-6">
                         Key Features
@@ -38,26 +62,26 @@ export default function JsonFormatterPage() {
                     <div className="grid md:grid-cols-2 gap-x-12 gap-y-8 text-sm text-slate-600 dark:text-slate-300">
                         <div>
                             <h3 className="font-bold text-base mb-2 text-slate-900 dark:text-white flex items-center gap-2">
-                                <span className="w-1.5 h-1.5 rounded-full bg-indigo-500"></span> Format & Beautify
+                                <span className="w-1.5 h-1.5 rounded-full bg-indigo-500"></span> Reduce File Size
                             </h3>
                             <p className="leading-relaxed">
-                                Instantly format and beautify JSON with customizable indentation (2-space, 4-space, or custom tabs). Makes JSON readable and properly structured.
+                                CSV files are typically <strong>50-60% smaller</strong> than equivalent JSON. Perfect for reducing bandwidth costs and speeding up data transfers.
                             </p>
                         </div>
                         <div>
                             <h3 className="font-bold text-base mb-2 text-slate-900 dark:text-white flex items-center gap-2">
-                                <span className="w-1.5 h-1.5 rounded-full bg-indigo-500"></span> Minify JSON
+                                <span className="w-1.5 h-1.5 rounded-full bg-indigo-500"></span> Flatten Objects
                             </h3>
                             <p className="leading-relaxed">
-                                Compress JSON by removing whitespace and line breaks. Perfect for reducing file size and optimizing API responses.
+                                Automatically flattens nested JSON objects into CSV columns using dot notation. Makes complex API responses spreadsheet-ready.
                             </p>
                         </div>
                         <div>
                             <h3 className="font-bold text-base mb-2 text-slate-900 dark:text-white flex items-center gap-2">
-                                <span className="w-1.5 h-1.5 rounded-full bg-indigo-500"></span> Validation
+                                <span className="w-1.5 h-1.5 rounded-full bg-indigo-500"></span> Bidirectional Conversion
                             </h3>
                             <p className="leading-relaxed">
-                                Automatically validates JSON structure and syntax. Get instant error messages with line numbers for quick debugging.
+                                Convert JSON to CSV and CSV back to JSON. Switch between formats seamlessly for different use cases and applications.
                             </p>
                         </div>
                         <div>
@@ -65,7 +89,7 @@ export default function JsonFormatterPage() {
                                 <span className="w-1.5 h-1.5 rounded-full bg-indigo-500"></span> 100% Client-Side
                             </h3>
                             <p className="leading-relaxed">
-                                All processing happens in your browser. Your JSON data never leaves your device, ensuring complete privacy and security.
+                                All conversion happens in your browser. Your data never leaves your device, ensuring complete privacy and security.
                             </p>
                         </div>
                     </div>
@@ -80,20 +104,20 @@ export default function JsonFormatterPage() {
                 <div className="space-y-4 w-full">
                     {[
                         { 
-                            q: "How do I format JSON?", 
-                            a: "Simply paste your JSON data into the editor and click the 'Beautify' button. The tool will automatically format your JSON with proper indentation and structure." 
+                            q: "How does JSON to CSV conversion work?", 
+                            a: "The tool converts JSON arrays into CSV format. Each JSON object becomes a row, and object properties become columns. Nested objects are automatically flattened using dot notation (e.g., 'address.city')." 
                         },
                         { 
-                            q: "Can I minify JSON to reduce file size?", 
-                            a: "Yes! Use the 'Minify' button to remove all unnecessary whitespace and line breaks from your JSON, making it more compact for storage or transmission." 
+                            q: "Will my data be uploaded to servers?", 
+                            a: "No! All conversion happens 100% in your browser using JavaScript. Your JSON and CSV data never leaves your computer, ensuring complete privacy." 
                         },
                         { 
-                            q: "Is my JSON data private and secure?", 
-                            a: "Absolutely! All JSON formatting and validation happens entirely in your browser. Your data is never uploaded to any server, ensuring complete privacy." 
+                            q: "Can I convert CSV back to JSON?", 
+                            a: "Yes! The tool supports bidirectional conversion. Paste your CSV data and the tool will convert it back to properly formatted JSON, reconstructing nested objects from dot notation." 
                         },
                         { 
-                            q: "What JSON errors does this tool detect?", 
-                            a: "The tool detects syntax errors (missing commas, brackets, quotes), invalid structure, incorrect data types, and provides detailed error messages with line numbers to help you fix issues quickly." 
+                            q: "What happens to nested JSON objects?", 
+                            a: "Nested objects are automatically flattened into CSV columns using dot notation. For example, {\"user\": {\"name\": \"John\"}} becomes a column named 'user.name'. This makes complex JSON data spreadsheet-ready." 
                         }
                     ].map((faq, i) => (
                         <details key={i} className="w-full group bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-xl overflow-hidden transition-all duration-200">
@@ -111,47 +135,25 @@ export default function JsonFormatterPage() {
 
             {/* Educational Content Sections - Full Width */}
             <section className="w-full max-w-[1920px] mx-auto px-4 sm:px-6 lg:px-8 pb-16 space-y-16">
-                {/* What is JSON file? */}
-                <div id="what-is-json" className="border-t border-slate-200 dark:border-slate-800 pt-12">
+                {/* What is JSON to CSV conversion? */}
+                <div id="what-is-json-to-csv" className="border-t border-slate-200 dark:border-slate-800 pt-12">
                     <h2 className="text-2xl font-bold text-slate-900 dark:text-white mb-6">
-                        What is JSON file?
+                        What is JSON to CSV conversion?
                     </h2>
                     <div className="prose prose-slate dark:prose-invert max-w-none">
                         <p className="text-slate-600 dark:text-slate-300 leading-relaxed text-base">
-                            JSON (JavaScript Object Notation) is a lightweight data-interchange format. It is easy for humans to read and write. It is easy for machines to parse and generate. It is based on a subset of the JavaScript Programming Language Standard ECMA-262 3rd Edition - December 1999.
+                            JSON (JavaScript Object Notation) is a popular data format for APIs and web services, while CSV (Comma Separated Values) is widely used for spreadsheets and data analysis. Converting JSON to CSV simplifies complex data structures into rows and columns, making it easy to open in Excel, Google Sheets, or import into databases.
                         </p>
                         <p className="text-slate-600 dark:text-slate-300 leading-relaxed text-base mt-4">
-                            JSON is a text format that is completely language independent but uses conventions that are familiar to programmers of the C-family of languages, including C, C++, C#, Java, JavaScript, Perl, Python, and many others. These properties make JSON an ideal data-interchange language.
+                            <strong>File Size Advantage:</strong> CSV files are typically <strong>50-60% smaller</strong> than their JSON equivalents. JSON repeats field names for every record, while CSV lists headers once. For example, a 0.27 KB JSON file becomes just 0.12 KB as CSV - perfect for reducing bandwidth and storage costs.
                         </p>
-                    </div>
-                </div>
-
-                {/* JSON Examples */}
-                <div id="json-examples" className="border-t border-slate-200 dark:border-slate-800 pt-12">
-                    <h2 className="text-2xl font-bold text-slate-900 dark:text-white mb-6">
-                        JSON Examples
-                    </h2>
-                    <p className="text-slate-600 dark:text-slate-300 leading-relaxed mb-4 text-base">
-                        Here is a simple example of JSON data representing a user:
-                    </p>
-                    <div className="bg-slate-100 dark:bg-slate-950 p-6 rounded-xl font-mono text-sm overflow-x-auto border border-slate-200 dark:border-slate-800">
-                        <pre className="text-slate-800 dark:text-slate-200">{`{
-  "name": "John Doe",
-  "age": 30,
-  "isStudent": false,
-  "courses": ["Math", "Science"],
-  "address": {
-    "city": "New York",
-    "zip": "10001"
-  }
-}`}</pre>
                     </div>
                 </div>
 
                 {/* Helper Tasks */}
                 <div className="border-t border-slate-200 dark:border-slate-800 pt-12">
                     <h2 className="text-2xl font-bold text-slate-900 dark:text-white mb-8">
-                        JSON Beautifier helps to perform below tasks:
+                        JSON to CSV Converter helps to perform below tasks:
                     </h2>
                     <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
                         {[
@@ -160,9 +162,8 @@ export default function JsonFormatterPage() {
                             { label: "JSON Editor", href: "/json-formatter" },
                             { label: "JSON Viewer", href: "/json-formatter" },
                             { label: "JSON Formatter", href: "/json-formatter" },
-                            { label: "JSON Pretty Print", href: "/json-formatter" },
-                            { label: "JSON Minify", href: "/json-formatter" },
-                            { label: "JSON Validator", href: "/json-formatter" },
+                            { label: "CSV to JSON", href: "/json-to-csv-converter" },
+                            { label: "JSON to CSV", href: "/json-to-csv-converter" },
                         ].map((link) => (
                             <a
                                 key={link.label}
@@ -179,7 +180,7 @@ export default function JsonFormatterPage() {
                 <div className="border-t border-slate-200 dark:border-slate-800 pt-12">
                     <div className="bg-gradient-to-r from-indigo-50 to-purple-50 dark:from-indigo-950/20 dark:to-purple-950/20 rounded-2xl border border-indigo-200 dark:border-indigo-800 p-6 text-center">
                         <p className="text-slate-700 dark:text-slate-300 font-medium text-base">
-                            JSON Formatter working properly in <strong>Windows</strong>, <strong>Mac</strong>, <strong>Linux</strong>, <strong>Chrome</strong>, <strong>Firefox</strong>, <strong>Safari</strong> and <strong>Edge</strong> and it's <strong className="text-indigo-600 dark:text-indigo-400">Free</strong>.
+                            JSON to CSV Converter working properly in <strong>Windows</strong>, <strong>Mac</strong>, <strong>Linux</strong>, <strong>Chrome</strong>, <strong>Firefox</strong>, <strong>Safari</strong> and <strong>Edge</strong> and it's <strong className="text-indigo-600 dark:text-indigo-400">Free</strong>.
                         </p>
                     </div>
                 </div>

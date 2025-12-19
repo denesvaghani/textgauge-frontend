@@ -369,7 +369,7 @@ export function Editor() {
                     e.preventDefault();
                     transformSelection(toTitleCase);
                   }}
-                  className="rounded-md bg-emerald-500 px-3 py-1.5 font-bold text-white shadow-sm shadow-emerald-500/20 hover:bg-emerald-600 hover:shadow-emerald-500/30 transition-all"
+                  className="rounded-md bg-emerald-500 px-3 py-1.5 font-bold text-white shadow-sm shadow-emerald-500/20 hover:bg-emerald-600 hover:shadow-emerald-500/30 transition-all active:scale-95"
                 >
                   Aa
                 </button>
@@ -381,7 +381,7 @@ export function Editor() {
                     e.preventDefault();
                     transformSelection((s) => s.toLowerCase());
                   }}
-                  className="rounded-md bg-emerald-500 px-3 py-1.5 font-bold text-white shadow-sm shadow-emerald-500/20 hover:bg-emerald-600 hover:shadow-emerald-500/30 transition-all"
+                  className="rounded-md bg-emerald-500 px-3 py-1.5 font-bold text-white shadow-sm shadow-emerald-500/20 hover:bg-emerald-600 hover:shadow-emerald-500/30 transition-all active:scale-95"
                 >
                   abc
                 </button>
@@ -393,7 +393,7 @@ export function Editor() {
                     e.preventDefault();
                     transformSelection(toSnakeCase);
                   }}
-                  className="rounded-md bg-emerald-500 px-3 py-1.5 font-bold text-white shadow-sm shadow-emerald-500/20 hover:bg-emerald-600 hover:shadow-emerald-500/30 transition-all"
+                  className="rounded-md bg-emerald-500 px-3 py-1.5 font-bold text-white shadow-sm shadow-emerald-500/20 hover:bg-emerald-600 hover:shadow-emerald-500/30 transition-all active:scale-95"
                 >
                   snake_case
                 </button>
@@ -443,14 +443,14 @@ export function Editor() {
                 bg-transparent
                 px-6
                 py-5
-                text-base
-                leading-relaxed
+                text-[14px]
+                leading-[24px]
                 text-slate-900 dark:text-slate-100
                 outline-none
                 placeholder:text-slate-400
               "
               data-placeholder="Start typing here or paste your content..."
-              style={{ maxHeight: "70vh", overflowY: "auto" }}
+              style={{ maxHeight: "70vh", overflowY: "auto", fontFamily: "'JetBrains Mono', 'Fira Code', 'SF Mono', Menlo, Consolas, monospace" }}
             />
 
             {/* SEO Keyword Input - Integrated Footer Style */}
@@ -511,7 +511,7 @@ export function Editor() {
             <div className="border-t border-slate-100 dark:border-slate-800 bg-slate-50 dark:bg-slate-900/50 p-4 flex justify-center">
               <GoogleAdsense
                 adSlot={process.env.NEXT_PUBLIC_AD_SLOT_HEADER || ""}
-                style={{ display: "block", width: "100%", minHeight: 90 }}
+                style={{ display: "block", width: "100%", minHeight: 50 }}
               />
             </div>
 
@@ -655,7 +655,7 @@ function Sidebar({
         <div className="bg-white dark:bg-gray-800 rounded-lg shadow-lg p-4 transition-colors duration-200">
           <GoogleAdsense
             adSlot={process.env.NEXT_PUBLIC_AD_SLOT_SIDEBAR}
-            style={{ display: "block", width: "100%", minHeight: 250 }}
+            style={{ display: "block", width: "100%", minHeight: 150 }}
           />
         </div>
       )}

@@ -21,12 +21,13 @@ import { SimpleCodeEditor } from "@/components/SimpleCodeEditor";
 interface FormatterProps {
   title: string;
   description: string;
-  inputType: "json" | "yaml";
-  outputType: "json" | "yaml" | "text";
+  inputType: "json" | "yaml" | "text" | "csv";
+  outputType: "json" | "yaml" | "text" | "csv";
   defaultValue?: string;
   onTransform: (input: string, tabSize: number) => Promise<string>;
   onMinify?: (input: string) => Promise<string>;
   sampleData?: string;
+  id?: string;
 }
 
 export function Formatter({
@@ -37,11 +38,12 @@ export function Formatter({
   defaultValue = "",
   onTransform,
   onMinify,
-  sampleData
+  sampleData,
+  id
 }: FormatterProps) {
   const { theme } = useTheme();
   // SimpleCodeEditor parses theme from class/context, usage here is simplified
-  const storageKey = `textgauge_input_${inputType}`;
+  const storageKey = id ? `textgauge_input_${id}_v2` : `textgauge_input_${inputType}_v2`;
 
   const [inputCode, setInputCode] = useState(defaultValue);
   const [outputCode, setOutputCode] = useState("");
@@ -231,8 +233,9 @@ export function Formatter({
               <SimpleCodeEditor
                 value={inputCode}
                 onChange={setInputCode}
-                className="w-full h-full"
                 placeholder="Paste your code here..."
+                language={inputType}
+                className="flex-1"
               />
             </div >
 
@@ -385,8 +388,9 @@ export function Formatter({
                   <SimpleCodeEditor
                     value={outputCode}
                     readOnly={true}
-                    className="w-full h-full"
-                    placeholder="Output will appear here..."
+                    placeholder="Result will appear here..."
+                    language={outputType === "text" ? "text" : outputType}
+                    className="flex-1"
                   />
                 )}
             </div >
