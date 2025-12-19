@@ -157,6 +157,62 @@ function highlightYaml(code: string): string {
 }
 
 
+// Highlight TOML syntax
+function highlightToml(code: string): string {
+    if (!code.trim()) return '';
+
+    const lines = code.split('\n');
+    return lines.map(line => {
+        if (!line.trim()) return line;
+
+        // Comments
+        const commentMatch = line.match(/^(.*)(#.*)$/);
+        let content = line;
+        let comment = '';
+
+        if (line.trim().startsWith('#')) {
+             return `<span class="text-gray-500 dark:text-gray-400 italic">${escapeHtml(line)}</span>`;
+        }
+
+        if (commentMatch) {
+            content = commentMatch[1];
+            comment = `<span class="text-gray-500 dark:text-gray-400 italic">${escapeHtml(commentMatch[2])}</span>`;
+        }
+
+        // Section [section]
+        if (content.trim().startsWith('[')) {
+             return `<span class="text-yellow-600 dark:text-yellow-400 font-bold">${escapeHtml(content)}</span>` + comment;
+        }
+
+        // Key = Value
+        const equalIndex = content.indexOf('=');
+        if (equalIndex > 0) {
+            const key = content.substring(0, equalIndex);
+            const value = content.substring(equalIndex + 1);
+
+            const keySpan = `<span class="text-blue-700 dark:text-blue-300 font-semibold">${escapeHtml(key)}</span>`;
+            const equalSpan = `<span class="text-slate-600 dark:text-slate-400">=</span>`;
+
+            // Simple value highlighting
+            let valueSpan = escapeHtml(value);
+            const vTrim = value.trim();
+
+             if (vTrim === 'true' || vTrim === 'false') {
+                valueSpan = value.replace(vTrim, `<span class="text-fuchsia-600 dark:text-fuchsia-400 font-semibold">${vTrim}</span>`);
+            } else if (/^-?\d/.test(vTrim)) { 
+                 valueSpan = value.replace(vTrim, `<span class="text-orange-600 dark:text-orange-400 font-medium">${vTrim}</span>`);
+            } else if (vTrim.startsWith('"') || vTrim.startsWith("'")) {
+                valueSpan = `<span class="text-green-700 dark:text-green-300">${escapeHtml(value)}</span>`;
+            }
+
+            return keySpan + equalSpan + valueSpan + comment;
+        }
+
+        return escapeHtml(content) + comment;
+
+    }).join('\n');
+}
+
 interface SimpleCodeEditorProps {
 
     value: string;
@@ -164,7 +220,7 @@ interface SimpleCodeEditorProps {
     readOnly?: boolean;
     placeholder?: string;
     className?: string;
-    language?: "json" | "yaml" | "text" | "csv";
+    language?: "json" | "yaml" | "text" | "csv" | "toml";
 }
 
 export function SimpleCodeEditor({
@@ -179,6 +235,7 @@ export function SimpleCodeEditor({
     const lineNumbersRef = useRef<HTMLDivElement>(null);
     const jsonOverlayRef = useRef<HTMLDivElement>(null);
     const yamlOverlayRef = useRef<HTMLDivElement>(null);
+    const tomlOverlayRef = useRef<HTMLDivElement>(null);
     const [copied, setCopied] = useState(false);
 
     // Find & Replace State
@@ -208,12 +265,16 @@ export function SimpleCodeEditor({
             if (yamlOverlayRef.current) {
                 yamlOverlayRef.current.scrollTop = scrollTop;
             }
+            if (tomlOverlayRef.current) {
+                tomlOverlayRef.current.scrollTop = scrollTop;
+            }
         }
     };
 
     // Memoize highlighted content to avoid re-rendering on scroll
     const highlightedJson = useMemo(() => language === 'json' && value ? highlightJson(value) : '', [language, value]);
     const highlightedYaml = useMemo(() => language === 'yaml' && value ? highlightYaml(value) : '', [language, value]);
+    const highlightedToml = useMemo(() => language === 'toml' && value ? highlightToml(value) : '', [language, value]);
 
     const lineCount = value.split("\n").length;
     const lineNumbers = Array.from({ length: lineCount }, (_, i) => i + 1);
@@ -558,6 +619,21 @@ export function SimpleCodeEditor({
                     </div>
                 )}
 
+                {/* TOML Syntax Highlighting Overlay */}
+                {language === "toml" && value && (
+                    <div 
+                        ref={tomlOverlayRef}
+                        className="absolute top-0 left-0 right-0 bottom-0 pointer-events-none overflow-auto"
+                        style={{ paddingLeft: 'calc(2.5rem)' }}
+                    >
+                        <pre 
+                            className="p-4 text-[14px] leading-[24px] whitespace-pre"
+                            style={{ fontFamily: "'JetBrains Mono', 'Fira Code', 'SF Mono', Menlo, Consolas, monospace" }}
+                            dangerouslySetInnerHTML={{ __html: highlightedToml }}
+                        />
+                    </div>
+                )}
+
                 {/* CSV Syntax Highlighting Overlay */}
                 {language === "csv" && value && (
                     <div 
@@ -613,7 +689,7 @@ export function SimpleCodeEditor({
                     onScroll={handleScroll}
                     placeholder={placeholder}
                     className={`flex-1 w-full h-full p-4 resize-none outline-none border-none bg-transparent text-[14px] leading-[24px] placeholder:text-slate-400 whitespace-pre ${
-                        (language === "json" || language === "yaml" || language === "csv") && value
+                        (language === "json" || language === "yaml" || language === "csv" || language === "toml") && value
                             ? "text-transparent caret-slate-800 dark:caret-slate-200"
                             : "text-slate-800 dark:text-slate-200"
                     }`}
