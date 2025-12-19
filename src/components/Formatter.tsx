@@ -27,6 +27,7 @@ interface FormatterProps {
   onTransform: (input: string, tabSize: number) => Promise<string>;
   onMinify?: (input: string) => Promise<string>;
   sampleData?: string;
+  id?: string;
 }
 
 export function Formatter({
@@ -37,11 +38,12 @@ export function Formatter({
   defaultValue = "",
   onTransform,
   onMinify,
-  sampleData
+  sampleData,
+  id
 }: FormatterProps) {
   const { theme } = useTheme();
   // SimpleCodeEditor parses theme from class/context, usage here is simplified
-  const storageKey = `textgauge_input_${inputType}_v2`;
+  const storageKey = id ? `textgauge_input_${id}_v2` : `textgauge_input_${inputType}_v2`;
 
   const [inputCode, setInputCode] = useState(defaultValue);
   const [outputCode, setOutputCode] = useState("");

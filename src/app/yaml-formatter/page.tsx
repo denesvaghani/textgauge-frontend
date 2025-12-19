@@ -23,6 +23,7 @@ export default function YamlFormatterPage() {
     return (
         <div className="flex flex-col min-h-screen">
             <Formatter
+                id="yaml-formatter"
                 title="YAML Formatter, Validator & Beautifier"
                 description="Free online tool to format, beautify, and validate YAML files. Convert JSON to YAML, fix structural errors, and ensure valid YAML syntax. Prettier your YAML configuration files instantly."
                 inputType="yaml"
