@@ -10,6 +10,7 @@ export function Navigation() {
         { href: "/", label: "Character Counter" },
         { href: "/json-formatter", label: "JSON Formatter" },
         { href: "/yaml-formatter", label: "YAML Formatter" },
+        { href: "/toml-formatter", label: "TOML Formatter" },
         { href: "/json-to-csv-converter", label: "JSON to CSV" },
     ];
 

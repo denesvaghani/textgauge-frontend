@@ -21,8 +21,8 @@ import { SimpleCodeEditor } from "@/components/SimpleCodeEditor";
 interface FormatterProps {
   title: string;
   description: string;
-  inputType: "json" | "yaml" | "text" | "csv";
-  outputType: "json" | "yaml" | "text" | "csv";
+  inputType: "json" | "yaml" | "text" | "csv" | "toml";
+  outputType: "json" | "yaml" | "text" | "csv" | "toml";
   defaultValue?: string;
   onTransform: (input: string, tabSize: number) => Promise<string>;
   onMinify?: (input: string) => Promise<string>;

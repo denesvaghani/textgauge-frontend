@@ -66,6 +66,17 @@ export default function Page() {
             <h3 className="text-xl font-bold text-slate-900 dark:text-white mb-2 group-hover:text-indigo-600 dark:group-hover:text-indigo-400 transition-colors">JSON to CSV</h3>
             <p className="text-slate-600 dark:text-slate-400">Convert JSON data to CSV format instantly. Reduces file size by 50-60% for easy spreadsheet use.</p>
           </a>
+
+          <a href="/toml-formatter" className="group p-6 rounded-2xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 hover:border-indigo-500/50 dark:hover:border-indigo-500/50 hover:shadow-lg hover:shadow-indigo-500/10 transition-all duration-200">
+            <div className="flex items-center justify-between mb-4">
+              <div className="p-3 bg-indigo-50 dark:bg-indigo-900/20 rounded-xl text-indigo-600 dark:text-indigo-400 group-hover:scale-110 transition-transform duration-200">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M14.5 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7.5L14.5 2z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="16" y1="13" x2="8" y2="13"></line><line x1="16" y1="17" x2="8" y2="17"></line><polyline points="10 9 9 9 8 9"></polyline></svg>
+              </div>
+              <span className="text-slate-300 dark:text-slate-600 group-hover:text-indigo-500 transition-colors">→</span>
+            </div>
+            <h3 className="text-xl font-bold text-slate-900 dark:text-white mb-2 group-hover:text-indigo-600 dark:group-hover:text-indigo-400 transition-colors">TOML Formatter</h3>
+            <p className="text-slate-600 dark:text-slate-400">Validate, format, and beautify TOML configuration files (Cargo.toml, pyproject.toml) instantly.</p>
+          </a>
         </div>
       </section>
 
@@ -111,6 +122,15 @@ export default function Page() {
               <p className="leading-relaxed">
                 Analyze keyword density and structure. Essential for content writers looking to optimize
                 articles for search engines.
+              </p>
+            </div>
+            <div>
+              <h3 className="font-bold text-base mb-2 text-slate-900 dark:text-white flex items-center gap-2">
+                <span className="w-1.5 h-1.5 rounded-full bg-indigo-500"></span> TOML Validation
+              </h3>
+              <p className="leading-relaxed">
+                Validate and format <strong>TOML</strong> files instantly. Perfect for managing configuration files
+                for Rust (Cargo), Python (pyproject), and Go projects with error detection.
               </p>
             </div>
           </div>
