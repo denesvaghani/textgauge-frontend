@@ -48,7 +48,7 @@ Jane Smith,jane@example.com,London,SW1A`;
                 inputType={direction === "json-csv" ? "json" : "text"}
                 outputType={direction === "json-csv" ? "csv" : "json"}
                 onTransform={handleTransform}
-                onToggleDirection={() => setDirection(d => d === "json-csv" ? "csv-json" : "json-csv")}
+
                 sampleData={direction === "json-csv" ? sampleJson : sampleCsv}
             />
             
