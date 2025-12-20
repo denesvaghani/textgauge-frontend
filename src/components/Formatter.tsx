@@ -28,6 +28,7 @@ interface FormatterProps {
   onMinify?: (input: string) => Promise<string>;
   sampleData?: string;
   id?: string;
+  customActions?: React.ReactNode;
 }
 
 export function Formatter({
@@ -39,7 +40,8 @@ export function Formatter({
   onTransform,
   onMinify,
   sampleData,
-  id
+  id,
+  customActions
 }: FormatterProps) {
   const { theme } = useTheme();
   // SimpleCodeEditor parses theme from class/context, usage here is simplified
@@ -266,6 +268,8 @@ export function Formatter({
                   <span className="text-sm">Beautify</span>
                 </div>
               </button>
+
+              {customActions}
 
               {
                 onMinify && (

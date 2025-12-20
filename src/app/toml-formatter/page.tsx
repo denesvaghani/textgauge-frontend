@@ -2,6 +2,8 @@
 
 import { Formatter } from "@/components/Formatter";
 import { parse, stringify } from "smol-toml";
+import Link from "next/link";
+import { GitCompare } from "lucide-react";
 
 export default function TomlFormatterPage() {
 
@@ -49,6 +51,15 @@ temp_targets = { cpu = 79.5, case = 72.0 }
                 outputType="toml"
                 onTransform={formatToml}
                 sampleData={sampleData}
+                customActions={
+                    <Link
+                        href="/diff-checker"
+                        className="group w-full py-2.5 px-3 bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 hover:border-slate-300 dark:hover:border-slate-600 hover:bg-slate-50 dark:hover:bg-slate-700/50 text-slate-700 dark:text-slate-200 font-semibold text-sm rounded-lg shadow-sm transition-all duration-200 flex items-center justify-center gap-2 active:scale-[0.98]"
+                    >
+                        <GitCompare size={16} className="text-slate-400 group-hover:text-slate-600 dark:group-hover:text-slate-300 transition-colors" />
+                        Diff
+                    </Link>
+                }
             />
             
             {/* Key Features Section */}

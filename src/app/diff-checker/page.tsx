@@ -1,7 +1,8 @@
 "use client";
 
 import { useState, useCallback, useRef, useEffect } from "react";
-import { ArrowLeftRight, Trash2, GitCompare, Eye } from "lucide-react";
+import { ArrowLeftRight, Trash2, GitCompare, Eye, FileJson, FileCode, AlignLeft } from "lucide-react";
+import Link from "next/link";
 import { SimpleCodeEditor } from "@/components/SimpleCodeEditor";
 import { DiffViewer } from "@/components/DiffViewer";
 
@@ -224,6 +225,35 @@ export default function DiffCheckerPage() {
                             >
                                 Load Sample
                             </button>
+
+                            <div className="mx-2 h-8 w-px bg-slate-300 dark:bg-slate-700 hidden lg:block"></div>
+
+                            <div className="flex items-center gap-2">
+                                <Link
+                                    href="/json-formatter"
+                                    className="inline-flex items-center gap-2 px-3 py-2.5 bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 hover:border-indigo-500 dark:hover:border-indigo-500 text-slate-600 dark:text-slate-400 font-medium text-sm rounded-lg transition-colors"
+                                    title="Go to JSON Formatter"
+                                >
+                                    <FileJson size={16} />
+                                    <span className="hidden xl:inline">JSON</span>
+                                </Link>
+                                <Link
+                                    href="/yaml-formatter"
+                                    className="inline-flex items-center gap-2 px-3 py-2.5 bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 hover:border-indigo-500 dark:hover:border-indigo-500 text-slate-600 dark:text-slate-400 font-medium text-sm rounded-lg transition-colors"
+                                    title="Go to YAML Formatter"
+                                >
+                                    <AlignLeft size={16} />
+                                    <span className="hidden xl:inline">YAML</span>
+                                </Link>
+                                <Link
+                                    href="/toml-formatter"
+                                    className="inline-flex items-center gap-2 px-3 py-2.5 bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 hover:border-indigo-500 dark:hover:border-indigo-500 text-slate-600 dark:text-slate-400 font-medium text-sm rounded-lg transition-colors"
+                                    title="Go to TOML Formatter"
+                                >
+                                    <FileCode size={16} />
+                                    <span className="hidden xl:inline">TOML</span>
+                                </Link>
+                            </div>
                             
                             {/* Keyboard Legend */}
                             <div className="hidden lg:flex items-center gap-3 ml-4 text-xs text-slate-400 font-mono border-l border-slate-200 dark:border-slate-700 pl-4">
