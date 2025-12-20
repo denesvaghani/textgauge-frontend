@@ -1,7 +1,7 @@
 "use client";
 
 import { useState, useRef, useEffect, useMemo } from "react";
-import { Copy, Search, Check, X, ArrowDown, ArrowUp, Replace, ReplaceAll, ChevronDown, ChevronRight, type LucideIcon } from "lucide-react";
+import { Copy, Search, Check, X, ArrowDown, ArrowUp, Replace, ReplaceAll, ChevronDown, ChevronRight, Upload, Trash2, type LucideIcon } from "lucide-react";
 
 // Escape HTML special characters
 function escapeHtml(text: string): string {
@@ -221,6 +221,8 @@ interface SimpleCodeEditorProps {
     placeholder?: string;
     className?: string;
     language?: "json" | "yaml" | "text" | "csv" | "toml";
+    onUpload?: () => void;
+    onClear?: () => void;
 }
 
 export function SimpleCodeEditor({
@@ -230,6 +232,8 @@ export function SimpleCodeEditor({
     placeholder,
     className = "",
     language = "text",
+    onUpload,
+    onClear,
 }: SimpleCodeEditorProps) {
     const textareaRef = useRef<HTMLTextAreaElement>(null);
     const lineNumbersRef = useRef<HTMLDivElement>(null);
@@ -461,8 +465,26 @@ export function SimpleCodeEditor({
     return (
         <div className={`relative flex flex-col h-full border border-slate-200 dark:border-slate-800 rounded-lg overflow-hidden bg-white dark:bg-slate-900 ${className}`}>
 
-            {/* Absolute Copy Button - Top Right (always visible, low profile) */}
-            <div className="absolute top-2 right-2 z-10">
+            {/* Absolute Action Buttons - Top Right */}
+            <div className="absolute top-2 right-2 z-10 flex items-center gap-1">
+                 {onUpload && (
+                     <button
+                        onClick={onUpload}
+                        className="p-1.5 text-slate-400 hover:text-indigo-600 hover:bg-slate-100 dark:hover:bg-slate-800 rounded-md transition-all"
+                        title="Upload File"
+                    >
+                        <Upload size={14} />
+                    </button>
+                )}
+                {onClear && (
+                     <button
+                        onClick={onClear}
+                        className="p-1.5 text-slate-400 hover:text-red-600 hover:bg-slate-100 dark:hover:bg-slate-800 rounded-md transition-all"
+                        title="Clear"
+                    >
+                        <Trash2 size={14} />
+                    </button>
+                )}
                 <button
                     onClick={handleCopy}
                     className="p-1.5 text-slate-400 hover:text-indigo-600 hover:bg-slate-100 dark:hover:bg-slate-800 rounded-md transition-all"
