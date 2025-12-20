@@ -12,6 +12,7 @@ export function Footer() {
         { name: 'YAML Formatter', href: '/yaml-formatter' },
         { name: 'TOML Formatter', href: '/toml-formatter' },
         { name: 'JSON to CSV', href: '/json-to-csv-converter' },
+        { name: 'Diff Checker', href: '/diff-checker' },
     ];
 
     const legalLinks = [
