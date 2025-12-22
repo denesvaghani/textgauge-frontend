@@ -195,12 +195,12 @@ export function Editor() {
       return str.replace(/_/g, ' ');
     }
 
-    // Convert to snake_case
+    // Convert to snake_case (preserve hyphens, only replace spaces with underscores)
     return str
       .toLowerCase()
-      .replace(/[^a-z0-9\s-]/g, "")
+      .replace(/[^a-z0-9\s\-]/g, "")  // Keep letters, numbers, spaces, and hyphens
       .trim()
-      .replace(/[\s-]+/g, "_");
+      .replace(/\s+/g, "_");  // Only replace spaces with underscores
   };
 
   const exec = (cmd: string) => {
