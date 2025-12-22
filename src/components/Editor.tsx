@@ -180,6 +180,12 @@ export function Editor() {
   const toTitleCase = (str: string) =>
     str.replace(/\w\S*/g, (t) => t[0].toUpperCase() + t.slice(1).toLowerCase());
 
+  const toSentenceCase = (str: string) => {
+    // Split by sentence delimiters. This is a basic implementation.
+    // It handles . ! ? followed by space or end of string.
+    return str.toLowerCase().replace(/(^\s*\w|[\.\!\?]\s*\w)/g, (c) => c.toUpperCase());
+  };
+
   const toSnakeCase = (str: string) => {
     // Check if already in snake_case (contains underscores, no spaces, all lowercase)
     const isSnakeCase = str.includes('_') && !str.includes(' ') && str === str.toLowerCase();
@@ -372,6 +378,18 @@ export function Editor() {
                   className="rounded-md bg-emerald-500 px-3 py-1.5 font-bold text-white shadow-sm shadow-emerald-500/20 hover:bg-emerald-600 hover:shadow-emerald-500/30 transition-all active:scale-95"
                 >
                   Aa
+                </button>
+
+                {/* Sentence case */}
+                <button
+                  type="button"
+                  onMouseDown={(e) => {
+                    e.preventDefault();
+                    transformSelection(toSentenceCase);
+                  }}
+                  className="rounded-md bg-emerald-500 px-3 py-1.5 font-bold text-white shadow-sm shadow-emerald-500/20 hover:bg-emerald-600 hover:shadow-emerald-500/30 transition-all active:scale-95"
+                >
+                  S
                 </button>
 
                 {/* lowercase */}

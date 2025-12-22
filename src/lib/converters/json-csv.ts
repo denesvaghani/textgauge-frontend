@@ -51,7 +51,14 @@ export const jsonToCsv = (jsonStr: string, flatten = true): string => {
             data = data.map((item: any) => flattenJSON(item));
         }
 
-        return Papa.unparse(data);
+        // Collect all unique keys to ensure CSV has all columns even if some objects miss keys
+        const allKeys = new Set<string>();
+        data.forEach((item: any) => {
+            Object.keys(item).forEach(key => allKeys.add(key));
+        });
+        const columns = Array.from(allKeys);
+
+        return Papa.unparse(data, { columns });
     } catch (e: any) {
         throw new Error(`JSON handling error: ${e.message}`);
     }
