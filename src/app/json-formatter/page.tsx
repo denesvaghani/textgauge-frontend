@@ -1,6 +1,8 @@
 "use client";
 
 import { Formatter } from "@/components/Formatter";
+import Link from "next/link";
+import { FileSpreadsheet, GitCompare } from "lucide-react";
 
 export default function JsonFormatterPage() {
 
@@ -27,6 +29,24 @@ export default function JsonFormatterPage() {
                 onTransform={formatJson}
                 onMinify={minifyJson}
                 sampleData={sampleData}
+                customActions={
+                    <>
+                        <Link
+                            href="/json-to-csv-converter"
+                            className="group w-full py-2.5 px-3 bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 hover:border-slate-300 dark:hover:border-slate-600 hover:bg-slate-50 dark:hover:bg-slate-700/50 text-slate-700 dark:text-slate-200 font-semibold text-sm rounded-lg shadow-sm transition-all duration-200 flex items-center justify-center gap-2 active:scale-[0.98]"
+                        >
+                            <FileSpreadsheet size={16} className="text-slate-400 group-hover:text-slate-600 dark:group-hover:text-slate-300 transition-colors" />
+                            To CSV
+                        </Link>
+                        <Link
+                            href="/diff-checker"
+                            className="group w-full py-2.5 px-3 bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 hover:border-slate-300 dark:hover:border-slate-600 hover:bg-slate-50 dark:hover:bg-slate-700/50 text-slate-700 dark:text-slate-200 font-semibold text-sm rounded-lg shadow-sm transition-all duration-200 flex items-center justify-center gap-2 active:scale-[0.98]"
+                        >
+                            <GitCompare size={16} className="text-slate-400 group-hover:text-slate-600 dark:group-hover:text-slate-300 transition-colors" />
+                            Diff
+                        </Link>
+                    </>
+                }
             />
             
             {/* Key Features Section */}
