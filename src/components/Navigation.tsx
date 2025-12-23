@@ -12,6 +12,7 @@ export function Navigation() {
         { href: "/yaml-formatter", label: "YAML Formatter" },
         { href: "/toml-formatter", label: "TOML Formatter" },
         { href: "/json-to-csv-converter", label: "JSON to CSV" },
+        { href: "/json-to-toon-converter", label: "JSON to TOON" },
         { href: "/diff-checker", label: "Diff Checker" },
     ];
 
@@ -32,7 +33,7 @@ export function Navigation() {
                                         }`}
                                 >
                                     {link.label}
-                                    {link.label === "Diff Checker" && (
+                                    {(link.label === "Diff Checker" || link.label === "JSON to TOON") && (
                                         <span className="ml-2 inline-flex items-center px-1.5 py-0.5 rounded text-[10px] font-bold bg-indigo-100 dark:bg-indigo-900 text-indigo-700 dark:text-indigo-300">
                                             NEW
                                         </span>
