@@ -3,9 +3,7 @@
 import { useEffect, useRef, useState } from "react";
 import { useLiveMetrics } from "../lib/useLiveMetrics";
 import type { Metrics } from "../lib/types";
-import { TrendingKeywords } from "./TrendingKeywords";
 import RelatedKeywords from "./RelatedKeywords";
-import { GoogleAdsense } from "./GoogleAdsense"; // adjust path if needed
 
 export function Editor() {
   const divRef = useRef<HTMLDivElement | null>(null);
@@ -551,13 +549,7 @@ export function Editor() {
               </div>
             </div>
 
-            {/* In-content ad (below editor) */}
-            <div className="border-t border-slate-100 dark:border-slate-800 bg-slate-50 dark:bg-slate-900/50 p-4 flex justify-center">
-              <GoogleAdsense
-                adSlot={process.env.NEXT_PUBLIC_AD_SLOT_HEADER || ""}
-                style={{ display: "block", width: "100%", minHeight: 50 }}
-              />
-            </div>
+
 
           </div>
         </div>
@@ -691,18 +683,7 @@ function Sidebar({
         </div>
       </div>
 
-      {/* Trending Keywords */}
-      <TrendingKeywords onKeywordClick={onKeywordSelect} />
 
-      {/* Sidebar ad - Conditionally Rendered */}
-      {process.env.NEXT_PUBLIC_AD_SLOT_SIDEBAR && (
-        <div className="bg-white dark:bg-gray-800 rounded-lg shadow-lg p-4 transition-colors duration-200">
-          <GoogleAdsense
-            adSlot={process.env.NEXT_PUBLIC_AD_SLOT_SIDEBAR}
-            style={{ display: "block", width: "100%", minHeight: 150 }}
-          />
-        </div>
-      )}
     </div>
   );
 }

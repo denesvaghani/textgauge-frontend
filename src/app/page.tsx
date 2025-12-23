@@ -2,18 +2,98 @@
 
 import { Editor } from "@/components/Editor";
 import { ThemeToggle } from "@/components/ThemeToggle";
+import Image from "next/image";
+import { flowerThemes } from "@/config/flowerThemes";
+
+const tools = [
+  {
+    href: "/json-formatter",
+    theme: flowerThemes.cherryBlossom,
+    title: "JSON Formatter",
+    description: "Validate, beautify, and minify JSON data with our advanced Monaco-based editor.",
+    hoverBorder: "hover:border-pink-400/60 dark:hover:border-pink-400/40",
+    hoverShadow: "hover:shadow-pink-500/20",
+    hoverText: "group-hover:text-pink-600 dark:group-hover:text-pink-400",
+  },
+  {
+    href: "/yaml-formatter",
+    theme: flowerThemes.whiteLily,
+    title: "YAML Formatter",
+    description: "Convert, validate, and format YAML files with syntax highlighting and error detection.",
+    hoverBorder: "hover:border-emerald-400/60 dark:hover:border-emerald-400/40",
+    hoverShadow: "hover:shadow-emerald-500/20",
+    hoverText: "group-hover:text-emerald-600 dark:group-hover:text-emerald-400",
+  },
+  {
+    href: "/toml-formatter",
+    theme: flowerThemes.frangipani,
+    title: "TOML Formatter",
+    description: "Validate, format, and beautify TOML configuration files (Cargo.toml, pyproject.toml) instantly.",
+    hoverBorder: "hover:border-orange-400/60 dark:hover:border-orange-400/40",
+    hoverShadow: "hover:shadow-orange-500/20",
+    hoverText: "group-hover:text-orange-600 dark:group-hover:text-orange-400",
+  },
+  {
+    href: "/json-to-csv-converter",
+    theme: flowerThemes.sunflower,
+    title: "JSON to CSV",
+    description: "Convert JSON data to CSV format instantly. Reduces file size by 50-60% for easy spreadsheet use.",
+    hoverBorder: "hover:border-yellow-400/60 dark:hover:border-yellow-400/40",
+    hoverShadow: "hover:shadow-yellow-500/20",
+    hoverText: "group-hover:text-yellow-600 dark:group-hover:text-yellow-400",
+  },
+  {
+    href: "/json-to-toon-converter",
+    theme: flowerThemes.lavender,
+    title: "JSON to TOON",
+    description: "AI-optimized format. Reduce token usage by 30-60% for ChatGPT, Claude, and other LLMs.",
+    hoverBorder: "hover:border-violet-400/60 dark:hover:border-violet-400/40",
+    hoverShadow: "hover:shadow-violet-500/20",
+    hoverText: "group-hover:text-violet-600 dark:group-hover:text-violet-400",
+  },
+  {
+    href: "/diff-checker",
+    theme: flowerThemes.redRose,
+    title: "Diff Checker",
+    description: "Compare two texts and see differences instantly. Perfect for code reviews and config comparisons.",
+    hoverBorder: "hover:border-rose-400/60 dark:hover:border-rose-400/40",
+    hoverShadow: "hover:shadow-rose-500/20",
+    hoverText: "group-hover:text-rose-600 dark:group-hover:text-rose-400",
+  },
+];
 
 export default function Page() {
   return (
-    <main className="bg-slate-50 dark:bg-slate-950 min-h-screen transition-colors duration-200 pb-12">
+    <main className="bg-gradient-to-b from-amber-50/50 via-yellow-50/30 to-slate-50 dark:from-amber-950/20 dark:via-yellow-950/10 dark:to-slate-950 min-h-screen transition-colors duration-300 pb-12">
+      {/* Sunflower glow for homepage */}
+      <div 
+        className="pointer-events-none fixed inset-0 opacity-50 dark:opacity-30"
+        style={{
+          background: `radial-gradient(ellipse 80% 50% at 50% -20%, rgba(234, 179, 8, 0.15), transparent)`,
+        }}
+      />
+      
       <ThemeToggle />
 
       {/* Hero Section */}
-      <section className="bg-white/50 dark:bg-slate-900/50 border-b border-slate-200 dark:border-slate-800 pt-12 pb-16 transition-colors duration-200">
+      <section className="relative bg-white/50 dark:bg-slate-900/50 border-b border-slate-200 dark:border-slate-800 pt-12 pb-16 transition-colors duration-200">
         <div className="max-w-[1920px] mx-auto px-4 sm:px-6 lg:px-8 text-center">
-          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-indigo-50 dark:bg-indigo-900/30 border border-indigo-100 dark:border-indigo-800 text-indigo-600 dark:text-indigo-400 text-xs font-bold uppercase tracking-wider mb-6">
-            ✨ Free Developer Tools
+          {/* Sunflower Brand Badge */}
+          <div className="inline-flex items-center gap-3 px-4 py-2 rounded-full bg-white/80 dark:bg-slate-900/80 backdrop-blur-sm border border-yellow-200/50 dark:border-yellow-800/50 shadow-lg mb-6">
+            <div className="w-10 h-10 rounded-full overflow-hidden ring-2 ring-yellow-400 ring-offset-2 ring-offset-white dark:ring-offset-slate-900 shadow-md group-hover:scale-110 transition-transform">
+              <Image
+                src="/images/logo/sunflower-logo.webp"
+                alt="TextGauge Sunflower"
+                width={40}
+                height={40}
+                className="w-full h-full object-cover"
+              />
+            </div>
+            <span className="text-xs font-bold uppercase tracking-wider text-yellow-600 dark:text-yellow-400">
+              Free Developer Tools
+            </span>
           </div>
+          
           <h1 className="text-4xl md:text-5xl font-extrabold text-slate-900 dark:text-white tracking-tight mb-4">
             Character Counter & Text Tools
           </h1>
@@ -25,85 +105,74 @@ export default function Page() {
       </section>
 
       {/* Editor Section */}
-      <section className="max-w-[1920px] mx-auto px-4 sm:px-6 lg:px-8 -mt-8">
+      <section className="relative max-w-[1920px] mx-auto px-4 sm:px-6 lg:px-8 -mt-8 z-10">
         <div className="bg-white dark:bg-slate-900 rounded-2xl shadow-xl ring-1 ring-slate-900/5 dark:ring-white/10 overflow-hidden">
           <Editor />
         </div>
       </section>
 
       {/* Tools Grid */}
-      <section className="max-w-[1920px] mx-auto px-4 sm:px-6 lg:px-8 py-16">
-        <div className="grid md:grid-cols-3 gap-6">
-          <a href="/json-formatter" className="group p-6 rounded-2xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 hover:border-indigo-500/50 dark:hover:border-indigo-500/50 hover:shadow-lg hover:shadow-indigo-500/10 transition-all duration-200">
-            <div className="flex items-center justify-between mb-4">
-              <div className="p-3 bg-indigo-50 dark:bg-indigo-900/20 rounded-xl text-indigo-600 dark:text-indigo-400 group-hover:scale-110 transition-transform duration-200">
-                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="16" y1="13" x2="8" y2="13"></line><line x1="16" y1="17" x2="8" y2="17"></line><polyline points="10 9 9 9 8 9"></polyline></svg>
+      <section className="relative max-w-[1920px] mx-auto px-4 sm:px-6 lg:px-8 py-16 z-10">
+        <div className="text-center mb-10">
+          <h2 className="text-2xl md:text-3xl font-bold text-slate-900 dark:text-white mb-3">
+            🌸 Our Flower-Powered Tools 🌸
+          </h2>
+          <p className="text-slate-600 dark:text-slate-400">Each tool has its own flower identity</p>
+        </div>
+        
+        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+          {tools.map((tool) => (
+            <a
+              key={tool.href}
+              href={tool.href}
+              className={`group relative p-6 rounded-2xl bg-white dark:bg-slate-900 border-2 border-slate-200 dark:border-slate-800 ${tool.hoverBorder} hover:shadow-2xl ${tool.hoverShadow} transition-all duration-300 overflow-hidden`}
+            >
+              {/* Gradient overlay on hover */}
+              <div 
+                className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-300"
+                style={{
+                  background: `radial-gradient(circle at 100% 0%, ${tool.theme.colors.glow}, transparent 50%)`,
+                }}
+              />
+              
+              <div className="relative z-10">
+                <div className="flex items-center justify-between mb-4">
+                  <div className="w-14 h-14 rounded-full overflow-hidden group-hover:scale-110 transition-transform duration-300 shadow-lg ring-2 ring-offset-2 ring-offset-white dark:ring-offset-slate-900"
+                       style={{ boxShadow: `0 4px 20px ${tool.theme.colors.glow}`, borderColor: tool.theme.colors.primary }}>
+                    <Image
+                      src={tool.theme.image}
+                      alt={tool.theme.name}
+                      width={56}
+                      height={56}
+                      className="w-full h-full object-cover"
+                    />
+                  </div>
+                  <span className="text-slate-300 dark:text-slate-600 group-hover:translate-x-1 transition-transform text-2xl">→</span>
+                </div>
+                <h3 className={`text-xl font-bold text-slate-900 dark:text-white mb-2 ${tool.hoverText} transition-colors`}>
+                  {tool.title}
+                </h3>
+                <p className="text-slate-600 dark:text-slate-400 text-sm leading-relaxed">
+                  {tool.description}
+                </p>
+                
+                {/* Flower name badge */}
+                <div className="mt-4 inline-flex items-center gap-2 px-3 py-1 rounded-full text-xs font-medium"
+                     style={{ 
+                       backgroundColor: `${tool.theme.colors.accent}`, 
+                       color: tool.theme.colors.primary 
+                     }}>
+                  <span className="w-1.5 h-1.5 rounded-full" style={{ backgroundColor: tool.theme.colors.primary }} />
+                  {tool.theme.name}
+                </div>
               </div>
-              <span className="text-slate-300 dark:text-slate-600 group-hover:text-indigo-500 transition-colors">→</span>
-            </div>
-            <h3 className="text-xl font-bold text-slate-900 dark:text-white mb-2 group-hover:text-indigo-600 dark:group-hover:text-indigo-400 transition-colors">JSON Formatter</h3>
-            <p className="text-slate-600 dark:text-slate-400">Validate, beautify, and minify JSON data with our advanced Monaco-based editor.</p>
-          </a>
-
-          <a href="/yaml-formatter" className="group p-6 rounded-2xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 hover:border-indigo-500/50 dark:hover:border-indigo-500/50 hover:shadow-lg hover:shadow-indigo-500/10 transition-all duration-200">
-            <div className="flex items-center justify-between mb-4">
-              <div className="p-3 bg-indigo-50 dark:bg-indigo-900/20 rounded-xl text-indigo-600 dark:text-indigo-400 group-hover:scale-110 transition-transform duration-200">
-                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M14.5 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7.5L14.5 2z"></path><polyline points="14 2 14 8 20 8"></polyline><path d="M4 14.8V19"></path><path d="M20 12.5v1.8"></path><path d="M4 12.8V9"></path><path d="M20 17v1.8"></path></svg>
-              </div>
-              <span className="text-slate-300 dark:text-slate-600 group-hover:text-indigo-500 transition-colors">→</span>
-            </div>
-            <h3 className="text-xl font-bold text-slate-900 dark:text-white mb-2 group-hover:text-indigo-600 dark:group-hover:text-indigo-400 transition-colors">YAML Formatter</h3>
-            <p className="text-slate-600 dark:text-slate-400">Convert, validate, and format YAML files with syntax highlighting and error detection.</p>
-          </a>
-
-          <a href="/json-to-csv-converter" className="group p-6 rounded-2xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 hover:border-indigo-500/50 dark:hover:border-indigo-500/50 hover:shadow-lg hover:shadow-indigo-500/10 transition-all duration-200">
-            <div className="flex items-center justify-between mb-4">
-              <div className="p-3 bg-indigo-50 dark:bg-indigo-900/20 rounded-xl text-indigo-600 dark:text-indigo-400 group-hover:scale-110 transition-transform duration-200">
-                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="7 10 12 15 17 10"></polyline><line x1="12" y1="15" x2="12" y2="3"></line></svg>
-              </div>
-              <span className="text-slate-300 dark:text-slate-600 group-hover:text-indigo-500 transition-colors">→</span>
-            </div>
-            <h3 className="text-xl font-bold text-slate-900 dark:text-white mb-2 group-hover:text-indigo-600 dark:group-hover:text-indigo-400 transition-colors">JSON to CSV</h3>
-            <p className="text-slate-600 dark:text-slate-400">Convert JSON data to CSV format instantly. Reduces file size by 50-60% for easy spreadsheet use.</p>
-          </a>
-
-          <a href="/json-to-toon-converter" className="group p-6 rounded-2xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 hover:border-emerald-500/50 dark:hover:border-emerald-500/50 hover:shadow-lg hover:shadow-emerald-500/10 transition-all duration-200">
-            <div className="flex items-center justify-between mb-4">
-              <div className="p-3 bg-emerald-50 dark:bg-emerald-900/20 rounded-xl text-emerald-600 dark:text-emerald-400 group-hover:scale-110 transition-transform duration-200">
-                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"></path></svg>
-              </div>
-              <span className="text-slate-300 dark:text-slate-600 group-hover:text-emerald-500 transition-colors">→</span>
-            </div>
-            <h3 className="text-xl font-bold text-slate-900 dark:text-white mb-2 group-hover:text-emerald-600 dark:group-hover:text-emerald-400 transition-colors">JSON to TOON</h3>
-            <p className="text-slate-600 dark:text-slate-400">AI-optimized format. Reduce token usage by 30-60% for ChatGPT, Claude, and other LLMs.</p>
-          </a>
-
-          <a href="/toml-formatter" className="group p-6 rounded-2xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 hover:border-indigo-500/50 dark:hover:border-indigo-500/50 hover:shadow-lg hover:shadow-indigo-500/10 transition-all duration-200">
-            <div className="flex items-center justify-between mb-4">
-              <div className="p-3 bg-indigo-50 dark:bg-indigo-900/20 rounded-xl text-indigo-600 dark:text-indigo-400 group-hover:scale-110 transition-transform duration-200">
-                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M14.5 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7.5L14.5 2z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="16" y1="13" x2="8" y2="13"></line><line x1="16" y1="17" x2="8" y2="17"></line><polyline points="10 9 9 9 8 9"></polyline></svg>
-              </div>
-              <span className="text-slate-300 dark:text-slate-600 group-hover:text-indigo-500 transition-colors">→</span>
-            </div>
-            <h3 className="text-xl font-bold text-slate-900 dark:text-white mb-2 group-hover:text-indigo-600 dark:group-hover:text-indigo-400 transition-colors">TOML Formatter</h3>
-            <p className="text-slate-600 dark:text-slate-400">Validate, format, and beautify TOML configuration files (Cargo.toml, pyproject.toml) instantly.</p>
-          </a>
-
-          <a href="/diff-checker" className="group p-6 rounded-2xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 hover:border-indigo-500/50 dark:hover:border-indigo-500/50 hover:shadow-lg hover:shadow-indigo-500/10 transition-all duration-200">
-            <div className="flex items-center justify-between mb-4">
-              <div className="p-3 bg-indigo-50 dark:bg-indigo-900/20 rounded-xl text-indigo-600 dark:text-indigo-400 group-hover:scale-110 transition-transform duration-200">
-                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><circle cx="18" cy="18" r="3"></circle><circle cx="6" cy="6" r="3"></circle><path d="M13 6h3a2 2 0 0 1 2 2v7"></path><path d="M11 18H8a2 2 0 0 1-2-2V9"></path></svg>
-              </div>
-              <span className="text-slate-300 dark:text-slate-600 group-hover:text-indigo-500 transition-colors">→</span>
-            </div>
-            <h3 className="text-xl font-bold text-slate-900 dark:text-white mb-2 group-hover:text-indigo-600 dark:group-hover:text-indigo-400 transition-colors">Diff Checker</h3>
-            <p className="text-slate-600 dark:text-slate-400">Compare two texts and see differences instantly. Perfect for code reviews, config comparisons, and documentation updates.</p>
-          </a>
+            </a>
+          ))}
         </div>
       </section>
 
       {/* SEO Content Section */}
-      <section className="max-w-[1920px] mx-auto px-4 sm:px-6 lg:px-8 pb-16">
+      <section className="relative max-w-[1920px] mx-auto px-4 sm:px-6 lg:px-8 pb-16 z-10">
         <div className="bg-white dark:bg-slate-900 rounded-2xl shadow-sm border border-slate-200 dark:border-slate-800 p-8 transition-colors duration-200">
           <h2 className="text-2xl font-bold text-slate-900 dark:text-white mb-6">
             Everything you need to analyze text
@@ -111,7 +180,7 @@ export default function Page() {
           <div className="grid md:grid-cols-2 gap-x-12 gap-y-8 text-sm text-slate-600 dark:text-slate-300">
             <div>
               <h3 className="font-bold text-base mb-2 text-slate-900 dark:text-white flex items-center gap-2">
-                <span className="w-1.5 h-1.5 rounded-full bg-indigo-500"></span> Character & Word Count
+                <span className="w-1.5 h-1.5 rounded-full bg-yellow-500"></span> Character & Word Count
               </h3>
               <p className="leading-relaxed">
                 Instantly <strong>count characters</strong> and <strong>count words</strong> as you type.
@@ -121,7 +190,7 @@ export default function Page() {
             </div>
             <div>
               <h3 className="font-bold text-base mb-2 text-slate-900 dark:text-white flex items-center gap-2">
-                <span className="w-1.5 h-1.5 rounded-full bg-indigo-500"></span> Case Converter
+                <span className="w-1.5 h-1.5 rounded-full bg-yellow-500"></span> Case Converter
               </h3>
               <p className="leading-relaxed">
                 Transform text to Title Case, lowercase, UPPERCASE, or snake_case instantly.
@@ -130,7 +199,7 @@ export default function Page() {
             </div>
             <div>
               <h3 className="font-bold text-base mb-2 text-slate-900 dark:text-white flex items-center gap-2">
-                <span className="w-1.5 h-1.5 rounded-full bg-indigo-500"></span> Repeats Finder
+                <span className="w-1.5 h-1.5 rounded-full bg-yellow-500"></span> Repeats Finder
               </h3>
               <p className="leading-relaxed">
                 Detect repeated phrases automatically. Our tool identifies redundant 3-word phrases
@@ -139,20 +208,11 @@ export default function Page() {
             </div>
             <div>
               <h3 className="font-bold text-base mb-2 text-slate-900 dark:text-white flex items-center gap-2">
-                <span className="w-1.5 h-1.5 rounded-full bg-indigo-500"></span> SEO Analysis
+                <span className="w-1.5 h-1.5 rounded-full bg-yellow-500"></span> SEO Analysis
               </h3>
               <p className="leading-relaxed">
                 Analyze keyword density and structure. Essential for content writers looking to optimize
                 articles for search engines.
-              </p>
-            </div>
-            <div>
-              <h3 className="font-bold text-base mb-2 text-slate-900 dark:text-white flex items-center gap-2">
-                <span className="w-1.5 h-1.5 rounded-full bg-indigo-500"></span> TOML Validation
-              </h3>
-              <p className="leading-relaxed">
-                Validate and format <strong>TOML</strong> files instantly. Perfect for managing configuration files
-                for Rust (Cargo), Python (pyproject), and Go projects with error detection.
               </p>
             </div>
           </div>
@@ -160,7 +220,7 @@ export default function Page() {
       </section>
 
       {/* FAQ Section */}
-      <section className="max-w-[1920px] mx-auto px-4 sm:px-6 lg:px-8 pb-16">
+      <section className="relative max-w-[1920px] mx-auto px-4 sm:px-6 lg:px-8 pb-16 z-10">
         <h2 className="text-2xl font-bold text-center text-slate-900 dark:text-white mb-8">
           Frequently Asked Questions
         </h2>
