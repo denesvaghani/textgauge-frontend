@@ -77,7 +77,7 @@ Jane Smith, jane@example.com, Designer, 88`;
     );
 
     return (
-        <FlowerBackground theme={theme} badgeText="AI Tool">
+        <FlowerBackground theme={theme} badgeText="TOON Converter">
             <div className="flex flex-col min-h-screen">
                 <Formatter
                     title="JSON to TOON Converter"
