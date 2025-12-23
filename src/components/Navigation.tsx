@@ -33,11 +33,6 @@ export function Navigation() {
                                         }`}
                                 >
                                     {link.label}
-                                    {(link.label === "Diff Checker" || link.label === "JSON to TOON") && (
-                                        <span className="ml-2 inline-flex items-center px-1.5 py-0.5 rounded text-[10px] font-bold bg-indigo-100 dark:bg-indigo-900 text-indigo-700 dark:text-indigo-300">
-                                            NEW
-                                        </span>
-                                    )}
                                 </Link>
                             );
                         })}

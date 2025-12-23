@@ -3,7 +3,7 @@
 import { Formatter } from "@/components/Formatter";
 import { jsonToCsv, csvToJson } from "@/lib/converters/json-csv";
 import { useState } from "react";
-import { ArrowRight, ArrowRightLeft, FileSpreadsheet, FileJson } from "lucide-react";
+import { FileSpreadsheet } from "lucide-react";
 
 export default function JsonCsvClient() {
     const [flatten, setFlatten] = useState(true);
@@ -41,44 +41,30 @@ Jane Smith,jane@example.com,London,SW1A`;
         }
     };
 
-    // Premium Tab-Style Direction Selector
+    // Clean Tab-Style Direction Selector
     const directionTabs = (
         <div className="w-full">
-            {/* Tab Header */}
-            <div className="flex rounded-xl bg-slate-100 dark:bg-slate-800 p-1 mb-3">
+            <div className="flex rounded-lg bg-slate-100 dark:bg-slate-800 p-1">
                 <button
                     onClick={() => setDirection("json-csv")}
-                    className={`flex-1 flex items-center justify-center gap-2 py-2.5 px-4 rounded-lg text-sm font-semibold transition-all duration-200 ${
+                    className={`flex-1 py-2 px-3 rounded-md text-sm font-medium transition-all duration-200 ${
                         direction === "json-csv"
                             ? "bg-white dark:bg-slate-700 text-indigo-600 dark:text-indigo-400 shadow-sm"
                             : "text-slate-500 dark:text-slate-400 hover:text-slate-700 dark:hover:text-slate-300"
                     }`}
                 >
-                    <span className="text-xs font-bold px-1.5 py-0.5 rounded bg-amber-100 dark:bg-amber-900/30 text-amber-700 dark:text-amber-400">JSON</span>
-                    <ArrowRight size={14} />
-                    <span className="text-xs font-bold px-1.5 py-0.5 rounded bg-emerald-100 dark:bg-emerald-900/30 text-emerald-700 dark:text-emerald-400">CSV</span>
+                    JSON → CSV
                 </button>
                 <button
                     onClick={() => setDirection("csv-json")}
-                    className={`flex-1 flex items-center justify-center gap-2 py-2.5 px-4 rounded-lg text-sm font-semibold transition-all duration-200 ${
+                    className={`flex-1 py-2 px-3 rounded-md text-sm font-medium transition-all duration-200 ${
                         direction === "csv-json"
                             ? "bg-white dark:bg-slate-700 text-indigo-600 dark:text-indigo-400 shadow-sm"
                             : "text-slate-500 dark:text-slate-400 hover:text-slate-700 dark:hover:text-slate-300"
                     }`}
                 >
-                    <span className="text-xs font-bold px-1.5 py-0.5 rounded bg-emerald-100 dark:bg-emerald-900/30 text-emerald-700 dark:text-emerald-400">CSV</span>
-                    <ArrowRight size={14} />
-                    <span className="text-xs font-bold px-1.5 py-0.5 rounded bg-amber-100 dark:bg-amber-900/30 text-amber-700 dark:text-amber-400">JSON</span>
+                    CSV → JSON
                 </button>
-            </div>
-            {/* Current Mode Indicator */}
-            <div className="text-center text-xs text-slate-500 dark:text-slate-400 flex items-center justify-center gap-2">
-                <ArrowRightLeft size={12} />
-                <span>
-                    {direction === "json-csv" 
-                        ? "Paste JSON, get CSV (50-60% smaller files)" 
-                        : "Paste CSV, get structured JSON"}
-                </span>
             </div>
         </div>
     );
