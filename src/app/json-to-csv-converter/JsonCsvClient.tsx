@@ -41,31 +41,41 @@ Jane Smith,jane@example.com,London,SW1A`;
         }
     };
 
-    // Clean Tab-Style Direction Selector
-    const directionTabs = (
-        <div className="w-full">
-            <div className="flex rounded-lg bg-slate-100 dark:bg-slate-800 p-1">
-                <button
-                    onClick={() => setDirection("json-csv")}
-                    className={`flex-1 py-2 px-3 rounded-md text-sm font-medium transition-all duration-200 ${
-                        direction === "json-csv"
-                            ? "bg-white dark:bg-slate-700 text-indigo-600 dark:text-indigo-400 shadow-sm"
-                            : "text-slate-500 dark:text-slate-400 hover:text-slate-700 dark:hover:text-slate-300"
+    const toggleDirection = () => {
+        setDirection(prev => prev === "json-csv" ? "csv-json" : "json-csv");
+    };
+
+    // Toggle Switch Direction Selector
+    const directionToggle = (
+        <div className="w-full flex items-center justify-center gap-3 py-1">
+            <span className={`text-sm font-medium transition-colors ${
+                direction === "json-csv" 
+                    ? "text-indigo-600 dark:text-indigo-400" 
+                    : "text-slate-400 dark:text-slate-500"
+            }`}>
+                JSON → CSV
+            </span>
+            
+            {/* Toggle Switch */}
+            <button
+                onClick={toggleDirection}
+                className="relative w-14 h-7 rounded-full bg-slate-200 dark:bg-slate-700 transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 dark:focus:ring-offset-slate-900"
+                aria-label="Toggle conversion direction"
+            >
+                <span
+                    className={`absolute top-0.5 left-0.5 w-6 h-6 rounded-full bg-white shadow-md transition-transform duration-200 ${
+                        direction === "csv-json" ? "translate-x-7" : "translate-x-0"
                     }`}
-                >
-                    JSON → CSV
-                </button>
-                <button
-                    onClick={() => setDirection("csv-json")}
-                    className={`flex-1 py-2 px-3 rounded-md text-sm font-medium transition-all duration-200 ${
-                        direction === "csv-json"
-                            ? "bg-white dark:bg-slate-700 text-indigo-600 dark:text-indigo-400 shadow-sm"
-                            : "text-slate-500 dark:text-slate-400 hover:text-slate-700 dark:hover:text-slate-300"
-                    }`}
-                >
-                    CSV → JSON
-                </button>
-            </div>
+                />
+            </button>
+            
+            <span className={`text-sm font-medium transition-colors ${
+                direction === "csv-json" 
+                    ? "text-indigo-600 dark:text-indigo-400" 
+                    : "text-slate-400 dark:text-slate-500"
+            }`}>
+                CSV → JSON
+            </span>
         </div>
     );
 
@@ -78,7 +88,7 @@ Jane Smith,jane@example.com,London,SW1A`;
                 outputType={direction === "json-csv" ? "csv" : "json"}
                 onTransform={handleTransform}
                 sampleData={direction === "json-csv" ? sampleJson : sampleCsv}
-                customActions={directionTabs}
+                customActions={directionToggle}
                 actionLabel="Convert"
             />
             
