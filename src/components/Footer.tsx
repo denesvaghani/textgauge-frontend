@@ -1,6 +1,7 @@
 'use client';
 
 import Link from 'next/link';
+import Image from 'next/image';
 import { useTheme } from '@/contexts/ThemeContext';
 
 export function Footer() {
@@ -33,8 +34,17 @@ export function Footer() {
                 <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
                     {/* Brand Section */}
                     <div>
-                        <Link href="/" className="text-2xl font-bold text-indigo-600 dark:text-indigo-400">
-                            TextGauge
+                        <Link href="/" className="flex items-center gap-2">
+                            <Image
+                                src="/images/logo/sunflower-logo.webp"
+                                alt="TextGauge Logo"
+                                width={40}
+                                height={40}
+                                className="rounded-full"
+                            />
+                            <span className="text-2xl font-bold text-slate-800 dark:text-white">
+                                TextGauge
+                            </span>
                         </Link>
                         <p className="mt-4 text-sm text-slate-600 dark:text-slate-400">
                             Free, secure, and privacy-focused developer tools for text analysis and data conversion.

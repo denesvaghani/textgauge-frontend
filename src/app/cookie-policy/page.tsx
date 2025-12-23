@@ -80,7 +80,7 @@ export default function CookiePolicyPage() {
             <h2>Contact Us</h2>
             <p>
                 If you have any questions about our use of cookies, please contact us at:{' '}
-                <a href="mailto:privacy@textgauge.com">privacy@textgauge.com</a>
+                <a href="mailto:denesdvaghani9200@gmail.com">denesdvaghani9200@gmail.com</a>
             </p>
         </LegalLayout>
     );
