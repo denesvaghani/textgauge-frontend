@@ -3,6 +3,7 @@
 import { Formatter } from "@/components/Formatter";
 import { jsonToCsv, csvToJson } from "@/lib/converters/json-csv";
 import { useState } from "react";
+import { ArrowRight, ArrowRightLeft, FileSpreadsheet, FileJson } from "lucide-react";
 
 export default function JsonCsvClient() {
     const [flatten, setFlatten] = useState(true);
@@ -40,6 +41,48 @@ Jane Smith,jane@example.com,London,SW1A`;
         }
     };
 
+    // Premium Tab-Style Direction Selector
+    const directionTabs = (
+        <div className="w-full">
+            {/* Tab Header */}
+            <div className="flex rounded-xl bg-slate-100 dark:bg-slate-800 p-1 mb-3">
+                <button
+                    onClick={() => setDirection("json-csv")}
+                    className={`flex-1 flex items-center justify-center gap-2 py-2.5 px-4 rounded-lg text-sm font-semibold transition-all duration-200 ${
+                        direction === "json-csv"
+                            ? "bg-white dark:bg-slate-700 text-indigo-600 dark:text-indigo-400 shadow-sm"
+                            : "text-slate-500 dark:text-slate-400 hover:text-slate-700 dark:hover:text-slate-300"
+                    }`}
+                >
+                    <span className="text-xs font-bold px-1.5 py-0.5 rounded bg-amber-100 dark:bg-amber-900/30 text-amber-700 dark:text-amber-400">JSON</span>
+                    <ArrowRight size={14} />
+                    <span className="text-xs font-bold px-1.5 py-0.5 rounded bg-emerald-100 dark:bg-emerald-900/30 text-emerald-700 dark:text-emerald-400">CSV</span>
+                </button>
+                <button
+                    onClick={() => setDirection("csv-json")}
+                    className={`flex-1 flex items-center justify-center gap-2 py-2.5 px-4 rounded-lg text-sm font-semibold transition-all duration-200 ${
+                        direction === "csv-json"
+                            ? "bg-white dark:bg-slate-700 text-indigo-600 dark:text-indigo-400 shadow-sm"
+                            : "text-slate-500 dark:text-slate-400 hover:text-slate-700 dark:hover:text-slate-300"
+                    }`}
+                >
+                    <span className="text-xs font-bold px-1.5 py-0.5 rounded bg-emerald-100 dark:bg-emerald-900/30 text-emerald-700 dark:text-emerald-400">CSV</span>
+                    <ArrowRight size={14} />
+                    <span className="text-xs font-bold px-1.5 py-0.5 rounded bg-amber-100 dark:bg-amber-900/30 text-amber-700 dark:text-amber-400">JSON</span>
+                </button>
+            </div>
+            {/* Current Mode Indicator */}
+            <div className="text-center text-xs text-slate-500 dark:text-slate-400 flex items-center justify-center gap-2">
+                <ArrowRightLeft size={12} />
+                <span>
+                    {direction === "json-csv" 
+                        ? "Paste JSON, get CSV (50-60% smaller files)" 
+                        : "Paste CSV, get structured JSON"}
+                </span>
+            </div>
+        </div>
+    );
+
     return (
         <div className="flex flex-col min-h-screen">
             <Formatter
@@ -48,12 +91,44 @@ Jane Smith,jane@example.com,London,SW1A`;
                 inputType={direction === "json-csv" ? "json" : "text"}
                 outputType={direction === "json-csv" ? "csv" : "json"}
                 onTransform={handleTransform}
-
                 sampleData={direction === "json-csv" ? sampleJson : sampleCsv}
+                customActions={directionTabs}
+                actionLabel="Convert"
             />
             
+            {/* File Size Savings */}
+            <section className="w-full max-w-[1920px] mx-auto px-4 sm:px-6 lg:px-8 pb-12">
+                <div className="bg-gradient-to-r from-indigo-500 to-purple-600 rounded-2xl p-8 text-white">
+                    <div className="flex flex-col md:flex-row items-center justify-between gap-6">
+                        <div className="flex items-center gap-4">
+                            <div className="p-3 bg-white/20 rounded-xl">
+                                <FileSpreadsheet size={32} />
+                            </div>
+                            <div>
+                                <h3 className="text-2xl font-bold">50-60% Smaller Files</h3>
+                                <p className="text-indigo-100">CSV removes redundant field names</p>
+                            </div>
+                        </div>
+                        <div className="grid grid-cols-3 gap-8 text-center">
+                            <div>
+                                <div className="text-3xl font-bold">~50%</div>
+                                <div className="text-sm text-indigo-100">Smaller</div>
+                            </div>
+                            <div>
+                                <div className="text-3xl font-bold">Excel</div>
+                                <div className="text-sm text-indigo-100">Ready</div>
+                            </div>
+                            <div>
+                                <div className="text-3xl font-bold">∞</div>
+                                <div className="text-sm text-indigo-100">Rows</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
             {/* Key Features Section */}
-            <section className="max-w-[1920px] mx-auto pb-16">
+            <section className="max-w-[1920px] mx-auto px-4 sm:px-6 lg:px-8 pb-16">
                 <div className="bg-white dark:bg-slate-900 rounded-2xl shadow-sm border border-slate-200 dark:border-slate-800 p-8 transition-colors duration-200">
                     <h2 className="text-2xl font-bold text-slate-900 dark:text-white mb-6">
                         Key Features
@@ -152,17 +227,14 @@ Jane Smith,jane@example.com,London,SW1A`;
                 {/* Helper Tasks */}
                 <div className="border-t border-slate-200 dark:border-slate-800 pt-12">
                     <h2 className="text-2xl font-bold text-slate-900 dark:text-white mb-8">
-                        JSON to CSV Converter helps to perform below tasks:
+                        Related Tools
                     </h2>
                     <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
                         {[
                             { label: "JSON Beautifier", href: "/json-formatter" },
-                            { label: "JSON Parser", href: "/json-formatter" },
-                            { label: "JSON Editor", href: "/json-formatter" },
-                            { label: "JSON Viewer", href: "/json-formatter" },
                             { label: "JSON Formatter", href: "/json-formatter" },
-                            { label: "CSV to JSON", href: "/json-to-csv-converter" },
-                            { label: "JSON to CSV", href: "/json-to-csv-converter" },
+                            { label: "JSON to TOON", href: "/json-to-toon-converter" },
+                            { label: "YAML Formatter", href: "/yaml-formatter" },
                         ].map((link) => (
                             <a
                                 key={link.label}
@@ -179,7 +251,7 @@ Jane Smith,jane@example.com,London,SW1A`;
                 <div className="border-t border-slate-200 dark:border-slate-800 pt-12">
                     <div className="bg-gradient-to-r from-indigo-50 to-purple-50 dark:from-indigo-950/20 dark:to-purple-950/20 rounded-2xl border border-indigo-200 dark:border-indigo-800 p-6 text-center">
                         <p className="text-slate-700 dark:text-slate-300 font-medium text-base">
-                            JSON to CSV Converter working properly in <strong>Windows</strong>, <strong>Mac</strong>, <strong>Linux</strong>, <strong>Chrome</strong>, <strong>Firefox</strong>, <strong>Safari</strong> and <strong>Edge</strong> and it's <strong className="text-indigo-600 dark:text-indigo-400">Free</strong>.
+                            JSON to CSV Converter working properly in <strong>Windows</strong>, <strong>Mac</strong>, <strong>Linux</strong>, <strong>Chrome</strong>, <strong>Firefox</strong>, <strong>Safari</strong> and <strong>Edge</strong> and it&apos;s <strong className="text-indigo-600 dark:text-indigo-400">Free</strong>.
                         </p>
                     </div>
                 </div>

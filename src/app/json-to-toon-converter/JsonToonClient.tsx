@@ -3,7 +3,7 @@
 import { Formatter } from "@/components/Formatter";
 import { jsonToToon, toonToJson } from "@/lib/converters/json-toon";
 import { useState } from "react";
-import { Zap, Brain, TrendingDown, Shield, ArrowRight, Sparkles } from "lucide-react";
+import { Zap, Brain, TrendingDown, Shield, ArrowRight, Sparkles, ArrowRightLeft } from "lucide-react";
 
 export default function JsonToonClient() {
     const [direction, setDirection] = useState<"json-toon" | "toon-json">("json-toon");
@@ -36,29 +36,45 @@ Jane Smith, jane@example.com, Designer, 88`;
         }
     };
 
-    // Custom action for direction toggle
-    const directionToggle = (
-        <div className="flex items-center gap-2 bg-slate-100 dark:bg-slate-800 rounded-lg p-1">
-            <button
-                onClick={() => setDirection("json-toon")}
-                className={`px-3 py-1.5 rounded-md text-sm font-medium transition-all ${
-                    direction === "json-toon"
-                        ? "bg-white dark:bg-slate-700 text-indigo-600 dark:text-indigo-400 shadow-sm"
-                        : "text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white"
-                }`}
-            >
-                JSON → TOON
-            </button>
-            <button
-                onClick={() => setDirection("toon-json")}
-                className={`px-3 py-1.5 rounded-md text-sm font-medium transition-all ${
-                    direction === "toon-json"
-                        ? "bg-white dark:bg-slate-700 text-indigo-600 dark:text-indigo-400 shadow-sm"
-                        : "text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white"
-                }`}
-            >
-                TOON → JSON
-            </button>
+    // Premium Tab-Style Direction Selector
+    const directionTabs = (
+        <div className="w-full">
+            {/* Tab Header */}
+            <div className="flex rounded-xl bg-slate-100 dark:bg-slate-800 p-1 mb-3">
+                <button
+                    onClick={() => setDirection("json-toon")}
+                    className={`flex-1 flex items-center justify-center gap-2 py-2.5 px-4 rounded-lg text-sm font-semibold transition-all duration-200 ${
+                        direction === "json-toon"
+                            ? "bg-white dark:bg-slate-700 text-indigo-600 dark:text-indigo-400 shadow-sm"
+                            : "text-slate-500 dark:text-slate-400 hover:text-slate-700 dark:hover:text-slate-300"
+                    }`}
+                >
+                    <span className="text-xs font-bold px-1.5 py-0.5 rounded bg-amber-100 dark:bg-amber-900/30 text-amber-700 dark:text-amber-400">JSON</span>
+                    <ArrowRight size={14} />
+                    <span className="text-xs font-bold px-1.5 py-0.5 rounded bg-emerald-100 dark:bg-emerald-900/30 text-emerald-700 dark:text-emerald-400">TOON</span>
+                </button>
+                <button
+                    onClick={() => setDirection("toon-json")}
+                    className={`flex-1 flex items-center justify-center gap-2 py-2.5 px-4 rounded-lg text-sm font-semibold transition-all duration-200 ${
+                        direction === "toon-json"
+                            ? "bg-white dark:bg-slate-700 text-indigo-600 dark:text-indigo-400 shadow-sm"
+                            : "text-slate-500 dark:text-slate-400 hover:text-slate-700 dark:hover:text-slate-300"
+                    }`}
+                >
+                    <span className="text-xs font-bold px-1.5 py-0.5 rounded bg-emerald-100 dark:bg-emerald-900/30 text-emerald-700 dark:text-emerald-400">TOON</span>
+                    <ArrowRight size={14} />
+                    <span className="text-xs font-bold px-1.5 py-0.5 rounded bg-amber-100 dark:bg-amber-900/30 text-amber-700 dark:text-amber-400">JSON</span>
+                </button>
+            </div>
+            {/* Current Mode Indicator */}
+            <div className="text-center text-xs text-slate-500 dark:text-slate-400 flex items-center justify-center gap-2">
+                <ArrowRightLeft size={12} />
+                <span>
+                    {direction === "json-toon" 
+                        ? "Paste JSON, get TOON (30-60% fewer tokens)" 
+                        : "Paste TOON, get JSON back"}
+                </span>
+            </div>
         </div>
     );
 
@@ -71,7 +87,8 @@ Jane Smith, jane@example.com, Designer, 88`;
                 outputType={direction === "json-toon" ? "text" : "json"}
                 onTransform={handleTransform}
                 sampleData={direction === "json-toon" ? sampleJson : sampleToon}
-                customActions={directionToggle}
+                customActions={directionTabs}
+                actionLabel="Convert"
             />
             
             {/* Token Savings Highlight */}
