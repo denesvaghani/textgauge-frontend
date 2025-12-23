@@ -180,6 +180,12 @@ export function Editor() {
   const toTitleCase = (str: string) =>
     str.replace(/\w\S*/g, (t) => t[0].toUpperCase() + t.slice(1).toLowerCase());
 
+  const toSentenceCase = (str: string) => {
+    // Split by sentence delimiters. This is a basic implementation.
+    // It handles . ! ? followed by space or end of string.
+    return str.toLowerCase().replace(/(^\s*\w|[\.\!\?]\s*\w)/g, (c) => c.toUpperCase());
+  };
+
   const toSnakeCase = (str: string) => {
     // Check if already in snake_case (contains underscores, no spaces, all lowercase)
     const isSnakeCase = str.includes('_') && !str.includes(' ') && str === str.toLowerCase();
@@ -189,12 +195,12 @@ export function Editor() {
       return str.replace(/_/g, ' ');
     }
 
-    // Convert to snake_case
+    // Convert to snake_case (preserve hyphens, only replace spaces with underscores)
     return str
       .toLowerCase()
-      .replace(/[^a-z0-9\s-]/g, "")
+      .replace(/[^a-z0-9\s\-]/g, "")  // Keep letters, numbers, spaces, and hyphens
       .trim()
-      .replace(/[\s-]+/g, "_");
+      .replace(/\s+/g, "_");  // Only replace spaces with underscores
   };
 
   const exec = (cmd: string) => {
@@ -294,11 +300,12 @@ export function Editor() {
           <div className="flex flex-col overflow-hidden rounded-lg border border-slate-200 bg-white shadow-sm dark:border-slate-700 dark:bg-slate-950">
             {/* Toolbar */}
             <div className="flex flex-wrap items-center gap-2 border-b border-slate-200 bg-slate-50 px-3 py-2 text-xs dark:border-slate-700 dark:bg-slate-900/60">
-              {/* Left cluster: formatting + case tools */}
+              {/* Left cluster: History + Format + Case tools */}
               <div className="flex flex-wrap items-center gap-2">
                 {/* Clear */}
                 <button
                   type="button"
+                  title="Clear all text"
                   onMouseDown={(e) => {
                     e.preventDefault();
                     clearAll();
@@ -311,6 +318,7 @@ export function Editor() {
                 {/* Undo */}
                 <button
                   type="button"
+                  title="Undo last change"
                   onMouseDown={(e) => {
                     e.preventDefault();
                     if (canUndo) undo();
@@ -324,6 +332,7 @@ export function Editor() {
                 {/* Redo */}
                 <button
                   type="button"
+                  title="Redo last change"
                   onMouseDown={(e) => {
                     e.preventDefault();
                     if (canRedo) redo();
@@ -339,6 +348,7 @@ export function Editor() {
                 {/* Bold */}
                 <button
                   type="button"
+                  title="Bold (Ctrl+B)"
                   onMouseDown={(e) => {
                     e.preventDefault();
                     exec("bold");
@@ -351,6 +361,7 @@ export function Editor() {
                 {/* Italic */}
                 <button
                   type="button"
+                  title="Italic (Ctrl+I)"
                   onMouseDown={(e) => {
                     e.preventDefault();
                     exec("italic");
@@ -362,33 +373,65 @@ export function Editor() {
 
                 <div className="w-px h-5 bg-slate-300 dark:bg-slate-700 mx-1"></div>
 
+                {/* Case transformation group label */}
+                <span className="text-[10px] font-medium text-slate-400 dark:text-slate-500 uppercase tracking-wide mr-1">Case:</span>
+
                 {/* Title case */}
                 <button
                   type="button"
+                  title="Title Case – Capitalize Each Word"
                   onMouseDown={(e) => {
                     e.preventDefault();
                     transformSelection(toTitleCase);
                   }}
                   className="rounded-md bg-emerald-500 px-3 py-1.5 font-bold text-white shadow-sm shadow-emerald-500/20 hover:bg-emerald-600 hover:shadow-emerald-500/30 transition-all active:scale-95"
                 >
-                  Aa
+                  Title
+                </button>
+
+                {/* Sentence case */}
+                <button
+                  type="button"
+                  title="Sentence case – Capitalize first letter of each sentence"
+                  onMouseDown={(e) => {
+                    e.preventDefault();
+                    transformSelection(toSentenceCase);
+                  }}
+                  className="rounded-md bg-emerald-500 px-3 py-1.5 font-bold text-white shadow-sm shadow-emerald-500/20 hover:bg-emerald-600 hover:shadow-emerald-500/30 transition-all active:scale-95"
+                >
+                  Sentence
                 </button>
 
                 {/* lowercase */}
                 <button
                   type="button"
+                  title="lowercase – convert all to lowercase"
                   onMouseDown={(e) => {
                     e.preventDefault();
                     transformSelection((s) => s.toLowerCase());
                   }}
                   className="rounded-md bg-emerald-500 px-3 py-1.5 font-bold text-white shadow-sm shadow-emerald-500/20 hover:bg-emerald-600 hover:shadow-emerald-500/30 transition-all active:scale-95"
                 >
-                  abc
+                  lower
+                </button>
+
+                {/* UPPERCASE */}
+                <button
+                  type="button"
+                  title="UPPERCASE – CONVERT ALL TO UPPERCASE"
+                  onMouseDown={(e) => {
+                    e.preventDefault();
+                    transformSelection((s) => s.toUpperCase());
+                  }}
+                  className="rounded-md bg-emerald-500 px-3 py-1.5 font-bold text-white shadow-sm shadow-emerald-500/20 hover:bg-emerald-600 hover:shadow-emerald-500/30 transition-all active:scale-95"
+                >
+                  UPPER
                 </button>
 
                 {/* snake_case */}
                 <button
                   type="button"
+                  title="snake_case – convert_words_to_snake_case"
                   onMouseDown={(e) => {
                     e.preventDefault();
                     transformSelection(toSnakeCase);
@@ -403,6 +446,7 @@ export function Editor() {
               <div className="ml-auto flex items-center">
                 <button
                   type="button"
+                  title="AI-powered text rephrasing"
                   onMouseDown={(e) => {
                     e.preventDefault();
                     handleRephrase();

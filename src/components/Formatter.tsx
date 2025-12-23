@@ -260,6 +260,7 @@ export function Formatter({
             < div className="flex flex-col gap-2 shrink-0" >
               <button
                 onClick={handleFormat}
+                title="Format and beautify code (⌘+Enter)"
                 className="relative group w-full py-3 px-3 rounded-lg font-bold text-white shadow-md shadow-indigo-500/20 transition-all duration-200 hover:-translate-y-0.5 hover:shadow-indigo-500/30 active:translate-y-0 active:scale-[0.98] overflow-hidden"
               >
                 <div className="absolute inset-0 bg-gradient-to-r from-indigo-600 to-violet-600 dark:from-indigo-500 dark:to-violet-600 transition-all duration-300 group-hover:scale-105"></div>
@@ -275,6 +276,7 @@ export function Formatter({
                 onMinify && (
                   <button
                     onClick={handleMinify}
+                    title="Remove whitespace and compress code"
                     className="group w-full py-2.5 px-3 bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 hover:border-slate-300 dark:hover:border-slate-600 hover:bg-slate-50 dark:hover:bg-slate-700/50 text-slate-700 dark:text-slate-200 font-semibold text-sm rounded-lg shadow-sm transition-all duration-200 flex items-center justify-center gap-2 active:scale-[0.98]"
                   >
                     <Minimize2 size={16} className="text-slate-400 group-hover:text-slate-600 dark:group-hover:text-slate-300 transition-colors" />
@@ -325,6 +327,7 @@ export function Formatter({
             {sampleData && (
               <button
                 onClick={handleLoadSample}
+                title="Load example data to try the tool"
                 className="text-xs font-medium text-indigo-500 dark:text-indigo-400 hover:text-indigo-600 dark:hover:text-indigo-300 hover:underline text-center shrink-0 transition-colors py-1"
               >
                 Load Sample
