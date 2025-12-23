@@ -29,6 +29,7 @@ interface FormatterProps {
   sampleData?: string;
   id?: string;
   customActions?: React.ReactNode;
+  actionLabel?: string; // Default: "Beautify", Use "Convert" for converters
 }
 
 export function Formatter({
@@ -41,7 +42,8 @@ export function Formatter({
   onMinify,
   sampleData,
   id,
-  customActions
+  customActions,
+  actionLabel = "Beautify"
 }: FormatterProps) {
   const { theme } = useTheme();
   // SimpleCodeEditor parses theme from class/context, usage here is simplified
@@ -260,13 +262,13 @@ export function Formatter({
             < div className="flex flex-col gap-2 shrink-0" >
               <button
                 onClick={handleFormat}
-                title="Format and beautify code (⌘+Enter)"
+                title={actionLabel === "Convert" ? "Convert data format" : "Format and beautify code (⌘+Enter)"}
                 className="relative group w-full py-3 px-3 rounded-lg font-bold text-white shadow-md shadow-indigo-500/20 transition-all duration-200 hover:-translate-y-0.5 hover:shadow-indigo-500/30 active:translate-y-0 active:scale-[0.98] overflow-hidden"
               >
                 <div className="absolute inset-0 bg-gradient-to-r from-indigo-600 to-violet-600 dark:from-indigo-500 dark:to-violet-600 transition-all duration-300 group-hover:scale-105"></div>
                 <div className="relative flex items-center justify-center gap-2">
                   <Wand2 size={16} className="transition-transform group-hover:rotate-12" />
-                  <span className="text-sm">Beautify</span>
+                  <span className="text-sm">{actionLabel}</span>
                 </div>
               </button>
 

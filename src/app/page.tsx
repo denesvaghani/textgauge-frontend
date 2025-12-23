@@ -67,6 +67,17 @@ export default function Page() {
             <p className="text-slate-600 dark:text-slate-400">Convert JSON data to CSV format instantly. Reduces file size by 50-60% for easy spreadsheet use.</p>
           </a>
 
+          <a href="/json-to-toon-converter" className="group p-6 rounded-2xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 hover:border-emerald-500/50 dark:hover:border-emerald-500/50 hover:shadow-lg hover:shadow-emerald-500/10 transition-all duration-200">
+            <div className="flex items-center justify-between mb-4">
+              <div className="p-3 bg-emerald-50 dark:bg-emerald-900/20 rounded-xl text-emerald-600 dark:text-emerald-400 group-hover:scale-110 transition-transform duration-200">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"></path></svg>
+              </div>
+              <span className="text-slate-300 dark:text-slate-600 group-hover:text-emerald-500 transition-colors">→</span>
+            </div>
+            <h3 className="text-xl font-bold text-slate-900 dark:text-white mb-2 group-hover:text-emerald-600 dark:group-hover:text-emerald-400 transition-colors">JSON to TOON</h3>
+            <p className="text-slate-600 dark:text-slate-400">AI-optimized format. Reduce token usage by 30-60% for ChatGPT, Claude, and other LLMs.</p>
+          </a>
+
           <a href="/toml-formatter" className="group p-6 rounded-2xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 hover:border-indigo-500/50 dark:hover:border-indigo-500/50 hover:shadow-lg hover:shadow-indigo-500/10 transition-all duration-200">
             <div className="flex items-center justify-between mb-4">
               <div className="p-3 bg-indigo-50 dark:bg-indigo-900/20 rounded-xl text-indigo-600 dark:text-indigo-400 group-hover:scale-110 transition-transform duration-200">

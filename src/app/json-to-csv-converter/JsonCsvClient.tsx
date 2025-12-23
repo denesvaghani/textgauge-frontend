@@ -3,6 +3,7 @@
 import { Formatter } from "@/components/Formatter";
 import { jsonToCsv, csvToJson } from "@/lib/converters/json-csv";
 import { useState } from "react";
+import { FileSpreadsheet } from "lucide-react";
 
 export default function JsonCsvClient() {
     const [flatten, setFlatten] = useState(true);
@@ -40,6 +41,44 @@ Jane Smith,jane@example.com,London,SW1A`;
         }
     };
 
+    const toggleDirection = () => {
+        setDirection(prev => prev === "json-csv" ? "csv-json" : "json-csv");
+    };
+
+    // Toggle Switch Direction Selector
+    const directionToggle = (
+        <div className="w-full flex items-center justify-center gap-3 py-1">
+            <span className={`text-sm font-medium transition-colors ${
+                direction === "json-csv" 
+                    ? "text-indigo-600 dark:text-indigo-400" 
+                    : "text-slate-400 dark:text-slate-500"
+            }`}>
+                JSON → CSV
+            </span>
+            
+            {/* Toggle Switch */}
+            <button
+                onClick={toggleDirection}
+                className="relative w-14 h-7 rounded-full bg-slate-200 dark:bg-slate-700 transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 dark:focus:ring-offset-slate-900"
+                aria-label="Toggle conversion direction"
+            >
+                <span
+                    className={`absolute top-0.5 left-0.5 w-6 h-6 rounded-full bg-white shadow-md transition-transform duration-200 ${
+                        direction === "csv-json" ? "translate-x-7" : "translate-x-0"
+                    }`}
+                />
+            </button>
+            
+            <span className={`text-sm font-medium transition-colors ${
+                direction === "csv-json" 
+                    ? "text-indigo-600 dark:text-indigo-400" 
+                    : "text-slate-400 dark:text-slate-500"
+            }`}>
+                CSV → JSON
+            </span>
+        </div>
+    );
+
     return (
         <div className="flex flex-col min-h-screen">
             <Formatter
@@ -48,12 +87,44 @@ Jane Smith,jane@example.com,London,SW1A`;
                 inputType={direction === "json-csv" ? "json" : "text"}
                 outputType={direction === "json-csv" ? "csv" : "json"}
                 onTransform={handleTransform}
-
                 sampleData={direction === "json-csv" ? sampleJson : sampleCsv}
+                customActions={directionToggle}
+                actionLabel="Convert"
             />
             
+            {/* File Size Savings */}
+            <section className="w-full max-w-[1920px] mx-auto px-4 sm:px-6 lg:px-8 pb-12">
+                <div className="bg-gradient-to-r from-indigo-500 to-purple-600 rounded-2xl p-8 text-white">
+                    <div className="flex flex-col md:flex-row items-center justify-between gap-6">
+                        <div className="flex items-center gap-4">
+                            <div className="p-3 bg-white/20 rounded-xl">
+                                <FileSpreadsheet size={32} />
+                            </div>
+                            <div>
+                                <h3 className="text-2xl font-bold">50-60% Smaller Files</h3>
+                                <p className="text-indigo-100">CSV removes redundant field names</p>
+                            </div>
+                        </div>
+                        <div className="grid grid-cols-3 gap-8 text-center">
+                            <div>
+                                <div className="text-3xl font-bold">~50%</div>
+                                <div className="text-sm text-indigo-100">Smaller</div>
+                            </div>
+                            <div>
+                                <div className="text-3xl font-bold">Excel</div>
+                                <div className="text-sm text-indigo-100">Ready</div>
+                            </div>
+                            <div>
+                                <div className="text-3xl font-bold">∞</div>
+                                <div className="text-sm text-indigo-100">Rows</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
             {/* Key Features Section */}
-            <section className="max-w-[1920px] mx-auto pb-16">
+            <section className="max-w-[1920px] mx-auto px-4 sm:px-6 lg:px-8 pb-16">
                 <div className="bg-white dark:bg-slate-900 rounded-2xl shadow-sm border border-slate-200 dark:border-slate-800 p-8 transition-colors duration-200">
                     <h2 className="text-2xl font-bold text-slate-900 dark:text-white mb-6">
                         Key Features
@@ -152,17 +223,14 @@ Jane Smith,jane@example.com,London,SW1A`;
                 {/* Helper Tasks */}
                 <div className="border-t border-slate-200 dark:border-slate-800 pt-12">
                     <h2 className="text-2xl font-bold text-slate-900 dark:text-white mb-8">
-                        JSON to CSV Converter helps to perform below tasks:
+                        Related Tools
                     </h2>
                     <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
                         {[
                             { label: "JSON Beautifier", href: "/json-formatter" },
-                            { label: "JSON Parser", href: "/json-formatter" },
-                            { label: "JSON Editor", href: "/json-formatter" },
-                            { label: "JSON Viewer", href: "/json-formatter" },
                             { label: "JSON Formatter", href: "/json-formatter" },
-                            { label: "CSV to JSON", href: "/json-to-csv-converter" },
-                            { label: "JSON to CSV", href: "/json-to-csv-converter" },
+                            { label: "JSON to TOON", href: "/json-to-toon-converter" },
+                            { label: "YAML Formatter", href: "/yaml-formatter" },
                         ].map((link) => (
                             <a
                                 key={link.label}
@@ -179,7 +247,7 @@ Jane Smith,jane@example.com,London,SW1A`;
                 <div className="border-t border-slate-200 dark:border-slate-800 pt-12">
                     <div className="bg-gradient-to-r from-indigo-50 to-purple-50 dark:from-indigo-950/20 dark:to-purple-950/20 rounded-2xl border border-indigo-200 dark:border-indigo-800 p-6 text-center">
                         <p className="text-slate-700 dark:text-slate-300 font-medium text-base">
-                            JSON to CSV Converter working properly in <strong>Windows</strong>, <strong>Mac</strong>, <strong>Linux</strong>, <strong>Chrome</strong>, <strong>Firefox</strong>, <strong>Safari</strong> and <strong>Edge</strong> and it's <strong className="text-indigo-600 dark:text-indigo-400">Free</strong>.
+                            JSON to CSV Converter working properly in <strong>Windows</strong>, <strong>Mac</strong>, <strong>Linux</strong>, <strong>Chrome</strong>, <strong>Firefox</strong>, <strong>Safari</strong> and <strong>Edge</strong> and it&apos;s <strong className="text-indigo-600 dark:text-indigo-400">Free</strong>.
                         </p>
                     </div>
                 </div>
