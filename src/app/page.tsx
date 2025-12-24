@@ -117,7 +117,7 @@ export default function Page() {
           <h2 className="text-2xl md:text-3xl font-bold text-slate-900 dark:text-white mb-3">
             🌸 Our Flower-Powered Tools 🌸
           </h2>
-          <p className="text-slate-600 dark:text-slate-400">Each tool has its own flower identity</p>
+          <p className="text-slate-700 dark:text-slate-300 text-sm sm:text-base">Each tool has its own flower identity</p>
         </div>
         
         <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">

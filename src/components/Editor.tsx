@@ -483,16 +483,23 @@ export function Editor() {
                 w-full
                 min-h-[260px] sm:min-h-[340px] lg:min-h-[420px]
                 bg-transparent
-                px-6
+                px-4 sm:px-6
                 py-5
                 text-[14px]
                 leading-[24px]
                 text-slate-900 dark:text-slate-100
                 outline-none
                 placeholder:text-slate-400
+                text-left
               "
               data-placeholder="Start typing here or paste your content..."
-              style={{ maxHeight: "70vh", overflowY: "auto", fontFamily: "'JetBrains Mono', 'Fira Code', 'SF Mono', Menlo, Consolas, monospace" }}
+              style={{ 
+                maxHeight: "70vh", 
+                overflowY: "auto", 
+                fontFamily: "'JetBrains Mono', 'Fira Code', 'SF Mono', Menlo, Consolas, monospace",
+                caretColor: "currentColor",
+                textAlign: "left"
+              }}
             />
 
             {/* SEO Keyword Input - Integrated Footer Style */}

@@ -710,12 +710,15 @@ export function SimpleCodeEditor({
                     readOnly={readOnly}
                     onScroll={handleScroll}
                     placeholder={placeholder}
-                    className={`flex-1 w-full h-full p-4 resize-none outline-none border-none bg-transparent text-[14px] leading-[24px] placeholder:text-slate-400 whitespace-pre ${
+                    className={`flex-1 w-full h-full p-4 resize-none outline-none border-none bg-transparent text-[14px] leading-[24px] placeholder:text-slate-400 whitespace-pre text-left ${
                         (language === "json" || language === "yaml" || language === "csv" || language === "toml") && value
                             ? "text-transparent caret-slate-800 dark:caret-slate-200"
                             : "text-slate-800 dark:text-slate-200"
                     }`}
-                    style={{ fontFamily: "'JetBrains Mono', 'Fira Code', 'SF Mono', Menlo, Consolas, monospace" }}
+                    style={{ 
+                        fontFamily: "'JetBrains Mono', 'Fira Code', 'SF Mono', Menlo, Consolas, monospace",
+                        textAlign: "left"
+                    }}
                     spellCheck="false"
                     autoCapitalize="off"
                     autoComplete="off"
