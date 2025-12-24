@@ -539,7 +539,7 @@ export function SimpleCodeEditor({
     };
 
     return (
-        <div className={`relative flex flex-col h-full max-h-[500px] border border-slate-200 dark:border-slate-800 rounded-lg overflow-hidden bg-white dark:bg-slate-900 ${className}`}>
+        <div className={`relative flex flex-col h-full border border-slate-200 dark:border-slate-800 rounded-lg overflow-hidden bg-white dark:bg-slate-900 ${className}`}>
 
             {/* Absolute Action Buttons - Top Right */}
             <div className="absolute top-2 right-2 z-10 flex items-center gap-1">
@@ -676,11 +676,11 @@ export function SimpleCodeEditor({
             )}
 
             {/* Editor Area */}
-            <div className="flex-1 flex relative min-h-0 bg-white dark:bg-slate-950 group">
+            <div className="flex-1 flex relative min-h-0 overflow-hidden bg-white dark:bg-slate-950 group">
                 {/* Line Numbers */}
                 <div
                     ref={lineNumbersRef}
-                    className="hidden sm:block w-10 shrink-0 text-right pr-2 pt-4 pb-4 bg-slate-50 dark:bg-slate-900/50 text-slate-300 dark:text-slate-600 text-xs font-mono select-none overflow-hidden"
+                    className="hidden sm:block w-10 shrink-0 text-right pr-2 pt-4 pb-4 bg-slate-50 dark:bg-slate-900/50 text-slate-300 dark:text-slate-600 text-xs font-mono select-none overflow-y-auto overflow-x-hidden scrollbar-hide"
                 >
                     {lineNumbers.map(n => (
                         <div key={n} className="leading-[24px]">{n}</div>
