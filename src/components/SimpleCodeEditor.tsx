@@ -250,6 +250,7 @@ export function SimpleCodeEditor({
     const [matchCount, setMatchCount] = useState(0);
     // eslint-disable-next-line @typescript-eslint/no-unused-vars
     const [currentMatchIndex, setCurrentMatchIndex] = useState(-1);
+    const [matchPositions, setMatchPositions] = useState<number[]>([]); // Positions as percentages (0-100)
 
     // Search Options
     const [matchCase, setMatchCase] = useState(false);
@@ -333,16 +334,34 @@ export function SimpleCodeEditor({
         }
     };
 
-    // Find Logic (Count)
+    // Find Logic (Count and Positions for scrollbar markers)
     useEffect(() => {
         const regex = getSearchRegex();
         if (!regex || !findText) {
             setMatchCount(0);
             setCurrentMatchIndex(-1);
+            setMatchPositions([]);
             return;
         }
-        const matches = value.match(regex);
-        setMatchCount(matches ? matches.length : 0);
+        
+        // Find all matches and their positions
+        const positions: number[] = [];
+        const totalLength = value.length;
+        
+        if (totalLength > 0) {
+            let match;
+            regex.lastIndex = 0;
+            while ((match = regex.exec(value)) !== null) {
+                // Calculate position as percentage of document
+                const position = (match.index / totalLength) * 100;
+                positions.push(position);
+                // Prevent infinite loop for zero-length matches
+                if (match[0].length === 0) regex.lastIndex++;
+            }
+        }
+        
+        setMatchCount(positions.length);
+        setMatchPositions(positions);
     }, [findText, value, matchCase, useRegex, wholeWord]);
 
 
@@ -710,17 +729,40 @@ export function SimpleCodeEditor({
                     readOnly={readOnly}
                     onScroll={handleScroll}
                     placeholder={placeholder}
-                    className={`flex-1 w-full h-full p-4 resize-none outline-none border-none bg-transparent text-[14px] leading-[24px] placeholder:text-slate-400 whitespace-pre ${
+                    className={`flex-1 w-full h-full p-4 resize-none outline-none border-none bg-transparent text-[14px] leading-[24px] placeholder:text-slate-400 whitespace-pre text-left overflow-auto ${
                         (language === "json" || language === "yaml" || language === "csv" || language === "toml") && value
                             ? "text-transparent caret-slate-800 dark:caret-slate-200"
                             : "text-slate-800 dark:text-slate-200"
                     }`}
-                    style={{ fontFamily: "'JetBrains Mono', 'Fira Code', 'SF Mono', Menlo, Consolas, monospace" }}
+                    style={{ 
+                        fontFamily: "'JetBrains Mono', 'Fira Code', 'SF Mono', Menlo, Consolas, monospace",
+                        textAlign: "left"
+                    }}
                     spellCheck="false"
                     autoCapitalize="off"
                     autoComplete="off"
                     autoCorrect="off"
                 />
+
+                {/* Scrollbar Match Markers */}
+                {showFindReplace && matchPositions.length > 0 && (
+                    <div 
+                        className="absolute top-0 right-0 w-3 h-full pointer-events-none z-5"
+                        style={{ opacity: 0.9 }}
+                    >
+                        {matchPositions.map((position, idx) => (
+                            <div
+                                key={idx}
+                                className="absolute right-0.5 w-2 h-1 bg-amber-400 dark:bg-amber-500 rounded-sm shadow-sm"
+                                style={{
+                                    top: `${position}%`,
+                                    transform: 'translateY(-50%)',
+                                }}
+                                title={`Match ${idx + 1} of ${matchPositions.length}`}
+                            />
+                        ))}
+                    </div>
+                )}
             </div>
 
         </div>
