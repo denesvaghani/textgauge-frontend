@@ -296,10 +296,10 @@ export function Editor() {
 
           {/* Key Editor wrapper: toolbar + editor + SEO + Ad */}
           <div className="flex flex-col overflow-hidden rounded-lg border border-slate-200 bg-white shadow-sm dark:border-slate-700 dark:bg-slate-950">
-            {/* Toolbar */}
-            <div className="flex flex-wrap items-center gap-2 border-b border-slate-200 bg-slate-50 px-3 py-2 text-xs dark:border-slate-700 dark:bg-slate-900/60">
+            {/* Toolbar - Mobile optimized */}
+            <div className="flex flex-wrap items-center gap-1.5 sm:gap-2 border-b border-slate-200 bg-slate-50 px-2 sm:px-3 py-2 text-xs dark:border-slate-700 dark:bg-slate-900/60">
               {/* Left cluster: History + Format + Case tools */}
-              <div className="flex flex-wrap items-center gap-2">
+              <div className="flex flex-wrap items-center gap-1.5 sm:gap-2">
                 {/* Clear */}
                 <button
                   type="button"
@@ -308,7 +308,7 @@ export function Editor() {
                     e.preventDefault();
                     clearAll();
                   }}
-                  className="rounded-md bg-rose-500 px-3 py-1.5 font-bold text-white shadow-sm shadow-rose-500/20 hover:bg-rose-600 hover:shadow-rose-500/30 transition-all active:scale-95"
+                  className="rounded-md bg-rose-500 px-2.5 sm:px-3 py-2 sm:py-1.5 font-bold text-white shadow-sm shadow-rose-500/20 hover:bg-rose-600 hover:shadow-rose-500/30 transition-all active:scale-95 min-h-[44px] sm:min-h-0"
                 >
                   Clear
                 </button>
@@ -322,7 +322,7 @@ export function Editor() {
                     if (canUndo) undo();
                   }}
                   disabled={!canUndo}
-                  className="rounded-md bg-white border border-slate-200 px-3 py-1.5 font-semibold text-slate-700 shadow-sm hover:bg-slate-50 hover:text-slate-900 disabled:opacity-50 disabled:cursor-not-allowed dark:bg-slate-800 dark:border-slate-700 dark:text-slate-200 dark:hover:bg-slate-700 transition-all active:scale-95"
+                  className="rounded-md bg-white border border-slate-200 px-2.5 sm:px-3 py-2 sm:py-1.5 font-semibold text-slate-700 shadow-sm hover:bg-slate-50 hover:text-slate-900 disabled:opacity-50 disabled:cursor-not-allowed dark:bg-slate-800 dark:border-slate-700 dark:text-slate-200 dark:hover:bg-slate-700 transition-all active:scale-95 min-h-[44px] sm:min-h-0"
                 >
                   Undo
                 </button>
@@ -336,14 +336,14 @@ export function Editor() {
                     if (canRedo) redo();
                   }}
                   disabled={!canRedo}
-                  className="rounded-md bg-white border border-slate-200 px-3 py-1.5 font-semibold text-slate-700 shadow-sm hover:bg-slate-50 hover:text-slate-900 disabled:opacity-50 disabled:cursor-not-allowed dark:bg-slate-800 dark:border-slate-700 dark:text-slate-200 dark:hover:bg-slate-700 transition-all active:scale-95"
+                  className="rounded-md bg-white border border-slate-200 px-2.5 sm:px-3 py-2 sm:py-1.5 font-semibold text-slate-700 shadow-sm hover:bg-slate-50 hover:text-slate-900 disabled:opacity-50 disabled:cursor-not-allowed dark:bg-slate-800 dark:border-slate-700 dark:text-slate-200 dark:hover:bg-slate-700 transition-all active:scale-95 min-h-[44px] sm:min-h-0"
                 >
                   Redo
                 </button>
 
-                <div className="w-px h-5 bg-slate-300 dark:bg-slate-700 mx-1"></div>
+                <div className="hidden sm:block w-px h-5 bg-slate-300 dark:bg-slate-700 mx-1"></div>
 
-                {/* Bold */}
+                {/* Bold - Hidden on mobile */}
                 <button
                   type="button"
                   title="Bold (Ctrl+B)"
@@ -351,12 +351,12 @@ export function Editor() {
                     e.preventDefault();
                     exec("bold");
                   }}
-                  className="rounded-md bg-white border border-slate-200 px-3 py-1.5 font-bold text-slate-700 shadow-sm hover:border-indigo-300 hover:text-indigo-600 dark:bg-slate-800 dark:border-slate-700 dark:text-slate-200 dark:hover:border-indigo-500 dark:hover:text-indigo-400 transition-all"
+                  className="hidden sm:block rounded-md bg-white border border-slate-200 px-3 py-1.5 font-bold text-slate-700 shadow-sm hover:border-indigo-300 hover:text-indigo-600 dark:bg-slate-800 dark:border-slate-700 dark:text-slate-200 dark:hover:border-indigo-500 dark:hover:text-indigo-400 transition-all"
                 >
                   B
                 </button>
 
-                {/* Italic */}
+                {/* Italic - Hidden on mobile */}
                 <button
                   type="button"
                   title="Italic (Ctrl+I)"
@@ -364,17 +364,17 @@ export function Editor() {
                     e.preventDefault();
                     exec("italic");
                   }}
-                  className="rounded-md bg-white border border-slate-200 px-3 py-1.5 italic text-slate-700 shadow-sm hover:border-indigo-300 hover:text-indigo-600 dark:bg-slate-800 dark:border-slate-700 dark:text-slate-200 dark:hover:border-indigo-500 dark:hover:text-indigo-400 transition-all"
+                  className="hidden sm:block rounded-md bg-white border border-slate-200 px-3 py-1.5 italic text-slate-700 shadow-sm hover:border-indigo-300 hover:text-indigo-600 dark:bg-slate-800 dark:border-slate-700 dark:text-slate-200 dark:hover:border-indigo-500 dark:hover:text-indigo-400 transition-all"
                 >
                   i
                 </button>
 
-                <div className="w-px h-5 bg-slate-300 dark:bg-slate-700 mx-1"></div>
+                <div className="hidden sm:block w-px h-5 bg-slate-300 dark:bg-slate-700 mx-1"></div>
 
-                {/* Case transformation group label */}
-                <span className="text-[10px] font-medium text-slate-400 dark:text-slate-500 uppercase tracking-wide mr-1">Case:</span>
+                {/* Case transformation group label - Hidden on mobile */}
+                <span className="hidden sm:inline text-[10px] font-medium text-slate-400 dark:text-slate-500 uppercase tracking-wide mr-1">Case:</span>
 
-                {/* Title case */}
+                {/* Title case - Hidden on mobile */}
                 <button
                   type="button"
                   title="Title Case – Capitalize Each Word"
@@ -382,12 +382,12 @@ export function Editor() {
                     e.preventDefault();
                     transformSelection(toTitleCase);
                   }}
-                  className="rounded-md bg-emerald-500 px-3 py-1.5 font-bold text-white shadow-sm shadow-emerald-500/20 hover:bg-emerald-600 hover:shadow-emerald-500/30 transition-all active:scale-95"
+                  className="hidden sm:block rounded-md bg-emerald-500 px-3 py-1.5 font-bold text-white shadow-sm shadow-emerald-500/20 hover:bg-emerald-600 hover:shadow-emerald-500/30 transition-all active:scale-95"
                 >
                   Title
                 </button>
 
-                {/* Sentence case */}
+                {/* Sentence case - Hidden on mobile */}
                 <button
                   type="button"
                   title="Sentence case – Capitalize first letter of each sentence"
@@ -395,12 +395,12 @@ export function Editor() {
                     e.preventDefault();
                     transformSelection(toSentenceCase);
                   }}
-                  className="rounded-md bg-emerald-500 px-3 py-1.5 font-bold text-white shadow-sm shadow-emerald-500/20 hover:bg-emerald-600 hover:shadow-emerald-500/30 transition-all active:scale-95"
+                  className="hidden sm:block rounded-md bg-emerald-500 px-3 py-1.5 font-bold text-white shadow-sm shadow-emerald-500/20 hover:bg-emerald-600 hover:shadow-emerald-500/30 transition-all active:scale-95"
                 >
                   Sentence
                 </button>
 
-                {/* lowercase */}
+                {/* lowercase - Hidden on mobile */}
                 <button
                   type="button"
                   title="lowercase – convert all to lowercase"
@@ -408,12 +408,12 @@ export function Editor() {
                     e.preventDefault();
                     transformSelection((s) => s.toLowerCase());
                   }}
-                  className="rounded-md bg-emerald-500 px-3 py-1.5 font-bold text-white shadow-sm shadow-emerald-500/20 hover:bg-emerald-600 hover:shadow-emerald-500/30 transition-all active:scale-95"
+                  className="hidden sm:block rounded-md bg-emerald-500 px-3 py-1.5 font-bold text-white shadow-sm shadow-emerald-500/20 hover:bg-emerald-600 hover:shadow-emerald-500/30 transition-all active:scale-95"
                 >
                   lower
                 </button>
 
-                {/* UPPERCASE */}
+                {/* UPPERCASE - Hidden on mobile */}
                 <button
                   type="button"
                   title="UPPERCASE – CONVERT ALL TO UPPERCASE"
@@ -421,12 +421,12 @@ export function Editor() {
                     e.preventDefault();
                     transformSelection((s) => s.toUpperCase());
                   }}
-                  className="rounded-md bg-emerald-500 px-3 py-1.5 font-bold text-white shadow-sm shadow-emerald-500/20 hover:bg-emerald-600 hover:shadow-emerald-500/30 transition-all active:scale-95"
+                  className="hidden sm:block rounded-md bg-emerald-500 px-3 py-1.5 font-bold text-white shadow-sm shadow-emerald-500/20 hover:bg-emerald-600 hover:shadow-emerald-500/30 transition-all active:scale-95"
                 >
                   UPPER
                 </button>
 
-                {/* snake_case */}
+                {/* snake_case - Hidden on mobile */}
                 <button
                   type="button"
                   title="snake_case – convert_words_to_snake_case"
@@ -434,7 +434,7 @@ export function Editor() {
                     e.preventDefault();
                     transformSelection(toSnakeCase);
                   }}
-                  className="rounded-md bg-emerald-500 px-3 py-1.5 font-bold text-white shadow-sm shadow-emerald-500/20 hover:bg-emerald-600 hover:shadow-emerald-500/30 transition-all active:scale-95"
+                  className="hidden sm:block rounded-md bg-emerald-500 px-3 py-1.5 font-bold text-white shadow-sm shadow-emerald-500/20 hover:bg-emerald-600 hover:shadow-emerald-500/30 transition-all active:scale-95"
                 >
                   snake_case
                 </button>
@@ -588,7 +588,7 @@ function StatsBar({ metrics }: { metrics: Metrics }) {
   };
 
   return (
-    <div className="grid grid-cols-3 sm:grid-cols-6 gap-4 mb-6">
+    <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-3 sm:gap-4 mb-6">
       {[
         ["Words", m.wordCount],
         ["Chars", m.charCount],
