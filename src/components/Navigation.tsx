@@ -3,9 +3,29 @@
 import Link from "next/link";
 import Image from "next/image";
 import { usePathname } from "next/navigation";
+import { useState, useEffect } from "react";
+import { Menu, X } from "lucide-react";
 
 export function Navigation() {
     const pathname = usePathname();
+    const [isMenuOpen, setIsMenuOpen] = useState(false);
+
+    // Close menu when route changes
+    useEffect(() => {
+        setIsMenuOpen(false);
+    }, [pathname]);
+
+    // Prevent body scroll when menu is open
+    useEffect(() => {
+        if (isMenuOpen) {
+            document.body.style.overflow = 'hidden';
+        } else {
+            document.body.style.overflow = '';
+        }
+        return () => {
+            document.body.style.overflow = '';
+        };
+    }, [isMenuOpen]);
 
     const links = [
         { href: "/", label: "Character Counter" },
@@ -35,8 +55,8 @@ export function Navigation() {
                         </span>
                     </Link>
                     
-                    {/* Navigation Links */}
-                    <div className="flex space-x-1 overflow-x-auto">
+                    {/* Desktop Navigation Links - Hidden on mobile */}
+                    <div className="hidden md:flex space-x-1 overflow-x-auto">
                         {links.map((link) => {
                             const isActive = pathname === link.href;
                             return (
@@ -53,6 +73,53 @@ export function Navigation() {
                             );
                         })}
                     </div>
+
+                    {/* Mobile Menu Button */}
+                    <button
+                        onClick={() => setIsMenuOpen(!isMenuOpen)}
+                        className="md:hidden flex items-center justify-center w-11 h-11 my-auto rounded-lg text-slate-600 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors"
+                        aria-label={isMenuOpen ? "Close menu" : "Open menu"}
+                        aria-expanded={isMenuOpen}
+                    >
+                        {isMenuOpen ? <X size={24} /> : <Menu size={24} />}
+                    </button>
+                </div>
+            </div>
+
+            {/* Mobile Menu Overlay */}
+            {isMenuOpen && (
+                <div 
+                    className="md:hidden fixed inset-0 top-14 bg-black/50 z-40"
+                    onClick={() => setIsMenuOpen(false)}
+                />
+            )}
+
+            {/* Mobile Menu Panel */}
+            <div 
+                className={`md:hidden fixed top-14 left-0 right-0 bg-white dark:bg-slate-900 border-b border-slate-200 dark:border-slate-800 shadow-lg z-50 transform transition-all duration-300 ease-in-out ${
+                    isMenuOpen 
+                        ? 'translate-y-0 opacity-100' 
+                        : '-translate-y-full opacity-0 pointer-events-none'
+                }`}
+            >
+                <div className="max-h-[calc(100vh-3.5rem)] overflow-y-auto py-2">
+                    {links.map((link) => {
+                        const isActive = pathname === link.href;
+                        return (
+                            <Link
+                                key={link.href}
+                                href={link.href}
+                                onClick={() => setIsMenuOpen(false)}
+                                className={`flex items-center px-6 py-3 text-base font-medium transition-colors ${
+                                    isActive
+                                        ? "bg-indigo-50 dark:bg-indigo-900/20 text-indigo-600 dark:text-indigo-400 border-l-4 border-indigo-500"
+                                        : "text-slate-700 dark:text-slate-300 hover:bg-slate-50 dark:hover:bg-slate-800 border-l-4 border-transparent"
+                                }`}
+                            >
+                                {link.label}
+                            </Link>
+                        );
+                    })}
                 </div>
             </div>
         </nav>
