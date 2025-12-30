@@ -189,10 +189,10 @@ export function Formatter({
       <main className="flex-1 flex flex-col min-h-0 w-full max-w-[1920px] mx-auto px-4 sm:px-6 lg:px-8 py-4">
 
         {/* Layout Container - Optimized for Maximum Editor Space */}
-        <div className="flex flex-col lg:flex-row gap-4 h-full">
+        <div className="flex flex-col lg:flex-row gap-4">
 
           {/* LEFT COLUMN: Input Editor */}
-          <div className="flex-1 bg-white/80 dark:bg-slate-900/80 backdrop-blur-sm rounded-xl border border-indigo-200/50 dark:border-indigo-800/30 overflow-hidden flex flex-col lg:w-[calc(50%-110px)]">
+          <div className="bg-white/80 dark:bg-slate-900/80 backdrop-blur-sm rounded-xl border border-indigo-200/50 dark:border-indigo-800/30 overflow-hidden flex flex-col lg:flex-1">
             <div className="px-4 py-3 bg-indigo-50/50 dark:bg-indigo-900/20 border-b border-indigo-200/50 dark:border-indigo-800/30 flex items-center justify-between">
               <span className="text-sm font-semibold text-slate-700 dark:text-slate-300">
                 Input
@@ -336,7 +336,7 @@ export function Formatter({
           </div >
 
           {/* RIGHT COLUMN: Output Editor */}
-          <div className="flex-1 bg-white/80 dark:bg-slate-900/80 backdrop-blur-sm rounded-xl border border-indigo-200/50 dark:border-indigo-800/30 overflow-hidden flex flex-col lg:w-[calc(50%-110px)]">
+          <div className="bg-white/80 dark:bg-slate-900/80 backdrop-blur-sm rounded-xl border border-indigo-200/50 dark:border-indigo-800/30 overflow-hidden flex flex-col lg:flex-1">
             <div className="px-4 py-3 bg-indigo-50/50 dark:bg-indigo-900/20 border-b border-indigo-200/50 dark:border-indigo-800/30 flex items-center justify-between">
               <span className="text-sm font-semibold text-slate-700 dark:text-slate-300">
                 Output
