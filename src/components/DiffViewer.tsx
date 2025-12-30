@@ -345,6 +345,7 @@ const flushBuffers = () => {
                         Original
                     </div>
                     <pre className="p-2 overflow-x-auto max-h-[600px] overflow-y-auto">
+                        <div className="min-w-max">
                         {originalLines.map((line, index) => {
                             const pairedModLine = line.pairIndex !== undefined ? modifiedLines[index] : null;
                             const showWordDiff = line.type === "removed" && pairedModLine?.type === "added";
@@ -377,6 +378,7 @@ const flushBuffers = () => {
                                 </div>
                             );
                         })}
+                        </div>
                     </pre>
                 </div>
 
@@ -386,6 +388,7 @@ const flushBuffers = () => {
                         Modified
                     </div>
                     <pre className="p-2 overflow-x-auto max-h-[600px] overflow-y-auto">
+                        <div className="min-w-max">
                         {modifiedLines.map((line, index) => {
                             const pairedOrigLine = line.pairIndex !== undefined ? originalLines[line.pairIndex] : null;
                             const showWordDiff = line.type === "added" && pairedOrigLine?.type === "removed";
@@ -418,6 +421,7 @@ const flushBuffers = () => {
                                 </div>
                             );
                         })}
+                        </div>
                     </pre>
                 </div>
             </div>
