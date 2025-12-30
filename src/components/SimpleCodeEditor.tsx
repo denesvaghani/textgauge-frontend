@@ -539,7 +539,7 @@ export function SimpleCodeEditor({
     };
 
     return (
-        <div className={`relative flex flex-col h-full border border-slate-200 dark:border-slate-800 rounded-lg overflow-hidden bg-white dark:bg-slate-900 ${className}`}>
+        <div className={`relative flex flex-col h-full overflow-hidden bg-white dark:bg-slate-900 ${className}`}>
 
             {/* Absolute Action Buttons - Top Right */}
             <div className="absolute top-2 right-2 z-10 flex items-center gap-1">

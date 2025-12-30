@@ -192,17 +192,11 @@ export function Formatter({
         <div className="flex flex-col lg:flex-row gap-4 h-full">
 
           {/* LEFT COLUMN: Input Editor */}
-          <div className="flex-1 flex flex-col bg-white dark:bg-slate-900 rounded-xl shadow-sm ring-1 ring-slate-900/5 dark:ring-white/10 lg:w-[calc(50%-110px)] min-h-0 overflow-hidden transition-all duration-200">
-            {/* Toolbar */}
-            <div className="shrink-0 px-3 py-2 border-b border-slate-100 dark:border-slate-800 flex items-center justify-between bg-white dark:bg-slate-900">
-              <div className="flex items-center gap-2">
-                <span className="text-[10px] font-bold text-slate-400 dark:text-slate-500 uppercase tracking-widest">Input</span>
-                {/* Modern Badge */}
-                <span className="flex items-center gap-1.5 px-1.5 py-0.5 rounded-full bg-emerald-50 dark:bg-emerald-950/30 border border-emerald-100 dark:border-emerald-900/50">
-                  <div className="w-1 h-1 rounded-full bg-emerald-500 animate-pulse"></div>
-                  <span className="text-[9px] font-medium text-emerald-600 dark:text-emerald-400">Saved</span>
-                </span>
-              </div>
+          <div className="flex-1 bg-white/80 dark:bg-slate-900/80 backdrop-blur-sm rounded-xl border border-indigo-200/50 dark:border-indigo-800/30 overflow-hidden flex flex-col lg:w-[calc(50%-110px)]">
+            <div className="px-4 py-3 bg-indigo-50/50 dark:bg-indigo-900/20 border-b border-indigo-200/50 dark:border-indigo-800/30 flex items-center justify-between">
+              <span className="text-sm font-semibold text-slate-700 dark:text-slate-300">
+                Input
+              </span>
               <div className="flex items-center gap-1">
                 <button
                   type="button"
@@ -231,29 +225,20 @@ export function Formatter({
                 </button>
               </div>
             </div>
-
-            {/* Editor Area */}
-            <div className="flex-1 relative min-h-0 max-h-[60vh]" >
+            <div className="h-[450px]">
               <SimpleCodeEditor
                 value={inputCode}
                 onChange={setInputCode}
                 placeholder="Paste your code here..."
                 language={inputType}
-                className="flex-1"
               />
-            </div >
-
-            {/* Status Bar */}
-            < div className="shrink-0 px-3 py-2 border-t border-slate-200 dark:border-slate-700 flex justify-between items-center text-xs text-slate-500 dark:text-slate-400 font-medium font-mono bg-slate-50/80 dark:bg-slate-800/50" >
-              <div className="flex gap-3">
-                <span>{getStats(inputCode).lines} LN</span>
-                <span>{getStats(inputCode).chars} CH</span>
-              </div>
-              <div>
-                {(getStats(inputCode).size / 1024).toFixed(2)} KB
-              </div>
-            </div >
-          </div >
+            </div>
+            <div className="px-4 py-2 bg-indigo-50/50 dark:bg-indigo-900/20 border-t border-indigo-200/50 dark:border-indigo-800/30 flex items-center gap-4 text-xs text-slate-500 dark:text-slate-400 font-mono">
+              <span>Lines: {getStats(inputCode).lines}</span>
+              <span>Chars: {getStats(inputCode).chars}</span>
+              <span>Size: {(getStats(inputCode).size / 1024).toFixed(1)} KB</span>
+            </div>
+          </div>
 
           {/* MIDDLE COLUMN: Controls - Narrower & Cleaner */}
           < div className="flex flex-col gap-3 lg:w-[200px] shrink-0 h-full overflow-y-auto py-1 scrollbar-hide bg-white dark:bg-slate-900 rounded-xl shadow-sm ring-1 ring-slate-900/5 dark:ring-white/10 p-3" >
@@ -351,12 +336,11 @@ export function Formatter({
           </div >
 
           {/* RIGHT COLUMN: Output Editor */}
-          < div className="flex-1 flex flex-col bg-white dark:bg-slate-900 rounded-xl shadow-sm ring-1 ring-slate-900/5 dark:ring-white/10 lg:w-[calc(50%-110px)] min-h-0 overflow-hidden transition-all duration-200" >
-            {/* Toolbar */}
-            < div className="shrink-0 px-3 py-2 border-b border-slate-100 dark:border-slate-800 flex items-center justify-between bg-white dark:bg-slate-900" >
-              <div className="flex items-center gap-3">
-                <span className="text-[10px] font-bold text-slate-400 dark:text-slate-500 uppercase tracking-widest">Output</span>
-              </div>
+          <div className="flex-1 bg-white/80 dark:bg-slate-900/80 backdrop-blur-sm rounded-xl border border-indigo-200/50 dark:border-indigo-800/30 overflow-hidden flex flex-col lg:w-[calc(50%-110px)]">
+            <div className="px-4 py-3 bg-indigo-50/50 dark:bg-indigo-900/20 border-b border-indigo-200/50 dark:border-indigo-800/30 flex items-center justify-between">
+              <span className="text-sm font-semibold text-slate-700 dark:text-slate-300">
+                Output
+              </span>
               <div className="flex items-center gap-2">
                 <button
                   onClick={() => {
@@ -374,13 +358,11 @@ export function Formatter({
                   <Download size={16} strokeWidth={2} />
                 </button>
               </div>
-            </div >
-
-            {/* Editor/Error Area */}
-            < div className="flex-1 relative min-h-0 max-h-[60vh]" >
+            </div>
+            <div className="h-[450px] relative">
               {
                 error ? (
-                  <div className="absolute inset-0 p-6 z-10 overflow-auto bg-white/95 dark:bg-slate-900/95 backdrop-blur-sm" >
+                  <div className="absolute inset-0 p-6 z-10 overflow-auto bg-white/95 dark:bg-slate-900/95 backdrop-blur-sm">
                     <div className="rounded-xl border border-red-200 bg-red-50 p-6 dark:border-red-900/30 dark:bg-red-900/10 shadow-sm">
                       <div className="flex items-center gap-3 text-red-700 dark:text-red-400 font-bold mb-3">
                         <div className="p-2 bg-red-100 dark:bg-red-900/30 rounded-lg">
@@ -399,22 +381,15 @@ export function Formatter({
                     readOnly={true}
                     placeholder="Result will appear here..."
                     language={outputType === "text" ? "text" : outputType}
-                    className="flex-1"
                   />
                 )}
-            </div >
-
-            {/* Status Bar */}
-            < div className="shrink-0 px-3 py-2 border-t border-slate-200 dark:border-slate-700 flex justify-between items-center text-xs text-slate-500 dark:text-slate-400 font-medium font-mono bg-slate-50/80 dark:bg-slate-800/50" >
-              <div className="flex gap-3">
-                <span>{getStats(outputCode).lines} LN</span>
-                <span>{getStats(outputCode).chars} CH</span>
-              </div>
-              <div>
-                {(getStats(outputCode).size / 1024).toFixed(2)} KB
-              </div>
-            </div >
-          </div >
+            </div>
+            <div className="px-4 py-2 bg-indigo-50/50 dark:bg-indigo-900/20 border-t border-indigo-200/50 dark:border-indigo-800/30 flex items-center gap-4 text-xs text-slate-500 dark:text-slate-400 font-mono">
+              <span>Lines: {getStats(outputCode).lines}</span>
+              <span>Chars: {getStats(outputCode).chars}</span>
+              <span>Size: {(getStats(outputCode).size / 1024).toFixed(1)} KB</span>
+            </div>
+          </div>
 
         </div >
       </main >
