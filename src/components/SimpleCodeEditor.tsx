@@ -257,29 +257,79 @@ export function SimpleCodeEditor({
     const [useRegex, setUseRegex] = useState(false);
     const [wholeWord, setWholeWord] = useState(false);
 
-    // Sync Scroll
+    // Sync Scroll (both vertical and horizontal)
     const handleScroll = () => {
         if (textareaRef.current) {
-            const scrollTop = textareaRef.current.scrollTop;
+            const { scrollTop, scrollLeft } = textareaRef.current;
             if (lineNumbersRef.current) {
                 lineNumbersRef.current.scrollTop = scrollTop;
             }
             if (jsonOverlayRef.current) {
                 jsonOverlayRef.current.scrollTop = scrollTop;
+                jsonOverlayRef.current.scrollLeft = scrollLeft;
             }
             if (yamlOverlayRef.current) {
                 yamlOverlayRef.current.scrollTop = scrollTop;
+                yamlOverlayRef.current.scrollLeft = scrollLeft;
             }
             if (tomlOverlayRef.current) {
                 tomlOverlayRef.current.scrollTop = scrollTop;
+                tomlOverlayRef.current.scrollLeft = scrollLeft;
             }
         }
     };
 
+    // Apply search highlighting to already-highlighted content
+    const applySearchHighlight = (htmlContent: string, searchText: string, isCaseSensitive: boolean, isRegex: boolean, isWholeWord: boolean): string => {
+        if (!searchText || !htmlContent) return htmlContent;
+        
+        try {
+            let pattern = searchText;
+            
+            if (!isRegex) {
+                // Escape special regex chars
+                pattern = pattern.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+            }
+            
+            if (isWholeWord) {
+                pattern = `\\b${pattern}\\b`;
+            }
+            
+            const flags = isCaseSensitive ? 'g' : 'gi';
+            const regex = new RegExp(`(${pattern})`, flags);
+            
+            // Split by HTML tags and only highlight in text content, not in tags
+            const parts = htmlContent.split(/(<[^>]*>)/);
+            return parts.map(part => {
+                if (part.startsWith('<')) {
+                    return part; // Return tags unchanged
+                }
+                // Highlight matches in text content
+                return part.replace(regex, '<mark class="bg-amber-300 dark:bg-amber-500/50 px-0.5 rounded">$1</mark>');
+            }).join('');
+        } catch {
+            return htmlContent;
+        }
+    };
+
     // Memoize highlighted content to avoid re-rendering on scroll
-    const highlightedJson = useMemo(() => language === 'json' && value ? highlightJson(value) : '', [language, value]);
-    const highlightedYaml = useMemo(() => language === 'yaml' && value ? highlightYaml(value) : '', [language, value]);
-    const highlightedToml = useMemo(() => language === 'toml' && value ? highlightToml(value) : '', [language, value]);
+    const baseHighlightedJson = useMemo(() => language === 'json' && value ? highlightJson(value) : '', [language, value]);
+    const baseHighlightedYaml = useMemo(() => language === 'yaml' && value ? highlightYaml(value) : '', [language, value]);
+    const baseHighlightedToml = useMemo(() => language === 'toml' && value ? highlightToml(value) : '', [language, value]);
+    
+    // Apply search highlighting on top of syntax highlighting
+    const highlightedJson = useMemo(() => 
+        showFindReplace && findText ? applySearchHighlight(baseHighlightedJson, findText, matchCase, useRegex, wholeWord) : baseHighlightedJson,
+        [baseHighlightedJson, showFindReplace, findText, matchCase, useRegex, wholeWord]
+    );
+    const highlightedYaml = useMemo(() => 
+        showFindReplace && findText ? applySearchHighlight(baseHighlightedYaml, findText, matchCase, useRegex, wholeWord) : baseHighlightedYaml,
+        [baseHighlightedYaml, showFindReplace, findText, matchCase, useRegex, wholeWord]
+    );
+    const highlightedToml = useMemo(() => 
+        showFindReplace && findText ? applySearchHighlight(baseHighlightedToml, findText, matchCase, useRegex, wholeWord) : baseHighlightedToml,
+        [baseHighlightedToml, showFindReplace, findText, matchCase, useRegex, wholeWord]
+    );
 
     const lineCount = value.split("\n").length;
     const lineNumbers = Array.from({ length: lineCount }, (_, i) => i + 1);
@@ -334,7 +384,7 @@ export function SimpleCodeEditor({
         }
     };
 
-    // Find Logic (Count and Positions for scrollbar markers)
+    // Find Logic (Count and Positions for scrollbar markers - LINE BASED)
     useEffect(() => {
         const regex = getSearchRegex();
         if (!regex || !findText) {
@@ -344,17 +394,24 @@ export function SimpleCodeEditor({
             return;
         }
         
-        // Find all matches and their positions
+        // Find all matches and their LINE positions for scrollbar markers
         const positions: number[] = [];
-        const totalLength = value.length;
+        const lines = value.split('\n');
+        const totalLines = lines.length;
         
-        if (totalLength > 0) {
+        if (totalLines > 0) {
             let match;
             regex.lastIndex = 0;
             while ((match = regex.exec(value)) !== null) {
-                // Calculate position as percentage of document
-                const position = (match.index / totalLength) * 100;
-                positions.push(position);
+                // Calculate which line number this match is on
+                const textBeforeMatch = value.substring(0, match.index);
+                const lineNumber = textBeforeMatch.split('\n').length;
+                // Calculate position as percentage based on LINE number
+                const position = ((lineNumber - 1) / totalLines) * 100;
+                // Avoid duplicate positions for same line
+                if (positions.length === 0 || positions[positions.length - 1] !== position) {
+                    positions.push(position);
+                }
                 // Prevent infinite loop for zero-length matches
                 if (match[0].length === 0) regex.lastIndex++;
             }
@@ -619,11 +676,11 @@ export function SimpleCodeEditor({
             )}
 
             {/* Editor Area */}
-            <div className="flex-1 flex relative min-h-0 bg-white dark:bg-slate-950 group">
+            <div className="flex-1 flex relative min-h-0 overflow-hidden bg-white dark:bg-slate-950 group">
                 {/* Line Numbers */}
                 <div
                     ref={lineNumbersRef}
-                    className="hidden sm:block w-10 shrink-0 text-right pr-2 pt-4 pb-4 bg-slate-50 dark:bg-slate-900/50 text-slate-300 dark:text-slate-600 text-xs font-mono select-none overflow-hidden"
+                    className="hidden sm:block w-10 shrink-0 text-right pr-2 pt-4 pb-4 bg-slate-50 dark:bg-slate-900/50 text-slate-300 dark:text-slate-600 text-xs font-mono select-none overflow-y-auto overflow-x-hidden scrollbar-hide"
                 >
                     {lineNumbers.map(n => (
                         <div key={n} className="leading-[24px]">{n}</div>
