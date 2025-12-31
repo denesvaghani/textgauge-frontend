@@ -96,33 +96,12 @@ temp_targets = { cpu = 79.5, case = 72.0 }
                                     All processing happens in your browser. Your TOML configuration files never leave your device, ensuring complete privacy and security.
                                 </p>
                             </div>
-                        </div>
-                    </div>
-                </section>
-
-                {/* When to choose TOML Section */}
-                <section className="w-full max-w-[1920px] mx-auto px-4 sm:px-6 lg:px-8 pb-16">
-                    <div className="bg-gradient-to-br from-orange-50 to-white dark:from-orange-950/20 dark:to-slate-900 rounded-2xl shadow-sm border border-orange-200/50 dark:border-orange-800/30 p-8">
-                        <h2 className="text-2xl font-bold text-slate-900 dark:text-white mb-6">
-                            When to choose TOML?
-                        </h2>
-                        <div className="grid md:grid-cols-3 gap-8">
-                            <div className="bg-white dark:bg-slate-950 p-6 rounded-xl border border-orange-100/50 dark:border-orange-800/30">
-                                <h3 className="font-bold text-orange-600 dark:text-orange-400 mb-3 text-lg">Configuration Files</h3>
-                                <p className="text-slate-600 dark:text-slate-300 text-sm leading-relaxed">
-                                    TOML is the gold standard for configuration files. Its key-value pair structure is intuitive and easy for humans to edit without syntax errors. Perfect for project settings like <strong>Cargo.toml</strong> (Rust) or <strong>pyproject.toml</strong> (Python).
-                                </p>
-                            </div>
-                            <div className="bg-white dark:bg-slate-950 p-6 rounded-xl border border-orange-100/50 dark:border-orange-800/30">
-                                <h3 className="font-bold text-orange-600 dark:text-orange-400 mb-3 text-lg">Readability First</h3>
-                                <p className="text-slate-600 dark:text-slate-300 text-sm leading-relaxed">
-                                    Choose TOML when you want data to be readable. Unlike JSON, it supports comments and doesn't require quotes for every key. Unlike YAML, it avoids ambiguous whitespace parsing issues.
-                                </p>
-                            </div>
-                            <div className="bg-white dark:bg-slate-950 p-6 rounded-xl border border-orange-100/50 dark:border-orange-800/30">
-                                <h3 className="font-bold text-orange-600 dark:text-orange-400 mb-3 text-lg">Simple Data Structures</h3>
-                                <p className="text-slate-600 dark:text-slate-300 text-sm leading-relaxed">
-                                    Use TOML for flat or moderately nested data. If your data is deeply nested or complex (like API responses), JSON might be better. TOML shines where clarity and simplicity are paramount.
+                            <div>
+                                <h3 className="font-bold text-base mb-2 text-slate-900 dark:text-white flex items-center gap-2">
+                                    <span className="w-1.5 h-1.5 rounded-full bg-orange-500"></span> Comments Preserved
+                                </h3>
+                                <p className="leading-relaxed">
+                                    Unlike JSON, TOML supports inline and block comments. Your documentation stays with your configuration where it belongs.
                                 </p>
                             </div>
                         </div>
@@ -162,6 +141,35 @@ temp_targets = { cpu = 79.5, case = 72.0 }
                                 </div>
                             </details>
                         ))}
+                    </div>
+                </section>
+
+                {/* When to choose TOML Section - Educational Content */}
+                <section className="w-full max-w-[1920px] mx-auto px-4 sm:px-6 lg:px-8 pb-16">
+                    <div className="bg-gradient-to-br from-orange-50 to-white dark:from-orange-950/20 dark:to-slate-900 rounded-2xl shadow-sm border border-orange-200/50 dark:border-orange-800/30 p-8">
+                        <h2 className="text-2xl font-bold text-slate-900 dark:text-white mb-6">
+                            When to choose TOML?
+                        </h2>
+                        <div className="grid md:grid-cols-3 gap-8">
+                            <div className="bg-white dark:bg-slate-950 p-6 rounded-xl border border-orange-100/50 dark:border-orange-800/30">
+                                <h3 className="font-bold text-orange-600 dark:text-orange-400 mb-3 text-lg">Configuration Files</h3>
+                                <p className="text-slate-600 dark:text-slate-300 text-sm leading-relaxed">
+                                    TOML is the gold standard for configuration files. Its key-value pair structure is intuitive and easy for humans to edit without syntax errors. Perfect for project settings like <strong>Cargo.toml</strong> (Rust) or <strong>pyproject.toml</strong> (Python).
+                                </p>
+                            </div>
+                            <div className="bg-white dark:bg-slate-950 p-6 rounded-xl border border-orange-100/50 dark:border-orange-800/30">
+                                <h3 className="font-bold text-orange-600 dark:text-orange-400 mb-3 text-lg">Readability First</h3>
+                                <p className="text-slate-600 dark:text-slate-300 text-sm leading-relaxed">
+                                    Choose TOML when you want data to be readable. Unlike JSON, it supports comments and doesn&apos;t require quotes for every key. Unlike YAML, it avoids ambiguous whitespace parsing issues.
+                                </p>
+                            </div>
+                            <div className="bg-white dark:bg-slate-950 p-6 rounded-xl border border-orange-100/50 dark:border-orange-800/30">
+                                <h3 className="font-bold text-orange-600 dark:text-orange-400 mb-3 text-lg">Simple Data Structures</h3>
+                                <p className="text-slate-600 dark:text-slate-300 text-sm leading-relaxed">
+                                    Use TOML for flat or moderately nested data. If your data is deeply nested or complex (like API responses), JSON might be better. TOML shines where clarity and simplicity are paramount.
+                                </p>
+                            </div>
+                        </div>
                     </div>
                 </section>
             </div>

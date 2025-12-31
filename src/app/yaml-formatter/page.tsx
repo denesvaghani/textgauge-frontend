@@ -81,6 +81,14 @@ export default function YamlFormatterPage() {
                                     All processing happens in your browser. Your YAML configuration files never leave your device, ensuring complete privacy and security.
                                 </p>
                             </div>
+                            <div>
+                                <h3 className="font-bold text-base mb-2 text-slate-900 dark:text-white flex items-center gap-2">
+                                    <span className="w-1.5 h-1.5 rounded-full bg-emerald-500"></span> JSON ↔ YAML Conversion
+                                </h3>
+                                <p className="leading-relaxed">
+                                    Paste JSON and get beautifully formatted YAML output. Perfect for converting API responses to human-readable configuration files.
+                                </p>
+                            </div>
                         </div>
                     </div>
                 </section>
