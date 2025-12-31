@@ -10,7 +10,7 @@ import {
   Globe,
   Check,
   AlertTriangle,
-  ArrowLeft,
+  ArrowRight,
   Wand2
 } from "lucide-react";
 import { UrlLoader } from "./UrlLoader";
@@ -186,85 +186,13 @@ export function Formatter({
         </div>
       </header>
 
-      {/* Main Content */}
+      {/* Main Content - 3 Column Layout: Input | Actions | Output */}
       <main className="flex-1 flex flex-col min-h-0 w-full max-w-[1920px] mx-auto px-4 sm:px-6 lg:px-8 py-4">
 
-        {/* Action Bar - ABOVE Editors */}
-        <div className="bg-white/90 dark:bg-slate-900/90 backdrop-blur-sm py-3 px-4 mb-4 border border-indigo-200/50 dark:border-indigo-800/30 rounded-xl shadow-sm">
-          <div className="flex flex-wrap items-center justify-between gap-3">
-            {/* Primary Actions */}
-            <div className="flex flex-wrap items-center gap-2">
-              <button
-                onClick={handleFormat}
-                disabled={!inputCode.trim()}
-                className="inline-flex items-center gap-2 px-5 py-2 bg-indigo-600 hover:bg-indigo-700 disabled:bg-slate-300 dark:disabled:bg-slate-700 text-white font-semibold rounded-lg transition-colors shadow-sm"
-                title="⌘+Enter / Ctrl+Enter"
-              >
-                <Wand2 size={16} />
-                {actionLabel}
-              </button>
+        <div className="flex flex-col lg:flex-row gap-4 h-full">
 
-              {customActions}
-
-              {onMinify && (
-                <button
-                  onClick={handleMinify}
-                  disabled={!inputCode.trim()}
-                  className="inline-flex items-center gap-2 px-4 py-2 bg-slate-100 hover:bg-slate-200 dark:bg-slate-800 dark:hover:bg-slate-700 disabled:opacity-50 text-slate-700 dark:text-slate-300 font-medium rounded-lg transition-colors"
-                >
-                  <Minimize2 size={14} />
-                  Minify
-                </button>
-              )}
-
-              <button
-                onClick={() => {
-                  if (outputCode) {
-                    setInputCode(outputCode);
-                    setOutputCode("");
-                  }
-                }}
-                disabled={!outputCode}
-                className="inline-flex items-center gap-2 px-4 py-2 bg-slate-100 hover:bg-slate-200 dark:bg-slate-800 dark:hover:bg-slate-700 disabled:opacity-50 text-slate-700 dark:text-slate-300 font-medium rounded-lg transition-colors"
-              >
-                <ArrowLeft size={14} />
-                Swap
-              </button>
-
-              {sampleData && (
-                <button
-                  onClick={handleLoadSample}
-                  className="inline-flex items-center gap-2 px-4 py-2 text-indigo-600 dark:text-indigo-400 hover:bg-indigo-50 dark:hover:bg-indigo-900/20 font-medium rounded-lg transition-colors"
-                >
-                  Load Sample
-                </button>
-              )}
-            </div>
-
-            {/* Right Side: Indentation */}
-            <div className="flex items-center gap-2">
-              <label className="text-xs font-semibold text-slate-500 dark:text-slate-400 uppercase tracking-wider">
-                Indent
-              </label>
-              <select
-                value={tabSize}
-                onChange={(e) => setTabSize(Number(e.target.value))}
-                className="appearance-none px-3 py-1.5 border border-slate-200 dark:border-slate-700 rounded-lg bg-white dark:bg-slate-800 text-sm font-medium text-slate-700 dark:text-slate-200 outline-none focus:ring-2 focus:ring-indigo-500/20 focus:border-indigo-500 transition-all cursor-pointer"
-              >
-                <option value={2}>2 Spaces</option>
-                <option value={3}>3 Spaces</option>
-                <option value={4}>4 Spaces</option>
-                <option value={8}>8 Spaces</option>
-              </select>
-            </div>
-          </div>
-        </div>
-
-        {/* Two-Panel Editor Layout */}
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-4">
-
-          {/* Input Editor */}
-          <div className="bg-white/80 dark:bg-slate-900/80 backdrop-blur-sm rounded-xl border border-indigo-200/50 dark:border-indigo-800/30 overflow-hidden flex flex-col">
+          {/* LEFT: Input Editor */}
+          <div className="bg-white/80 dark:bg-slate-900/80 backdrop-blur-sm rounded-xl border border-indigo-200/50 dark:border-indigo-800/30 overflow-hidden flex flex-col flex-1">
             <div className="px-4 py-3 bg-indigo-50/50 dark:bg-indigo-900/20 border-b border-indigo-200/50 dark:border-indigo-800/30 flex items-center justify-between">
               <span className="text-sm font-semibold text-slate-700 dark:text-slate-300">
                 Input
@@ -312,8 +240,80 @@ export function Formatter({
             </div>
           </div>
 
-          {/* Output Editor */}
-          <div className="bg-white/80 dark:bg-slate-900/80 backdrop-blur-sm rounded-xl border border-indigo-200/50 dark:border-indigo-800/30 overflow-hidden flex flex-col">
+          {/* CENTER: Action Buttons - Clean, No Background */}
+          <div className="flex flex-row lg:flex-col items-center justify-center gap-2 lg:w-[140px] shrink-0 py-2">
+            
+            {/* Primary Action */}
+            <button
+              onClick={handleFormat}
+              disabled={!inputCode.trim()}
+              className="w-full py-2.5 px-4 bg-gradient-to-r from-indigo-600 to-violet-600 hover:from-indigo-700 hover:to-violet-700 disabled:from-slate-300 disabled:to-slate-400 dark:disabled:from-slate-700 dark:disabled:to-slate-600 text-white font-semibold rounded-lg transition-all shadow-md hover:shadow-lg disabled:shadow-none flex items-center justify-center gap-2"
+              title="⌘+Enter / Ctrl+Enter"
+            >
+              <Wand2 size={16} />
+              {actionLabel}
+            </button>
+
+            {/* Custom Actions (To CSV, Diff, etc.) */}
+            {customActions}
+
+            {/* Minify */}
+            {onMinify && (
+              <button
+                onClick={handleMinify}
+                disabled={!inputCode.trim()}
+                className="w-full py-2 px-4 bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 hover:bg-slate-50 dark:hover:bg-slate-700 disabled:opacity-50 text-slate-700 dark:text-slate-300 font-medium rounded-lg transition-all flex items-center justify-center gap-2"
+              >
+                <Minimize2 size={14} />
+                Minify
+              </button>
+            )}
+
+            {/* Swap */}
+            <button
+              onClick={() => {
+                if (outputCode) {
+                  setInputCode(outputCode);
+                  setOutputCode("");
+                }
+              }}
+              disabled={!outputCode}
+              className="w-full py-2 px-4 bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 hover:bg-slate-50 dark:hover:bg-slate-700 disabled:opacity-50 text-slate-700 dark:text-slate-300 font-medium rounded-lg transition-all flex items-center justify-center gap-2"
+            >
+              <ArrowRight size={14} className="rotate-180" />
+              Swap
+            </button>
+
+            {/* Indentation Setting */}
+            <div className="w-full mt-2 pt-2 border-t border-slate-200 dark:border-slate-700">
+              <label className="block text-[10px] font-bold text-slate-400 dark:text-slate-500 uppercase tracking-widest mb-1.5 text-center">
+                Indent
+              </label>
+              <select
+                value={tabSize}
+                onChange={(e) => setTabSize(Number(e.target.value))}
+                className="w-full appearance-none px-3 py-1.5 border border-slate-200 dark:border-slate-700 rounded-lg bg-white dark:bg-slate-800 text-xs font-medium text-slate-700 dark:text-slate-200 outline-none focus:ring-2 focus:ring-indigo-500/20 focus:border-indigo-500 transition-all cursor-pointer text-center"
+              >
+                <option value={2}>2 Spaces</option>
+                <option value={3}>3 Spaces</option>
+                <option value={4}>4 Spaces</option>
+                <option value={8}>8 Spaces</option>
+              </select>
+            </div>
+
+            {/* Load Sample */}
+            {sampleData && (
+              <button
+                onClick={handleLoadSample}
+                className="w-full text-xs font-medium text-indigo-500 dark:text-indigo-400 hover:text-indigo-600 dark:hover:text-indigo-300 hover:underline text-center py-1 transition-colors"
+              >
+                Load Sample
+              </button>
+            )}
+          </div>
+
+          {/* RIGHT: Output Editor */}
+          <div className="bg-white/80 dark:bg-slate-900/80 backdrop-blur-sm rounded-xl border border-indigo-200/50 dark:border-indigo-800/30 overflow-hidden flex flex-col flex-1">
             <div className="px-4 py-3 bg-indigo-50/50 dark:bg-indigo-900/20 border-b border-indigo-200/50 dark:border-indigo-800/30 flex items-center justify-between">
               <span className="text-sm font-semibold text-slate-700 dark:text-slate-300">
                 Output
