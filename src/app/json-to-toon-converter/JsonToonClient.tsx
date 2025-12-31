@@ -3,6 +3,7 @@
 import { Formatter } from "@/components/Formatter";
 import { FlowerBackground } from "@/components/FlowerBackground";
 import { flowerThemes } from "@/config/flowerThemes";
+import { RelatedTools } from "@/components/RelatedTools";
 import { jsonToToon, toonToJson } from "@/lib/converters/json-toon";
 import { useState } from "react";
 import { Zap, Brain, TrendingDown, Shield, ArrowRight, Sparkles } from "lucide-react";
@@ -310,6 +311,9 @@ Jane Smith, jane@example.com, Designer, 88`;
                     </div>
                 </section>
 
+                {/* Related Tools Section */}
+                <RelatedTools currentTool="json-to-toon-converter" />
+
                 {/* FAQ Section */}
                 <section className="w-full max-w-[1920px] mx-auto px-4 sm:px-6 lg:px-8 pb-16">
                     <h2 className="text-2xl font-bold text-center text-slate-900 dark:text-white mb-8">
@@ -351,30 +355,7 @@ Jane Smith, jane@example.com, Designer, 88`;
                     </div>
                 </section>
 
-                {/* Related Tools */}
-                <section className="w-full max-w-[1920px] mx-auto px-4 sm:px-6 lg:px-8 pb-16">
-                    <div className="border-t border-violet-200/50 dark:border-violet-800/30 pt-12">
-                        <h2 className="text-2xl font-bold text-slate-900 dark:text-white mb-8">
-                            Related Tools
-                        </h2>
-                        <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
-                            {[
-                                { label: "JSON Formatter", href: "/json-formatter" },
-                                { label: "YAML Formatter", href: "/yaml-formatter" },
-                                { label: "TOML Formatter", href: "/toml-formatter" },
-                                { label: "JSON to CSV", href: "/json-to-csv-converter" },
-                            ].map((link) => (
-                                <a
-                                    key={link.label}
-                                    href={link.href}
-                                    className="px-4 py-2 text-center text-sm font-medium text-violet-600 dark:text-violet-400 bg-violet-50 dark:bg-violet-900/20 rounded-lg hover:bg-violet-100 dark:hover:bg-violet-900/30 transition-colors border border-violet-200 dark:border-violet-800"
-                                >
-                                    {link.label}
-                                </a>
-                            ))}
-                        </div>
-                    </div>
-                </section>
+
 
                 {/* Platform Compatibility */}
                 <section className="w-full max-w-[1920px] mx-auto px-4 sm:px-6 lg:px-8 pb-16">

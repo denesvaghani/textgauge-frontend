@@ -3,6 +3,7 @@
 import { Formatter } from "@/components/Formatter";
 import { FlowerBackground } from "@/components/FlowerBackground";
 import { flowerThemes } from "@/config/flowerThemes";
+import { RelatedTools } from "@/components/RelatedTools";
 import Link from "next/link";
 import { FileSpreadsheet, GitCompare } from "lucide-react";
 
@@ -96,6 +97,9 @@ export default function JsonFormatterPage() {
                         </div>
                     </div>
                 </section>
+
+                {/* Related Tools Section */}
+                <RelatedTools currentTool="json-formatter" />
 
                 {/* FAQ Section */}
                 <section className="w-full max-w-[1920px] mx-auto px-4 sm:px-6 lg:px-8 pb-16">

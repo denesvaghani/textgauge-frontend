@@ -3,6 +3,7 @@
 import { Formatter } from "@/components/Formatter";
 import { FlowerBackground } from "@/components/FlowerBackground";
 import { flowerThemes } from "@/config/flowerThemes";
+import { RelatedTools } from "@/components/RelatedTools";
 import { parse, stringify } from "smol-toml";
 import Link from "next/link";
 import { GitCompare } from "lucide-react";
@@ -127,6 +128,9 @@ temp_targets = { cpu = 79.5, case = 72.0 }
                         </div>
                     </div>
                 </section>
+
+                {/* Related Tools Section */}
+                <RelatedTools currentTool="toml-formatter" />
 
                 {/* FAQ Section */}
                 <section className="w-full max-w-[1920px] mx-auto px-4 sm:px-6 lg:px-8 pb-16">

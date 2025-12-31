@@ -7,6 +7,7 @@ import { SimpleCodeEditor } from "@/components/SimpleCodeEditor";
 import { DiffViewer } from "@/components/DiffViewer";
 import { FlowerBackground } from "@/components/FlowerBackground";
 import { flowerThemes } from "@/config/flowerThemes";
+import { RelatedTools } from "@/components/RelatedTools";
 
 type ViewMode = "side-by-side" | "unified";
 
@@ -119,18 +120,9 @@ export default function DiffCheckerPage() {
                         <h1 className="text-3xl md:text-4xl font-extrabold text-slate-900 dark:text-white tracking-tight mb-3">
                             Diff Checker
                         </h1>
-                        <p className="text-base md:text-lg text-slate-600 dark:text-slate-300 max-w-2xl mx-auto mb-6">
+                        <p className="text-base md:text-lg text-slate-600 dark:text-slate-300 max-w-2xl mx-auto">
                             Professional-grade text comparison. Uses Myers Diff Algorithm for precise line-by-line analysis.
                         </p>
-
-                        {/* Format Badges */}
-                        <div className="flex flex-wrap justify-center gap-2 mb-2">
-                             {["JSON", "YAML", "TOML", "XML", "SQL", "Config"].map((fmt) => (
-                                 <span key={fmt} className="px-2 py-1 bg-rose-100 dark:bg-rose-900/30 text-rose-600 dark:text-rose-400 text-xs font-mono font-medium rounded border border-rose-200 dark:border-rose-800">
-                                     {fmt}
-                                 </span>
-                             ))}
-                        </div>
                     </div>
                 </section>
 
@@ -223,35 +215,6 @@ export default function DiffCheckerPage() {
                                     Load Sample
                                 </button>
 
-                                <div className="mx-2 h-8 w-px bg-slate-300 dark:bg-slate-700 hidden lg:block"></div>
-
-                                <div className="flex items-center gap-2">
-                                    <Link
-                                        href="/json-formatter"
-                                        className="inline-flex items-center gap-2 px-3 py-2.5 bg-white dark:bg-slate-900 border border-rose-200/50 dark:border-rose-800/30 hover:border-rose-400 dark:hover:border-rose-500 text-slate-600 dark:text-slate-400 font-medium text-sm rounded-lg transition-colors"
-                                        title="Go to JSON Formatter"
-                                    >
-                                        <FileJson size={16} />
-                                        <span className="hidden xl:inline">JSON</span>
-                                    </Link>
-                                    <Link
-                                        href="/yaml-formatter"
-                                        className="inline-flex items-center gap-2 px-3 py-2.5 bg-white dark:bg-slate-900 border border-rose-200/50 dark:border-rose-800/30 hover:border-rose-400 dark:hover:border-rose-500 text-slate-600 dark:text-slate-400 font-medium text-sm rounded-lg transition-colors"
-                                        title="Go to YAML Formatter"
-                                    >
-                                        <AlignLeft size={16} />
-                                        <span className="hidden xl:inline">YAML</span>
-                                    </Link>
-                                    <Link
-                                        href="/toml-formatter"
-                                        className="inline-flex items-center gap-2 px-3 py-2.5 bg-white dark:bg-slate-900 border border-rose-200/50 dark:border-rose-800/30 hover:border-rose-400 dark:hover:border-rose-500 text-slate-600 dark:text-slate-400 font-medium text-sm rounded-lg transition-colors"
-                                        title="Go to TOML Formatter"
-                                    >
-                                        <FileCode size={16} />
-                                        <span className="hidden xl:inline">TOML</span>
-                                    </Link>
-                                </div>
-                                
                                 {/* Keyboard Legend */}
                                 <div className="hidden lg:flex items-center gap-3 ml-4 text-xs text-slate-400 font-mono border-l border-slate-200 dark:border-slate-700 pl-4">
                                     <span className="flex items-center gap-1">
@@ -331,6 +294,9 @@ export default function DiffCheckerPage() {
                         </div>
                     </div>
                 </section>
+
+                {/* Related Tools Section */}
+                <RelatedTools currentTool="diff-checker" />
 
                 {/* FAQ Section */}
                 <section className="w-full max-w-[1920px] mx-auto px-4 sm:px-6 lg:px-8 pb-16">

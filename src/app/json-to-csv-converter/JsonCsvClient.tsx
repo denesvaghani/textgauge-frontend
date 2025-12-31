@@ -3,6 +3,7 @@
 import { Formatter } from "@/components/Formatter";
 import { FlowerBackground } from "@/components/FlowerBackground";
 import { flowerThemes } from "@/config/flowerThemes";
+import { RelatedTools } from "@/components/RelatedTools";
 import { jsonToCsv, csvToJson } from "@/lib/converters/json-csv";
 import { useState } from "react";
 import { FileSpreadsheet } from "lucide-react";
@@ -168,6 +169,9 @@ Jane Smith,jane@example.com,London,SW1A`;
                     </div>
                 </section>
 
+                {/* Related Tools Section */}
+                <RelatedTools currentTool="json-to-csv-converter" />
+
                 {/* FAQ Section */}
                 <section className="w-full max-w-[1920px] mx-auto px-4 sm:px-6 lg:px-8 pb-16">
                     <h2 className="text-2xl font-bold text-center text-slate-900 dark:text-white mb-8">
@@ -218,28 +222,6 @@ Jane Smith,jane@example.com,London,SW1A`;
                             <p className="text-slate-600 dark:text-slate-300 leading-relaxed text-base mt-4">
                                 <strong>File Size Advantage:</strong> CSV files are typically <strong>50-60% smaller</strong> than their JSON equivalents. JSON repeats field names for every record, while CSV lists headers once. For example, a 0.27 KB JSON file becomes just 0.12 KB as CSV - perfect for reducing bandwidth and storage costs.
                             </p>
-                        </div>
-                    </div>
-
-                    <div className="border-t border-yellow-200/50 dark:border-yellow-800/30 pt-12">
-                        <h2 className="text-2xl font-bold text-slate-900 dark:text-white mb-8">
-                            Related Tools
-                        </h2>
-                        <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
-                            {[
-                                { label: "JSON Beautifier", href: "/json-formatter" },
-                                { label: "JSON Formatter", href: "/json-formatter" },
-                                { label: "JSON to TOON", href: "/json-to-toon-converter" },
-                                { label: "YAML Formatter", href: "/yaml-formatter" },
-                            ].map((link) => (
-                                <a
-                                    key={link.label}
-                                    href={link.href}
-                                    className="px-4 py-2 text-center text-sm font-medium text-yellow-600 dark:text-yellow-400 bg-yellow-50 dark:bg-yellow-900/20 rounded-lg hover:bg-yellow-100 dark:hover:bg-yellow-900/30 transition-colors border border-yellow-200 dark:border-yellow-800"
-                                >
-                                    {link.label}
-                                </a>
-                            ))}
                         </div>
                     </div>
 
