@@ -60,7 +60,7 @@ Jane Smith,jane@example.com,London,SW1A`;
             
             <button
                 onClick={toggleDirection}
-                className="relative w-14 h-7 rounded-full bg-slate-200 dark:bg-slate-700 transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-yellow-500 focus:ring-offset-2 dark:focus:ring-offset-slate-900"
+                className="relative w-14 h-7 shrink-0 rounded-full bg-slate-200 dark:bg-slate-700 transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-yellow-500 focus:ring-offset-2 dark:focus:ring-offset-slate-900"
                 aria-label="Toggle conversion direction"
             >
                 <span
