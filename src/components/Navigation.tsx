@@ -63,9 +63,9 @@ export function Navigation() {
                                 <Link
                                     key={link.href}
                                     href={link.href}
-                                    className={`inline-flex items-center px-3 h-full text-sm font-medium transition-all duration-200 border-b-2 whitespace-nowrap ${isActive
-                                        ? "border-indigo-500 text-indigo-600 dark:text-indigo-400 bg-indigo-50/50 dark:bg-indigo-900/10"
-                                        : "border-transparent text-slate-500 dark:text-slate-400 hover:text-slate-900 dark:hover:text-slate-200 hover:bg-slate-50 dark:hover:bg-slate-800/50"
+                                    className={`inline-flex items-center px-3 h-full text-sm font-medium transition-all duration-200 whitespace-nowrap ${isActive
+                                        ? "text-indigo-600 dark:text-indigo-400 bg-indigo-50 dark:bg-indigo-900/20"
+                                        : "text-slate-500 dark:text-slate-400 hover:text-slate-900 dark:hover:text-slate-200 hover:bg-slate-50 dark:hover:bg-slate-800/50"
                                         }`}
                                 >
                                     {link.label}

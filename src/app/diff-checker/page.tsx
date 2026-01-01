@@ -164,7 +164,7 @@ export default function DiffCheckerPage() {
                                     Original Text
                                 </span>
                             </div>
-                            <div className="h-[450px]">
+                            <div className="h-[450px] overflow-hidden">
                                 <SimpleCodeEditor
                                     value={original}
                                     onChange={setOriginal}
@@ -188,7 +188,7 @@ export default function DiffCheckerPage() {
                                     Modified Text
                                 </span>
                             </div>
-                            <div className="h-[450px]">
+                            <div className="h-[450px] overflow-hidden">
                                 <SimpleCodeEditor
                                     value={modified}
                                     onChange={setModified}
