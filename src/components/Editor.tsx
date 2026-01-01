@@ -481,7 +481,7 @@ export function Editor() {
               onInput={handleInput}
               className="
                 w-full
-                min-h-[900px]
+                min-h-[700px]
                 bg-transparent
                 px-4 sm:px-6
                 py-5

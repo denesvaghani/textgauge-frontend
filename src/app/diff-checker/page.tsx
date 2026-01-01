@@ -197,7 +197,7 @@ export default function DiffCheckerPage() {
                                 </div>
                             </div>
                             {/* Editor Area */}
-                            <div className="shrink-0 relative bg-slate-50/30 dark:bg-black/20" style={{ height: '900px' }}>
+                            <div className="shrink-0 relative bg-slate-50/30 dark:bg-black/20" style={{ height: '700px' }}>
                                 <SimpleCodeEditor
                                     value={original}
                                     onChange={setOriginal}
@@ -259,7 +259,7 @@ export default function DiffCheckerPage() {
                                 </div>
                             </div>
                             {/* Editor Area */}
-                            <div className="shrink-0 relative bg-slate-50/30 dark:bg-black/20" style={{ height: '900px' }}>
+                            <div className="shrink-0 relative bg-slate-50/30 dark:bg-black/20" style={{ height: '700px' }}>
                                 <SimpleCodeEditor
                                     value={modified}
                                     onChange={setModified}
