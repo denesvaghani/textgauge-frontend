@@ -134,26 +134,21 @@ export default function DiffCheckerPage() {
                     onChange={(e) => handleFileUpload(e, setModified)}
                 />
 
-                {/* Header */}
-                <section className="bg-white/50 dark:bg-slate-900/50 border-b border-rose-200/50 dark:border-rose-800/30 pt-8 pb-12">
-                    <div className="max-w-[1920px] mx-auto px-4 sm:px-6 lg:px-8 text-center">
-                        <h1 className="text-3xl md:text-4xl font-extrabold text-slate-900 dark:text-white tracking-tight mb-3">
-                            Diff Checker
-                        </h1>
-                        <p className="text-base md:text-lg text-slate-600 dark:text-slate-300 max-w-2xl mx-auto mb-6">
-                            Professional-grade text comparison. Uses Myers Diff Algorithm for precise line-by-line analysis.
-                        </p>
-
-                        {/* Format Badges */}
-                        <div className="flex flex-wrap justify-center gap-2 mb-2">
-                             {["JSON", "YAML", "TOML", "XML", "SQL", "Config"].map((fmt) => (
-                                 <span key={fmt} className="px-2 py-1 bg-rose-100 dark:bg-rose-900/30 text-rose-600 dark:text-rose-400 text-xs font-mono font-medium rounded border border-rose-200 dark:border-rose-800">
-                                     {fmt}
-                                 </span>
-                             ))}
+                {/* Header - Matching Formatter Component Style */}
+                <header className="shrink-0 bg-white/80 dark:bg-slate-900/80 backdrop-blur-md shadow-sm border-b border-slate-200 dark:border-slate-800 z-10 sticky top-0">
+                    <div className="max-w-[1920px] mx-auto px-4 sm:px-6 lg:px-8 py-3">
+                        <div className="flex flex-col md:flex-row md:items-center justify-between gap-4">
+                            <div className="flex flex-col gap-0.5">
+                                <h1 className="text-xl sm:text-2xl font-extrabold tracking-tight text-slate-900 dark:text-white bg-clip-text text-transparent bg-gradient-to-r from-rose-600 to-red-600 dark:from-rose-400 dark:to-red-400 w-fit">
+                                    Diff Checker
+                                </h1>
+                                <p className="text-sm text-slate-500 dark:text-slate-400 max-w-2xl font-medium hidden sm:block">
+                                    Professional-grade text comparison. Uses Myers Diff Algorithm for precise line-by-line analysis.
+                                </p>
+                            </div>
                         </div>
                     </div>
-                </section>
+                </header>
 
                 {/* Main Content */}
                 <section className="max-w-[1920px] mx-auto px-4 sm:px-6 lg:px-8 py-8 flex-1 w-full">
