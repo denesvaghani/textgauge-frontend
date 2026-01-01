@@ -33,6 +33,10 @@ export default function DiffCheckerPage() {
         setModified(temp);
         if (original || modified) {
             setShowDiff(true);
+            // Scroll to diff result after swap
+            setTimeout(() => {
+                diffResultRef.current?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+            }, 100);
         }
     }, [original, modified]);
 
