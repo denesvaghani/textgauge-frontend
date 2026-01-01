@@ -95,6 +95,7 @@ Jane Smith,jane@example.com,London,SW1A`;
                     onTransform={handleTransform}
                     sampleData={direction === "json-csv" ? sampleJson : sampleCsv}
                     customActions={directionToggle}
+                    titleGradient="bg-gradient-to-r from-yellow-600 to-amber-600 dark:from-yellow-400 dark:to-amber-400"
                     actionLabel="Convert"
                 />
                 

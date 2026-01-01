@@ -91,6 +91,7 @@ Jane Smith, jane@example.com, Designer, 88`;
                     onTransform={handleTransform}
                     sampleData={direction === "json-toon" ? sampleJson : sampleToon}
                     customActions={directionToggle}
+                    titleGradient="bg-gradient-to-r from-violet-600 to-purple-600 dark:from-violet-400 dark:to-purple-400"
                     actionLabel="Convert"
                 />
                 

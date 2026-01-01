@@ -29,7 +29,9 @@ interface FormatterProps {
   sampleData?: string;
   id?: string;
   customActions?: React.ReactNode;
+  customActions?: React.ReactNode;
   actionLabel?: string; // Default: "Beautify", Use "Convert" for converters
+  titleGradient?: string;
 }
 
 export function Formatter({
@@ -43,7 +45,8 @@ export function Formatter({
   sampleData,
   id,
   customActions,
-  actionLabel = "Beautify"
+  actionLabel = "Beautify",
+  titleGradient = "bg-gradient-to-r from-indigo-600 to-violet-600 dark:from-indigo-400 dark:to-violet-400",
 }: FormatterProps) {
   const { theme } = useTheme();
   // SimpleCodeEditor parses theme from class/context, usage here is simplified
@@ -164,7 +167,7 @@ export function Formatter({
         <div className="max-w-[1920px] mx-auto px-4 sm:px-6 lg:px-8 py-3">
           <div className="flex flex-col md:flex-row md:items-center justify-between gap-4">
             <div className="flex flex-col gap-0.5">
-              <h1 className="text-xl sm:text-2xl font-extrabold tracking-tight text-slate-900 dark:text-white bg-clip-text text-transparent bg-gradient-to-r from-indigo-600 to-violet-600 dark:from-indigo-400 dark:to-violet-400 w-fit">
+              <h1 className={`text-xl sm:text-2xl font-extrabold tracking-tight text-slate-900 dark:text-white bg-clip-text text-transparent ${titleGradient} w-fit`}>
                 {title}
               </h1>
               <p className="text-sm text-slate-500 dark:text-slate-400 max-w-2xl font-medium hidden sm:block">{description}</p>

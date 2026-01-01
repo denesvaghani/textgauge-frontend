@@ -53,6 +53,7 @@ temp_targets = { cpu = 79.5, case = 72.0 }
                     outputType="toml"
                     onTransform={formatToml}
                     sampleData={sampleData}
+                    titleGradient="bg-gradient-to-r from-orange-600 to-amber-600 dark:from-orange-400 dark:to-amber-400"
                     customActions={
                         <Link
                             href="/diff-checker"
