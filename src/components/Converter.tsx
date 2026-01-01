@@ -243,7 +243,7 @@ export function Converter({
 
                         {/* Sidebar Ad */}
                         {process.env.NEXT_PUBLIC_AD_SLOT_SIDEBAR && (
-                            <div className="flex-1 rounded-lg overflow-hidden min-h-[150px] flex items-center justify-center bg-slate-100/50 dark:bg-slate-800/30 border border-dashed border-slate-200 dark:border-slate-800">
+                            <div className="w-full rounded-lg overflow-hidden min-h-[150px] flex items-center justify-center bg-slate-100/50 dark:bg-slate-800/30 border border-dashed border-slate-200 dark:border-slate-800 shrink-0">
                                 <GoogleAdsense adSlot={process.env.NEXT_PUBLIC_AD_SLOT_SIDEBAR} style={{ display: 'block', width: '100%' }} />
                             </div>
                         )}
