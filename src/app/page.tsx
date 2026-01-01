@@ -1,7 +1,6 @@
 'use client';
 
 import { Editor } from "@/components/Editor";
-import { ThemeToggle } from "@/components/ThemeToggle";
 import Image from "next/image";
 import { flowerThemes } from "@/config/flowerThemes";
 
@@ -73,7 +72,7 @@ export default function Page() {
         }}
       />
       
-      <ThemeToggle />
+
 
       {/* Hero Section */}
       <section className="relative bg-white/50 dark:bg-slate-900/50 border-b border-slate-200 dark:border-slate-800 pt-12 pb-16 transition-colors duration-200">
