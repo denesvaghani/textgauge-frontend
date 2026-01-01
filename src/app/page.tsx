@@ -77,23 +77,35 @@ export default function Page() {
 
       {/* Hero Section */}
       <section className="relative bg-white/50 dark:bg-slate-900/50 border-b border-slate-200 dark:border-slate-800 pt-12 pb-16 transition-colors duration-200">
-        <div className="max-w-[1920px] mx-auto px-4 sm:px-6 lg:px-8 text-left">
-          {/* Sunflower Brand Badge */}
-          <div className="inline-flex items-center gap-3 px-4 py-2 rounded-full bg-white/80 dark:bg-slate-900/80 backdrop-blur-sm border border-yellow-200/50 dark:border-yellow-800/50 shadow-lg mb-6">
-            <div className="w-10 h-10 rounded-full overflow-hidden ring-2 ring-yellow-400 ring-offset-2 ring-offset-white dark:ring-offset-slate-900 shadow-md group-hover:scale-110 transition-transform">
-              <Image
-                src="/images/logo/sunflower-logo.webp"
-                alt="TextGauge Sunflower"
-                width={40}
-                height={40}
-                className="w-full h-full object-cover"
-              />
+        {/* Centered Flower Pill - Matches FlowerBackground.tsx style */}
+        <div className="pt-8 pb-4 text-center">
+            <div className="inline-flex flex-col items-center gap-2">
+              <div className="inline-flex items-center gap-3 px-4 py-2 rounded-full bg-white/80 dark:bg-slate-900/80 backdrop-blur-sm border border-yellow-200/50 dark:border-yellow-800/50 shadow-lg">
+                <div 
+                  className="w-8 h-8 rounded-full overflow-hidden shadow-md"
+                  style={{ boxShadow: `0 0 0 2px white, 0 0 0 4px ${flowerThemes.sunflower.colors.primary}` }}>
+                  <Image
+                    src={flowerThemes.sunflower.image}
+                    alt={flowerThemes.sunflower.name}
+                    width={32}
+                    height={32}
+                    className="w-full h-full object-cover"
+                  />
+                </div>
+                <span className={`text-xs font-bold uppercase tracking-wider ${flowerThemes.sunflower.colors.text} ${flowerThemes.sunflower.colors.textDark}`}>
+                  Developer Tools
+                </span>
+              </div>
+              <p className="text-sm italic text-slate-500 dark:text-slate-400 max-w-md px-4">
+                <span className={`${flowerThemes.sunflower.colors.text} ${flowerThemes.sunflower.colors.textDark} font-medium`}>{flowerThemes.sunflower.name}</span>
+                {" — "}
+                {flowerThemes.sunflower.significance}
+              </p>
             </div>
-            <span className="text-xs font-bold uppercase tracking-wider text-yellow-600 dark:text-yellow-400">
-              Free Developer Tools
-            </span>
-          </div>
-          
+        </div>
+        
+        {/* Left Aligned Content - Matches Tool Headers */}
+        <div className="max-w-[1920px] mx-auto px-4 sm:px-6 lg:px-8 text-left">
           <h1 className="text-4xl md:text-5xl font-extrabold text-slate-900 dark:text-white bg-clip-text text-transparent bg-gradient-to-r from-yellow-500 to-amber-500 dark:from-yellow-400 dark:to-amber-400 tracking-tight mb-4 w-fit">
             Character Counter & Text Tools
           </h1>
