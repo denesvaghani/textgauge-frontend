@@ -51,13 +51,13 @@ Jane Smith,jane@example.com,London,SW1A`;
     const directionToggle = (
         <div className="w-full flex items-center justify-center gap-4 py-1">
             {/* Left label - JSON → CSV */}
-            <div className={`flex flex-col items-end text-sm font-medium transition-colors ${
+            <div className={`text-sm font-medium transition-colors text-right ${
                 direction === "json-csv" 
                     ? "text-yellow-600 dark:text-yellow-400" 
                     : "text-slate-400 dark:text-slate-500"
             }`}>
-                <span className="whitespace-nowrap">JSON →</span>
-                <span>CSV</span>
+                <div className="whitespace-nowrap">JSON →</div>
+                <div className="pl-2">CSV</div>
             </div>
             
             <button
@@ -73,13 +73,13 @@ Jane Smith,jane@example.com,London,SW1A`;
             </button>
             
             {/* Right label - CSV → JSON */}
-            <div className={`flex flex-col items-start text-sm font-medium transition-colors ${
+            <div className={`text-sm font-medium transition-colors text-left ${
                 direction === "csv-json" 
                     ? "text-yellow-600 dark:text-yellow-400" 
                     : "text-slate-400 dark:text-slate-500"
             }`}>
-                <span className="whitespace-nowrap">CSV →</span>
-                <span>JSON</span>
+                <div className="whitespace-nowrap">CSV →</div>
+                <div className="pr-2">JSON</div>
             </div>
         </div>
     );

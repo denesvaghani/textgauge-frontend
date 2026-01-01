@@ -47,13 +47,13 @@ Jane Smith, jane@example.com, Designer, 88`;
     const directionToggle = (
         <div className="w-full flex items-center justify-center gap-4 py-1">
             {/* Left label - JSON → TOON */}
-            <div className={`flex flex-col items-end text-sm font-medium transition-colors ${
+            <div className={`text-sm font-medium transition-colors text-right ${
                 direction === "json-toon" 
                     ? "text-violet-600 dark:text-violet-400" 
                     : "text-slate-400 dark:text-slate-500"
             }`}>
-                <span className="whitespace-nowrap">JSON →</span>
-                <span>TOON</span>
+                <div className="whitespace-nowrap">JSON →</div>
+                <div className="pl-2">TOON</div>
             </div>
             
             <button
@@ -69,13 +69,13 @@ Jane Smith, jane@example.com, Designer, 88`;
             </button>
             
             {/* Right label - TOON → JSON */}
-            <div className={`flex flex-col items-start text-sm font-medium transition-colors ${
+            <div className={`text-sm font-medium transition-colors text-left ${
                 direction === "toon-json" 
                     ? "text-violet-600 dark:text-violet-400" 
                     : "text-slate-400 dark:text-slate-500"
             }`}>
-                <span className="whitespace-nowrap">TOON →</span>
-                <span>JSON</span>
+                <div className="whitespace-nowrap">TOON →</div>
+                <div className="pr-2">JSON</div>
             </div>
         </div>
     );
