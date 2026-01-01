@@ -21,6 +21,10 @@ export default function DiffCheckerPage() {
 
     const handleCompare = useCallback(() => {
         setShowDiff(true);
+        // Scroll to diff result after state updates
+        setTimeout(() => {
+            diffResultRef.current?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }, 100);
     }, []);
 
     const handleSwap = useCallback(() => {
@@ -36,6 +40,10 @@ export default function DiffCheckerPage() {
         setOriginal("");
         setModified("");
         setShowDiff(false);
+        // Scroll to editors section
+        setTimeout(() => {
+            editorsRef.current?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }, 100);
     }, []);
 
     const sampleOriginal = `{
@@ -57,10 +65,16 @@ export default function DiffCheckerPage() {
         setOriginal(sampleOriginal);
         setModified(sampleModified);
         setShowDiff(false);
+        // Scroll to editors section
+        setTimeout(() => {
+            editorsRef.current?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }, 100);
     };
 
     const originalFileRef = useRef<HTMLInputElement>(null);
     const modifiedFileRef = useRef<HTMLInputElement>(null);
+    const diffResultRef = useRef<HTMLDivElement>(null);
+    const editorsRef = useRef<HTMLDivElement>(null);
 
     const handleFileUpload = (e: React.ChangeEvent<HTMLInputElement>, setContent: (val: string) => void) => {
         const file = e.target.files?.[0];
@@ -138,7 +152,7 @@ export default function DiffCheckerPage() {
                 {/* Main Content */}
                 <section className="max-w-[1920px] mx-auto px-4 sm:px-6 lg:px-8 py-8 flex-1 w-full">
                     {/* Editors Grid */}
-                    <div className="grid md:grid-cols-2 gap-4 mb-6">
+                    <div ref={editorsRef} className="grid md:grid-cols-2 gap-4 mb-6 scroll-mt-20">
                         {/* Original Editor */}
                         <div className="bg-white/80 dark:bg-slate-900/80 backdrop-blur-sm rounded-xl border border-rose-200/50 dark:border-rose-800/30 overflow-hidden flex flex-col">
                             <div className="px-4 py-3 bg-rose-50/50 dark:bg-rose-900/20 border-b border-rose-200/50 dark:border-rose-800/30 flex items-center justify-between">
@@ -239,7 +253,7 @@ export default function DiffCheckerPage() {
 
                     {/* Diff Result */}
                     {showDiff && (
-                        <div className="bg-white/80 dark:bg-slate-900/80 backdrop-blur-sm rounded-xl border border-rose-200/50 dark:border-rose-800/30 p-6">
+                        <div ref={diffResultRef} className="bg-white/80 dark:bg-slate-900/80 backdrop-blur-sm rounded-xl border border-rose-200/50 dark:border-rose-800/30 p-6 scroll-mt-20">
                             <div className="flex items-center justify-between mb-4">
                                 <h2 className="text-lg font-bold text-slate-900 dark:text-white">
                                     Differences
