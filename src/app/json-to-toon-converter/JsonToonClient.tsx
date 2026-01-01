@@ -45,18 +45,20 @@ Jane Smith, jane@example.com, Designer, 88`;
     };
 
     const directionToggle = (
-        <div className="w-full flex items-center justify-center gap-3 py-1">
-            <span className={`text-sm font-medium transition-colors ${
+        <div className="w-full flex items-center justify-center gap-4 py-1">
+            {/* Left label - JSON → TOON */}
+            <div className={`flex flex-col items-end text-sm font-medium transition-colors ${
                 direction === "json-toon" 
                     ? "text-violet-600 dark:text-violet-400" 
                     : "text-slate-400 dark:text-slate-500"
             }`}>
-                JSON → TOON
-            </span>
+                <span>JSON →</span>
+                <span>TOON</span>
+            </div>
             
             <button
                 onClick={toggleDirection}
-                className="relative w-14 h-7 rounded-full bg-slate-200 dark:bg-slate-700 transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-violet-500 focus:ring-offset-2 dark:focus:ring-offset-slate-900"
+                className="relative w-14 h-7 shrink-0 rounded-full bg-slate-200 dark:bg-slate-700 transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-violet-500 focus:ring-offset-2 dark:focus:ring-offset-slate-900"
                 aria-label="Toggle conversion direction"
             >
                 <span
@@ -66,13 +68,15 @@ Jane Smith, jane@example.com, Designer, 88`;
                 />
             </button>
             
-            <span className={`text-sm font-medium transition-colors ${
+            {/* Right label - TOON → JSON */}
+            <div className={`flex flex-col items-start text-sm font-medium transition-colors ${
                 direction === "toon-json" 
                     ? "text-violet-600 dark:text-violet-400" 
                     : "text-slate-400 dark:text-slate-500"
             }`}>
-                TOON → JSON
-            </span>
+                <span>TOON →</span>
+                <span>JSON</span>
+            </div>
         </div>
     );
 

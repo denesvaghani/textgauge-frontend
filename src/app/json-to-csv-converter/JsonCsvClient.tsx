@@ -49,14 +49,16 @@ Jane Smith,jane@example.com,London,SW1A`;
     };
 
     const directionToggle = (
-        <div className="w-full flex items-center justify-center gap-3 py-1">
-            <span className={`text-sm font-medium transition-colors ${
+        <div className="w-full flex items-center justify-center gap-4 py-1">
+            {/* Left label - JSON → CSV */}
+            <div className={`flex flex-col items-end text-sm font-medium transition-colors ${
                 direction === "json-csv" 
                     ? "text-yellow-600 dark:text-yellow-400" 
                     : "text-slate-400 dark:text-slate-500"
             }`}>
-                JSON → CSV
-            </span>
+                <span>JSON →</span>
+                <span>CSV</span>
+            </div>
             
             <button
                 onClick={toggleDirection}
@@ -70,13 +72,15 @@ Jane Smith,jane@example.com,London,SW1A`;
                 />
             </button>
             
-            <span className={`text-sm font-medium transition-colors ${
+            {/* Right label - CSV → JSON */}
+            <div className={`flex flex-col items-start text-sm font-medium transition-colors ${
                 direction === "csv-json" 
                     ? "text-yellow-600 dark:text-yellow-400" 
                     : "text-slate-400 dark:text-slate-500"
             }`}>
-                CSV → JSON
-            </span>
+                <span>CSV →</span>
+                <span>JSON</span>
+            </div>
         </div>
     );
 
