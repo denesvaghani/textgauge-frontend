@@ -53,7 +53,7 @@ Jane Smith, jane@example.com, Designer, 88`;
                     : "text-slate-400 dark:text-slate-500"
             }`}>
                 <div className="whitespace-nowrap">JSON →</div>
-                <div className="pl-2">TOON</div>
+                <div className="pr-2">TOON</div>
             </div>
             
             <button
@@ -75,7 +75,7 @@ Jane Smith, jane@example.com, Designer, 88`;
                     : "text-slate-400 dark:text-slate-500"
             }`}>
                 <div className="whitespace-nowrap">TOON →</div>
-                <div className="pr-2">JSON</div>
+                <div className="pl-2">JSON</div>
             </div>
         </div>
     );

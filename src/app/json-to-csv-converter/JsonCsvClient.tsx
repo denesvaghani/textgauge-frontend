@@ -57,7 +57,7 @@ Jane Smith,jane@example.com,London,SW1A`;
                     : "text-slate-400 dark:text-slate-500"
             }`}>
                 <div className="whitespace-nowrap">JSON →</div>
-                <div className="pl-2">CSV</div>
+                <div className="pr-2">CSV</div>
             </div>
             
             <button
@@ -79,7 +79,7 @@ Jane Smith,jane@example.com,London,SW1A`;
                     : "text-slate-400 dark:text-slate-500"
             }`}>
                 <div className="whitespace-nowrap">CSV →</div>
-                <div className="pr-2">JSON</div>
+                <div className="pl-2">JSON</div>
             </div>
         </div>
     );
