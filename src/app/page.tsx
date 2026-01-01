@@ -61,69 +61,38 @@ const tools = [
   },
 ];
 
+import { FlowerBackground } from "@/components/FlowerBackground";
+
 export default function Page() {
   return (
-    <main className="bg-gradient-to-b from-amber-50/50 via-yellow-50/30 to-slate-50 dark:from-amber-950/20 dark:via-yellow-950/10 dark:to-slate-950 min-h-screen transition-colors duration-300 pb-12">
-      {/* Sunflower glow for homepage */}
-      <div 
-        className="pointer-events-none fixed inset-0 opacity-50 dark:opacity-30"
-        style={{
-          background: `radial-gradient(ellipse 80% 50% at 50% -20%, rgba(234, 179, 8, 0.15), transparent)`,
-        }}
-      />
-      
-
-
-      {/* Hero Section */}
-      <section className="relative bg-white/50 dark:bg-slate-900/50 border-b border-slate-200 dark:border-slate-800 pt-12 pb-16 transition-colors duration-200">
-        {/* Centered Flower Pill - Matches FlowerBackground.tsx style */}
-        <div className="pt-8 pb-4 text-center">
-            <div className="inline-flex flex-col items-center gap-2">
-              <div className="inline-flex items-center gap-3 px-4 py-2 rounded-full bg-white/80 dark:bg-slate-900/80 backdrop-blur-sm border border-yellow-200/50 dark:border-yellow-800/50 shadow-lg">
-                <div 
-                  className="w-8 h-8 rounded-full overflow-hidden shadow-md"
-                  style={{ boxShadow: `0 0 0 2px white, 0 0 0 4px ${flowerThemes.sunflower.colors.primary}` }}>
-                  <Image
-                    src={flowerThemes.sunflower.image}
-                    alt={flowerThemes.sunflower.name}
-                    width={32}
-                    height={32}
-                    className="w-full h-full object-cover"
-                  />
+    <FlowerBackground theme={flowerThemes.sunflower} badgeText="Character Tool">
+      <div className="flex flex-col min-h-screen">
+        {/* Header Section - Matches Formatter.tsx EXACTLY */}
+        <header className="shrink-0 bg-white/80 dark:bg-slate-900/80 backdrop-blur-md shadow-sm border-b border-slate-200 dark:border-slate-800 z-10 sticky top-0">
+            <div className="max-w-[1920px] mx-auto px-4 sm:px-6 lg:px-8 py-3">
+                <div className="flex flex-col md:flex-row md:items-center justify-between gap-4">
+                    <div className="flex flex-col gap-0.5">
+                        <h1 className="text-xl sm:text-2xl font-extrabold tracking-tight text-slate-900 dark:text-white bg-clip-text text-transparent bg-gradient-to-r from-yellow-500 to-amber-500 dark:from-yellow-400 dark:to-amber-400 w-fit">
+                            Character Counter & Text Tools
+                        </h1>
+                        <p className="text-sm text-slate-500 dark:text-slate-400 max-w-2xl font-medium hidden sm:block">
+                            Free online tools to <strong>count characters</strong>, format <strong>JSON</strong> & <strong>YAML</strong>, and analyze text.
+                        </p>
+                    </div>
                 </div>
-                <span className={`text-xs font-bold uppercase tracking-wider ${flowerThemes.sunflower.colors.text} ${flowerThemes.sunflower.colors.textDark}`}>
-                  Character Tool
-                </span>
-              </div>
-              <p className="text-sm italic text-slate-500 dark:text-slate-400 max-w-md px-4">
-                <span className={`${flowerThemes.sunflower.colors.text} ${flowerThemes.sunflower.colors.textDark} font-medium`}>{flowerThemes.sunflower.name}</span>
-                {" — "}
-                {flowerThemes.sunflower.significance}
-              </p>
             </div>
-        </div>
-        
-        {/* Left Aligned Content - Matches Tool Headers EXACTLY */}
-        <div className="max-w-[1920px] mx-auto px-4 sm:px-6 lg:px-8 text-left">
-          <h1 className="text-xl sm:text-2xl font-extrabold tracking-tight text-slate-900 dark:text-white bg-clip-text text-transparent bg-gradient-to-r from-yellow-500 to-amber-500 dark:from-yellow-400 dark:to-amber-400 mb-2 w-fit">
-            Character Counter & Text Tools
-          </h1>
-          <p className="text-sm text-slate-500 dark:text-slate-400 max-w-2xl font-medium sm:block leading-relaxed">
-            Free online tools to <strong>count characters</strong>, format <strong>JSON</strong> & <strong>YAML</strong>, and analyze text.
-          </p>
-        </div>
-      </section>
+        </header>
 
-      {/* Editor Section */}
-      <section className="relative max-w-[1920px] mx-auto px-4 sm:px-6 lg:px-8 -mt-8 z-10">
-        <div className="bg-white dark:bg-slate-900 rounded-2xl shadow-xl ring-1 ring-slate-900/5 dark:ring-white/10 overflow-hidden">
-          <Editor />
-        </div>
-      </section>
+        {/* Main Content */}
+        <main className="flex-1 flex flex-col min-h-0 w-full max-w-[1920px] mx-auto px-4 sm:px-6 lg:px-8 py-4">
+            {/* Editor Section */}
+            <div className="bg-white dark:bg-slate-900 rounded-2xl shadow-xl ring-1 ring-slate-900/5 dark:ring-white/10 overflow-hidden">
+                <Editor />
+            </div>
 
-      {/* Tools Grid */}
-      <section className="relative max-w-[1920px] mx-auto px-4 sm:px-6 lg:px-8 py-16 z-10">
-        <div className="text-center mb-10">
+            {/* Tools Grid */}
+            <section className="py-16">
+                <div className="text-center mb-10">
           <h2 className="text-2xl md:text-3xl font-bold text-slate-900 dark:text-white mb-3">
             🌸 Our Flower-Powered Tools 🌸
           </h2>
@@ -253,6 +222,8 @@ export default function Page() {
           ))}
         </div>
       </section>
-    </main>
+      </main>
+      </div>
+    </FlowerBackground>
   );
 }
