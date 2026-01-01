@@ -45,7 +45,7 @@ Jane Smith, jane@example.com, Designer, 88`;
     };
 
     const directionToggle = (
-        <div className="w-full flex items-center justify-center gap-4 py-1">
+        <div className="w-full flex items-center justify-center gap-2 py-1">
             {/* Left label - JSON → TOON */}
             <div className={`text-sm font-medium transition-colors text-right ${
                 direction === "json-toon" 

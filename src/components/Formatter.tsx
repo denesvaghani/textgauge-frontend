@@ -192,7 +192,7 @@ export function Formatter({
         <div className="flex flex-col lg:flex-row gap-4 h-full">
 
           {/* LEFT COLUMN: Input Editor */}
-          <div className="flex-1 flex flex-col bg-white dark:bg-slate-900 rounded-xl shadow-sm ring-1 ring-slate-900/5 dark:ring-white/10 lg:w-[calc(50%-110px)] min-h-0 overflow-hidden transition-all duration-200">
+          <div className="flex-1 flex flex-col bg-white dark:bg-slate-900 rounded-xl shadow-sm ring-1 ring-slate-900/5 dark:ring-white/10 lg:w-[calc(50%-120px)] min-h-0 overflow-hidden transition-all duration-200">
             {/* Toolbar */}
             <div className="shrink-0 px-3 py-2 border-b border-slate-100 dark:border-slate-800 flex items-center justify-between bg-white dark:bg-slate-900">
               <div className="flex items-center gap-2">
@@ -256,7 +256,7 @@ export function Formatter({
           </div >
 
           {/* MIDDLE COLUMN: Controls - Narrower & Cleaner */}
-          < div className="flex flex-col gap-3 lg:w-[200px] shrink-0 h-full overflow-y-auto py-1 scrollbar-hide" >
+          < div className="flex flex-col gap-3 lg:w-[220px] shrink-0 h-full overflow-y-auto py-1 scrollbar-hide" >
 
             {/* Main Actions - Premium Gradient Button */}
             < div className="flex flex-col gap-2 shrink-0" >
@@ -351,7 +351,7 @@ export function Formatter({
           </div >
 
           {/* RIGHT COLUMN: Output Editor */}
-          < div className="flex-1 flex flex-col bg-white dark:bg-slate-900 rounded-xl shadow-sm ring-1 ring-slate-900/5 dark:ring-white/10 lg:w-[calc(50%-110px)] min-h-0 overflow-hidden transition-all duration-200" >
+          < div className="flex-1 flex flex-col bg-white dark:bg-slate-900 rounded-xl shadow-sm ring-1 ring-slate-900/5 dark:ring-white/10 lg:w-[calc(50%-120px)] min-h-0 overflow-hidden transition-all duration-200" >
             {/* Toolbar */}
             < div className="shrink-0 px-3 py-2 border-b border-slate-100 dark:border-slate-800 flex items-center justify-between bg-white dark:bg-slate-900" >
               <div className="flex items-center gap-3">
