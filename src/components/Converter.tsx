@@ -131,7 +131,7 @@ export function Converter({
     const editorTheme = theme === 'dark' ? 'vs-dark' : 'light';
 
     return (
-        <div className="h-screen supports-[height:100dvh]:h-[100dvh] flex flex-col bg-slate-50 dark:bg-slate-950 text-slate-900 dark:text-slate-50 transition-colors duration-200 overflow-hidden font-sans">
+        <div className="h-screen supports-[height:100dvh]:h-[100dvh] flex flex-col text-slate-900 dark:text-slate-50 transition-colors duration-200 overflow-hidden font-sans">
 
             {/* Header - Identical to Formatter.tsx */}
             <header className="shrink-0 bg-white/80 dark:bg-slate-900/80 backdrop-blur-md shadow-sm border-b border-slate-200 dark:border-slate-800 z-10 sticky top-0">
