@@ -1,7 +1,7 @@
 "use client";
 
 import { useState, useCallback, useRef, useEffect } from "react";
-import { ArrowLeftRight, Trash2, GitCompare, Eye, Upload } from "lucide-react";
+import { ArrowLeftRight, Trash2, GitCompare, Eye, Upload, Copy, Check } from "lucide-react";
 import Link from "next/link";
 import Image from "next/image";
 import { SimpleCodeEditor } from "@/components/SimpleCodeEditor";
@@ -18,6 +18,8 @@ export default function DiffCheckerPage() {
     const [modified, setModified] = useState("");
     const [showDiff, setShowDiff] = useState(false);
     const [viewMode, setViewMode] = useState<ViewMode>("side-by-side");
+    const [copiedOriginal, setCopiedOriginal] = useState(false);
+    const [copiedModified, setCopiedModified] = useState(false);
 
     const handleCompare = useCallback(() => {
         setShowDiff(true);
@@ -179,6 +181,18 @@ export default function DiffCheckerPage() {
                                     </button>
                                     <button
                                         type="button"
+                                        onClick={async () => {
+                                            await navigator.clipboard.writeText(original);
+                                            setCopiedOriginal(true);
+                                            setTimeout(() => setCopiedOriginal(false), 2000);
+                                        }}
+                                        className="p-1.5 text-slate-500 hover:text-indigo-600 hover:bg-indigo-50 dark:text-slate-400 dark:hover:text-indigo-400 dark:hover:bg-indigo-900/20 rounded-md transition-all duration-200"
+                                        title="Copy"
+                                    >
+                                        {copiedOriginal ? <Check size={16} className="text-green-500" /> : <Copy size={16} strokeWidth={2} />}
+                                    </button>
+                                    <button
+                                        type="button"
                                         onClick={() => setOriginal("")}
                                         className="p-1.5 text-slate-400 hover:text-red-600 hover:bg-red-50 dark:text-slate-500 dark:hover:text-red-400 dark:hover:bg-red-900/20 rounded-md transition-all duration-200"
                                         title="Clear"
@@ -188,12 +202,13 @@ export default function DiffCheckerPage() {
                                 </div>
                             </div>
                             {/* Editor Area */}
-                            <div className="flex-1 relative min-h-0 h-[400px] bg-slate-50/30 dark:bg-black/20">
+                            <div className="shrink-0 relative bg-slate-50/30 dark:bg-black/20" style={{ height: '600px' }}>
                                 <SimpleCodeEditor
                                     value={original}
                                     onChange={setOriginal}
                                     placeholder="Paste original text here..."
                                     language="text"
+                                    hideCopy
                                 />
                             </div>
                             {/* Status Bar */}
@@ -228,6 +243,18 @@ export default function DiffCheckerPage() {
                                     </button>
                                     <button
                                         type="button"
+                                        onClick={async () => {
+                                            await navigator.clipboard.writeText(modified);
+                                            setCopiedModified(true);
+                                            setTimeout(() => setCopiedModified(false), 2000);
+                                        }}
+                                        className="p-1.5 text-slate-500 hover:text-indigo-600 hover:bg-indigo-50 dark:text-slate-400 dark:hover:text-indigo-400 dark:hover:bg-indigo-900/20 rounded-md transition-all duration-200"
+                                        title="Copy"
+                                    >
+                                        {copiedModified ? <Check size={16} className="text-green-500" /> : <Copy size={16} strokeWidth={2} />}
+                                    </button>
+                                    <button
+                                        type="button"
                                         onClick={() => setModified("")}
                                         className="p-1.5 text-slate-400 hover:text-red-600 hover:bg-red-50 dark:text-slate-500 dark:hover:text-red-400 dark:hover:bg-red-900/20 rounded-md transition-all duration-200"
                                         title="Clear"
@@ -237,12 +264,13 @@ export default function DiffCheckerPage() {
                                 </div>
                             </div>
                             {/* Editor Area */}
-                            <div className="flex-1 relative min-h-0 h-[400px] bg-slate-50/30 dark:bg-black/20">
+                            <div className="shrink-0 relative bg-slate-50/30 dark:bg-black/20" style={{ height: '600px' }}>
                                 <SimpleCodeEditor
                                     value={modified}
                                     onChange={setModified}
                                     placeholder="Paste modified text here..."
                                     language="text"
+                                    hideCopy
                                 />
                             </div>
                             {/* Status Bar */}
