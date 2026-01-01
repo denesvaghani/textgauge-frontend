@@ -137,13 +137,15 @@ export default function DiffCheckerPage() {
                 {/* Header - Matching Formatter Component Style */}
                 <header className="shrink-0 bg-white/80 dark:bg-slate-900/80 backdrop-blur-md shadow-sm border-b border-slate-200 dark:border-slate-800 z-10 sticky top-0">
                     <div className="max-w-[1920px] mx-auto px-4 sm:px-6 lg:px-8 py-3">
-                        <div className="flex flex-col items-center justify-center gap-2 text-center">
-                            <h1 className="text-xl sm:text-2xl font-extrabold tracking-tight text-slate-900 dark:text-white bg-clip-text text-transparent bg-gradient-to-r from-rose-600 to-red-600 dark:from-rose-400 dark:to-red-400 w-fit mx-auto">
-                                Diff Checker
-                            </h1>
-                            <p className="text-sm text-slate-500 dark:text-slate-400 max-w-2xl font-medium hidden sm:block mx-auto">
-                                Professional-grade text comparison. Uses Myers Diff Algorithm for precise line-by-line analysis.
-                            </p>
+                        <div className="flex flex-col md:flex-row md:items-center justify-between gap-4">
+                            <div className="flex flex-col gap-0.5">
+                                <h1 className="text-xl sm:text-2xl font-extrabold tracking-tight text-slate-900 dark:text-white bg-clip-text text-transparent bg-gradient-to-r from-rose-600 to-red-600 dark:from-rose-400 dark:to-red-400 w-fit">
+                                    Diff Checker
+                                </h1>
+                                <p className="text-sm text-slate-500 dark:text-slate-400 max-w-2xl font-medium hidden sm:block">
+                                    Professional-grade text comparison. Uses Myers Diff Algorithm for precise line-by-line analysis.
+                                </p>
+                            </div>
                         </div>
                     </div>
                 </header>
