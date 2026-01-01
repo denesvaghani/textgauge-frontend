@@ -77,7 +77,7 @@ export default function Page() {
 
       {/* Hero Section */}
       <section className="relative bg-white/50 dark:bg-slate-900/50 border-b border-slate-200 dark:border-slate-800 pt-12 pb-16 transition-colors duration-200">
-        <div className="max-w-[1920px] mx-auto px-4 sm:px-6 lg:px-8 text-center">
+        <div className="max-w-[1920px] mx-auto px-4 sm:px-6 lg:px-8 text-left">
           {/* Sunflower Brand Badge */}
           <div className="inline-flex items-center gap-3 px-4 py-2 rounded-full bg-white/80 dark:bg-slate-900/80 backdrop-blur-sm border border-yellow-200/50 dark:border-yellow-800/50 shadow-lg mb-6">
             <div className="w-10 h-10 rounded-full overflow-hidden ring-2 ring-yellow-400 ring-offset-2 ring-offset-white dark:ring-offset-slate-900 shadow-md group-hover:scale-110 transition-transform">
@@ -94,10 +94,10 @@ export default function Page() {
             </span>
           </div>
           
-          <h1 className="text-4xl md:text-5xl font-extrabold text-slate-900 dark:text-white bg-clip-text text-transparent bg-gradient-to-r from-yellow-500 to-amber-500 dark:from-yellow-400 dark:to-amber-400 tracking-tight mb-4 w-fit mx-auto">
+          <h1 className="text-4xl md:text-5xl font-extrabold text-slate-900 dark:text-white bg-clip-text text-transparent bg-gradient-to-r from-yellow-500 to-amber-500 dark:from-yellow-400 dark:to-amber-400 tracking-tight mb-4 w-fit">
             Character Counter & Text Tools
           </h1>
-          <p className="text-lg md:text-xl text-slate-600 dark:text-slate-300 max-w-2xl mx-auto leading-relaxed">
+          <p className="text-lg md:text-xl text-slate-600 dark:text-slate-300 max-w-2xl leading-relaxed">
             Free online tools to <strong>count characters</strong>, format <strong>JSON</strong> & <strong>YAML</strong>, and analyze text.
             Clean, privacy-focused, and developer-friendly.
           </p>
