@@ -52,18 +52,18 @@ Jane Smith, jane@example.com, Designer, 88`;
                     ? "text-violet-600 dark:text-violet-400" 
                     : "text-slate-400 dark:text-slate-500"
             }`}>
-                <span>JSON →</span>
+                <span className="whitespace-nowrap">JSON →</span>
                 <span>TOON</span>
             </div>
             
             <button
                 onClick={toggleDirection}
-                className="relative w-14 h-7 shrink-0 rounded-full bg-slate-200 dark:bg-slate-700 transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-violet-500 focus:ring-offset-2 dark:focus:ring-offset-slate-900"
+                className="relative w-16 h-8 shrink-0 rounded-full bg-slate-200 dark:bg-slate-700 transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-violet-500 focus:ring-offset-2 dark:focus:ring-offset-slate-900 overflow-hidden"
                 aria-label="Toggle conversion direction"
             >
                 <span
-                    className={`absolute top-0.5 left-0.5 w-6 h-6 rounded-full bg-white shadow-md transition-transform duration-200 ${
-                        direction === "toon-json" ? "translate-x-7" : "translate-x-0"
+                    className={`absolute top-1 left-1 w-6 h-6 rounded-full bg-white shadow-md transition-transform duration-200 ${
+                        direction === "toon-json" ? "translate-x-8" : "translate-x-0"
                     }`}
                 />
             </button>
@@ -74,7 +74,7 @@ Jane Smith, jane@example.com, Designer, 88`;
                     ? "text-violet-600 dark:text-violet-400" 
                     : "text-slate-400 dark:text-slate-500"
             }`}>
-                <span>TOON →</span>
+                <span className="whitespace-nowrap">TOON →</span>
                 <span>JSON</span>
             </div>
         </div>
