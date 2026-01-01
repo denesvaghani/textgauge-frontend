@@ -93,7 +93,7 @@ export default function Page() {
                   />
                 </div>
                 <span className={`text-xs font-bold uppercase tracking-wider ${flowerThemes.sunflower.colors.text} ${flowerThemes.sunflower.colors.textDark}`}>
-                  Developer Tools
+                  Character Tool
                 </span>
               </div>
               <p className="text-sm italic text-slate-500 dark:text-slate-400 max-w-md px-4">
@@ -104,14 +104,13 @@ export default function Page() {
             </div>
         </div>
         
-        {/* Left Aligned Content - Matches Tool Headers */}
+        {/* Left Aligned Content - Matches Tool Headers EXACTLY */}
         <div className="max-w-[1920px] mx-auto px-4 sm:px-6 lg:px-8 text-left">
-          <h1 className="text-4xl md:text-5xl font-extrabold text-slate-900 dark:text-white bg-clip-text text-transparent bg-gradient-to-r from-yellow-500 to-amber-500 dark:from-yellow-400 dark:to-amber-400 tracking-tight mb-4 w-fit">
+          <h1 className="text-xl sm:text-2xl font-extrabold tracking-tight text-slate-900 dark:text-white bg-clip-text text-transparent bg-gradient-to-r from-yellow-500 to-amber-500 dark:from-yellow-400 dark:to-amber-400 mb-2 w-fit">
             Character Counter & Text Tools
           </h1>
-          <p className="text-lg md:text-xl text-slate-600 dark:text-slate-300 max-w-2xl leading-relaxed">
+          <p className="text-sm text-slate-500 dark:text-slate-400 max-w-2xl font-medium sm:block leading-relaxed">
             Free online tools to <strong>count characters</strong>, format <strong>JSON</strong> & <strong>YAML</strong>, and analyze text.
-            Clean, privacy-focused, and developer-friendly.
           </p>
         </div>
       </section>
