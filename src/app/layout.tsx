@@ -81,9 +81,6 @@ export default function RootLayout({
           <Footer />
           <CookieConsent />
 
-          {/* Floating theme toggle, if you're using it globally */}
-          <ThemeToggle />
-
           {/* Google Analytics 4 */}
           {gaId && <GoogleAnalytics measurementId={gaId} />}
         </ThemeProvider>

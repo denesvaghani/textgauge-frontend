@@ -1,7 +1,7 @@
 "use client";
 
 import { useState, useCallback, useRef, useEffect } from "react";
-import { ArrowLeftRight, Trash2, GitCompare, Eye } from "lucide-react";
+import { ArrowLeftRight, Trash2, GitCompare, Eye, Upload } from "lucide-react";
 import Link from "next/link";
 import Image from "next/image";
 import { SimpleCodeEditor } from "@/components/SimpleCodeEditor";
@@ -158,50 +158,100 @@ export default function DiffCheckerPage() {
                     {/* Editors Grid */}
                     <div ref={editorsRef} className="grid md:grid-cols-2 gap-4 mb-6 scroll-mt-20">
                         {/* Original Editor */}
-                        <div className="bg-white/80 dark:bg-slate-900/80 backdrop-blur-sm rounded-xl border border-rose-200/50 dark:border-rose-800/30 overflow-hidden flex flex-col">
-                            <div className="px-4 py-3 bg-rose-50/50 dark:bg-rose-900/20 border-b border-rose-200/50 dark:border-rose-800/30 flex items-center justify-between">
-                                <span className="text-sm font-semibold text-slate-700 dark:text-slate-300">
-                                    Original Text
-                                </span>
+                        <div className="bg-white dark:bg-slate-900 rounded-xl shadow-sm ring-1 ring-slate-900/5 dark:ring-white/10 overflow-hidden flex flex-col">
+                            {/* Toolbar */}
+                            <div className="shrink-0 px-3 py-2 border-b border-slate-100 dark:border-slate-800 flex items-center justify-between bg-white dark:bg-slate-900">
+                                <div className="flex items-center gap-2">
+                                    <span className="text-[10px] font-bold text-slate-400 dark:text-slate-500 uppercase tracking-widest">Original</span>
+                                    <span className="flex items-center gap-1.5 px-1.5 py-0.5 rounded-full bg-emerald-50 dark:bg-emerald-950/30 border border-emerald-100 dark:border-emerald-900/50">
+                                        <div className="w-1 h-1 rounded-full bg-emerald-500 animate-pulse"></div>
+                                        <span className="text-[9px] font-medium text-emerald-600 dark:text-emerald-400">Saved</span>
+                                    </span>
+                                </div>
+                                <div className="flex items-center gap-1">
+                                    <button
+                                        type="button"
+                                        onClick={() => originalFileRef.current?.click()}
+                                        className="p-1.5 text-slate-500 hover:text-indigo-600 hover:bg-indigo-50 dark:text-slate-400 dark:hover:text-indigo-400 dark:hover:bg-indigo-900/20 rounded-md transition-all duration-200"
+                                        title="Upload File"
+                                    >
+                                        <Upload size={16} strokeWidth={2} />
+                                    </button>
+                                    <button
+                                        type="button"
+                                        onClick={() => setOriginal("")}
+                                        className="p-1.5 text-slate-400 hover:text-red-600 hover:bg-red-50 dark:text-slate-500 dark:hover:text-red-400 dark:hover:bg-red-900/20 rounded-md transition-all duration-200"
+                                        title="Clear"
+                                    >
+                                        <Trash2 size={16} strokeWidth={2} />
+                                    </button>
+                                </div>
                             </div>
-                            <div className="h-[450px] min-h-0 overflow-hidden">
+                            {/* Editor Area */}
+                            <div className="flex-1 relative min-h-0 h-[400px] bg-slate-50/30 dark:bg-black/20">
                                 <SimpleCodeEditor
                                     value={original}
                                     onChange={setOriginal}
                                     placeholder="Paste original text here..."
                                     language="text"
-                                    onUpload={() => originalFileRef.current?.click()}
-                                    onClear={() => setOriginal("")}
                                 />
                             </div>
-                            <div className="px-4 py-2 bg-rose-50/50 dark:bg-rose-900/20 border-t border-rose-200/50 dark:border-rose-800/30 flex items-center gap-4 text-xs text-slate-500 dark:text-slate-400 font-mono">
-                                <span>Lines: {originalStats.lines}</span>
-                                <span>Chars: {originalStats.chars}</span>
-                                <span>Size: {originalStats.size}</span>
+                            {/* Status Bar */}
+                            <div className="shrink-0 px-3 py-1.5 border-t border-slate-100 dark:border-slate-800 flex justify-between items-center text-[10px] text-slate-400 dark:text-slate-500 font-medium font-mono bg-white dark:bg-slate-900">
+                                <div className="flex gap-3">
+                                    <span>{originalStats.lines} LN</span>
+                                    <span>{originalStats.chars} CH</span>
+                                </div>
+                                <div>{originalStats.size}</div>
                             </div>
                         </div>
 
                         {/* Modified Editor */}
-                        <div className="bg-white/80 dark:bg-slate-900/80 backdrop-blur-sm rounded-xl border border-rose-200/50 dark:border-rose-800/30 overflow-hidden flex flex-col">
-                            <div className="px-4 py-3 bg-rose-50/50 dark:bg-rose-900/20 border-b border-rose-200/50 dark:border-rose-800/30 flex items-center justify-between">
-                                <span className="text-sm font-semibold text-slate-700 dark:text-slate-300">
-                                    Modified Text
-                                </span>
+                        <div className="bg-white dark:bg-slate-900 rounded-xl shadow-sm ring-1 ring-slate-900/5 dark:ring-white/10 overflow-hidden flex flex-col">
+                            {/* Toolbar */}
+                            <div className="shrink-0 px-3 py-2 border-b border-slate-100 dark:border-slate-800 flex items-center justify-between bg-white dark:bg-slate-900">
+                                <div className="flex items-center gap-2">
+                                    <span className="text-[10px] font-bold text-slate-400 dark:text-slate-500 uppercase tracking-widest">Modified</span>
+                                    <span className="flex items-center gap-1.5 px-1.5 py-0.5 rounded-full bg-emerald-50 dark:bg-emerald-950/30 border border-emerald-100 dark:border-emerald-900/50">
+                                        <div className="w-1 h-1 rounded-full bg-emerald-500 animate-pulse"></div>
+                                        <span className="text-[9px] font-medium text-emerald-600 dark:text-emerald-400">Saved</span>
+                                    </span>
+                                </div>
+                                <div className="flex items-center gap-1">
+                                    <button
+                                        type="button"
+                                        onClick={() => modifiedFileRef.current?.click()}
+                                        className="p-1.5 text-slate-500 hover:text-indigo-600 hover:bg-indigo-50 dark:text-slate-400 dark:hover:text-indigo-400 dark:hover:bg-indigo-900/20 rounded-md transition-all duration-200"
+                                        title="Upload File"
+                                    >
+                                        <Upload size={16} strokeWidth={2} />
+                                    </button>
+                                    <button
+                                        type="button"
+                                        onClick={() => setModified("")}
+                                        className="p-1.5 text-slate-400 hover:text-red-600 hover:bg-red-50 dark:text-slate-500 dark:hover:text-red-400 dark:hover:bg-red-900/20 rounded-md transition-all duration-200"
+                                        title="Clear"
+                                    >
+                                        <Trash2 size={16} strokeWidth={2} />
+                                    </button>
+                                </div>
                             </div>
-                            <div className="h-[450px] min-h-0 overflow-hidden">
+                            {/* Editor Area */}
+                            <div className="flex-1 relative min-h-0 h-[400px] bg-slate-50/30 dark:bg-black/20">
                                 <SimpleCodeEditor
                                     value={modified}
                                     onChange={setModified}
                                     placeholder="Paste modified text here..."
                                     language="text"
-                                    onUpload={() => modifiedFileRef.current?.click()}
-                                    onClear={() => setModified("")}
                                 />
                             </div>
-                            <div className="px-4 py-2 bg-rose-50/50 dark:bg-rose-900/20 border-t border-rose-200/50 dark:border-rose-800/30 flex items-center gap-4 text-xs text-slate-500 dark:text-slate-400 font-mono">
-                                <span>Lines: {modifiedStats.lines}</span>
-                                <span>Chars: {modifiedStats.chars}</span>
-                                <span>Size: {modifiedStats.size}</span>
+                            {/* Status Bar */}
+                            <div className="shrink-0 px-3 py-1.5 border-t border-slate-100 dark:border-slate-800 flex justify-between items-center text-[10px] text-slate-400 dark:text-slate-500 font-medium font-mono bg-white dark:bg-slate-900">
+                                <div className="flex gap-3">
+                                    <span>{modifiedStats.lines} LN</span>
+                                    <span>{modifiedStats.chars} CH</span>
+                                </div>
+                                <div>{modifiedStats.size}</div>
                             </div>
                         </div>
                     </div>
