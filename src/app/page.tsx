@@ -210,12 +210,12 @@ export default function Page() {
             { q: "Does it count spaces?", a: "Yes, we provide counts both with and without spaces to suit your needs." },
             { q: "Is my text private?", a: "ABSOLUTELY. All analysis happens in your browser. Your text is never sent to our servers." }
           ].map((faq, i) => (
-            <details key={i} className="w-full group bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-xl overflow-hidden transition-all duration-200">
-              <summary className="flex items-center justify-between p-5 font-semibold cursor-pointer text-slate-800 dark:text-white hover:bg-slate-50 dark:hover:bg-slate-800/50 transition-colors">
+            <details key={i} className="w-full group bg-white/80 dark:bg-slate-900/80 backdrop-blur-sm border border-yellow-200/50 dark:border-yellow-800/50 rounded-xl overflow-hidden transition-all duration-200 shadow-sm hover:shadow-md hover:border-yellow-300/50 dark:hover:border-yellow-700/50">
+              <summary className="flex items-center justify-between p-5 font-semibold cursor-pointer text-slate-800 dark:text-white hover:bg-yellow-50/50 dark:hover:bg-yellow-900/20 transition-colors">
                 {faq.q}
                 <span className="text-slate-400 group-open:rotate-180 transition-transform">▼</span>
               </summary>
-              <div className="px-5 pb-5 text-slate-600 dark:text-slate-300 text-sm leading-relaxed border-t border-slate-100 dark:border-slate-800/50 pt-4">
+              <div className="px-5 pb-5 text-slate-600 dark:text-slate-300 text-sm leading-relaxed border-t border-yellow-100/50 dark:border-yellow-800/30 pt-4 bg-white/50 dark:bg-slate-900/50">
                 {faq.a}
               </div>
             </details>
