@@ -1,8 +1,9 @@
 "use client";
 
 import { useState, useCallback, useRef, useEffect } from "react";
-import { ArrowLeftRight, Trash2, GitCompare, Eye, FileJson, FileCode, AlignLeft } from "lucide-react";
+import { ArrowLeftRight, Trash2, GitCompare, Eye } from "lucide-react";
 import Link from "next/link";
+import Image from "next/image";
 import { SimpleCodeEditor } from "@/components/SimpleCodeEditor";
 import { DiffViewer } from "@/components/DiffViewer";
 import { FlowerBackground } from "@/components/FlowerBackground";
@@ -223,35 +224,6 @@ export default function DiffCheckerPage() {
                                     Load Sample
                                 </button>
 
-                                <div className="mx-2 h-8 w-px bg-slate-300 dark:bg-slate-700 hidden lg:block"></div>
-
-                                <div className="flex items-center gap-2">
-                                    <Link
-                                        href="/json-formatter"
-                                        className="inline-flex items-center gap-2 px-3 py-2.5 bg-white dark:bg-slate-900 border border-rose-200/50 dark:border-rose-800/30 hover:border-rose-400 dark:hover:border-rose-500 text-slate-600 dark:text-slate-400 font-medium text-sm rounded-lg transition-colors"
-                                        title="Go to JSON Formatter"
-                                    >
-                                        <FileJson size={16} />
-                                        <span className="hidden xl:inline">JSON</span>
-                                    </Link>
-                                    <Link
-                                        href="/yaml-formatter"
-                                        className="inline-flex items-center gap-2 px-3 py-2.5 bg-white dark:bg-slate-900 border border-rose-200/50 dark:border-rose-800/30 hover:border-rose-400 dark:hover:border-rose-500 text-slate-600 dark:text-slate-400 font-medium text-sm rounded-lg transition-colors"
-                                        title="Go to YAML Formatter"
-                                    >
-                                        <AlignLeft size={16} />
-                                        <span className="hidden xl:inline">YAML</span>
-                                    </Link>
-                                    <Link
-                                        href="/toml-formatter"
-                                        className="inline-flex items-center gap-2 px-3 py-2.5 bg-white dark:bg-slate-900 border border-rose-200/50 dark:border-rose-800/30 hover:border-rose-400 dark:hover:border-rose-500 text-slate-600 dark:text-slate-400 font-medium text-sm rounded-lg transition-colors"
-                                        title="Go to TOML Formatter"
-                                    >
-                                        <FileCode size={16} />
-                                        <span className="hidden xl:inline">TOML</span>
-                                    </Link>
-                                </div>
-                                
                                 {/* Keyboard Legend */}
                                 <div className="hidden lg:flex items-center gap-3 ml-4 text-xs text-slate-400 font-mono border-l border-slate-200 dark:border-slate-700 pl-4">
                                     <span className="flex items-center gap-1">
@@ -329,6 +301,78 @@ export default function DiffCheckerPage() {
                                 </p>
                             </div>
                         </div>
+                    </div>
+                </section>
+
+                {/* Related Tools Section */}
+                <section className="w-full max-w-[1920px] mx-auto px-4 sm:px-6 lg:px-8 pb-16">
+                    <div className="text-center mb-8">
+                        <h2 className="text-2xl font-bold text-slate-900 dark:text-white mb-2">
+                            🌸 Related Tools 🌸
+                        </h2>
+                        <p className="text-slate-600 dark:text-slate-300 text-sm">Format and validate your data before comparing</p>
+                    </div>
+                    <div className="grid md:grid-cols-3 gap-6">
+                        {[
+                            {
+                                href: "/json-formatter",
+                                theme: flowerThemes.cherryBlossom,
+                                title: "JSON Formatter",
+                                description: "Validate and beautify JSON data with syntax highlighting.",
+                                hoverBorder: "hover:border-pink-400/60 dark:hover:border-pink-400/40",
+                                hoverText: "group-hover:text-pink-600 dark:group-hover:text-pink-400",
+                            },
+                            {
+                                href: "/yaml-formatter",
+                                theme: flowerThemes.whiteLily,
+                                title: "YAML Formatter",
+                                description: "Convert and validate YAML files with error detection.",
+                                hoverBorder: "hover:border-emerald-400/60 dark:hover:border-emerald-400/40",
+                                hoverText: "group-hover:text-emerald-600 dark:group-hover:text-emerald-400",
+                            },
+                            {
+                                href: "/toml-formatter",
+                                theme: flowerThemes.frangipani,
+                                title: "TOML Formatter",
+                                description: "Format TOML configuration files instantly.",
+                                hoverBorder: "hover:border-orange-400/60 dark:hover:border-orange-400/40",
+                                hoverText: "group-hover:text-orange-600 dark:group-hover:text-orange-400",
+                            },
+                        ].map((tool) => (
+                            <Link
+                                key={tool.href}
+                                href={tool.href}
+                                className={`group relative p-5 rounded-xl bg-white/80 dark:bg-slate-900/80 backdrop-blur-sm border-2 border-rose-200/50 dark:border-rose-800/30 ${tool.hoverBorder} hover:shadow-xl transition-all duration-300 overflow-hidden`}
+                            >
+                                <div 
+                                    className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-300"
+                                    style={{
+                                        background: `radial-gradient(circle at 100% 0%, ${tool.theme.colors.glow}, transparent 50%)`,
+                                    }}
+                                />
+                                <div className="relative z-10">
+                                    <div className="flex items-center justify-between mb-3">
+                                        <div className="w-12 h-12 rounded-full overflow-hidden group-hover:scale-110 transition-transform duration-300 shadow-lg ring-2 ring-offset-2 ring-offset-white dark:ring-offset-slate-900"
+                                             style={{ boxShadow: `0 4px 20px ${tool.theme.colors.glow}`, borderColor: tool.theme.colors.primary }}>
+                                            <Image
+                                                src={tool.theme.image}
+                                                alt={tool.theme.name}
+                                                width={48}
+                                                height={48}
+                                                className="w-full h-full object-cover"
+                                            />
+                                        </div>
+                                        <span className="text-slate-300 dark:text-slate-600 group-hover:translate-x-1 transition-transform text-xl">→</span>
+                                    </div>
+                                    <h3 className={`text-lg font-bold text-slate-900 dark:text-white mb-1 ${tool.hoverText} transition-colors`}>
+                                        {tool.title}
+                                    </h3>
+                                    <p className="text-slate-600 dark:text-slate-400 text-sm leading-relaxed">
+                                        {tool.description}
+                                    </p>
+                                </div>
+                            </Link>
+                        ))}
                     </div>
                 </section>
 

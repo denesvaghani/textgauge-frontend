@@ -230,7 +230,7 @@ const flushBuffers = () => {
 
                 {/* Unified Diff View with Word-Level Highlighting */}
                 <div className="border border-slate-200 dark:border-slate-700 rounded-lg overflow-hidden">
-                    <pre className="p-4 overflow-x-auto min-w-full">
+                    <pre className="pr-4 py-4 overflow-x-auto min-w-full">
                         {(() => {
                             const elements: React.ReactNode[] = [];
                             let removedLines: string[] = [];
@@ -344,7 +344,7 @@ const flushBuffers = () => {
                     <div className="px-3 py-2 bg-slate-100 dark:bg-slate-800 text-xs font-semibold text-slate-600 dark:text-slate-400 border-b border-slate-200 dark:border-slate-700">
                         Original
                     </div>
-                    <pre className="p-2 overflow-x-auto max-h-[600px] overflow-y-auto min-w-full">
+                    <pre className="pr-2 py-2 overflow-x-auto max-h-[600px] overflow-y-auto min-w-full">
                         {originalLines.map((line, index) => {
                             const pairedModLine = line.pairIndex !== undefined ? modifiedLines[index] : null;
                             const showWordDiff = line.type === "removed" && pairedModLine?.type === "added";
@@ -362,9 +362,9 @@ const flushBuffers = () => {
                             return (
                                 <div
                                     key={index}
-                                    className={`px-2 py-0.5 w-max min-w-full ${lineStyle}`}
+                                    className={`pl-2 pr-2 py-0.5 w-max min-w-full ${lineStyle}`}
                                 >
-                                    <span className="select-none mr-2 text-slate-400 text-xs w-6 inline-block text-right">
+                                    <span className="select-none mr-2 text-slate-400 text-xs w-6 inline-block text-right sticky left-2">
                                         {index + 1}
                                     </span>
                                     {showWordDiff && pairedModLine
@@ -385,7 +385,7 @@ const flushBuffers = () => {
                     <div className="px-3 py-2 bg-slate-100 dark:bg-slate-800 text-xs font-semibold text-slate-600 dark:text-slate-400 border-b border-slate-200 dark:border-slate-700">
                         Modified
                     </div>
-                    <pre className="p-2 overflow-x-auto max-h-[600px] overflow-y-auto min-w-full">
+                    <pre className="pr-2 py-2 overflow-x-auto max-h-[600px] overflow-y-auto min-w-full">
                         {modifiedLines.map((line, index) => {
                             const pairedOrigLine = line.pairIndex !== undefined ? originalLines[line.pairIndex] : null;
                             const showWordDiff = line.type === "added" && pairedOrigLine?.type === "removed";
@@ -403,9 +403,9 @@ const flushBuffers = () => {
                             return (
                                 <div
                                     key={index}
-                                    className={`px-2 py-0.5 w-max min-w-full ${lineStyle}`}
+                                    className={`pl-2 pr-2 py-0.5 w-max min-w-full ${lineStyle}`}
                                 >
-                                    <span className="select-none mr-2 text-slate-400 text-xs w-6 inline-block text-right">
+                                    <span className="select-none mr-2 text-slate-400 text-xs w-6 inline-block text-right sticky left-2">
                                         {index + 1}
                                     </span>
                                     {showWordDiff && pairedOrigLine
