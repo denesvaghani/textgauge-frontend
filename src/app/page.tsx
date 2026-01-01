@@ -94,7 +94,7 @@ export default function Page() {
             </span>
           </div>
           
-          <h1 className="text-4xl md:text-5xl font-extrabold text-slate-900 dark:text-white tracking-tight mb-4">
+          <h1 className="text-4xl md:text-5xl font-extrabold text-slate-900 dark:text-white bg-clip-text text-transparent bg-gradient-to-r from-yellow-500 to-amber-500 dark:from-yellow-400 dark:to-amber-400 tracking-tight mb-4 w-fit mx-auto">
             Character Counter & Text Tools
           </h1>
           <p className="text-lg md:text-xl text-slate-600 dark:text-slate-300 max-w-2xl mx-auto leading-relaxed">
