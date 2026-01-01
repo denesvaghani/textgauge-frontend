@@ -165,29 +165,27 @@ export function Formatter({
       {/* Header Section - Minimal & Clean with Glassmorphism */}
       <header className="shrink-0 bg-white/80 dark:bg-slate-900/80 backdrop-blur-md shadow-sm border-b border-slate-200 dark:border-slate-800 z-10 sticky top-0">
         <div className="max-w-[1920px] mx-auto px-4 sm:px-6 lg:px-8 py-3">
-          <div className="flex flex-col md:flex-row md:items-center justify-between gap-4">
-            <div className="flex flex-col gap-0.5">
-              <h1 className={`text-xl sm:text-2xl font-extrabold tracking-tight text-slate-900 dark:text-white bg-clip-text text-transparent ${titleGradient} w-fit`}>
-                {title}
-              </h1>
-              <p className="text-sm text-slate-500 dark:text-slate-400 max-w-2xl font-medium hidden sm:block">{description}</p>
-            </div>
-
-            {/* Top Ad Slot - Compact */}
-            <div className="flex justify-center shrink-0">
-              <div className="w-full max-w-[728px] h-[90px] rounded-lg overflow-hidden bg-slate-100/50 dark:bg-slate-800/50">
-                <GoogleAdsense
-                  adSlot={process.env.NEXT_PUBLIC_AD_SLOT_HEADER || "example_slot"}
-                  style={{ display: 'block', width: '100%', height: '100%' }}
-                />
-              </div>
-            </div>
+          <div className="flex flex-col items-center justify-center gap-2 text-center">
+            <h1 className={`text-xl sm:text-2xl font-extrabold tracking-tight text-slate-900 dark:text-white bg-clip-text text-transparent ${titleGradient} w-fit mx-auto`}>
+              {title}
+            </h1>
+            <p className="text-sm text-slate-500 dark:text-slate-400 max-w-2xl font-medium hidden sm:block mx-auto">{description}</p>
           </div>
         </div>
       </header>
 
       {/* Main Content */}
       <main className="flex-1 flex flex-col min-h-0 w-full max-w-[1920px] mx-auto px-4 sm:px-6 lg:px-8 py-4">
+        
+        {/* Top Ad Slot - Moved from Header */}
+        <div className="flex justify-center mb-6 w-full">
+          <div className="w-full max-w-[728px] h-[90px] rounded-lg overflow-hidden bg-slate-100/50 dark:bg-slate-800/50">
+            <GoogleAdsense
+              adSlot={process.env.NEXT_PUBLIC_AD_SLOT_HEADER || "example_slot"}
+              style={{ display: 'block', width: '100%', height: '100%' }}
+            />
+          </div>
+        </div>
 
         {/* Layout Container - Optimized for Maximum Editor Space */}
         <div className="flex flex-col lg:flex-row gap-4 h-full">
