@@ -52,6 +52,7 @@ export function Converter({
     const [error, setError] = useState<string | null>(null);
     const [isUrlModalOpen, setIsUrlModalOpen] = useState(false);
     const [copied, setCopied] = useState(false);
+    const [copiedLeft, setCopiedLeft] = useState(false);
 
     // Stats helper
     const getStats = (text: string) => {
@@ -97,6 +98,12 @@ export function Converter({
         navigator.clipboard.writeText(text);
         setCopied(true);
         setTimeout(() => setCopied(false), 2000);
+    };
+
+    const handleCopyLeft = (text: string) => {
+        navigator.clipboard.writeText(text);
+        setCopiedLeft(true);
+        setTimeout(() => setCopiedLeft(false), 2000);
     };
 
     const handleLoadUrl = async (url: string) => {
@@ -165,6 +172,9 @@ export function Converter({
                                 <button onClick={() => document.getElementById('file-upload')?.click()} className="p-1.5 text-slate-500 hover:text-indigo-600 hover:bg-indigo-50 dark:text-slate-400 dark:hover:text-indigo-400 dark:hover:bg-indigo-900/20 rounded-md transition-all duration-200" title="Upload">
                                     <Upload size={16} strokeWidth={2} />
                                     <input id="file-upload" type="file" className="hidden" onChange={handleFileUpload} />
+                                </button>
+                                <button onClick={() => handleCopyLeft(leftCode)} className="p-1.5 text-slate-500 hover:text-indigo-600 hover:bg-indigo-50 dark:text-slate-400 dark:hover:text-indigo-400 dark:hover:bg-indigo-900/20 rounded-md transition-all duration-200" title="Copy Input">
+                                    {copiedLeft ? <Check size={16} className="text-emerald-500" /> : <Copy size={16} strokeWidth={2} />}
                                 </button>
                                 <button onClick={() => setIsUrlModalOpen(true)} className="p-1.5 text-slate-500 hover:text-indigo-600 hover:bg-indigo-50 dark:text-slate-400 dark:hover:text-indigo-400 dark:hover:bg-indigo-900/20 rounded-md transition-all duration-200" title="Load URL">
                                     <Globe size={16} strokeWidth={2} />

@@ -55,11 +55,19 @@ export function Formatter({
   const [tabSize, setTabSize] = useState(2);
   const [isUrlModalOpen, setIsUrlModalOpen] = useState(false);
   const [mounted, setMounted] = useState(false);
+  const [copiedInput, setCopiedInput] = useState(false);
+  const [copiedOutput, setCopiedOutput] = useState(false);
 
   // Auto-load removed per user request
   useEffect(() => {
     setMounted(true);
   }, []);
+
+  const handleCopy = async (text: string, setState: (b: boolean) => void) => {
+    await navigator.clipboard.writeText(text);
+    setState(true);
+    setTimeout(() => setState(false), 2000);
+  };
 
   // Auto-save to storage
 
@@ -205,6 +213,14 @@ export function Formatter({
                 </button>
                 <button
                   type="button"
+                  onClick={() => handleCopy(inputCode, setCopiedInput)}
+                  className="p-1.5 text-slate-500 hover:text-indigo-600 hover:bg-indigo-50 dark:text-slate-400 dark:hover:text-indigo-400 dark:hover:bg-indigo-900/20 rounded-md transition-all duration-200"
+                  title="Copy Input"
+                >
+                  {copiedInput ? <Check size={16} className="text-emerald-500" /> : <Copy size={16} strokeWidth={2} />}
+                </button>
+                <button
+                  type="button"
                   onClick={() => setIsUrlModalOpen(true)}
                   className="p-1.5 text-slate-500 hover:text-indigo-600 hover:bg-indigo-50 dark:text-slate-400 dark:hover:text-indigo-400 dark:hover:bg-indigo-900/20 rounded-md transition-all duration-200"
                   title="Load from URL"
@@ -230,6 +246,7 @@ export function Formatter({
                 placeholder="Paste your code here..."
                 language={inputType}
                 className="flex-1"
+                hideCopy={true}
               />
             </div >
 
@@ -349,6 +366,13 @@ export function Formatter({
               </div>
               <div className="flex items-center gap-2">
                 <button
+                  onClick={() => handleCopy(outputCode, setCopiedOutput)}
+                  className="p-1.5 text-slate-500 hover:text-indigo-600 hover:bg-indigo-50 dark:text-slate-400 dark:hover:text-indigo-400 dark:hover:bg-indigo-900/20 rounded-md transition-all duration-200"
+                  title="Copy Output"
+                >
+                  {copiedOutput ? <Check size={16} className="text-emerald-500" /> : <Copy size={16} strokeWidth={2} />}
+                </button>
+                <button
                   onClick={() => {
                     const blob = new Blob([outputCode], { type: "text/plain" });
                     const url = URL.createObjectURL(blob);
@@ -390,6 +414,7 @@ export function Formatter({
                     placeholder="Result will appear here..."
                     language={outputType === "text" ? "text" : outputType}
                     className="flex-1"
+                    hideCopy={true}
                   />
                 )}
             </div >
