@@ -175,7 +175,7 @@ export function Converter({
                             </div>
                         </div>
 
-                        <div className="h-[1400px] relative min-h-0 bg-slate-50/30 dark:bg-black/20">
+                        <div className="h-[900px] relative min-h-0 bg-slate-50/30 dark:bg-black/20">
                             <CodeEditor
                                 value={leftCode}
                                 onChange={(val) => setLeftCode(val || "")}
@@ -273,7 +273,7 @@ export function Converter({
                             </div>
                         </div>
 
-                        <div className="h-[1400px] relative min-h-0 bg-slate-50/30 dark:bg-black/20">
+                        <div className="h-[900px] relative min-h-0 bg-slate-50/30 dark:bg-black/20">
                             {error ? (
                                 <div className="absolute inset-0 p-6 z-10 overflow-auto bg-white/95 dark:bg-slate-900/95 backdrop-blur-sm">
                                     <div className="rounded-xl border border-red-200 bg-red-50 p-6 dark:border-red-900/30 dark:bg-red-900/10 shadow-sm">
