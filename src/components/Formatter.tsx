@@ -56,23 +56,13 @@ export function Formatter({
   const [isUrlModalOpen, setIsUrlModalOpen] = useState(false);
   const [mounted, setMounted] = useState(false);
 
-  // Auto-load from storage on mount
+  // Auto-load removed per user request
   useEffect(() => {
     setMounted(true);
-    const saved = localStorage.getItem(storageKey);
-    if (saved) {
-      setInputCode(saved);
-    }
-  }, [storageKey]);
+  }, []);
 
   // Auto-save to storage
-  useEffect(() => {
-    if (!mounted) return;
-    const timeout = setTimeout(() => {
-      localStorage.setItem(storageKey, inputCode);
-    }, 500); // 500ms debounce
-    return () => clearTimeout(timeout);
-  }, [inputCode, mounted, storageKey]);
+
 
   const handleFormat = useCallback(async () => {
     setError(null);
