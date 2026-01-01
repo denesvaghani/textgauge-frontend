@@ -232,8 +232,8 @@ export function Formatter({
               </div>
             </div>
 
-            {/* Editor Area */}
-            <div className="flex-1 relative min-h-0 bg-slate-50/30 dark:bg-black/20" >
+            {/* Editor Area - Fixed height for 70 lines */}
+            <div className="h-[1400px] relative min-h-0 bg-slate-50/30 dark:bg-black/20" >
               <SimpleCodeEditor
                 value={inputCode}
                 onChange={setInputCode}
@@ -376,8 +376,8 @@ export function Formatter({
               </div>
             </div >
 
-            {/* Editor/Error Area */}
-            < div className="flex-1 relative min-h-0 bg-slate-50/30 dark:bg-black/20" >
+            {/* Editor/Error Area - Fixed height for 70 lines */}
+            < div className="h-[1400px] relative min-h-0 bg-slate-50/30 dark:bg-black/20" >
               {
                 error ? (
                   <div className="absolute inset-0 p-6 z-10 overflow-auto bg-white/95 dark:bg-slate-900/95 backdrop-blur-sm" >
