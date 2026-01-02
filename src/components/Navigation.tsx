@@ -8,20 +8,23 @@ import { Menu, X, Moon, Sun, ChevronDown } from "lucide-react";
 import { useTheme } from "@/contexts/ThemeContext";
 
 const navCategories = {
+    "Text Tools": [
+        { href: "/", label: "Character Counter", icon: "📝" },
+    ],
     "Formatters": [
-        { href: "/json-formatter", label: "JSON Formatter" },
-        { href: "/yaml-formatter", label: "YAML Formatter" },
-        { href: "/toml-formatter", label: "TOML Formatter" },
+        { href: "/json-formatter", label: "JSON Formatter", icon: "{ }" },
+        { href: "/yaml-formatter", label: "YAML Formatter", icon: "📄" },
+        { href: "/toml-formatter", label: "TOML Formatter", icon: "⚙️" },
     ],
     "Converters": [
-        { href: "/json-to-csv-converter", label: "JSON to CSV" },
-        { href: "/json-to-toon-converter", label: "JSON to TOON" },
+        { href: "/json-to-csv-converter", label: "JSON to CSV", icon: "📊" },
+        { href: "/json-to-toon-converter", label: "JSON to TOON", icon: "🤖" },
     ],
     "Design Tools": [
-        { href: "/palette-forge", label: "PaletteForge" },
+        { href: "/palette-forge", label: "PaletteForge", icon: "🎨" },
     ],
     "Comparison": [
-        { href: "/diff-checker", label: "Diff Checker" },
+        { href: "/diff-checker", label: "Diff Checker", icon: "🔍" },
     ],
 };
 
@@ -94,17 +97,7 @@ export function Navigation() {
                     
                     {/* Desktop Navigation - Category Dropdowns */}
                     <div className="hidden md:flex items-center gap-1" ref={dropdownRef}>
-                        {/* Home Link */}
-                        <Link
-                            href="/"
-                            className={`inline-flex items-center px-3 h-10 text-sm font-medium rounded-lg transition-all duration-200 ${
-                                pathname === "/"
-                                    ? "text-indigo-600 dark:text-indigo-400 bg-indigo-50 dark:bg-indigo-900/20"
-                                    : "text-slate-500 dark:text-slate-400 hover:text-slate-900 dark:hover:text-slate-200 hover:bg-slate-50 dark:hover:bg-slate-800/50"
-                            }`}
-                        >
-                            Home
-                        </Link>
+
 
                         {/* Category Dropdowns */}
                         {Object.entries(navCategories).map(([category, links]) => (
