@@ -97,6 +97,7 @@ Jane Smith,jane@example.com,London,SW1A`;
                     customActions={directionToggle}
                     titleGradient="bg-gradient-to-r from-yellow-600 to-amber-600 dark:from-yellow-400 dark:to-amber-400"
                     actionLabel="Convert"
+                    flowerTheme={theme}
                 />
                 
                 {/* File Size Savings */}

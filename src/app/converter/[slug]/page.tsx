@@ -2,6 +2,8 @@ import { Metadata } from 'next';
 import { notFound } from 'next/navigation';
 import { ConverterLayout } from '@/components/converter/ConverterLayout';
 import { ConversionFormat } from '@/types/converter';
+import { SmartHeroHeader, HeroDescription } from '@/components/SmartHeroHeader';
+import { flowerThemes } from '@/config/flowerThemes';
 
 type Props = {
     params: Promise<{ slug: string }>;
@@ -53,18 +55,15 @@ export default async function ConverterPage({ params }: Props) {
 
     return (
         <div className="flex flex-col h-full bg-slate-50 dark:bg-slate-950">
-            <div className="bg-white dark:bg-slate-900 border-b border-slate-200 dark:border-slate-800 p-6 md:p-8">
-                <div className="max-w-7xl mx-auto">
-                    <h1 className="text-3xl md:text-4xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-indigo-500 to-purple-600 mb-2">
-                        {parsed.from.toUpperCase()} to {parsed.to.toUpperCase()} Converter
-                    </h1>
-                    <p className="text-slate-600 dark:text-slate-400 text-lg">
-                        Professional developer tool to convert {parsed.from.toUpperCase()} data to {parsed.to.toUpperCase()} format safely in your browser.
-                    </p>
-                </div>
-            </div>
-
+            <SmartHeroHeader 
+                title={`${parsed.from.toUpperCase()} to ${parsed.to.toUpperCase()} Converter`}
+                theme={flowerThemes.lavender}
+                adSlot={process.env.NEXT_PUBLIC_AD_SLOT_HEADER}
+            />
+            
             <ConverterLayout defaultFrom={parsed.from} defaultTo={parsed.to} />
+
+             <HeroDescription text={`Professional developer tool to convert ${parsed.from.toUpperCase()} data to ${parsed.to.toUpperCase()} format safely in your browser.`} />
         </div>
     );
 }

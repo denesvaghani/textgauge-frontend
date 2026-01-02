@@ -8,6 +8,7 @@ import { SimpleCodeEditor } from "@/components/SimpleCodeEditor";
 import { DiffViewer } from "@/components/DiffViewer";
 import { FlowerBackground } from "@/components/FlowerBackground";
 import { flowerThemes } from "@/config/flowerThemes";
+import { SmartHeroHeader, HeroDescription } from "@/components/SmartHeroHeader";
 
 type ViewMode = "side-by-side" | "unified";
 
@@ -134,21 +135,12 @@ export default function DiffCheckerPage() {
                     onChange={(e) => handleFileUpload(e, setModified)}
                 />
 
-                {/* Header - Matching Formatter Component Style */}
-                <header className="shrink-0 bg-white/80 dark:bg-slate-900/80 backdrop-blur-md shadow-sm border-b border-slate-200 dark:border-slate-800 z-10 sticky top-0">
-                    <div className="max-w-[1920px] mx-auto px-4 sm:px-6 lg:px-8 py-3">
-                        <div className="flex flex-col md:flex-row md:items-center justify-between gap-4">
-                            <div className="flex flex-col gap-0.5">
-                                <h1 className="text-xl sm:text-2xl font-extrabold tracking-tight text-slate-900 dark:text-white bg-clip-text text-transparent bg-gradient-to-r from-rose-600 to-red-600 dark:from-rose-400 dark:to-red-400 w-fit">
-                                    Diff Checker
-                                </h1>
-                                <p className="text-sm text-slate-500 dark:text-slate-400 max-w-2xl font-medium hidden sm:block">
-                                    Professional-grade text comparison. Uses Myers Diff Algorithm for precise line-by-line analysis.
-                                </p>
-                            </div>
-                        </div>
-                    </div>
-                </header>
+                {/* Header - V3 Smart Hero */}
+                <SmartHeroHeader 
+                    title="Diff Checker"
+                    theme={theme}
+                    adSlot={process.env.NEXT_PUBLIC_AD_SLOT_HEADER}
+                />
 
                 {/* Main Content */}
                 <section className="max-w-[1920px] mx-auto px-4 sm:px-6 lg:px-8 py-8 flex-1 w-full">
@@ -356,6 +348,8 @@ export default function DiffCheckerPage() {
                         </div>
                     )}
                 </section>
+                
+                <HeroDescription text="Professional-grade text comparison. Uses Myers Diff Algorithm for precise line-by-line analysis." />
 
                 {/* Technical Features Section */}
                 <section className="w-full max-w-[1920px] mx-auto px-4 sm:px-6 lg:px-8 pb-16">

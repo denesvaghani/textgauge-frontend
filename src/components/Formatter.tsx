@@ -17,6 +17,9 @@ import { UrlLoader } from "./UrlLoader";
 import { GoogleAdsense } from "./GoogleAdsense"; // Ensure this path is correct
 import { useTheme } from "@/contexts/ThemeContext";
 import { SimpleCodeEditor } from "@/components/SimpleCodeEditor";
+import { SmartHeroHeader, HeroDescription } from "@/components/SmartHeroHeader";
+
+import { type FlowerTheme } from "@/config/flowerThemes";
 
 interface FormatterProps {
   title: string;
@@ -32,6 +35,7 @@ interface FormatterProps {
 
   actionLabel?: string; // Default: "Beautify", Use "Convert" for converters
   titleGradient?: string;
+  flowerTheme: FlowerTheme;
 }
 
 export function Formatter({
@@ -47,6 +51,7 @@ export function Formatter({
   customActions,
   actionLabel = "Beautify",
   titleGradient = "bg-gradient-to-r from-indigo-600 to-violet-600 dark:from-indigo-400 dark:to-violet-400",
+  flowerTheme,
 }: FormatterProps) {
   const { theme } = useTheme();
   // SimpleCodeEditor parses theme from class/context, usage here is simplified
@@ -162,29 +167,12 @@ export function Formatter({
   return (
     <div className="h-screen supports-[height:100dvh]:h-[100dvh] flex flex-col text-slate-900 dark:text-slate-50 transition-colors duration-200 overflow-hidden font-sans">
 
-      {/* Header Section - Minimal & Clean with Glassmorphism */}
-      <header className="shrink-0 bg-white/80 dark:bg-slate-900/80 backdrop-blur-md shadow-sm border-b border-slate-200 dark:border-slate-800 z-10 sticky top-0">
-        <div className="max-w-[1920px] mx-auto px-4 sm:px-6 lg:px-8 py-3">
-          <div className="flex flex-col md:flex-row md:items-center justify-between gap-4">
-            <div className="flex flex-col gap-0.5">
-              <h1 className={`text-xl sm:text-2xl font-extrabold tracking-tight text-slate-900 dark:text-white bg-clip-text text-transparent ${titleGradient} w-fit`}>
-                {title}
-              </h1>
-              <p className="text-sm text-slate-500 dark:text-slate-400 max-w-2xl font-medium hidden sm:block">{description}</p>
-            </div>
-
-            {/* Top Ad Slot - Compact */}
-            <div className="flex justify-center shrink-0">
-              <div className="w-full max-w-[728px] h-[90px] rounded-lg overflow-hidden bg-slate-100/50 dark:bg-slate-800/50">
-                <GoogleAdsense
-                  adSlot={process.env.NEXT_PUBLIC_AD_SLOT_HEADER || "example_slot"}
-                  style={{ display: 'block', width: '100%', height: '100%' }}
-                />
-              </div>
-            </div>
-          </div>
-        </div>
-      </header>
+      {/* Smart V3 Hero Header */}
+      <SmartHeroHeader 
+        title={title} 
+        theme={flowerTheme} 
+        adSlot={process.env.NEXT_PUBLIC_AD_SLOT_HEADER}
+      />
 
       {/* Main Content */}
       <main className="flex-1 flex flex-col min-h-0 w-full max-w-[1920px] mx-auto px-4 sm:px-6 lg:px-8 py-4">
@@ -433,6 +421,9 @@ export function Formatter({
           </div >
 
         </div >
+        
+        {/* SEO Description - Moved to bottom */}
+        <HeroDescription text={description} />
       </main >
 
       <UrlLoader

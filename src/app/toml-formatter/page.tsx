@@ -46,14 +46,13 @@ temp_targets = { cpu = 79.5, case = 72.0 }
         <FlowerBackground theme={theme} badgeText="TOML Tool">
             <div className="flex flex-col min-h-screen">
                 <Formatter
-                    id="toml-formatter"
-                    title="TOML Formatter & Validator"
-                    description="Free online tool to format, beautify, and validate TOML files. Fix structural errors and ensure valid TOML syntax instantly."
+                    title="TOML Formatter"
+                    description="Format and validate TOML data."
                     inputType="toml"
                     outputType="toml"
                     onTransform={formatToml}
                     sampleData={sampleData}
-                    titleGradient="bg-gradient-to-r from-orange-600 to-amber-600 dark:from-orange-400 dark:to-amber-400"
+                    flowerTheme={theme}
                     customActions={
                         <Link
                             href="/diff-checker"

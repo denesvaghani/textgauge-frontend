@@ -18,6 +18,8 @@ import { GoogleAdsense } from "./GoogleAdsense";
 // ... imports
 import { useTheme } from "@/contexts/ThemeContext";
 import { CodeEditor } from "@/components/converter/CodeEditor";
+import { SmartHeroHeader, HeroDescription } from "@/components/SmartHeroHeader";
+import { type FlowerTheme } from "@/config/flowerThemes";
 
 interface ConverterProps {
     title: string;
@@ -31,6 +33,7 @@ interface ConverterProps {
     sampleData?: string;
     defaultLeft?: string;
     options?: React.ReactNode;
+    flowerTheme: FlowerTheme;
 }
 
 export function Converter({
@@ -44,7 +47,8 @@ export function Converter({
     onConvertLeftToRight,
     sampleData,
     defaultLeft = "",
-    options
+    options,
+    flowerTheme
 }: ConverterProps) {
     const { theme } = useTheme(); // Get theme from context
     const [leftCode, setLeftCode] = useState(defaultLeft);
@@ -133,29 +137,12 @@ export function Converter({
     return (
         <div className="h-screen supports-[height:100dvh]:h-[100dvh] flex flex-col text-slate-900 dark:text-slate-50 transition-colors duration-200 overflow-hidden font-sans">
 
-            {/* Header - Identical to Formatter.tsx */}
-            <header className="shrink-0 bg-white/80 dark:bg-slate-900/80 backdrop-blur-md shadow-sm border-b border-slate-200 dark:border-slate-800 z-10 sticky top-0">
-                <div className="max-w-[1920px] mx-auto px-4 sm:px-6 lg:px-8 py-3">
-                    <div className="flex flex-col md:flex-row md:items-center justify-between gap-4">
-                        <div className="flex flex-col gap-0.5">
-                            <h1 className="text-xl sm:text-2xl font-extrabold tracking-tight text-slate-900 dark:text-white bg-clip-text text-transparent bg-gradient-to-r from-indigo-600 to-violet-600 dark:from-indigo-400 dark:to-violet-400 w-fit">
-                                {title}
-                            </h1>
-                            <p className="text-sm text-slate-500 dark:text-slate-400 max-w-2xl font-medium hidden sm:block">{description}</p>
-                        </div>
-
-                        {/* Top Ad Slot */}
-                        <div className="flex justify-center shrink-0">
-                            <div className="w-full max-w-[728px] h-[90px] rounded-lg overflow-hidden bg-slate-100/50 dark:bg-slate-800/50">
-                                <GoogleAdsense
-                                    adSlot={process.env.NEXT_PUBLIC_AD_SLOT_HEADER || "example_slot"}
-                                    style={{ display: 'block', width: '100%', height: '100%' }}
-                                />
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </header>
+            {/* Header - V3 Smart Hero */}
+            <SmartHeroHeader 
+                title={title} 
+                theme={flowerTheme} 
+                adSlot={process.env.NEXT_PUBLIC_AD_SLOT_HEADER}
+            />
 
             {/* Main Content */}
             <main className="flex-1 flex flex-col min-h-0 w-full max-w-[1920px] mx-auto px-4 sm:px-6 lg:px-8 py-4">
@@ -315,6 +302,8 @@ export function Converter({
 
                 </div>
             </main>
+            
+            <HeroDescription text={description} />
 
             <UrlLoader isOpen={isUrlModalOpen} onClose={() => setIsUrlModalOpen(false)} onLoad={handleLoadUrl} />
         </div>
