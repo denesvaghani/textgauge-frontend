@@ -168,36 +168,21 @@ export function PaletteForgeClient() {
 
   return (
     <div className="flex flex-col min-h-screen">
-      {/* Hero Section */}
-      <header className="sticky top-0 z-20 backdrop-blur-md bg-white/80 dark:bg-slate-900/80 border-b border-violet-200/50 dark:border-violet-800/50">
-        <div className="max-w-[1920px] mx-auto px-4 sm:px-6 lg:px-8 py-4">
-          <div className="flex items-center gap-3">
-            <img
-              src="/images/tools/palette-forge.jpg"
-              alt="Rhinoceros - Symbol of strength and foundation"
-              className="w-12 h-12 rounded-full object-cover border-2 border-violet-200 dark:border-violet-700 shadow-sm"
-            />
-            <div>
-              <h1 className="text-2xl font-bold bg-gradient-to-r from-violet-600 to-indigo-600 bg-clip-text text-transparent">
-                PaletteForge
-              </h1>
-              <p className="text-sm text-slate-600 dark:text-slate-400">
-                Design to Tokens in Seconds
-              </p>
-            </div>
-          </div>
-        </div>
-      </header>
+      {/* Title Section */}
+      <section className="w-full max-w-[1920px] mx-auto px-4 sm:px-6 lg:px-8 py-4">
+        <h1 className="text-2xl md:text-3xl font-bold text-slate-900 dark:text-white">
+          <span className="bg-gradient-to-r from-violet-600 to-indigo-600 dark:from-violet-400 dark:to-indigo-400 bg-clip-text text-transparent">
+            PaletteForge
+          </span>
+        </h1>
+        <p className="text-slate-600 dark:text-slate-400 mt-1">
+          Upload any design mockup. Get production-ready color tokens for Tailwind, CSS, SCSS, or Figma.
+        </p>
+      </section>
 
       <main className="flex-1">
         {/* Upload Section */}
-        <section className="w-full max-w-[1920px] mx-auto px-4 sm:px-6 lg:px-8 py-8">
-          <div className="max-w-3xl mx-auto text-center mb-8">
-            <p className="text-lg text-slate-600 dark:text-slate-400">
-              Upload any design mockup. Get production-ready color tokens for
-              Tailwind, CSS, SCSS, or Figma.
-            </p>
-          </div>
+        <section className="w-full max-w-[1920px] mx-auto px-4 sm:px-6 lg:px-8 py-4">
 
           {/* Upload Zone */}
           <div
@@ -839,25 +824,6 @@ export function PaletteForgeClient() {
         )}
       </main>
 
-      {/* Rhinoceros Symbolism */}
-      <section className="w-full max-w-[1920px] mx-auto px-4 sm:px-6 lg:px-8 pb-8">
-        <div className="bg-gradient-to-r from-violet-50 to-indigo-50 dark:from-violet-950/20 dark:to-indigo-950/20 rounded-2xl border border-violet-200 dark:border-violet-800 p-6">
-          <div className="flex items-center gap-4">
-            <img
-              src="/images/tools/palette-forge.jpg"
-              alt="Rhinoceros"
-              className="w-20 h-20 rounded-xl object-cover border-2 border-violet-200 dark:border-violet-700 shadow-md"
-            />
-            <div>
-              <h3 className="text-lg font-bold text-slate-900 dark:text-white mb-2">🦏 Rhinoceros</h3>
-              <p className="text-slate-600 dark:text-slate-300 text-sm leading-relaxed">
-                The rhinoceros symbolizes <strong>strength</strong>, <strong>stability</strong>, and <strong>solid foundations</strong> — qualities essential for building robust design systems. Just as the rhino's thick armor provides unwavering protection, PaletteForge builds reliable, accessible color tokens that form the backbone of professional design systems.
-              </p>
-            </div>
-          </div>
-        </div>
-      </section>
-
       {/* FAQ Section */}
       <section className="w-full max-w-[1920px] mx-auto px-4 sm:px-6 lg:px-8 pb-16">
         <h2 className="text-2xl font-bold text-center text-slate-900 dark:text-white mb-8">
@@ -895,15 +861,14 @@ export function PaletteForgeClient() {
         </div>
       </section>
 
-      {/* Footer */}
-      <footer className="w-full border-t border-slate-200 dark:border-slate-800 py-6">
-        <div className="max-w-[1920px] mx-auto px-4 sm:px-6 lg:px-8 text-center text-sm text-slate-500 dark:text-slate-400">
-          <p>
-            🦏 PaletteForge • Design to Tokens in Seconds • 100% Free, No Sign-up
-            Required
+      {/* Platform Compatibility */}
+      <section className="w-full max-w-[1920px] mx-auto px-4 sm:px-6 lg:px-8 pb-16">
+        <div className="bg-gradient-to-r from-violet-50 to-indigo-50 dark:from-violet-950/20 dark:to-indigo-950/20 rounded-2xl border border-violet-200 dark:border-violet-800 p-6 text-center">
+          <p className="text-slate-700 dark:text-slate-300 font-medium text-base">
+            PaletteForge works on <strong>Windows</strong>, <strong>Mac</strong>, <strong>Linux</strong>, <strong>Chrome</strong>, <strong>Firefox</strong>, <strong>Safari</strong> and <strong>Edge</strong> – and it&apos;s <strong className="text-violet-600 dark:text-violet-400">Free</strong>.
           </p>
         </div>
-      </footer>
+      </section>
     </div>
   );
 }

@@ -31,7 +31,7 @@ export const metadata: Metadata = {
 
 export default function PaletteForge() {
   return (
-    <FlowerBackground theme={theme}>
+    <FlowerBackground theme={theme} badgeText="Palette Extractor">
       <PaletteForgeClient />
     </FlowerBackground>
   );

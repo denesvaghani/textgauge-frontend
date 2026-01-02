@@ -156,10 +156,10 @@ export const flowerThemes = {
     },
   },
   orchid: {
-    name: "Orchid",
-    slug: "orchid",
-    image: "/images/flowers/orchid.webp",
-    significance: "Represents creativity, beauty, and the refinement of design into production-ready tokens.",
+    name: "Rhinoceros",
+    slug: "rhinoceros",
+    image: "/images/tools/palette-forge.jpg",
+    significance: "Represents strength, stability, and solid foundations — essential for building robust design systems.",
     colors: {
       primary: "#8B5CF6",
       secondary: "#6366F1",
