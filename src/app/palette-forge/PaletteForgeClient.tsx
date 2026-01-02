@@ -832,20 +832,44 @@ export function PaletteForgeClient() {
         <div className="space-y-4 w-full">
           {[
             {
-              q: 'How do I extract colors from my design?',
-              a: 'Simply drag and drop your design image (PNG, JPG, SVG, or WebP) onto the upload zone. PaletteForge will automatically analyze the image and extract the dominant colors using advanced color quantization algorithms.',
+              q: 'What is PaletteForge and who is it for?',
+              a: 'PaletteForge is a free tool that extracts colors from any image (like a website screenshot, logo, or design mockup) and converts them into ready-to-use code. It\'s perfect for students learning web development, designers who want to turn inspiration into code, and developers building consistent color systems.',
             },
             {
-              q: 'What are design tokens?',
-              a: 'Design tokens are named values that store design decisions like colors, spacing, and typography. They create a bridge between design and development, ensuring consistency across products. PaletteForge generates three layers: Primitive (raw values), Semantic (purpose-based), and Component (UI-specific).',
+              q: 'What are design tokens? (Explained simply)',
+              a: 'Think of design tokens as "named colors" in your code. Instead of writing #3B82F6 everywhere (which is hard to remember), you use names like --color-primary or --button-background. If you later want to change your primary color, you change it in one place instead of hunting through your entire codebase. It\'s like using variables in programming!',
             },
             {
-              q: 'Is my design data private?',
-              a: 'Yes! All image processing happens entirely in your browser using the Canvas API. Your images are never uploaded to any server, ensuring complete privacy and security for your design assets.',
+              q: 'What do AAA, AA, and Fail badges mean?',
+              a: 'These badges tell you if text will be readable on a color background. AAA (green) = excellent readability, even for people with vision difficulties. AA (yellow) = good for most users. Fail (red) = text may be hard to read. This follows WCAG guidelines, which are international standards for making websites accessible to everyone.',
             },
             {
-              q: 'Which export format should I use?',
-              a: 'Choose based on your project: CSS Variables for vanilla web projects, Tailwind for Tailwind CSS, SCSS for Sass projects, JSON for Style Dictionary, Figma for Figma variables, and Tokens Studio for token management tools.',
+              q: 'What\'s the difference between Primitive, Semantic, and Component tokens?',
+              a: 'Primitive tokens are raw colors (--color-blue-500: #3B82F6). Semantic tokens describe purpose (--color-primary, --color-error). Component tokens are specific to UI elements (--button-bg, --input-border). This 3-layer system makes your design scalable — you can change your entire theme by updating just the semantic layer!',
+            },
+            {
+              q: 'What are color scales (50, 100, 200... 900, 950)?',
+              a: 'Color scales are lighter and darker versions of your color. 50 is the lightest (almost white), 500 is the base color, and 950 is the darkest (almost black). These are the same numbers used by Tailwind CSS. You use light shades (50-200) for backgrounds and dark shades (700-950) for text.',
+            },
+            {
+              q: 'How do I use the exported code in my project?',
+              a: 'For CSS Variables: Copy the code and paste it in your main CSS file inside :root { }. For Tailwind: Add the colors to your tailwind.config.js file. For SCSS: Import the file or paste variables at the top of your stylesheet. Then use the variable names (like var(--color-primary) in CSS) instead of hex codes.',
+            },
+            {
+              q: 'What is color harmony? Why does it matter?',
+              a: 'Color harmony means colors that look good together. Types include: Complementary (opposite colors like blue & orange), Analogous (neighbors like green, teal, blue), and Triadic (evenly spaced like red, yellow, blue). Higher harmony scores mean your palette follows these proven color theory principles, making your design more visually pleasing.',
+            },
+            {
+              q: 'Is my uploaded image safe and private?',
+              a: 'Yes! Your image never leaves your computer. All processing happens right in your browser using JavaScript and the Canvas API. We don\'t upload, store, or see your images. This is called "client-side processing" — the server never touches your data.',
+            },
+            {
+              q: 'What image formats are supported?',
+              a: 'You can upload PNG, JPG/JPEG, SVG, and WebP images up to 10MB. For best results, use clear, high-contrast images. Screenshots of websites, app mockups, photos, and logos all work great!',
+            },
+            {
+              q: 'Which export format should I choose as a beginner?',
+              a: 'If you\'re learning or building a simple website: use CSS Variables (works everywhere). If using Tailwind CSS: choose Tailwind format. If you use SCSS/Sass: pick SCSS. The other formats (JSON, Figma, Tokens Studio) are for more advanced design system workflows.',
             },
           ].map((faq, i) => (
             <details key={i} className="w-full group bg-white/80 dark:bg-slate-900/80 backdrop-blur-sm border border-stone-200/50 dark:border-stone-800/30 rounded-xl overflow-hidden transition-all duration-200">
