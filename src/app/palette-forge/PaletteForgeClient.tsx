@@ -172,7 +172,11 @@ export function PaletteForgeClient() {
       <header className="sticky top-0 z-20 backdrop-blur-md bg-white/80 dark:bg-slate-900/80 border-b border-violet-200/50 dark:border-violet-800/50">
         <div className="max-w-[1920px] mx-auto px-4 sm:px-6 lg:px-8 py-4">
           <div className="flex items-center gap-3">
-            <span className="text-3xl">🎨</span>
+            <img
+              src="/images/tools/palette-forge.jpg"
+              alt="Rhinoceros - Symbol of strength and foundation"
+              className="w-12 h-12 rounded-full object-cover border-2 border-violet-200 dark:border-violet-700 shadow-sm"
+            />
             <div>
               <h1 className="text-2xl font-bold bg-gradient-to-r from-violet-600 to-indigo-600 bg-clip-text text-transparent">
                 PaletteForge
@@ -835,49 +839,55 @@ export function PaletteForgeClient() {
         )}
       </main>
 
+      {/* Rhinoceros Symbolism */}
+      <section className="w-full max-w-[1920px] mx-auto px-4 sm:px-6 lg:px-8 pb-8">
+        <div className="bg-gradient-to-r from-violet-50 to-indigo-50 dark:from-violet-950/20 dark:to-indigo-950/20 rounded-2xl border border-violet-200 dark:border-violet-800 p-6">
+          <div className="flex items-center gap-4">
+            <img
+              src="/images/tools/palette-forge.jpg"
+              alt="Rhinoceros"
+              className="w-20 h-20 rounded-xl object-cover border-2 border-violet-200 dark:border-violet-700 shadow-md"
+            />
+            <div>
+              <h3 className="text-lg font-bold text-slate-900 dark:text-white mb-2">🦏 Rhinoceros</h3>
+              <p className="text-slate-600 dark:text-slate-300 text-sm leading-relaxed">
+                The rhinoceros symbolizes <strong>strength</strong>, <strong>stability</strong>, and <strong>solid foundations</strong> — qualities essential for building robust design systems. Just as the rhino's thick armor provides unwavering protection, PaletteForge builds reliable, accessible color tokens that form the backbone of professional design systems.
+              </p>
+            </div>
+          </div>
+        </div>
+      </section>
+
       {/* FAQ Section */}
-      <section className="w-full max-w-[1920px] mx-auto px-4 sm:px-6 lg:px-8 py-16">
+      <section className="w-full max-w-[1920px] mx-auto px-4 sm:px-6 lg:px-8 pb-16">
         <h2 className="text-2xl font-bold text-center text-slate-900 dark:text-white mb-8">
           Frequently Asked Questions
         </h2>
-        <div className="max-w-4xl mx-auto space-y-4">
+        <div className="space-y-4 w-full">
           {[
             {
-              q: 'What does "Mixed (60% harmony)" mean?',
-              a: 'This is the Color Harmony Analysis. It shows how well your extracted colors work together based on color theory. "Mixed" means your palette is diverse and doesn\'t follow a specific harmony pattern (like Analogous, Complementary, or Triadic). The percentage (60%) indicates how closely the palette aligns with traditional color harmony rules. Higher scores mean more cohesive, theory-aligned palettes.',
+              q: 'How do I extract colors from my design?',
+              a: 'Simply drag and drop your design image (PNG, JPG, SVG, or WebP) onto the upload zone. PaletteForge will automatically analyze the image and extract the dominant colors using advanced color quantization algorithms.',
             },
             {
-              q: 'What do AAA, AA, and Fail badges mean?',
-              a: 'These are WCAG (Web Content Accessibility Guidelines) contrast ratings. AAA (green) means excellent contrast ≥7:1 - readable for all text sizes. AA (yellow/amber) means good contrast ≥4.5:1 - readable for normal text. Fail (red) means poor contrast <4.5:1 - text may be hard to read. The badge shows how readable white text would be on that color as a background.',
+              q: 'What are design tokens?',
+              a: 'Design tokens are named values that store design decisions like colors, spacing, and typography. They create a bridge between design and development, ensuring consistency across products. PaletteForge generates three layers: Primitive (raw values), Semantic (purpose-based), and Component (UI-specific).',
             },
             {
-              q: 'Why does a color show "Fail" for accessibility?',
-              a: 'A "Fail" rating means there isn\'t enough contrast between that color and white text. Colors like light oranges, yellows, and pastels often fail because they\'re too bright. For these colors, use dark text instead, or use them as accents rather than backgrounds for text.',
-            },
-            {
-              q: 'What are the three token layers?',
-              a: 'Primitive tokens are raw color values (--color-purple-500). Semantic tokens describe purpose (--color-text-primary, --color-bg-secondary). Component tokens are UI-specific (--button-primary-bg, --input-border-focus). This 3-layer system is what professional design systems use for maintainability.',
-            },
-            {
-              q: 'What do the color scale numbers (50-950) mean?',
-              a: 'These are Tailwind-style shade values. 50 is the lightest shade, 500 is the base color, and 950 is the darkest. Lower numbers = lighter shades (for backgrounds), higher numbers = darker shades (for text and emphasis). Click any shade to copy its hex code.',
+              q: 'Is my design data private?',
+              a: 'Yes! All image processing happens entirely in your browser using the Canvas API. Your images are never uploaded to any server, ensuring complete privacy and security for your design assets.',
             },
             {
               q: 'Which export format should I use?',
-              a: 'Use CSS Variables for vanilla projects, Tailwind for Tailwind CSS projects, SCSS for Sass projects, JSON for Style Dictionary, Figma for Figma variables, and Tokens Studio for design tokens management. All formats include your complete color system.',
+              a: 'Choose based on your project: CSS Variables for vanilla web projects, Tailwind for Tailwind CSS, SCSS for Sass projects, JSON for Style Dictionary, Figma for Figma variables, and Tokens Studio for token management tools.',
             },
           ].map((faq, i) => (
-            <details
-              key={i}
-              className="w-full group bg-white/80 dark:bg-slate-900/80 backdrop-blur-sm border border-violet-200/50 dark:border-violet-800/50 rounded-xl overflow-hidden transition-all duration-200 shadow-sm hover:shadow-md hover:border-violet-300/50 dark:hover:border-violet-700/50"
-            >
+            <details key={i} className="w-full group bg-white/80 dark:bg-slate-900/80 backdrop-blur-sm border border-violet-200/50 dark:border-violet-800/30 rounded-xl overflow-hidden transition-all duration-200">
               <summary className="flex items-center justify-between p-5 font-semibold cursor-pointer text-slate-800 dark:text-white hover:bg-violet-50/50 dark:hover:bg-violet-900/20 transition-colors">
                 {faq.q}
-                <span className="text-slate-400 group-open:rotate-180 transition-transform">
-                  ▼
-                </span>
+                <span className="text-slate-400 group-open:rotate-180 transition-transform">▼</span>
               </summary>
-              <div className="px-5 pb-5 text-slate-600 dark:text-slate-300 text-sm leading-relaxed border-t border-violet-100/50 dark:border-violet-800/30 pt-4 bg-white/50 dark:bg-slate-900/50">
+              <div className="px-5 pb-5 text-slate-600 dark:text-slate-300 text-sm leading-relaxed border-t border-violet-100/50 dark:border-violet-800/30 pt-4">
                 {faq.a}
               </div>
             </details>
@@ -889,7 +899,7 @@ export function PaletteForgeClient() {
       <footer className="w-full border-t border-slate-200 dark:border-slate-800 py-6">
         <div className="max-w-[1920px] mx-auto px-4 sm:px-6 lg:px-8 text-center text-sm text-slate-500 dark:text-slate-400">
           <p>
-            🎨 PaletteForge • Design to Tokens in Seconds • 100% Free, No Sign-up
+            🦏 PaletteForge • Design to Tokens in Seconds • 100% Free, No Sign-up
             Required
           </p>
         </div>
