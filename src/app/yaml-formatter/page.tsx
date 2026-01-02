@@ -208,15 +208,6 @@ settings:
                             ))}
                         </div>
                     </div>
-
-                    {/* Platform Compatibility */}
-                    <div className="border-t border-emerald-200/50 dark:border-emerald-800/30 pt-12">
-                        <div className="bg-gradient-to-r from-emerald-50 to-green-50 dark:from-emerald-950/20 dark:to-green-950/20 rounded-2xl border border-emerald-200 dark:border-emerald-800 p-6 text-center">
-                            <p className="text-slate-700 dark:text-slate-300 font-medium text-base">
-                                YAML Formatter working properly in <strong>Windows</strong>, <strong>Mac</strong>, <strong>Linux</strong>, <strong>Chrome</strong>, <strong>Firefox</strong>, <strong>Safari</strong> and <strong>Edge</strong> and it's <strong className="text-emerald-600 dark:text-emerald-400">Free</strong>.
-                            </p>
-                        </div>
-                    </div>
                 </section>
             </div>
         </FlowerBackground>

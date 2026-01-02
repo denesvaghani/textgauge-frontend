@@ -269,14 +269,6 @@ Jane Smith,jane@example.com,London,SW1A`;
                             ))}
                         </div>
                     </div>
-
-                    <div className="border-t border-yellow-200/50 dark:border-yellow-800/30 pt-12">
-                        <div className="bg-gradient-to-r from-yellow-50 to-amber-50 dark:from-yellow-950/20 dark:to-amber-950/20 rounded-2xl border border-yellow-200 dark:border-yellow-800 p-6 text-center">
-                            <p className="text-slate-700 dark:text-slate-300 font-medium text-base">
-                                JSON to CSV Converter working properly in <strong>Windows</strong>, <strong>Mac</strong>, <strong>Linux</strong>, <strong>Chrome</strong>, <strong>Firefox</strong>, <strong>Safari</strong> and <strong>Edge</strong> and it&apos;s <strong className="text-yellow-600 dark:text-yellow-400">Free</strong>.
-                            </p>
-                        </div>
-                    </div>
                 </section>
             </div>
         </FlowerBackground>

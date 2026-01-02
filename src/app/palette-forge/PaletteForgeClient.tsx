@@ -931,15 +931,6 @@ export function PaletteForgeClient() {
           </details>
         </div>
       </section>
-
-      {/* Platform Compatibility */}
-      <section className="w-full max-w-[1920px] mx-auto px-4 sm:px-6 lg:px-8 pb-16">
-        <div className="bg-gradient-to-r from-stone-50 to-slate-50 dark:from-stone-950/20 dark:to-slate-950/20 rounded-2xl border border-stone-200 dark:border-stone-800 p-6 text-center">
-          <p className="text-slate-700 dark:text-slate-300 font-medium text-base">
-            PaletteForge works on <strong>Windows</strong>, <strong>Mac</strong>, <strong>Linux</strong>, <strong>Chrome</strong>, <strong>Firefox</strong>, <strong>Safari</strong> and <strong>Edge</strong> – and it&apos;s <strong className="text-stone-600 dark:text-stone-400">Free</strong>.
-          </p>
-        </div>
-      </section>
     </div>
   );
 }

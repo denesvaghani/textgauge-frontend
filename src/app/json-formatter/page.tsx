@@ -231,15 +231,6 @@ export default function JsonFormatterPage() {
                             ))}
                         </div>
                     </div>
-
-                    {/* Platform Compatibility */}
-                    <div className="border-t border-pink-200/50 dark:border-pink-800/30 pt-12">
-                        <div className="bg-gradient-to-r from-pink-50 to-rose-50 dark:from-pink-950/20 dark:to-rose-950/20 rounded-2xl border border-pink-200 dark:border-pink-800 p-6 text-center">
-                            <p className="text-slate-700 dark:text-slate-300 font-medium text-base">
-                                JSON Formatter working properly in <strong>Windows</strong>, <strong>Mac</strong>, <strong>Linux</strong>, <strong>Chrome</strong>, <strong>Firefox</strong>, <strong>Safari</strong> and <strong>Edge</strong> and it's <strong className="text-pink-600 dark:text-pink-400">Free</strong>.
-                            </p>
-                        </div>
-                    </div>
                 </section>
             </div>
         </FlowerBackground>

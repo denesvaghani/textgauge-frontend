@@ -398,15 +398,6 @@ Jane Smith, jane@example.com, Designer, 88`;
                         </div>
                     </div>
                 </section>
-
-                {/* Platform Compatibility */}
-                <section className="w-full max-w-[1920px] mx-auto px-4 sm:px-6 lg:px-8 pb-16">
-                    <div className="bg-gradient-to-r from-violet-50 to-purple-50 dark:from-violet-950/20 dark:to-purple-950/20 rounded-2xl border border-violet-200 dark:border-violet-800 p-6 text-center">
-                        <p className="text-slate-700 dark:text-slate-300 font-medium text-base">
-                            JSON to TOON Converter works on <strong>Windows</strong>, <strong>Mac</strong>, <strong>Linux</strong>, <strong>Chrome</strong>, <strong>Firefox</strong>, <strong>Safari</strong> and <strong>Edge</strong> – and it&apos;s <strong className="text-violet-600 dark:text-violet-400">Free</strong>.
-                        </p>
-                    </div>
-                </section>
             </div>
         </FlowerBackground>
     );
