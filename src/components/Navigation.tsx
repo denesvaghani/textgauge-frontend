@@ -20,7 +20,7 @@ const navCategories = {
     "Design Tools": [
         { href: "/palette-forge", label: "PaletteForge" },
     ],
-    "Other": [
+    "Comparison": [
         { href: "/diff-checker", label: "Diff Checker" },
     ],
 };
