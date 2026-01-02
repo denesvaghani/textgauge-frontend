@@ -189,20 +189,43 @@ import { FlowerBackground } from "@/components/FlowerBackground";
 
 export default function Page() {
   return (
-    <FlowerBackground theme={flowerThemes.sunflower} badgeText="Character Tool">
+    <FlowerBackground theme={flowerThemes.sunflower} showFlowerBadge={false}>
       <div className="flex flex-col min-h-screen">
-        {/* Header Section - Matches Formatter.tsx EXACTLY */}
-        <header className="shrink-0 bg-white/80 dark:bg-slate-900/80 backdrop-blur-md shadow-sm border-b border-slate-200 dark:border-slate-800 z-10 sticky top-0">
-            <div className="max-w-[1920px] mx-auto px-4 sm:px-6 lg:px-8 py-3">
-                <div className="flex flex-col md:flex-row md:items-center justify-between gap-4">
-                    <div className="flex flex-col gap-0.5">
-                        <h1 className="text-xl sm:text-2xl font-extrabold tracking-tight text-slate-900 dark:text-white bg-clip-text text-transparent bg-gradient-to-r from-yellow-500 to-amber-500 dark:from-yellow-400 dark:to-amber-400 w-fit">
-                            Character Counter & Text Tools
-                        </h1>
-                        <p className="text-sm text-slate-500 dark:text-slate-400 max-w-2xl font-medium hidden sm:block">
-                            Free online tools to <strong>count characters</strong>, format <strong>JSON</strong> & <strong>YAML</strong>, and analyze text.
+        {/* Compact Smart Header */}
+        <header className="shrink-0 bg-white/70 dark:bg-slate-900/70 backdrop-blur-xl shadow-sm border-b border-slate-200/50 dark:border-slate-800/50 z-20 sticky top-0 transition-all duration-300">
+            <div className="max-w-[1920px] mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between gap-4">
+                
+                {/* Left: Branding & Title */}
+                <div className="flex items-center gap-3 md:gap-4 overflow-hidden">
+                    <div className="shrink-0 w-8 h-8 md:w-10 md:h-10 rounded-full shadow-md ring-2 ring-white dark:ring-slate-800 relative z-10"
+                         style={{ boxShadow: `0 0 10px ${flowerThemes.sunflower.colors.glow}` }}>
+                        <Image 
+                            src={flowerThemes.sunflower.image} 
+                            alt="Sunflower" 
+                            width={40} 
+                            height={40} 
+                            className="w-full h-full object-cover rounded-full"
+                        />
+                    </div>
+                    
+                    <div className="flex flex-col justify-center min-w-0">
+                        <div className="flex items-baseline gap-3">
+                            <h1 className="text-lg md:text-xl font-bold tracking-tight text-slate-900 dark:text-white truncate">
+                                Character Counter
+                            </h1>
+                            <span className="hidden sm:inline-block px-2 py-0.5 rounded-full text-[10px] uppercase font-bold tracking-wider bg-yellow-100/50 dark:bg-yellow-900/30 text-yellow-700 dark:text-yellow-400 border border-yellow-200 dark:border-yellow-800">
+                                Text Tool
+                            </span>
+                        </div>
+                        <p className="text-xs text-slate-500 dark:text-slate-400 truncate hidden sm:block">
+                            Analyze text, format JSON/YAML & more
                         </p>
                     </div>
+                </div>
+
+                {/* Right: Flower Significance (Subtle) */}
+                <div className="hidden md:flex items-center gap-2 text-xs text-slate-400 dark:text-slate-500 max-w-md text-right">
+                    <span className="italic truncate">{flowerThemes.sunflower.significance}</span>
                 </div>
             </div>
         </header>
