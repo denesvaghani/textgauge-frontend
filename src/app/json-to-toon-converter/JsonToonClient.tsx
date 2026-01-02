@@ -321,40 +321,58 @@ Jane Smith, jane@example.com, Designer, 88`;
                         Frequently Asked Questions
                     </h2>
                     <div className="space-y-4 w-full">
-                        {[
-                            { 
-                                q: "What is TOON format?", 
-                                a: "TOON (Token-Oriented Object Notation) is a data serialization format designed for AI/LLM applications. It reduces token usage by 30-60% compared to JSON while maintaining human readability and lossless data representation." 
-                            },
-                            { 
-                                q: "How does TOON reduce tokens?", 
-                                a: "TOON eliminates redundant syntax from JSON: no curly braces, no square brackets, minimal quotes. For arrays of objects, it uses a tabular format where field names appear once as headers rather than repeating for each object." 
-                            },
-                            { 
-                                q: "Is TOON conversion lossless?", 
-                                a: "Yes! TOON is a lossless representation of the JSON data model. You can convert JSON to TOON and back to JSON without losing any information. Data types, nesting, and structure are all preserved." 
-                            },
-                            { 
-                                q: "When should I use TOON instead of JSON?", 
-                                a: "Use TOON when sending data to LLMs like ChatGPT or Claude, especially with tabular data or large datasets. The token savings reduce API costs and can help fit more data within context limits. Use JSON for web APIs and traditional applications." 
-                            },
-                            {
-                                q: "Does this tool upload my data?",
-                                a: "No! All conversion happens 100% in your browser using JavaScript. Your JSON and TOON data never leaves your computer, ensuring complete privacy and security."
-                            }
-                        ].map((faq, i) => (
-                            <details key={i} className="w-full group bg-white/80 dark:bg-slate-900/80 backdrop-blur-sm border border-violet-200/50 dark:border-violet-800/30 rounded-xl overflow-hidden transition-all duration-200">
-                                <summary className="flex items-center justify-between p-5 font-semibold cursor-pointer text-slate-800 dark:text-white hover:bg-violet-50/50 dark:hover:bg-violet-900/20 transition-colors">
-                                    {faq.q}
-                                    <span className="text-slate-400 group-open:rotate-180 transition-transform">▼</span>
-                                </summary>
-                                <div className="px-5 pb-5 text-slate-600 dark:text-slate-300 text-sm leading-relaxed border-t border-violet-100/50 dark:border-violet-800/30 pt-4">
-                                    {faq.a}
-                                </div>
-                            </details>
-                        ))}
+                        <details className="w-full group bg-white/80 dark:bg-slate-900/80 backdrop-blur-sm border border-violet-200/50 dark:border-violet-800/30 rounded-xl overflow-hidden transition-all duration-200 hover:shadow-md">
+                            <summary className="flex items-center justify-between p-5 font-semibold cursor-pointer text-slate-800 dark:text-white hover:bg-violet-50/50 dark:hover:bg-violet-900/20 transition-colors">
+                                What is TOON format?
+                                <span className="text-slate-400 group-open:rotate-180 transition-transform">▼</span>
+                            </summary>
+                            <div className="px-5 pb-5 text-slate-600 dark:text-slate-300 text-sm leading-relaxed border-t border-violet-100/50 dark:border-violet-800/30 pt-4">
+                                TOON (<strong>Token-Oriented Object Notation</strong>) is a data format designed for <strong>AI/LLM applications</strong>. It reduces token usage by <strong>30-60%</strong> compared to JSON while maintaining human readability and <strong>lossless data representation</strong>.
+                            </div>
+                        </details>
+
+                        <details className="w-full group bg-white/80 dark:bg-slate-900/80 backdrop-blur-sm border border-violet-200/50 dark:border-violet-800/30 rounded-xl overflow-hidden transition-all duration-200 hover:shadow-md">
+                            <summary className="flex items-center justify-between p-5 font-semibold cursor-pointer text-slate-800 dark:text-white hover:bg-violet-50/50 dark:hover:bg-violet-900/20 transition-colors">
+                                How does TOON reduce tokens?
+                                <span className="text-slate-400 group-open:rotate-180 transition-transform">▼</span>
+                            </summary>
+                            <div className="px-5 pb-5 text-slate-600 dark:text-slate-300 text-sm leading-relaxed border-t border-violet-100/50 dark:border-violet-800/30 pt-4">
+                                TOON eliminates <strong>redundant syntax</strong>: no curly braces, no square brackets, minimal quotes. For arrays of objects, it uses a <strong>tabular format</strong> where field names appear <strong>once as headers</strong> rather than repeating for each object.
+                            </div>
+                        </details>
+
+                        <details className="w-full group bg-white/80 dark:bg-slate-900/80 backdrop-blur-sm border border-violet-200/50 dark:border-violet-800/30 rounded-xl overflow-hidden transition-all duration-200 hover:shadow-md">
+                            <summary className="flex items-center justify-between p-5 font-semibold cursor-pointer text-slate-800 dark:text-white hover:bg-violet-50/50 dark:hover:bg-violet-900/20 transition-colors">
+                                Is TOON conversion lossless?
+                                <span className="text-slate-400 group-open:rotate-180 transition-transform">▼</span>
+                            </summary>
+                            <div className="px-5 pb-5 text-slate-600 dark:text-slate-300 text-sm leading-relaxed border-t border-violet-100/50 dark:border-violet-800/30 pt-4">
+                                <strong>Yes, 100% lossless.</strong> Convert JSON to TOON and back to JSON without losing any information. <strong>Data types, nesting, and structure</strong> are all preserved. It&apos;s a reversible transformation.
+                            </div>
+                        </details>
+
+                        <details className="w-full group bg-white/80 dark:bg-slate-900/80 backdrop-blur-sm border border-violet-200/50 dark:border-violet-800/30 rounded-xl overflow-hidden transition-all duration-200 hover:shadow-md">
+                            <summary className="flex items-center justify-between p-5 font-semibold cursor-pointer text-slate-800 dark:text-white hover:bg-violet-50/50 dark:hover:bg-violet-900/20 transition-colors">
+                                When should I use TOON instead of JSON?
+                                <span className="text-slate-400 group-open:rotate-180 transition-transform">▼</span>
+                            </summary>
+                            <div className="px-5 pb-5 text-slate-600 dark:text-slate-300 text-sm leading-relaxed border-t border-violet-100/50 dark:border-violet-800/30 pt-4">
+                                Use TOON when sending data to <strong>LLMs like ChatGPT or Claude</strong>, especially with tabular data. The token savings <strong>reduce API costs</strong> and help fit more data within context limits. Use JSON for <strong>web APIs and traditional applications</strong>.
+                            </div>
+                        </details>
+
+                        <details className="w-full group bg-white/80 dark:bg-slate-900/80 backdrop-blur-sm border border-violet-200/50 dark:border-violet-800/30 rounded-xl overflow-hidden transition-all duration-200 hover:shadow-md">
+                            <summary className="flex items-center justify-between p-5 font-semibold cursor-pointer text-slate-800 dark:text-white hover:bg-violet-50/50 dark:hover:bg-violet-900/20 transition-colors">
+                                Does this tool upload my data?
+                                <span className="text-slate-400 group-open:rotate-180 transition-transform">▼</span>
+                            </summary>
+                            <div className="px-5 pb-5 text-slate-600 dark:text-slate-300 text-sm leading-relaxed border-t border-violet-100/50 dark:border-violet-800/30 pt-4">
+                                <strong>No, 100% private.</strong> All conversion happens <strong>entirely in your browser</strong> using JavaScript. Your JSON and TOON data <strong>never leaves your computer</strong>, ensuring complete privacy and security.
+                            </div>
+                        </details>
                     </div>
                 </section>
+
 
                 {/* Related Tools */}
                 <section className="w-full max-w-[1920px] mx-auto px-4 sm:px-6 lg:px-8 pb-16">
@@ -378,15 +396,6 @@ Jane Smith, jane@example.com, Designer, 88`;
                                 </a>
                             ))}
                         </div>
-                    </div>
-                </section>
-
-                {/* Platform Compatibility */}
-                <section className="w-full max-w-[1920px] mx-auto px-4 sm:px-6 lg:px-8 pb-16">
-                    <div className="bg-gradient-to-r from-violet-50 to-purple-50 dark:from-violet-950/20 dark:to-purple-950/20 rounded-2xl border border-violet-200 dark:border-violet-800 p-6 text-center">
-                        <p className="text-slate-700 dark:text-slate-300 font-medium text-base">
-                            JSON to TOON Converter works on <strong>Windows</strong>, <strong>Mac</strong>, <strong>Linux</strong>, <strong>Chrome</strong>, <strong>Firefox</strong>, <strong>Safari</strong> and <strong>Edge</strong> – and it&apos;s <strong className="text-violet-600 dark:text-violet-400">Free</strong>.
-                        </p>
                     </div>
                 </section>
             </div>

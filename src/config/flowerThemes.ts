@@ -155,6 +155,28 @@ export const flowerThemes = {
       dark: "dark:bg-gradient-to-br dark:from-rose-950/30 dark:via-red-950/20 dark:to-slate-950",
     },
   },
+  orchid: {
+    name: "Rhinoceros",
+    slug: "rhinoceros",
+    image: "/images/tools/palette-forge.jpg",
+    significance: "Represents strength, stability, and solid foundations — essential for building robust design systems.",
+    colors: {
+      primary: "#6B7280",
+      secondary: "#78716C",
+      accent: "#E7E5E4",
+      glow: "rgba(120, 113, 108, 0.25)",
+      text: "text-stone-600",
+      textDark: "dark:text-stone-400",
+    },
+    gradient: {
+      light: "from-stone-500 to-slate-500",
+      dark: "from-stone-600 to-slate-600",
+    },
+    bgGradient: {
+      light: "bg-gradient-to-br from-stone-50 via-slate-50/50 to-white",
+      dark: "dark:bg-gradient-to-br dark:from-stone-950/30 dark:via-slate-950/20 dark:to-slate-950",
+    },
+  },
 } as const;
 
 export type FlowerThemeKey = keyof typeof flowerThemes;

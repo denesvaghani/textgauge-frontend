@@ -179,36 +179,58 @@ Jane Smith,jane@example.com,London,SW1A`;
                         Frequently Asked Questions
                     </h2>
                     <div className="space-y-4 w-full">
-                        {[
-                            { 
-                                q: "How does JSON to CSV conversion work?", 
-                                a: "The tool converts JSON arrays into CSV format. Each JSON object becomes a row, and object properties become columns. Nested objects are automatically flattened using dot notation (e.g., 'address.city')." 
-                            },
-                            { 
-                                q: "Will my data be uploaded to servers?", 
-                                a: "No! All conversion happens 100% in your browser using JavaScript. Your JSON and CSV data never leaves your computer, ensuring complete privacy." 
-                            },
-                            { 
-                                q: "Can I convert CSV back to JSON?", 
-                                a: "Yes! The tool supports bidirectional conversion. Paste your CSV data and the tool will convert it back to properly formatted JSON, reconstructing nested objects from dot notation." 
-                            },
-                            { 
-                                q: "What happens to nested JSON objects?", 
-                                a: "Nested objects are automatically flattened into CSV columns using dot notation. For example, {\"user\": {\"name\": \"John\"}} becomes a column named 'user.name'. This makes complex JSON data spreadsheet-ready." 
-                            }
-                        ].map((faq, i) => (
-                            <details key={i} className="w-full group bg-white/80 dark:bg-slate-900/80 backdrop-blur-sm border border-yellow-200/50 dark:border-yellow-800/30 rounded-xl overflow-hidden transition-all duration-200">
-                                <summary className="flex items-center justify-between p-5 font-semibold cursor-pointer text-slate-800 dark:text-white hover:bg-yellow-50/50 dark:hover:bg-yellow-900/20 transition-colors">
-                                    {faq.q}
-                                    <span className="text-slate-400 group-open:rotate-180 transition-transform">▼</span>
-                                </summary>
-                                <div className="px-5 pb-5 text-slate-600 dark:text-slate-300 text-sm leading-relaxed border-t border-yellow-100/50 dark:border-yellow-800/30 pt-4">
-                                    {faq.a}
-                                </div>
-                            </details>
-                        ))}
+                        <details className="w-full group bg-white/80 dark:bg-slate-900/80 backdrop-blur-sm border border-yellow-200/50 dark:border-yellow-800/30 rounded-xl overflow-hidden transition-all duration-200 hover:shadow-md">
+                            <summary className="flex items-center justify-between p-5 font-semibold cursor-pointer text-slate-800 dark:text-white hover:bg-yellow-50/50 dark:hover:bg-yellow-900/20 transition-colors">
+                                How does JSON to CSV conversion work?
+                                <span className="text-slate-400 group-open:rotate-180 transition-transform">▼</span>
+                            </summary>
+                            <div className="px-5 pb-5 text-slate-600 dark:text-slate-300 text-sm leading-relaxed border-t border-yellow-100/50 dark:border-yellow-800/30 pt-4">
+                                The tool converts <strong>JSON arrays</strong> into CSV format. Each <strong>JSON object becomes a row</strong>, and object properties become columns. Nested objects are <strong>automatically flattened</strong> using dot notation (e.g., &apos;address.city&apos;).
+                            </div>
+                        </details>
+
+                        <details className="w-full group bg-white/80 dark:bg-slate-900/80 backdrop-blur-sm border border-yellow-200/50 dark:border-yellow-800/30 rounded-xl overflow-hidden transition-all duration-200 hover:shadow-md">
+                            <summary className="flex items-center justify-between p-5 font-semibold cursor-pointer text-slate-800 dark:text-white hover:bg-yellow-50/50 dark:hover:bg-yellow-900/20 transition-colors">
+                                Will my data be uploaded to servers?
+                                <span className="text-slate-400 group-open:rotate-180 transition-transform">▼</span>
+                            </summary>
+                            <div className="px-5 pb-5 text-slate-600 dark:text-slate-300 text-sm leading-relaxed border-t border-yellow-100/50 dark:border-yellow-800/30 pt-4">
+                                <strong>No, 100% private.</strong> All conversion happens <strong>entirely in your browser</strong> using JavaScript. Your JSON and CSV data <strong>never leaves your computer</strong>, ensuring complete privacy.
+                            </div>
+                        </details>
+
+                        <details className="w-full group bg-white/80 dark:bg-slate-900/80 backdrop-blur-sm border border-yellow-200/50 dark:border-yellow-800/30 rounded-xl overflow-hidden transition-all duration-200 hover:shadow-md">
+                            <summary className="flex items-center justify-between p-5 font-semibold cursor-pointer text-slate-800 dark:text-white hover:bg-yellow-50/50 dark:hover:bg-yellow-900/20 transition-colors">
+                                Can I convert CSV back to JSON?
+                                <span className="text-slate-400 group-open:rotate-180 transition-transform">▼</span>
+                            </summary>
+                            <div className="px-5 pb-5 text-slate-600 dark:text-slate-300 text-sm leading-relaxed border-t border-yellow-100/50 dark:border-yellow-800/30 pt-4">
+                                <strong>Yes!</strong> Use the toggle to switch to <strong>CSV → JSON</strong> mode. The tool reconstructs <strong>nested objects from dot notation</strong> (e.g., &apos;user.name&apos; becomes a nested object). Perfect for converting spreadsheet data to JSON.
+                            </div>
+                        </details>
+
+                        <details className="w-full group bg-white/80 dark:bg-slate-900/80 backdrop-blur-sm border border-yellow-200/50 dark:border-yellow-800/30 rounded-xl overflow-hidden transition-all duration-200 hover:shadow-md">
+                            <summary className="flex items-center justify-between p-5 font-semibold cursor-pointer text-slate-800 dark:text-white hover:bg-yellow-50/50 dark:hover:bg-yellow-900/20 transition-colors">
+                                What happens to nested JSON objects?
+                                <span className="text-slate-400 group-open:rotate-180 transition-transform">▼</span>
+                            </summary>
+                            <div className="px-5 pb-5 text-slate-600 dark:text-slate-300 text-sm leading-relaxed border-t border-yellow-100/50 dark:border-yellow-800/30 pt-4">
+                                Nested objects are <strong>automatically flattened</strong> into CSV columns using <strong>dot notation</strong>. For example, <code className="bg-yellow-100 dark:bg-yellow-900/50 px-1 rounded">{"{\"user\": {\"name\": \"John\"}}"}</code> becomes a column named &apos;user.name&apos;. This makes complex JSON data <strong>spreadsheet-ready</strong>.
+                            </div>
+                        </details>
+
+                        <details className="w-full group bg-white/80 dark:bg-slate-900/80 backdrop-blur-sm border border-yellow-200/50 dark:border-yellow-800/30 rounded-xl overflow-hidden transition-all duration-200 hover:shadow-md">
+                            <summary className="flex items-center justify-between p-5 font-semibold cursor-pointer text-slate-800 dark:text-white hover:bg-yellow-50/50 dark:hover:bg-yellow-900/20 transition-colors">
+                                Why is CSV file size smaller than JSON?
+                                <span className="text-slate-400 group-open:rotate-180 transition-transform">▼</span>
+                            </summary>
+                            <div className="px-5 pb-5 text-slate-600 dark:text-slate-300 text-sm leading-relaxed border-t border-yellow-100/50 dark:border-yellow-800/30 pt-4">
+                                CSV files are typically <strong>50-60% smaller</strong>. JSON repeats field names for every record, while CSV lists headers <strong>once at the top</strong>. This reduces bandwidth costs and speeds up data transfers.
+                            </div>
+                        </details>
                     </div>
                 </section>
+
 
                 {/* Educational Content */}
                 <section className="w-full max-w-[1920px] mx-auto px-4 sm:px-6 lg:px-8 pb-16 space-y-16">
@@ -245,14 +267,6 @@ Jane Smith,jane@example.com,London,SW1A`;
                                     {link.label}
                                 </a>
                             ))}
-                        </div>
-                    </div>
-
-                    <div className="border-t border-yellow-200/50 dark:border-yellow-800/30 pt-12">
-                        <div className="bg-gradient-to-r from-yellow-50 to-amber-50 dark:from-yellow-950/20 dark:to-amber-950/20 rounded-2xl border border-yellow-200 dark:border-yellow-800 p-6 text-center">
-                            <p className="text-slate-700 dark:text-slate-300 font-medium text-base">
-                                JSON to CSV Converter working properly in <strong>Windows</strong>, <strong>Mac</strong>, <strong>Linux</strong>, <strong>Chrome</strong>, <strong>Firefox</strong>, <strong>Safari</strong> and <strong>Edge</strong> and it&apos;s <strong className="text-yellow-600 dark:text-yellow-400">Free</strong>.
-                            </p>
                         </div>
                     </div>
                 </section>
