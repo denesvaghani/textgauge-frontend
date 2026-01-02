@@ -84,14 +84,16 @@ export default function Page() {
         </header>
 
         {/* Main Content */}
-        <main className="flex-1 flex flex-col min-h-0 w-full max-w-[1920px] mx-auto px-4 sm:px-6 lg:px-8 py-4">
+        <main className="flex-1 flex flex-col min-h-0 w-full">
             {/* Editor Section */}
-            <div className="bg-white dark:bg-slate-900 rounded-2xl shadow-xl ring-1 ring-slate-900/5 dark:ring-white/10 overflow-hidden">
-                <Editor />
+            <div className="w-full max-w-[1920px] mx-auto px-4 sm:px-6 lg:px-8 py-4">
+                <div className="bg-white dark:bg-slate-900 rounded-2xl shadow-xl ring-1 ring-slate-900/5 dark:ring-white/10 overflow-hidden">
+                    <Editor />
+                </div>
             </div>
 
             {/* Tools Grid */}
-            <section className="py-16">
+            <section className="w-full max-w-[1920px] mx-auto px-4 sm:px-6 lg:px-8 py-16">
                 <div className="text-center mb-10">
           <h2 className="text-2xl md:text-3xl font-bold text-slate-900 dark:text-white mb-3">
             🌸 Our Flower-Powered Tools 🌸
