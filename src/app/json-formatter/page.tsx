@@ -104,34 +104,65 @@ export default function JsonFormatterPage() {
                         Frequently Asked Questions
                     </h2>
                     <div className="space-y-4 w-full">
-                        {[
-                            { 
-                                q: "How do I format JSON?", 
-                                a: "Simply paste your JSON data into the editor and click the 'Beautify' button. The tool will automatically format your JSON with proper indentation and structure." 
-                            },
-                            { 
-                                q: "Can I minify JSON to reduce file size?", 
-                                a: "Yes! Use the 'Minify' button to remove all unnecessary whitespace and line breaks from your JSON, making it more compact for storage or transmission." 
-                            },
-                            { 
-                                q: "Is my JSON data private and secure?", 
-                                a: "Absolutely! All JSON formatting and validation happens entirely in your browser. Your data is never uploaded to any server, ensuring complete privacy." 
-                            },
-                            { 
-                                q: "What JSON errors does this tool detect?", 
-                                a: "The tool detects syntax errors (missing commas, brackets, quotes), invalid structure, incorrect data types, and provides detailed error messages with line numbers to help you fix issues quickly." 
-                            }
-                        ].map((faq, i) => (
-                            <details key={i} className="w-full group bg-white/80 dark:bg-slate-900/80 backdrop-blur-sm border border-pink-200/50 dark:border-pink-800/30 rounded-xl overflow-hidden transition-all duration-200">
-                                <summary className="flex items-center justify-between p-5 font-semibold cursor-pointer text-slate-800 dark:text-white hover:bg-pink-50/50 dark:hover:bg-pink-900/20 transition-colors">
-                                    {faq.q}
-                                    <span className="text-slate-400 group-open:rotate-180 transition-transform">▼</span>
-                                </summary>
-                                <div className="px-5 pb-5 text-slate-600 dark:text-slate-300 text-sm leading-relaxed border-t border-pink-100/50 dark:border-pink-800/30 pt-4">
-                                    {faq.a}
-                                </div>
-                            </details>
-                        ))}
+                        <details className="w-full group bg-white/80 dark:bg-slate-900/80 backdrop-blur-sm border border-pink-200/50 dark:border-pink-800/30 rounded-xl overflow-hidden transition-all duration-200 hover:shadow-md">
+                            <summary className="flex items-center justify-between p-5 font-semibold cursor-pointer text-slate-800 dark:text-white hover:bg-pink-50/50 dark:hover:bg-pink-900/20 transition-colors">
+                                How do I format JSON?
+                                <span className="text-slate-400 group-open:rotate-180 transition-transform">▼</span>
+                            </summary>
+                            <div className="px-5 pb-5 text-slate-600 dark:text-slate-300 text-sm leading-relaxed border-t border-pink-100/50 dark:border-pink-800/30 pt-4">
+                                <strong>Paste your JSON</strong> into the editor and click <strong>Beautify</strong>. The tool automatically adds <strong>proper indentation</strong>, line breaks, and structure. You can also choose between <strong>2-space or 4-space</strong> indentation using the tab size option.
+                            </div>
+                        </details>
+
+                        <details className="w-full group bg-white/80 dark:bg-slate-900/80 backdrop-blur-sm border border-pink-200/50 dark:border-pink-800/30 rounded-xl overflow-hidden transition-all duration-200 hover:shadow-md">
+                            <summary className="flex items-center justify-between p-5 font-semibold cursor-pointer text-slate-800 dark:text-white hover:bg-pink-50/50 dark:hover:bg-pink-900/20 transition-colors">
+                                Can I minify JSON to reduce file size?
+                                <span className="text-slate-400 group-open:rotate-180 transition-transform">▼</span>
+                            </summary>
+                            <div className="px-5 pb-5 text-slate-600 dark:text-slate-300 text-sm leading-relaxed border-t border-pink-100/50 dark:border-pink-800/30 pt-4">
+                                Yes! Click the <strong>Minify</strong> button to remove <strong>all whitespace and line breaks</strong>. This is ideal for <strong>API responses</strong>, configuration files, or anywhere you need to reduce file size without changing the data.
+                            </div>
+                        </details>
+
+                        <details className="w-full group bg-white/80 dark:bg-slate-900/80 backdrop-blur-sm border border-pink-200/50 dark:border-pink-800/30 rounded-xl overflow-hidden transition-all duration-200 hover:shadow-md">
+                            <summary className="flex items-center justify-between p-5 font-semibold cursor-pointer text-slate-800 dark:text-white hover:bg-pink-50/50 dark:hover:bg-pink-900/20 transition-colors">
+                                Is my JSON data private and secure?
+                                <span className="text-slate-400 group-open:rotate-180 transition-transform">▼</span>
+                            </summary>
+                            <div className="px-5 pb-5 text-slate-600 dark:text-slate-300 text-sm leading-relaxed border-t border-pink-100/50 dark:border-pink-800/30 pt-4">
+                                <strong>100% private.</strong> All formatting and validation happens <strong>entirely in your browser</strong> using JavaScript. Your data is <strong>never uploaded</strong> to any server. We cannot see, store, or access your JSON — it never leaves your device.
+                            </div>
+                        </details>
+
+                        <details className="w-full group bg-white/80 dark:bg-slate-900/80 backdrop-blur-sm border border-pink-200/50 dark:border-pink-800/30 rounded-xl overflow-hidden transition-all duration-200 hover:shadow-md">
+                            <summary className="flex items-center justify-between p-5 font-semibold cursor-pointer text-slate-800 dark:text-white hover:bg-pink-50/50 dark:hover:bg-pink-900/20 transition-colors">
+                                What JSON errors does this tool detect?
+                                <span className="text-slate-400 group-open:rotate-180 transition-transform">▼</span>
+                            </summary>
+                            <div className="px-5 pb-5 text-slate-600 dark:text-slate-300 text-sm leading-relaxed border-t border-pink-100/50 dark:border-pink-800/30 pt-4">
+                                The tool detects <strong>syntax errors</strong> (missing commas, brackets, quotes), <strong>invalid structure</strong>, trailing commas, and <strong>data type issues</strong>. Error messages include <strong>line numbers</strong> to help you locate and fix problems quickly.
+                            </div>
+                        </details>
+
+                        <details className="w-full group bg-white/80 dark:bg-slate-900/80 backdrop-blur-sm border border-pink-200/50 dark:border-pink-800/30 rounded-xl overflow-hidden transition-all duration-200 hover:shadow-md">
+                            <summary className="flex items-center justify-between p-5 font-semibold cursor-pointer text-slate-800 dark:text-white hover:bg-pink-50/50 dark:hover:bg-pink-900/20 transition-colors">
+                                What is JSON used for?
+                                <span className="text-slate-400 group-open:rotate-180 transition-transform">▼</span>
+                            </summary>
+                            <div className="px-5 pb-5 text-slate-600 dark:text-slate-300 text-sm leading-relaxed border-t border-pink-100/50 dark:border-pink-800/30 pt-4">
+                                JSON (JavaScript Object Notation) is used for <strong>data exchange</strong> between servers and web applications, <strong>API responses</strong>, <strong>configuration files</strong>, and <strong>storing structured data</strong>. It&apos;s lightweight, human-readable, and supported by virtually all programming languages.
+                            </div>
+                        </details>
+
+                        <details className="w-full group bg-white/80 dark:bg-slate-900/80 backdrop-blur-sm border border-pink-200/50 dark:border-pink-800/30 rounded-xl overflow-hidden transition-all duration-200 hover:shadow-md">
+                            <summary className="flex items-center justify-between p-5 font-semibold cursor-pointer text-slate-800 dark:text-white hover:bg-pink-50/50 dark:hover:bg-pink-900/20 transition-colors">
+                                Can I convert JSON to other formats?
+                                <span className="text-slate-400 group-open:rotate-180 transition-transform">▼</span>
+                            </summary>
+                            <div className="px-5 pb-5 text-slate-600 dark:text-slate-300 text-sm leading-relaxed border-t border-pink-100/50 dark:border-pink-800/30 pt-4">
+                                Yes! Use our <strong>JSON to CSV</strong> converter for spreadsheet data, <strong>JSON to YAML</strong> for configuration files, or <strong>JSON to TOON</strong> to reduce token usage for AI applications. Each converter is designed for specific use cases.
+                            </div>
+                        </details>
                     </div>
                 </section>
 

@@ -830,58 +830,105 @@ export function PaletteForgeClient() {
           Frequently Asked Questions
         </h2>
         <div className="space-y-4 w-full">
-          {[
-            {
-              q: 'What exactly is PaletteForge?',
-              a: 'Imagine you see a gorgeous website or poster and think "I want those exact colors!" — PaletteForge is your color thief! Drop any image, and boom  — you get the exact colors extracted AND ready-to-use code. It\'s like Shazam, but for colors. Perfect for students, designers, or anyone who\'s ever tried to eyedrop colors one by one (we\'ve all been there ).',
-            },
-            {
-              q: 'Design tokens sound fancy. What are they really?',
-              a: 'Okay, picture this: Instead of writing the hex code #3B82F6 in 47 different places, you write it ONCE and give it a name like "--color-primary". Now everywhere uses that name. Want to change your brand color? Update ONE line. Done. It\'s basically "Don\'t Repeat Yourself" (DRY) for colors. Your future self will thank you! ',
-            },
-            {
-              q: 'AAA, AA, Fail — Is this a report card?',
-              a: 'Kind of! It\'s grading how readable your text will be. AAA = A+ (perfect, even your grandma can read it ). AA = Passing grade (good for most people). Fail = Yikes, that white text on yellow background? Nobody can read that 🙈. These follow WCAG accessibility standards — basically rules so EVERYONE can use your website, including people with vision differences.',
-            },
-            {
-              q: 'Primitive, Semantic, Component... Why three layers?',
-              a: 'Think of it like clothing layers!  Primitive = Your actual clothes (blue-500, gray-200 — raw colors). Semantic = What they\'re FOR (primary, danger, success — purpose). Component = Specific outfits (button-bg, card-border — exact use). Why bother? Because changing "primary" updates ALL buttons, headers, and links at once. One change = everywhere updated. Magic! ',
-            },
-            {
-              q: 'What\'s with the numbers 50, 100, 200... 950?',
-              a: 'These are your color\'s entire family! 50 = the palest cousin (almost white ), 500 = the main character (your actual color ), 950 = the edgy goth sibling (almost black ). Tailwind CSS uses this exact system. Pro tip: Light numbers (50-200) = backgrounds, Dark numbers (700-950) = text. Now you\'re thinking like a designer! ',
-            },
-            {
-              q: 'Color Harmony — Is my palette "vibing"?',
-              a: 'You know how some outfits just WORK together? Same with colors! Complementary = opposites attract (blue + orange ), Analogous = besties sitting together (green, teal, blue ), Triadic = the cool trio (red, yellow, blue). Higher harmony score = your colors are basically a boy band — they just work together. Lower score = more... experimental. No judgment! ',
-            },
-            {
-              q: 'Is my uploaded image safe? (Paranoid mode)',
-              a: 'Your image NEVER leaves your device. Seriously. Zero. Zilch. Nada. Everything runs in YOUR browser using JavaScript magic. We literally cannot see your images even if we wanted to (we don\'t). It\'s like having a chef cook in your kitchen instead of taking your food to their restaurant. Total privacy! ',
-            },
-            {
-              q: 'What images can I upload?',
-              a: 'PNG, JPG, SVG, WebP — basically anything that\'s not a meme in PDF format . Max size: 10MB. Best results: Clear, colorful images. Website screenshots? Perfect. Album covers? Yep. That photo from your vacation? Sure! Blurry photo of your cat at 3am? I mean... it\'ll work, but maybe pick something with more colors ',
-            },
-            {
-              q: 'I\'m new — which export format do I pick?',
-              a: 'Easy decision tree: Just starting out → CSS Variables (works everywhere, no setup). Using Tailwind? → Tailwind format. Into Sass? → SCSS. Working with designers? → Figma or Tokens Studio. Building a rocket ship? → ...probably still CSS Variables tbh. You can always come back and export in a different format later! ',
-            },
-            {
-              q: 'Any pro tips for better results?',
-              a: 'Oh, you want the good stuff? 1) Use images with distinct colors — gradients give weird results. 2) Crop out busy backgrounds. 3) Screenshots of actual UI designs work amazing. 4) The tool extracts 8 colors max, so pick images where those 8 matter. 5) Check the contrast badges before committing to a color. Your users\' eyes will thank you! ',
-            },
-          ].map((faq, i) => (
-            <details key={i} className="w-full group bg-white/80 dark:bg-slate-900/80 backdrop-blur-sm border border-stone-200/50 dark:border-stone-800/30 rounded-xl overflow-hidden transition-all duration-200 hover:shadow-md">
-              <summary className="flex items-center justify-between p-5 font-semibold cursor-pointer text-slate-800 dark:text-white hover:bg-stone-50/50 dark:hover:bg-stone-900/20 transition-colors">
-                {faq.q}
-                <span className="text-slate-400 group-open:rotate-180 transition-transform">▼</span>
-              </summary>
-              <div className="px-5 pb-5 text-slate-600 dark:text-slate-300 text-sm leading-relaxed border-t border-stone-100/50 dark:border-stone-800/30 pt-4">
-                {faq.a}
-              </div>
-            </details>
-          ))}
+          <details className="w-full group bg-white/80 dark:bg-slate-900/80 backdrop-blur-sm border border-stone-200/50 dark:border-stone-800/30 rounded-xl overflow-hidden transition-all duration-200 hover:shadow-md">
+            <summary className="flex items-center justify-between p-5 font-semibold cursor-pointer text-slate-800 dark:text-white hover:bg-stone-50/50 dark:hover:bg-stone-900/20 transition-colors">
+              What exactly is PaletteForge?
+              <span className="text-slate-400 group-open:rotate-180 transition-transform">▼</span>
+            </summary>
+            <div className="px-5 pb-5 text-slate-600 dark:text-slate-300 text-sm leading-relaxed border-t border-stone-100/50 dark:border-stone-800/30 pt-4">
+              PaletteForge is a <strong>free color extraction tool</strong> that turns any image into <strong>production-ready code</strong>. Upload a screenshot, mockup, or photo — get back organized color tokens for <strong>CSS, Tailwind, SCSS, Figma</strong>, and more. Think of it as Shazam, but for colors.
+            </div>
+          </details>
+
+          <details className="w-full group bg-white/80 dark:bg-slate-900/80 backdrop-blur-sm border border-stone-200/50 dark:border-stone-800/30 rounded-xl overflow-hidden transition-all duration-200 hover:shadow-md">
+            <summary className="flex items-center justify-between p-5 font-semibold cursor-pointer text-slate-800 dark:text-white hover:bg-stone-50/50 dark:hover:bg-stone-900/20 transition-colors">
+              What are design tokens?
+              <span className="text-slate-400 group-open:rotate-180 transition-transform">▼</span>
+            </summary>
+            <div className="px-5 pb-5 text-slate-600 dark:text-slate-300 text-sm leading-relaxed border-t border-stone-100/50 dark:border-stone-800/30 pt-4">
+              Design tokens are <strong>named variables</strong> that store design decisions. Instead of writing <code className="bg-stone-100 dark:bg-stone-800 px-1 rounded">#3B82F6</code> everywhere, you use <code className="bg-stone-100 dark:bg-stone-800 px-1 rounded">--color-primary</code>. <strong>Change it once, update everywhere.</strong> This follows the DRY (Don&apos;t Repeat Yourself) principle and makes your codebase maintainable.
+            </div>
+          </details>
+
+          <details className="w-full group bg-white/80 dark:bg-slate-900/80 backdrop-blur-sm border border-stone-200/50 dark:border-stone-800/30 rounded-xl overflow-hidden transition-all duration-200 hover:shadow-md">
+            <summary className="flex items-center justify-between p-5 font-semibold cursor-pointer text-slate-800 dark:text-white hover:bg-stone-50/50 dark:hover:bg-stone-900/20 transition-colors">
+              What do AAA, AA, and Fail badges mean?
+              <span className="text-slate-400 group-open:rotate-180 transition-transform">▼</span>
+            </summary>
+            <div className="px-5 pb-5 text-slate-600 dark:text-slate-300 text-sm leading-relaxed border-t border-stone-100/50 dark:border-stone-800/30 pt-4">
+              These are <strong>WCAG accessibility ratings</strong> for text readability. <strong>AAA</strong> = Excellent contrast (≥7:1), readable by everyone. <strong>AA</strong> = Good contrast (≥4.5:1), suitable for most users. <strong>Fail</strong> = Poor contrast, text may be difficult to read. Always aim for AA or higher to ensure your website is accessible.
+            </div>
+          </details>
+
+          <details className="w-full group bg-white/80 dark:bg-slate-900/80 backdrop-blur-sm border border-stone-200/50 dark:border-stone-800/30 rounded-xl overflow-hidden transition-all duration-200 hover:shadow-md">
+            <summary className="flex items-center justify-between p-5 font-semibold cursor-pointer text-slate-800 dark:text-white hover:bg-stone-50/50 dark:hover:bg-stone-900/20 transition-colors">
+              Why are there three token layers?
+              <span className="text-slate-400 group-open:rotate-180 transition-transform">▼</span>
+            </summary>
+            <div className="px-5 pb-5 text-slate-600 dark:text-slate-300 text-sm leading-relaxed border-t border-stone-100/50 dark:border-stone-800/30 pt-4">
+              The three layers create a <strong>scalable design system</strong>: <strong>Primitive</strong> = raw color values (blue-500, gray-200). <strong>Semantic</strong> = purpose-based names (primary, error, success). <strong>Component</strong> = UI-specific tokens (button-bg, input-border). This structure lets you <strong>change themes</strong> by updating just the semantic layer.
+            </div>
+          </details>
+
+          <details className="w-full group bg-white/80 dark:bg-slate-900/80 backdrop-blur-sm border border-stone-200/50 dark:border-stone-800/30 rounded-xl overflow-hidden transition-all duration-200 hover:shadow-md">
+            <summary className="flex items-center justify-between p-5 font-semibold cursor-pointer text-slate-800 dark:text-white hover:bg-stone-50/50 dark:hover:bg-stone-900/20 transition-colors">
+              What do the numbers 50, 100... 950 mean?
+              <span className="text-slate-400 group-open:rotate-180 transition-transform">▼</span>
+            </summary>
+            <div className="px-5 pb-5 text-slate-600 dark:text-slate-300 text-sm leading-relaxed border-t border-stone-100/50 dark:border-stone-800/30 pt-4">
+              These are <strong>Tailwind-style color scales</strong>. <strong>50</strong> = lightest shade (almost white), <strong>500</strong> = base color, <strong>950</strong> = darkest shade (almost black). Use <strong>50-200 for backgrounds</strong>, <strong>500-600 for interactive elements</strong>, and <strong>700-950 for text</strong>. This system ensures consistent color usage across your project.
+            </div>
+          </details>
+
+          <details className="w-full group bg-white/80 dark:bg-slate-900/80 backdrop-blur-sm border border-stone-200/50 dark:border-stone-800/30 rounded-xl overflow-hidden transition-all duration-200 hover:shadow-md">
+            <summary className="flex items-center justify-between p-5 font-semibold cursor-pointer text-slate-800 dark:text-white hover:bg-stone-50/50 dark:hover:bg-stone-900/20 transition-colors">
+              What is color harmony?
+              <span className="text-slate-400 group-open:rotate-180 transition-transform">▼</span>
+            </summary>
+            <div className="px-5 pb-5 text-slate-600 dark:text-slate-300 text-sm leading-relaxed border-t border-stone-100/50 dark:border-stone-800/30 pt-4">
+              Color harmony measures how well colors <strong>work together visually</strong>. Types include: <strong>Complementary</strong> (opposites like blue + orange), <strong>Analogous</strong> (neighbors like green, teal, blue), and <strong>Triadic</strong> (evenly spaced). Higher harmony scores mean your palette follows <strong>proven color theory principles</strong>.
+            </div>
+          </details>
+
+          <details className="w-full group bg-white/80 dark:bg-slate-900/80 backdrop-blur-sm border border-stone-200/50 dark:border-stone-800/30 rounded-xl overflow-hidden transition-all duration-200 hover:shadow-md">
+            <summary className="flex items-center justify-between p-5 font-semibold cursor-pointer text-slate-800 dark:text-white hover:bg-stone-50/50 dark:hover:bg-stone-900/20 transition-colors">
+              Is my uploaded image private?
+              <span className="text-slate-400 group-open:rotate-180 transition-transform">▼</span>
+            </summary>
+            <div className="px-5 pb-5 text-slate-600 dark:text-slate-300 text-sm leading-relaxed border-t border-stone-100/50 dark:border-stone-800/30 pt-4">
+              <strong>100% private.</strong> All processing happens <strong>entirely in your browser</strong> using the Canvas API. Your images are <strong>never uploaded</strong> to any server. We cannot see, store, or access your files. This is called client-side processing — your data stays on your device.
+            </div>
+          </details>
+
+          <details className="w-full group bg-white/80 dark:bg-slate-900/80 backdrop-blur-sm border border-stone-200/50 dark:border-stone-800/30 rounded-xl overflow-hidden transition-all duration-200 hover:shadow-md">
+            <summary className="flex items-center justify-between p-5 font-semibold cursor-pointer text-slate-800 dark:text-white hover:bg-stone-50/50 dark:hover:bg-stone-900/20 transition-colors">
+              Which export format should I use?
+              <span className="text-slate-400 group-open:rotate-180 transition-transform">▼</span>
+            </summary>
+            <div className="px-5 pb-5 text-slate-600 dark:text-slate-300 text-sm leading-relaxed border-t border-stone-100/50 dark:border-stone-800/30 pt-4">
+              Choose based on your stack: <strong>CSS Variables</strong> for vanilla projects, <strong>Tailwind</strong> for Tailwind CSS, <strong>SCSS</strong> for Sass projects, <strong>JSON</strong> for Style Dictionary, <strong>Figma</strong> for design handoff, and <strong>Tokens Studio</strong> for design token management. Beginners should start with CSS Variables.
+            </div>
+          </details>
+
+          <details className="w-full group bg-white/80 dark:bg-slate-900/80 backdrop-blur-sm border border-stone-200/50 dark:border-stone-800/30 rounded-xl overflow-hidden transition-all duration-200 hover:shadow-md">
+            <summary className="flex items-center justify-between p-5 font-semibold cursor-pointer text-slate-800 dark:text-white hover:bg-stone-50/50 dark:hover:bg-stone-900/20 transition-colors">
+              What images work best?
+              <span className="text-slate-400 group-open:rotate-180 transition-transform">▼</span>
+            </summary>
+            <div className="px-5 pb-5 text-slate-600 dark:text-slate-300 text-sm leading-relaxed border-t border-stone-100/50 dark:border-stone-800/30 pt-4">
+              Supports <strong>PNG, JPG, SVG, and WebP</strong> up to <strong>10MB</strong>. Best results come from images with <strong>distinct, solid colors</strong> — website screenshots, logos, and UI mockups work great. Avoid images with heavy gradients or too many similar shades.
+            </div>
+          </details>
+
+          <details className="w-full group bg-white/80 dark:bg-slate-900/80 backdrop-blur-sm border border-stone-200/50 dark:border-stone-800/30 rounded-xl overflow-hidden transition-all duration-200 hover:shadow-md">
+            <summary className="flex items-center justify-between p-5 font-semibold cursor-pointer text-slate-800 dark:text-white hover:bg-stone-50/50 dark:hover:bg-stone-900/20 transition-colors">
+              Any tips for better results?
+              <span className="text-slate-400 group-open:rotate-180 transition-transform">▼</span>
+            </summary>
+            <div className="px-5 pb-5 text-slate-600 dark:text-slate-300 text-sm leading-relaxed border-t border-stone-100/50 dark:border-stone-800/30 pt-4">
+              Pro tips: <strong>1)</strong> Use high-contrast images with distinct colors. <strong>2)</strong> Crop out busy backgrounds before uploading. <strong>3)</strong> Check the <strong>WCAG badges</strong> before using a color for text. <strong>4)</strong> The tool extracts up to 8 colors — choose images where those colors matter most.
+            </div>
+          </details>
         </div>
       </section>
 

@@ -91,33 +91,58 @@ export default function YamlFormatterPage() {
                         Frequently Asked Questions
                     </h2>
                     <div className="space-y-4 w-full">
-                        {[
-                            { 
-                                q: "How do I validate YAML?", 
-                                a: "Simply paste your YAML content into the editor. The tool automatically validates the syntax and structure, displaying any errors with line numbers and descriptions to help you fix them quickly." 
-                            },
+                        <details className="w-full group bg-white/80 dark:bg-slate-900/80 backdrop-blur-sm border border-emerald-200/50 dark:border-emerald-800/30 rounded-xl overflow-hidden transition-all duration-200 hover:shadow-md">
+                            <summary className="flex items-center justify-between p-5 font-semibold cursor-pointer text-slate-800 dark:text-white hover:bg-emerald-50/50 dark:hover:bg-emerald-900/20 transition-colors">
+                                How do I validate YAML?
+                                <span className="text-slate-400 group-open:rotate-180 transition-transform">▼</span>
+                            </summary>
+                            <div className="px-5 pb-5 text-slate-600 dark:text-slate-300 text-sm leading-relaxed border-t border-emerald-100/50 dark:border-emerald-800/30 pt-4">
+                                <strong>Paste your YAML</strong> into the editor. The tool <strong>automatically validates</strong> syntax and structure, displaying errors with <strong>line numbers</strong> and descriptions. Common issues like indentation errors and missing colons are detected instantly.
+                            </div>
+                        </details>
 
-                            { 
-                                q: "Is my YAML data secure?", 
-                                a: "Absolutely! All YAML parsing, validation, and formatting happens entirely in your browser. Your configuration files are never uploaded to any server, ensuring complete privacy." 
-                            },
-                            { 
-                                q: "What YAML versions are supported?", 
-                                a: "Our tool supports YAML 1.2 standard, which is compatible with most modern applications including Docker, Kubernetes, Ansible, and GitHub Actions configurations." 
-                            }
-                        ].map((faq, i) => (
-                            <details key={i} className="w-full group bg-white/80 dark:bg-slate-900/80 backdrop-blur-sm border border-emerald-200/50 dark:border-emerald-800/30 rounded-xl overflow-hidden transition-all duration-200">
-                                <summary className="flex items-center justify-between p-5 font-semibold cursor-pointer text-slate-800 dark:text-white hover:bg-emerald-50/50 dark:hover:bg-emerald-900/20 transition-colors">
-                                    {faq.q}
-                                    <span className="text-slate-400 group-open:rotate-180 transition-transform">▼</span>
-                                </summary>
-                                <div className="px-5 pb-5 text-slate-600 dark:text-slate-300 text-sm leading-relaxed border-t border-emerald-100/50 dark:border-emerald-800/30 pt-4">
-                                    {faq.a}
-                                </div>
-                            </details>
-                        ))}
+                        <details className="w-full group bg-white/80 dark:bg-slate-900/80 backdrop-blur-sm border border-emerald-200/50 dark:border-emerald-800/30 rounded-xl overflow-hidden transition-all duration-200 hover:shadow-md">
+                            <summary className="flex items-center justify-between p-5 font-semibold cursor-pointer text-slate-800 dark:text-white hover:bg-emerald-50/50 dark:hover:bg-emerald-900/20 transition-colors">
+                                Is my YAML data secure?
+                                <span className="text-slate-400 group-open:rotate-180 transition-transform">▼</span>
+                            </summary>
+                            <div className="px-5 pb-5 text-slate-600 dark:text-slate-300 text-sm leading-relaxed border-t border-emerald-100/50 dark:border-emerald-800/30 pt-4">
+                                <strong>100% private.</strong> All parsing, validation, and formatting happens <strong>entirely in your browser</strong>. Your configuration files are <strong>never uploaded</strong> to any server. This is especially important for YAML files containing sensitive infrastructure configs.
+                            </div>
+                        </details>
+
+                        <details className="w-full group bg-white/80 dark:bg-slate-900/80 backdrop-blur-sm border border-emerald-200/50 dark:border-emerald-800/30 rounded-xl overflow-hidden transition-all duration-200 hover:shadow-md">
+                            <summary className="flex items-center justify-between p-5 font-semibold cursor-pointer text-slate-800 dark:text-white hover:bg-emerald-50/50 dark:hover:bg-emerald-900/20 transition-colors">
+                                What is YAML used for?
+                                <span className="text-slate-400 group-open:rotate-180 transition-transform">▼</span>
+                            </summary>
+                            <div className="px-5 pb-5 text-slate-600 dark:text-slate-300 text-sm leading-relaxed border-t border-emerald-100/50 dark:border-emerald-800/30 pt-4">
+                                YAML is used for <strong>configuration files</strong> in tools like <strong>Docker, Kubernetes, GitHub Actions, Ansible</strong>, and CI/CD pipelines. It&apos;s preferred over JSON for configs because it&apos;s more readable and supports comments.
+                            </div>
+                        </details>
+
+                        <details className="w-full group bg-white/80 dark:bg-slate-900/80 backdrop-blur-sm border border-emerald-200/50 dark:border-emerald-800/30 rounded-xl overflow-hidden transition-all duration-200 hover:shadow-md">
+                            <summary className="flex items-center justify-between p-5 font-semibold cursor-pointer text-slate-800 dark:text-white hover:bg-emerald-50/50 dark:hover:bg-emerald-900/20 transition-colors">
+                                Can I convert JSON to YAML?
+                                <span className="text-slate-400 group-open:rotate-180 transition-transform">▼</span>
+                            </summary>
+                            <div className="px-5 pb-5 text-slate-600 dark:text-slate-300 text-sm leading-relaxed border-t border-emerald-100/50 dark:border-emerald-800/30 pt-4">
+                                Yes! Simply <strong>paste JSON</strong> into the input — the formatter will <strong>automatically convert</strong> it to properly formatted YAML. This is useful for converting API responses into config files.
+                            </div>
+                        </details>
+
+                        <details className="w-full group bg-white/80 dark:bg-slate-900/80 backdrop-blur-sm border border-emerald-200/50 dark:border-emerald-800/30 rounded-xl overflow-hidden transition-all duration-200 hover:shadow-md">
+                            <summary className="flex items-center justify-between p-5 font-semibold cursor-pointer text-slate-800 dark:text-white hover:bg-emerald-50/50 dark:hover:bg-emerald-900/20 transition-colors">
+                                What YAML versions are supported?
+                                <span className="text-slate-400 group-open:rotate-180 transition-transform">▼</span>
+                            </summary>
+                            <div className="px-5 pb-5 text-slate-600 dark:text-slate-300 text-sm leading-relaxed border-t border-emerald-100/50 dark:border-emerald-800/30 pt-4">
+                                This tool supports <strong>YAML 1.2</strong>, the latest standard. It&apos;s compatible with <strong>Docker Compose, Kubernetes manifests, GitHub Actions workflows</strong>, and all modern DevOps tools.
+                            </div>
+                        </details>
                     </div>
                 </section>
+
 
                 {/* Educational Content Sections */}
                 <section className="w-full max-w-[1920px] mx-auto px-4 sm:px-6 lg:px-8 pb-16 space-y-16">
