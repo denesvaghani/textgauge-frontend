@@ -1,0 +1,96 @@
+# Page snapshot
+
+```yaml
+- generic [active] [ref=e1]:
+  - navigation [ref=e2]:
+    - generic [ref=e4]:
+      - link "TextGauge Logo TextGauge" [ref=e5] [cursor=pointer]:
+        - /url: /
+        - img "TextGauge Logo" [ref=e6]
+        - generic [ref=e7]: TextGauge
+      - generic [ref=e8]:
+        - link "Character Counter" [ref=e9] [cursor=pointer]:
+          - /url: /
+        - link "JSON Formatter" [ref=e10] [cursor=pointer]:
+          - /url: /json-formatter
+        - link "YAML Formatter" [ref=e11] [cursor=pointer]:
+          - /url: /yaml-formatter
+        - link "TOML Formatter" [ref=e12] [cursor=pointer]:
+          - /url: /toml-formatter
+        - link "JSON to CSV" [ref=e13] [cursor=pointer]:
+          - /url: /json-to-csv-converter
+        - link "JSON to TOON" [ref=e14] [cursor=pointer]:
+          - /url: /json-to-toon-converter
+        - link "Diff Checker" [ref=e15] [cursor=pointer]:
+          - /url: /diff-checker
+  - main [ref=e16]:
+    - generic [ref=e18]:
+      - heading "404" [level=1] [ref=e19]
+      - heading "This page could not be found." [level=2] [ref=e21]
+  - contentinfo [ref=e22]:
+    - generic [ref=e23]:
+      - generic [ref=e24]:
+        - generic [ref=e25]:
+          - link "TextGauge Logo TextGauge" [ref=e26] [cursor=pointer]:
+            - /url: /
+            - img "TextGauge Logo" [ref=e27]
+            - generic [ref=e28]: TextGauge
+          - paragraph [ref=e29]: Free, secure, and privacy-focused developer tools for text analysis and data conversion.
+        - generic [ref=e30]:
+          - heading "Tools" [level=3] [ref=e31]
+          - list [ref=e32]:
+            - listitem [ref=e33]:
+              - link "Character Counter" [ref=e34] [cursor=pointer]:
+                - /url: /
+            - listitem [ref=e35]:
+              - link "JSON Formatter" [ref=e36] [cursor=pointer]:
+                - /url: /json-formatter
+            - listitem [ref=e37]:
+              - link "YAML Formatter" [ref=e38] [cursor=pointer]:
+                - /url: /yaml-formatter
+            - listitem [ref=e39]:
+              - link "TOML Formatter" [ref=e40] [cursor=pointer]:
+                - /url: /toml-formatter
+            - listitem [ref=e41]:
+              - link "JSON to CSV" [ref=e42] [cursor=pointer]:
+                - /url: /json-to-csv-converter
+            - listitem [ref=e43]:
+              - link "JSON to TOON" [ref=e44] [cursor=pointer]:
+                - /url: /json-to-toon-converter
+            - listitem [ref=e45]:
+              - link "Diff Checker" [ref=e46] [cursor=pointer]:
+                - /url: /diff-checker
+        - generic [ref=e47]:
+          - heading "Legal" [level=3] [ref=e48]
+          - list [ref=e49]:
+            - listitem [ref=e50]:
+              - link "Privacy Policy" [ref=e51] [cursor=pointer]:
+                - /url: /privacy
+            - listitem [ref=e52]:
+              - link "Terms of Service" [ref=e53] [cursor=pointer]:
+                - /url: /terms
+            - listitem [ref=e54]:
+              - link "Cookie Policy" [ref=e55] [cursor=pointer]:
+                - /url: /cookie-policy
+        - generic [ref=e56]:
+          - heading "Company" [level=3] [ref=e57]
+          - list [ref=e58]:
+            - listitem [ref=e59]:
+              - link "About Us" [ref=e60] [cursor=pointer]:
+                - /url: /about
+            - listitem [ref=e61]:
+              - link "Contact" [ref=e62] [cursor=pointer]:
+                - /url: /contact
+      - paragraph [ref=e64]: © 2025 TextGauge. All rights reserved.
+  - generic [ref=e67]:
+    - paragraph [ref=e68]:
+      - text: We use cookies to enhance your experience and analyze traffic. By continuing to visit this site you agree to our use of cookies.
+      - link "Learn more" [ref=e69] [cursor=pointer]:
+        - /url: /cookie-policy
+    - button "Got it" [ref=e70]
+  - button "Toggle theme" [ref=e71]:
+    - img [ref=e72]
+  - button "Open Next.js Dev Tools" [ref=e79] [cursor=pointer]:
+    - img [ref=e80]
+  - alert [ref=e83]
+```

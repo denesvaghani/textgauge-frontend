@@ -230,7 +230,8 @@ const flushBuffers = () => {
 
                 {/* Unified Diff View with Word-Level Highlighting */}
                 <div className="border border-slate-200 dark:border-slate-700 rounded-lg overflow-hidden">
-                    <pre className="p-4 overflow-x-auto">
+                    <pre className="py-4 overflow-x-auto">
+                        <div className="inline-block min-w-full">
                         {(() => {
                             const elements: React.ReactNode[] = [];
                             let removedLines: string[] = [];
@@ -248,19 +249,19 @@ const flushBuffers = () => {
                                         elements.push(
                                             <div
                                                 key={keyCounter++}
-                                                className="bg-red-100 dark:bg-red-900/30 text-red-900 dark:text-red-100 px-2 py-0.5 border-l-4 border-red-500"
+                                                className="flex w-full bg-red-100 dark:bg-red-900/30 text-red-900 dark:text-red-100 py-0.5 border-l-4 border-red-500"
                                             >
-                                                <span className="select-none mr-2 text-red-400">-</span>
-                                                {renderWordDiff(oldLine, newLine, "removed")}
+                                                <span className="select-none px-2 text-red-400 shrink-0 sticky left-0 bg-red-100 dark:bg-red-900/30">-</span>
+                                                <span className="pr-2 whitespace-pre">{renderWordDiff(oldLine, newLine, "removed")}</span>
                                             </div>
                                         );
                                         elements.push(
                                             <div
                                                 key={keyCounter++}
-                                                className="bg-green-100 dark:bg-green-900/30 text-green-900 dark:text-green-100 px-2 py-0.5 border-l-4 border-green-500"
+                                                className="flex w-full bg-green-100 dark:bg-green-900/30 text-green-900 dark:text-green-100 py-0.5 border-l-4 border-green-500"
                                             >
-                                                <span className="select-none mr-2 text-green-400">+</span>
-                                                {renderWordDiff(oldLine, newLine, "added")}
+                                                <span className="select-none px-2 text-green-400 shrink-0 sticky left-0 bg-green-100 dark:bg-green-900/30">+</span>
+                                                <span className="pr-2 whitespace-pre">{renderWordDiff(oldLine, newLine, "added")}</span>
                                             </div>
                                         );
                                     } else if (oldLine) {
@@ -268,10 +269,10 @@ const flushBuffers = () => {
                                         elements.push(
                                             <div
                                                 key={keyCounter++}
-                                                className="bg-red-200 dark:bg-red-900/60 text-red-900 dark:text-red-50 font-bold px-2 py-0.5 border-l-4 border-red-600"
+                                                className="flex w-full bg-red-200 dark:bg-red-900/60 text-red-900 dark:text-red-50 font-bold py-0.5 border-l-4 border-red-600"
                                             >
-                                                <span className="select-none mr-2 text-red-600 font-extrabold">-</span>
-                                                {oldLine}
+                                                <span className="select-none px-2 text-red-600 font-extrabold shrink-0 sticky left-0 bg-red-200 dark:bg-red-900/60">-</span>
+                                                <span className="pr-2 whitespace-pre">{oldLine}</span>
                                             </div>
                                         );
                                     } else if (newLine) {
@@ -279,10 +280,10 @@ const flushBuffers = () => {
                                         elements.push(
                                             <div
                                                 key={keyCounter++}
-                                                className="bg-green-200 dark:bg-green-900/60 text-green-900 dark:text-green-50 font-bold px-2 py-0.5 border-l-4 border-green-600"
+                                                className="flex w-full bg-green-200 dark:bg-green-900/60 text-green-900 dark:text-green-50 font-bold py-0.5 border-l-4 border-green-600"
                                             >
-                                                <span className="select-none mr-2 text-green-600 font-extrabold">+</span>
-                                                {newLine}
+                                                <span className="select-none px-2 text-green-600 font-extrabold shrink-0 sticky left-0 bg-green-200 dark:bg-green-900/60">+</span>
+                                                <span className="pr-2 whitespace-pre">{newLine}</span>
                                             </div>
                                         );
                                     }
@@ -305,10 +306,10 @@ const flushBuffers = () => {
                                         elements.push(
                                             <div
                                                 key={keyCounter++}
-                                                className="text-slate-700 dark:text-slate-300 px-2 py-0.5 border-l-4 border-transparent"
+                                                className="flex w-full text-slate-700 dark:text-slate-300 py-0.5 border-l-4 border-transparent"
                                             >
-                                                <span className="select-none mr-2 text-slate-400"> </span>
-                                                {line || " "}
+                                                <span className="select-none px-2 text-slate-400 shrink-0 sticky left-0 bg-white dark:bg-slate-900"> </span>
+                                                <span className="pr-2 whitespace-pre">{line || " "}</span>
                                             </div>
                                         );
                                     });
@@ -318,6 +319,7 @@ const flushBuffers = () => {
                             flushPairs();
                             return elements;
                         })()}
+                        </div>
                     </pre>
                 </div>
             </div>
@@ -344,29 +346,34 @@ const flushBuffers = () => {
                     <div className="px-3 py-2 bg-slate-100 dark:bg-slate-800 text-xs font-semibold text-slate-600 dark:text-slate-400 border-b border-slate-200 dark:border-slate-700">
                         Original
                     </div>
-                    <pre className="p-2 overflow-x-auto max-h-[600px] overflow-y-auto">
+                    <pre className="py-2 overflow-x-auto max-h-[700px] overflow-y-auto">
+                        <div className="inline-block min-w-full">
                         {originalLines.map((line, index) => {
                             const pairedModLine = line.pairIndex !== undefined ? modifiedLines[index] : null;
                             const showWordDiff = line.type === "removed" && pairedModLine?.type === "added";
                             
                             // Determine style based on whether it is paired (word diff) or unpaired (full line diff)
-                            let lineStyle = "text-slate-700 dark:text-slate-300";
+                            let lineStyle = "text-slate-700 dark:text-slate-300 bg-slate-50 dark:bg-slate-900/50";
+                            let lineNumBg = "bg-slate-50 dark:bg-slate-900/50";
                             if (line.type === "removed") {
                                 if (showWordDiff) {
                                     lineStyle = "bg-red-100 dark:bg-red-900/30 text-red-900 dark:text-red-100";
+                                    lineNumBg = "bg-red-100 dark:bg-red-900/30";
                                 } else {
                                     lineStyle = "bg-red-200 dark:bg-red-900/60 text-red-900 dark:text-red-50 font-bold";
+                                    lineNumBg = "bg-red-200 dark:bg-red-900/60";
                                 }
                             }
 
                             return (
                                 <div
                                     key={index}
-                                    className={`px-2 py-0.5 ${lineStyle}`}
+                                    className={`flex w-full py-0.5 ${lineStyle}`}
                                 >
-                                    <span className="select-none mr-2 text-slate-400 text-xs w-6 inline-block text-right">
+                                    <span className={`select-none px-2 text-slate-400 text-xs w-8 shrink-0 text-right sticky left-0 ${lineNumBg}`}>
                                         {index + 1}
                                     </span>
+                                    <span className="pr-2 whitespace-pre">
                                     {showWordDiff && pairedModLine
                                         ? renderWordDiff(line.text, pairedModLine.text, "removed")
                                         : (
@@ -374,9 +381,11 @@ const flushBuffers = () => {
                                                 {line.text || " "}
                                             </span>
                                         )}
+                                    </span>
                                 </div>
                             );
                         })}
+                        </div>
                     </pre>
                 </div>
 
@@ -385,29 +394,34 @@ const flushBuffers = () => {
                     <div className="px-3 py-2 bg-slate-100 dark:bg-slate-800 text-xs font-semibold text-slate-600 dark:text-slate-400 border-b border-slate-200 dark:border-slate-700">
                         Modified
                     </div>
-                    <pre className="p-2 overflow-x-auto max-h-[600px] overflow-y-auto">
+                    <pre className="py-2 overflow-x-auto max-h-[700px] overflow-y-auto">
+                        <div className="inline-block min-w-full">
                         {modifiedLines.map((line, index) => {
                             const pairedOrigLine = line.pairIndex !== undefined ? originalLines[line.pairIndex] : null;
                             const showWordDiff = line.type === "added" && pairedOrigLine?.type === "removed";
                             
                             // Determine style based on whether it is paired (word diff) or unpaired (full line diff)
-                            let lineStyle = "text-slate-700 dark:text-slate-300";
+                            let lineStyle = "text-slate-700 dark:text-slate-300 bg-slate-50 dark:bg-slate-900/50";
+                            let lineNumBg = "bg-slate-50 dark:bg-slate-900/50";
                             if (line.type === "added") {
                                 if (showWordDiff) {
                                     lineStyle = "bg-green-100 dark:bg-green-900/30 text-green-900 dark:text-green-100";
+                                    lineNumBg = "bg-green-100 dark:bg-green-900/30";
                                 } else {
                                     lineStyle = "bg-green-200 dark:bg-green-900/60 text-green-900 dark:text-green-50 font-bold";
+                                    lineNumBg = "bg-green-200 dark:bg-green-900/60";
                                 }
                             }
 
                             return (
                                 <div
                                     key={index}
-                                    className={`px-2 py-0.5 ${lineStyle}`}
+                                    className={`flex w-full py-0.5 ${lineStyle}`}
                                 >
-                                    <span className="select-none mr-2 text-slate-400 text-xs w-6 inline-block text-right">
+                                    <span className={`select-none px-2 text-slate-400 text-xs w-8 shrink-0 text-right sticky left-0 ${lineNumBg}`}>
                                         {index + 1}
                                     </span>
+                                    <span className="pr-2 whitespace-pre">
                                     {showWordDiff && pairedOrigLine
                                         ? renderWordDiff(pairedOrigLine.text, line.text, "added")
                                         : (
@@ -415,9 +429,11 @@ const flushBuffers = () => {
                                                 {line.text || " "}
                                             </span>
                                         )}
+                                    </span>
                                 </div>
                             );
                         })}
+                        </div>
                     </pre>
                 </div>
             </div>

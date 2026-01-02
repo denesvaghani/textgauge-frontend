@@ -4,11 +4,13 @@ import Link from "next/link";
 import Image from "next/image";
 import { usePathname } from "next/navigation";
 import { useState, useEffect } from "react";
-import { Menu, X } from "lucide-react";
+import { Menu, X, Moon, Sun } from "lucide-react";
+import { useTheme } from "@/contexts/ThemeContext";
 
 export function Navigation() {
     const pathname = usePathname();
     const [isMenuOpen, setIsMenuOpen] = useState(false);
+    const { theme, toggleTheme } = useTheme();
 
     // Close menu when route changes
     useEffect(() => {
@@ -63,9 +65,9 @@ export function Navigation() {
                                 <Link
                                     key={link.href}
                                     href={link.href}
-                                    className={`inline-flex items-center px-3 h-full text-sm font-medium transition-all duration-200 border-b-2 whitespace-nowrap ${isActive
-                                        ? "border-indigo-500 text-indigo-600 dark:text-indigo-400 bg-indigo-50/50 dark:bg-indigo-900/10"
-                                        : "border-transparent text-slate-500 dark:text-slate-400 hover:text-slate-900 dark:hover:text-slate-200 hover:bg-slate-50 dark:hover:bg-slate-800/50"
+                                    className={`inline-flex items-center px-3 h-full text-sm font-medium transition-all duration-200 whitespace-nowrap ${isActive
+                                        ? "text-indigo-600 dark:text-indigo-400 bg-indigo-50 dark:bg-indigo-900/20"
+                                        : "text-slate-500 dark:text-slate-400 hover:text-slate-900 dark:hover:text-slate-200 hover:bg-slate-50 dark:hover:bg-slate-800/50"
                                         }`}
                                 >
                                     {link.label}
@@ -74,15 +76,31 @@ export function Navigation() {
                         })}
                     </div>
 
-                    {/* Mobile Menu Button */}
-                    <button
-                        onClick={() => setIsMenuOpen(!isMenuOpen)}
-                        className="md:hidden flex items-center justify-center w-11 h-11 my-auto rounded-lg text-slate-600 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors"
-                        aria-label={isMenuOpen ? "Close menu" : "Open menu"}
-                        aria-expanded={isMenuOpen}
-                    >
-                        {isMenuOpen ? <X size={24} /> : <Menu size={24} />}
-                    </button>
+                    {/* Theme Toggle & Mobile Menu */}
+                    <div className="flex items-center gap-2">
+                        {/* Theme Toggle Button - Modern rounded design */}
+                        <button
+                            onClick={toggleTheme}
+                            className="p-2.5 rounded-full bg-white dark:bg-gray-800 shadow-md hover:shadow-lg transition-all duration-200 border border-gray-200 dark:border-gray-700"
+                            aria-label="Toggle theme"
+                        >
+                            {theme === 'light' ? (
+                                <Moon size={18} className="text-gray-700" />
+                            ) : (
+                                <Sun size={18} className="text-yellow-400" />
+                            )}
+                        </button>
+
+                        {/* Mobile Menu Button */}
+                        <button
+                            onClick={() => setIsMenuOpen(!isMenuOpen)}
+                            className="md:hidden flex items-center justify-center w-11 h-11 rounded-lg text-slate-600 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors"
+                            aria-label={isMenuOpen ? "Close menu" : "Open menu"}
+                            aria-expanded={isMenuOpen}
+                        >
+                            {isMenuOpen ? <X size={24} /> : <Menu size={24} />}
+                        </button>
+                    </div>
                 </div>
             </div>
 

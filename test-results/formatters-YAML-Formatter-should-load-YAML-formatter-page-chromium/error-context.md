@@ -1,0 +1,257 @@
+# Page snapshot
+
+```yaml
+- generic [active] [ref=e1]:
+  - navigation [ref=e2]:
+    - generic [ref=e4]:
+      - link "TextGauge Logo TextGauge" [ref=e5] [cursor=pointer]:
+        - /url: /
+        - img "TextGauge Logo" [ref=e6]
+        - generic [ref=e7]: TextGauge
+      - generic [ref=e8]:
+        - link "Character Counter" [ref=e9] [cursor=pointer]:
+          - /url: /
+        - link "JSON Formatter" [ref=e10] [cursor=pointer]:
+          - /url: /json-formatter
+        - link "YAML Formatter" [ref=e11] [cursor=pointer]:
+          - /url: /yaml-formatter
+        - link "TOML Formatter" [ref=e12] [cursor=pointer]:
+          - /url: /toml-formatter
+        - link "JSON to CSV" [ref=e13] [cursor=pointer]:
+          - /url: /json-to-csv-converter
+        - link "JSON to TOON" [ref=e14] [cursor=pointer]:
+          - /url: /json-to-toon-converter
+        - link "Diff Checker" [ref=e15] [cursor=pointer]:
+          - /url: /diff-checker
+  - main [ref=e16]:
+    - generic [ref=e18]:
+      - generic [ref=e20]:
+        - generic [ref=e21]:
+          - img "White Lily" [ref=e23]
+          - generic [ref=e24]: YAML Tool
+        - paragraph [ref=e25]: White Lily — Represents purity, clarity, and the commitment to honest expression.
+      - generic [ref=e26]:
+        - generic [ref=e27]:
+          - generic [ref=e30]:
+            - generic [ref=e31]:
+              - heading "YAML Formatter, Validator & Beautifier" [level=1] [ref=e32]
+              - paragraph [ref=e33]: Free online tool to format, beautify, and validate YAML files. Convert JSON to YAML, fix structural errors, and ensure valid YAML syntax. Prettier your YAML configuration files instantly.
+            - generic:
+              - generic:
+                - insertion
+          - main [ref=e34]:
+            - generic [ref=e35]:
+              - generic [ref=e36]:
+                - generic [ref=e37]:
+                  - generic [ref=e38]:
+                    - generic [ref=e39]: Input
+                    - generic [ref=e42]: Saved
+                  - generic [ref=e43]:
+                    - button "Upload File" [ref=e44]:
+                      - img [ref=e45]
+                    - button "Load from URL" [ref=e48]:
+                      - img [ref=e49]
+                    - button "Clear" [ref=e52]:
+                      - img [ref=e53]
+                - generic [ref=e57]:
+                  - button "Copy" [ref=e59]:
+                    - img [ref=e60]
+                  - generic [ref=e63]:
+                    - generic [ref=e65]: "1"
+                    - textbox "Paste your code here..." [ref=e66]
+                - generic [ref=e67]:
+                  - generic [ref=e68]:
+                    - generic [ref=e69]: 0 LN
+                    - generic [ref=e70]: 0 CH
+                  - generic [ref=e71]: 0.00 KB
+              - generic [ref=e72]:
+                - generic [ref=e73]:
+                  - button "Beautify" [ref=e74]:
+                    - generic [ref=e76]:
+                      - img [ref=e77]
+                      - generic [ref=e80]: Beautify
+                  - link "Diff" [ref=e81] [cursor=pointer]:
+                    - /url: /diff-checker
+                    - img [ref=e82]
+                    - text: Diff
+                  - button "Swap" [ref=e87]:
+                    - img [ref=e88]
+                    - text: Swap
+                - generic [ref=e90]:
+                  - generic [ref=e91]: Indentation
+                  - generic [ref=e92]:
+                    - combobox [ref=e93] [cursor=pointer]:
+                      - option "2 Spaces" [selected]
+                      - option "3 Spaces"
+                      - option "4 Spaces"
+                      - option "8 Spaces"
+                    - generic:
+                      - img
+                - button "Load Sample" [ref=e94]
+                - insertion [ref=e96]:
+                  - iframe [ref=e98]:
+                    
+              - generic [ref=e99]:
+                - generic [ref=e100]:
+                  - generic [ref=e102]: Output
+                  - button "Download" [ref=e104]:
+                    - img [ref=e105]
+                - generic [ref=e109]:
+                  - button "Copy" [ref=e111]:
+                    - img [ref=e112]
+                  - generic [ref=e115]:
+                    - generic [ref=e117]: "1"
+                    - textbox "Result will appear here..." [ref=e118]
+                - generic [ref=e119]:
+                  - generic [ref=e120]:
+                    - generic [ref=e121]: 0 LN
+                    - generic [ref=e122]: 0 CH
+                  - generic [ref=e123]: 0.00 KB
+        - generic [ref=e125]:
+          - heading "Key Features" [level=2] [ref=e126]
+          - generic [ref=e127]:
+            - generic [ref=e128]:
+              - heading "Format & Beautify" [level=3] [ref=e129]: Format & Beautify
+              - paragraph [ref=e131]: Instantly format and beautify YAML files with customizable indentation. Makes YAML configs readable and properly structured for Docker, Kubernetes, CI/CD pipelines.
+            - generic [ref=e132]:
+              - heading "Validation" [level=3] [ref=e133]: Validation
+              - paragraph [ref=e135]: Validates YAML syntax and structure in real-time. Detects indentation errors, syntax mistakes, and invalid YAML instantly with clear error messages.
+            - generic [ref=e136]:
+              - heading "100% Client-Side" [level=3] [ref=e137]: 100% Client-Side
+              - paragraph [ref=e139]: All processing happens in your browser. Your YAML configuration files never leave your device, ensuring complete privacy and security.
+        - generic [ref=e140]:
+          - heading "Frequently Asked Questions" [level=2] [ref=e141]
+          - generic [ref=e142]:
+            - group [ref=e143]:
+              - generic "How do I validate YAML? ▼" [ref=e144] [cursor=pointer]:
+                - text: How do I validate YAML?
+                - generic [ref=e145]: ▼
+            - group [ref=e146]:
+              - generic "Is my YAML data secure? ▼" [ref=e147] [cursor=pointer]:
+                - text: Is my YAML data secure?
+                - generic [ref=e148]: ▼
+            - group [ref=e149]:
+              - generic "What YAML versions are supported? ▼" [ref=e150] [cursor=pointer]:
+                - text: What YAML versions are supported?
+                - generic [ref=e151]: ▼
+        - generic [ref=e152]:
+          - generic [ref=e153]:
+            - heading "What is YAML file?" [level=2] [ref=e154]
+            - generic [ref=e155]:
+              - paragraph [ref=e156]: YAML (YAML Ain't Markup Language) is a human-readable data serialization standard that can be used in conjunction with all programming languages and is often used to write configuration files.
+              - paragraph [ref=e157]: It caters to people using data rather than just computers processing it. YAML is often used for configuration files and in applications where data is being stored or transmitted.
+          - generic [ref=e158]:
+            - heading "YAML Examples" [level=2] [ref=e159]
+            - paragraph [ref=e160]: "Here is a simple example of YAML data representing a server config:"
+            - generic [ref=e162]: "name: Production Server version: 1.0.0 dependencies: - name: nginx version: 1.18.0 - name: postgresql version: 13.2 settings: debug: false max_connections: 100"
+          - generic [ref=e163]:
+            - heading "YAML Beautifier helps to perform below tasks:" [level=2] [ref=e164]
+            - generic [ref=e165]:
+              - link "YAML Beautifier" [ref=e166] [cursor=pointer]:
+                - /url: /yaml-formatter
+              - link "YAML Parser" [ref=e167] [cursor=pointer]:
+                - /url: /yaml-formatter
+              - link "YAML Editor" [ref=e168] [cursor=pointer]:
+                - /url: /yaml-formatter
+              - link "YAML Viewer" [ref=e169] [cursor=pointer]:
+                - /url: /yaml-formatter
+              - link "YAML Formatter" [ref=e170] [cursor=pointer]:
+                - /url: /yaml-formatter
+              - link "YAML Pretty Print" [ref=e171] [cursor=pointer]:
+                - /url: /yaml-formatter
+              - link "YAML Validator" [ref=e172] [cursor=pointer]:
+                - /url: /yaml-formatter
+          - paragraph [ref=e175]:
+            - text: YAML Formatter working properly in
+            - strong [ref=e176]: Windows
+            - text: ","
+            - strong [ref=e177]: Mac
+            - text: ","
+            - strong [ref=e178]: Linux
+            - text: ","
+            - strong [ref=e179]: Chrome
+            - text: ","
+            - strong [ref=e180]: Firefox
+            - text: ","
+            - strong [ref=e181]: Safari
+            - text: and
+            - strong [ref=e182]: Edge
+            - text: and it's
+            - strong [ref=e183]: Free
+            - text: .
+  - contentinfo [ref=e184]:
+    - generic [ref=e185]:
+      - generic [ref=e186]:
+        - generic [ref=e187]:
+          - link "TextGauge Logo TextGauge" [ref=e188] [cursor=pointer]:
+            - /url: /
+            - img "TextGauge Logo" [ref=e189]
+            - generic [ref=e190]: TextGauge
+          - paragraph [ref=e191]: Free, secure, and privacy-focused developer tools for text analysis and data conversion.
+        - generic [ref=e192]:
+          - heading "Tools" [level=3] [ref=e193]
+          - list [ref=e194]:
+            - listitem [ref=e195]:
+              - link "Character Counter" [ref=e196] [cursor=pointer]:
+                - /url: /
+            - listitem [ref=e197]:
+              - link "JSON Formatter" [ref=e198] [cursor=pointer]:
+                - /url: /json-formatter
+            - listitem [ref=e199]:
+              - link "YAML Formatter" [ref=e200] [cursor=pointer]:
+                - /url: /yaml-formatter
+            - listitem [ref=e201]:
+              - link "TOML Formatter" [ref=e202] [cursor=pointer]:
+                - /url: /toml-formatter
+            - listitem [ref=e203]:
+              - link "JSON to CSV" [ref=e204] [cursor=pointer]:
+                - /url: /json-to-csv-converter
+            - listitem [ref=e205]:
+              - link "JSON to TOON" [ref=e206] [cursor=pointer]:
+                - /url: /json-to-toon-converter
+            - listitem [ref=e207]:
+              - link "Diff Checker" [ref=e208] [cursor=pointer]:
+                - /url: /diff-checker
+        - generic [ref=e209]:
+          - heading "Legal" [level=3] [ref=e210]
+          - list [ref=e211]:
+            - listitem [ref=e212]:
+              - link "Privacy Policy" [ref=e213] [cursor=pointer]:
+                - /url: /privacy
+            - listitem [ref=e214]:
+              - link "Terms of Service" [ref=e215] [cursor=pointer]:
+                - /url: /terms
+            - listitem [ref=e216]:
+              - link "Cookie Policy" [ref=e217] [cursor=pointer]:
+                - /url: /cookie-policy
+        - generic [ref=e218]:
+          - heading "Company" [level=3] [ref=e219]
+          - list [ref=e220]:
+            - listitem [ref=e221]:
+              - link "About Us" [ref=e222] [cursor=pointer]:
+                - /url: /about
+            - listitem [ref=e223]:
+              - link "Contact" [ref=e224] [cursor=pointer]:
+                - /url: /contact
+      - paragraph [ref=e226]: © 2025 TextGauge. All rights reserved.
+  - generic [ref=e229]:
+    - paragraph [ref=e230]:
+      - text: We use cookies to enhance your experience and analyze traffic. By continuing to visit this site you agree to our use of cookies.
+      - link "Learn more" [ref=e231] [cursor=pointer]:
+        - /url: /cookie-policy
+    - button "Got it" [ref=e232]
+  - button "Toggle theme" [ref=e233]:
+    - img [ref=e234]
+  - generic [ref=e240] [cursor=pointer]:
+    - button "Open Next.js Dev Tools" [ref=e241]:
+      - img [ref=e242]
+    - generic [ref=e245]:
+      - button "Open issues overlay" [ref=e246]:
+        - generic [ref=e247]:
+          - generic [ref=e248]: "0"
+          - generic [ref=e249]: "1"
+        - generic [ref=e250]: Issue
+      - button "Collapse issues badge" [ref=e251]:
+        - img [ref=e252]
+  - alert [ref=e254]
+```

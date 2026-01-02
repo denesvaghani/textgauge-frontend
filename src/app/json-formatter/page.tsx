@@ -34,6 +34,7 @@ export default function JsonFormatterPage() {
                     onTransform={formatJson}
                     onMinify={minifyJson}
                     sampleData={sampleData}
+                    titleGradient="bg-gradient-to-r from-pink-600 to-rose-600 dark:from-pink-400 dark:to-rose-400"
                     customActions={
                         <>
                             <Link

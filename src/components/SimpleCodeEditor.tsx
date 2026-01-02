@@ -223,6 +223,7 @@ interface SimpleCodeEditorProps {
     language?: "json" | "yaml" | "text" | "csv" | "toml";
     onUpload?: () => void;
     onClear?: () => void;
+    hideCopy?: boolean;
 }
 
 export function SimpleCodeEditor({
@@ -234,6 +235,7 @@ export function SimpleCodeEditor({
     language = "text",
     onUpload,
     onClear,
+    hideCopy = false,
 }: SimpleCodeEditorProps) {
     const textareaRef = useRef<HTMLTextAreaElement>(null);
     const lineNumbersRef = useRef<HTMLDivElement>(null);
@@ -504,13 +506,15 @@ export function SimpleCodeEditor({
                         <Trash2 size={14} />
                     </button>
                 )}
-                <button
-                    onClick={handleCopy}
-                    className="p-1.5 text-slate-400 hover:text-indigo-600 hover:bg-slate-100 dark:hover:bg-slate-800 rounded-md transition-all"
-                    title="Copy"
-                >
-                    {copied ? <Check size={14} className="text-green-500" /> : <Copy size={14} />}
-                </button>
+                {!hideCopy && (
+                    <button
+                        onClick={handleCopy}
+                        className="p-1.5 text-slate-400 hover:text-indigo-600 hover:bg-slate-100 dark:hover:bg-slate-800 rounded-md transition-all"
+                        title="Copy"
+                    >
+                        {copied ? <Check size={14} className="text-green-500" /> : <Copy size={14} />}
+                    </button>
+                )}
             </div>
 
             {/* Floating Find Widget */}

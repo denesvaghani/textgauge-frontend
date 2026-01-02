@@ -1,8 +1,9 @@
 "use client";
 
 import { useState, useCallback, useRef, useEffect } from "react";
-import { ArrowLeftRight, Trash2, GitCompare, Eye, FileJson, FileCode, AlignLeft } from "lucide-react";
+import { ArrowLeftRight, Trash2, GitCompare, Eye, Upload, Copy, Check } from "lucide-react";
 import Link from "next/link";
+import Image from "next/image";
 import { SimpleCodeEditor } from "@/components/SimpleCodeEditor";
 import { DiffViewer } from "@/components/DiffViewer";
 import { FlowerBackground } from "@/components/FlowerBackground";
@@ -17,9 +18,15 @@ export default function DiffCheckerPage() {
     const [modified, setModified] = useState("");
     const [showDiff, setShowDiff] = useState(false);
     const [viewMode, setViewMode] = useState<ViewMode>("side-by-side");
+    const [copiedOriginal, setCopiedOriginal] = useState(false);
+    const [copiedModified, setCopiedModified] = useState(false);
 
     const handleCompare = useCallback(() => {
         setShowDiff(true);
+        // Scroll to diff result after state updates
+        setTimeout(() => {
+            diffResultRef.current?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }, 100);
     }, []);
 
     const handleSwap = useCallback(() => {
@@ -28,6 +35,10 @@ export default function DiffCheckerPage() {
         setModified(temp);
         if (original || modified) {
             setShowDiff(true);
+            // Scroll to diff result after swap
+            setTimeout(() => {
+                diffResultRef.current?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+            }, 100);
         }
     }, [original, modified]);
 
@@ -35,6 +46,10 @@ export default function DiffCheckerPage() {
         setOriginal("");
         setModified("");
         setShowDiff(false);
+        // Scroll to editors section
+        setTimeout(() => {
+            editorsRef.current?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }, 100);
     }, []);
 
     const sampleOriginal = `{
@@ -56,10 +71,16 @@ export default function DiffCheckerPage() {
         setOriginal(sampleOriginal);
         setModified(sampleModified);
         setShowDiff(false);
+        // Scroll to editors section
+        setTimeout(() => {
+            editorsRef.current?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }, 100);
     };
 
     const originalFileRef = useRef<HTMLInputElement>(null);
     const modifiedFileRef = useRef<HTMLInputElement>(null);
+    const diffResultRef = useRef<HTMLDivElement>(null);
+    const editorsRef = useRef<HTMLDivElement>(null);
 
     const handleFileUpload = (e: React.ChangeEvent<HTMLInputElement>, setContent: (val: string) => void) => {
         const file = e.target.files?.[0];
@@ -113,76 +134,147 @@ export default function DiffCheckerPage() {
                     onChange={(e) => handleFileUpload(e, setModified)}
                 />
 
-                {/* Header */}
-                <section className="bg-white/50 dark:bg-slate-900/50 border-b border-rose-200/50 dark:border-rose-800/30 pt-8 pb-12">
-                    <div className="max-w-[1920px] mx-auto px-4 sm:px-6 lg:px-8 text-center">
-                        <h1 className="text-3xl md:text-4xl font-extrabold text-slate-900 dark:text-white tracking-tight mb-3">
-                            Diff Checker
-                        </h1>
-                        <p className="text-base md:text-lg text-slate-600 dark:text-slate-300 max-w-2xl mx-auto mb-6">
-                            Professional-grade text comparison. Uses Myers Diff Algorithm for precise line-by-line analysis.
-                        </p>
-
-                        {/* Format Badges */}
-                        <div className="flex flex-wrap justify-center gap-2 mb-2">
-                             {["JSON", "YAML", "TOML", "XML", "SQL", "Config"].map((fmt) => (
-                                 <span key={fmt} className="px-2 py-1 bg-rose-100 dark:bg-rose-900/30 text-rose-600 dark:text-rose-400 text-xs font-mono font-medium rounded border border-rose-200 dark:border-rose-800">
-                                     {fmt}
-                                 </span>
-                             ))}
+                {/* Header - Matching Formatter Component Style */}
+                <header className="shrink-0 bg-white/80 dark:bg-slate-900/80 backdrop-blur-md shadow-sm border-b border-slate-200 dark:border-slate-800 z-10 sticky top-0">
+                    <div className="max-w-[1920px] mx-auto px-4 sm:px-6 lg:px-8 py-3">
+                        <div className="flex flex-col md:flex-row md:items-center justify-between gap-4">
+                            <div className="flex flex-col gap-0.5">
+                                <h1 className="text-xl sm:text-2xl font-extrabold tracking-tight text-slate-900 dark:text-white bg-clip-text text-transparent bg-gradient-to-r from-rose-600 to-red-600 dark:from-rose-400 dark:to-red-400 w-fit">
+                                    Diff Checker
+                                </h1>
+                                <p className="text-sm text-slate-500 dark:text-slate-400 max-w-2xl font-medium hidden sm:block">
+                                    Professional-grade text comparison. Uses Myers Diff Algorithm for precise line-by-line analysis.
+                                </p>
+                            </div>
                         </div>
                     </div>
-                </section>
+                </header>
 
                 {/* Main Content */}
                 <section className="max-w-[1920px] mx-auto px-4 sm:px-6 lg:px-8 py-8 flex-1 w-full">
                     {/* Editors Grid */}
-                    <div className="grid md:grid-cols-2 gap-4 mb-6">
+                    <div ref={editorsRef} className="grid md:grid-cols-2 gap-4 mb-6 scroll-mt-20">
                         {/* Original Editor */}
-                        <div className="bg-white/80 dark:bg-slate-900/80 backdrop-blur-sm rounded-xl border border-rose-200/50 dark:border-rose-800/30 overflow-hidden flex flex-col">
-                            <div className="px-4 py-3 bg-rose-50/50 dark:bg-rose-900/20 border-b border-rose-200/50 dark:border-rose-800/30 flex items-center justify-between">
-                                <span className="text-sm font-semibold text-slate-700 dark:text-slate-300">
-                                    Original Text
-                                </span>
+                        <div className="bg-white dark:bg-slate-900 rounded-xl shadow-sm ring-1 ring-slate-900/5 dark:ring-white/10 overflow-hidden flex flex-col">
+                            {/* Toolbar */}
+                            <div className="shrink-0 px-3 py-2 border-b border-slate-100 dark:border-slate-800 flex items-center justify-between bg-white dark:bg-slate-900">
+                                <div className="flex items-center gap-2">
+                                    <span className="text-[10px] font-bold text-slate-400 dark:text-slate-500 uppercase tracking-widest">Original</span>
+                                    <span className="flex items-center gap-1.5 px-1.5 py-0.5 rounded-full bg-emerald-50 dark:bg-emerald-950/30 border border-emerald-100 dark:border-emerald-900/50">
+                                        <div className="w-1 h-1 rounded-full bg-emerald-500 animate-pulse"></div>
+                                        <span className="text-[9px] font-medium text-emerald-600 dark:text-emerald-400">Saved</span>
+                                    </span>
+                                </div>
+                                <div className="flex items-center gap-1">
+                                    <button
+                                        type="button"
+                                        onClick={() => originalFileRef.current?.click()}
+                                        className="p-1.5 text-slate-500 hover:text-indigo-600 hover:bg-indigo-50 dark:text-slate-400 dark:hover:text-indigo-400 dark:hover:bg-indigo-900/20 rounded-md transition-all duration-200"
+                                        title="Upload File"
+                                    >
+                                        <Upload size={16} strokeWidth={2} />
+                                    </button>
+                                    <button
+                                        type="button"
+                                        onClick={async () => {
+                                            await navigator.clipboard.writeText(original);
+                                            setCopiedOriginal(true);
+                                            setTimeout(() => setCopiedOriginal(false), 2000);
+                                        }}
+                                        className="p-1.5 text-slate-500 hover:text-indigo-600 hover:bg-indigo-50 dark:text-slate-400 dark:hover:text-indigo-400 dark:hover:bg-indigo-900/20 rounded-md transition-all duration-200"
+                                        title="Copy"
+                                    >
+                                        {copiedOriginal ? <Check size={16} className="text-green-500" /> : <Copy size={16} strokeWidth={2} />}
+                                    </button>
+                                    <button
+                                        type="button"
+                                        onClick={() => setOriginal("")}
+                                        className="p-1.5 text-slate-400 hover:text-red-600 hover:bg-red-50 dark:text-slate-500 dark:hover:text-red-400 dark:hover:bg-red-900/20 rounded-md transition-all duration-200"
+                                        title="Clear"
+                                    >
+                                        <Trash2 size={16} strokeWidth={2} />
+                                    </button>
+                                </div>
                             </div>
-                            <div className="h-[450px]">
+                            {/* Editor Area */}
+                            <div className="shrink-0 relative bg-slate-50/30 dark:bg-black/20" style={{ height: '700px' }}>
                                 <SimpleCodeEditor
                                     value={original}
                                     onChange={setOriginal}
                                     placeholder="Paste original text here..."
                                     language="text"
-                                    onUpload={() => originalFileRef.current?.click()}
-                                    onClear={() => setOriginal("")}
+                                    hideCopy
                                 />
                             </div>
-                            <div className="px-4 py-2 bg-rose-50/50 dark:bg-rose-900/20 border-t border-rose-200/50 dark:border-rose-800/30 flex items-center gap-4 text-xs text-slate-500 dark:text-slate-400 font-mono">
-                                <span>Lines: {originalStats.lines}</span>
-                                <span>Chars: {originalStats.chars}</span>
-                                <span>Size: {originalStats.size}</span>
+                            {/* Status Bar */}
+                            <div className="shrink-0 px-3 py-1.5 border-t border-slate-100 dark:border-slate-800 flex justify-between items-center text-[10px] text-slate-400 dark:text-slate-500 font-medium font-mono bg-white dark:bg-slate-900">
+                                <div className="flex gap-3">
+                                    <span>{originalStats.lines} LN</span>
+                                    <span>{originalStats.chars} CH</span>
+                                </div>
+                                <div>{originalStats.size}</div>
                             </div>
                         </div>
 
                         {/* Modified Editor */}
-                        <div className="bg-white/80 dark:bg-slate-900/80 backdrop-blur-sm rounded-xl border border-rose-200/50 dark:border-rose-800/30 overflow-hidden flex flex-col">
-                            <div className="px-4 py-3 bg-rose-50/50 dark:bg-rose-900/20 border-b border-rose-200/50 dark:border-rose-800/30 flex items-center justify-between">
-                                <span className="text-sm font-semibold text-slate-700 dark:text-slate-300">
-                                    Modified Text
-                                </span>
+                        <div className="bg-white dark:bg-slate-900 rounded-xl shadow-sm ring-1 ring-slate-900/5 dark:ring-white/10 overflow-hidden flex flex-col">
+                            {/* Toolbar */}
+                            <div className="shrink-0 px-3 py-2 border-b border-slate-100 dark:border-slate-800 flex items-center justify-between bg-white dark:bg-slate-900">
+                                <div className="flex items-center gap-2">
+                                    <span className="text-[10px] font-bold text-slate-400 dark:text-slate-500 uppercase tracking-widest">Modified</span>
+                                    <span className="flex items-center gap-1.5 px-1.5 py-0.5 rounded-full bg-emerald-50 dark:bg-emerald-950/30 border border-emerald-100 dark:border-emerald-900/50">
+                                        <div className="w-1 h-1 rounded-full bg-emerald-500 animate-pulse"></div>
+                                        <span className="text-[9px] font-medium text-emerald-600 dark:text-emerald-400">Saved</span>
+                                    </span>
+                                </div>
+                                <div className="flex items-center gap-1">
+                                    <button
+                                        type="button"
+                                        onClick={() => modifiedFileRef.current?.click()}
+                                        className="p-1.5 text-slate-500 hover:text-indigo-600 hover:bg-indigo-50 dark:text-slate-400 dark:hover:text-indigo-400 dark:hover:bg-indigo-900/20 rounded-md transition-all duration-200"
+                                        title="Upload File"
+                                    >
+                                        <Upload size={16} strokeWidth={2} />
+                                    </button>
+                                    <button
+                                        type="button"
+                                        onClick={async () => {
+                                            await navigator.clipboard.writeText(modified);
+                                            setCopiedModified(true);
+                                            setTimeout(() => setCopiedModified(false), 2000);
+                                        }}
+                                        className="p-1.5 text-slate-500 hover:text-indigo-600 hover:bg-indigo-50 dark:text-slate-400 dark:hover:text-indigo-400 dark:hover:bg-indigo-900/20 rounded-md transition-all duration-200"
+                                        title="Copy"
+                                    >
+                                        {copiedModified ? <Check size={16} className="text-green-500" /> : <Copy size={16} strokeWidth={2} />}
+                                    </button>
+                                    <button
+                                        type="button"
+                                        onClick={() => setModified("")}
+                                        className="p-1.5 text-slate-400 hover:text-red-600 hover:bg-red-50 dark:text-slate-500 dark:hover:text-red-400 dark:hover:bg-red-900/20 rounded-md transition-all duration-200"
+                                        title="Clear"
+                                    >
+                                        <Trash2 size={16} strokeWidth={2} />
+                                    </button>
+                                </div>
                             </div>
-                            <div className="h-[450px]">
+                            {/* Editor Area */}
+                            <div className="shrink-0 relative bg-slate-50/30 dark:bg-black/20" style={{ height: '700px' }}>
                                 <SimpleCodeEditor
                                     value={modified}
                                     onChange={setModified}
                                     placeholder="Paste modified text here..."
                                     language="text"
-                                    onUpload={() => modifiedFileRef.current?.click()}
-                                    onClear={() => setModified("")}
+                                    hideCopy
                                 />
                             </div>
-                            <div className="px-4 py-2 bg-rose-50/50 dark:bg-rose-900/20 border-t border-rose-200/50 dark:border-rose-800/30 flex items-center gap-4 text-xs text-slate-500 dark:text-slate-400 font-mono">
-                                <span>Lines: {modifiedStats.lines}</span>
-                                <span>Chars: {modifiedStats.chars}</span>
-                                <span>Size: {modifiedStats.size}</span>
+                            {/* Status Bar */}
+                            <div className="shrink-0 px-3 py-1.5 border-t border-slate-100 dark:border-slate-800 flex justify-between items-center text-[10px] text-slate-400 dark:text-slate-500 font-medium font-mono bg-white dark:bg-slate-900">
+                                <div className="flex gap-3">
+                                    <span>{modifiedStats.lines} LN</span>
+                                    <span>{modifiedStats.chars} CH</span>
+                                </div>
+                                <div>{modifiedStats.size}</div>
                             </div>
                         </div>
                     </div>
@@ -223,35 +315,6 @@ export default function DiffCheckerPage() {
                                     Load Sample
                                 </button>
 
-                                <div className="mx-2 h-8 w-px bg-slate-300 dark:bg-slate-700 hidden lg:block"></div>
-
-                                <div className="flex items-center gap-2">
-                                    <Link
-                                        href="/json-formatter"
-                                        className="inline-flex items-center gap-2 px-3 py-2.5 bg-white dark:bg-slate-900 border border-rose-200/50 dark:border-rose-800/30 hover:border-rose-400 dark:hover:border-rose-500 text-slate-600 dark:text-slate-400 font-medium text-sm rounded-lg transition-colors"
-                                        title="Go to JSON Formatter"
-                                    >
-                                        <FileJson size={16} />
-                                        <span className="hidden xl:inline">JSON</span>
-                                    </Link>
-                                    <Link
-                                        href="/yaml-formatter"
-                                        className="inline-flex items-center gap-2 px-3 py-2.5 bg-white dark:bg-slate-900 border border-rose-200/50 dark:border-rose-800/30 hover:border-rose-400 dark:hover:border-rose-500 text-slate-600 dark:text-slate-400 font-medium text-sm rounded-lg transition-colors"
-                                        title="Go to YAML Formatter"
-                                    >
-                                        <AlignLeft size={16} />
-                                        <span className="hidden xl:inline">YAML</span>
-                                    </Link>
-                                    <Link
-                                        href="/toml-formatter"
-                                        className="inline-flex items-center gap-2 px-3 py-2.5 bg-white dark:bg-slate-900 border border-rose-200/50 dark:border-rose-800/30 hover:border-rose-400 dark:hover:border-rose-500 text-slate-600 dark:text-slate-400 font-medium text-sm rounded-lg transition-colors"
-                                        title="Go to TOML Formatter"
-                                    >
-                                        <FileCode size={16} />
-                                        <span className="hidden xl:inline">TOML</span>
-                                    </Link>
-                                </div>
-                                
                                 {/* Keyboard Legend */}
                                 <div className="hidden lg:flex items-center gap-3 ml-4 text-xs text-slate-400 font-mono border-l border-slate-200 dark:border-slate-700 pl-4">
                                     <span className="flex items-center gap-1">
@@ -267,7 +330,7 @@ export default function DiffCheckerPage() {
 
                     {/* Diff Result */}
                     {showDiff && (
-                        <div className="bg-white/80 dark:bg-slate-900/80 backdrop-blur-sm rounded-xl border border-rose-200/50 dark:border-rose-800/30 p-6">
+                        <div ref={diffResultRef} className="bg-white/80 dark:bg-slate-900/80 backdrop-blur-sm rounded-xl border border-rose-200/50 dark:border-rose-800/30 p-6 scroll-mt-20">
                             <div className="flex items-center justify-between mb-4">
                                 <h2 className="text-lg font-bold text-slate-900 dark:text-white">
                                     Differences
@@ -329,6 +392,78 @@ export default function DiffCheckerPage() {
                                 </p>
                             </div>
                         </div>
+                    </div>
+                </section>
+
+                {/* Related Tools Section */}
+                <section className="w-full max-w-[1920px] mx-auto px-4 sm:px-6 lg:px-8 pb-16">
+                    <div className="text-center mb-8">
+                        <h2 className="text-2xl font-bold text-slate-900 dark:text-white mb-2">
+                            🌸 Related Tools 🌸
+                        </h2>
+                        <p className="text-slate-600 dark:text-slate-300 text-sm">Format and validate your data before comparing</p>
+                    </div>
+                    <div className="grid md:grid-cols-3 gap-6">
+                        {[
+                            {
+                                href: "/json-formatter",
+                                theme: flowerThemes.cherryBlossom,
+                                title: "JSON Formatter",
+                                description: "Validate and beautify JSON data with syntax highlighting.",
+                                hoverBorder: "hover:border-pink-400/60 dark:hover:border-pink-400/40",
+                                hoverText: "group-hover:text-pink-600 dark:group-hover:text-pink-400",
+                            },
+                            {
+                                href: "/yaml-formatter",
+                                theme: flowerThemes.whiteLily,
+                                title: "YAML Formatter",
+                                description: "Convert and validate YAML files with error detection.",
+                                hoverBorder: "hover:border-emerald-400/60 dark:hover:border-emerald-400/40",
+                                hoverText: "group-hover:text-emerald-600 dark:group-hover:text-emerald-400",
+                            },
+                            {
+                                href: "/toml-formatter",
+                                theme: flowerThemes.frangipani,
+                                title: "TOML Formatter",
+                                description: "Format TOML configuration files instantly.",
+                                hoverBorder: "hover:border-orange-400/60 dark:hover:border-orange-400/40",
+                                hoverText: "group-hover:text-orange-600 dark:group-hover:text-orange-400",
+                            },
+                        ].map((tool) => (
+                            <Link
+                                key={tool.href}
+                                href={tool.href}
+                                className={`group relative p-5 rounded-xl bg-white/80 dark:bg-slate-900/80 backdrop-blur-sm border-2 border-rose-200/50 dark:border-rose-800/30 ${tool.hoverBorder} hover:shadow-xl transition-all duration-300 overflow-hidden`}
+                            >
+                                <div 
+                                    className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-300"
+                                    style={{
+                                        background: `radial-gradient(circle at 100% 0%, ${tool.theme.colors.glow}, transparent 50%)`,
+                                    }}
+                                />
+                                <div className="relative z-10">
+                                    <div className="flex items-center justify-between mb-3">
+                                        <div className="w-12 h-12 rounded-full overflow-hidden group-hover:scale-110 transition-transform duration-300 shadow-lg ring-2 ring-offset-2 ring-offset-white dark:ring-offset-slate-900"
+                                             style={{ boxShadow: `0 4px 20px ${tool.theme.colors.glow}`, borderColor: tool.theme.colors.primary }}>
+                                            <Image
+                                                src={tool.theme.image}
+                                                alt={tool.theme.name}
+                                                width={48}
+                                                height={48}
+                                                className="w-full h-full object-cover"
+                                            />
+                                        </div>
+                                        <span className="text-slate-300 dark:text-slate-600 group-hover:translate-x-1 transition-transform text-xl">→</span>
+                                    </div>
+                                    <h3 className={`text-lg font-bold text-slate-900 dark:text-white mb-1 ${tool.hoverText} transition-colors`}>
+                                        {tool.title}
+                                    </h3>
+                                    <p className="text-slate-600 dark:text-slate-400 text-sm leading-relaxed">
+                                        {tool.description}
+                                    </p>
+                                </div>
+                            </Link>
+                        ))}
                     </div>
                 </section>
 

@@ -1,0 +1,273 @@
+# Page snapshot
+
+```yaml
+- generic [active] [ref=e1]:
+  - navigation [ref=e2]:
+    - generic [ref=e4]:
+      - link "TextGauge Logo TextGauge" [ref=e5] [cursor=pointer]:
+        - /url: /
+        - img "TextGauge Logo" [ref=e6]
+        - generic [ref=e7]: TextGauge
+      - generic [ref=e8]:
+        - link "Character Counter" [ref=e9] [cursor=pointer]:
+          - /url: /
+        - link "JSON Formatter" [ref=e10] [cursor=pointer]:
+          - /url: /json-formatter
+        - link "YAML Formatter" [ref=e11] [cursor=pointer]:
+          - /url: /yaml-formatter
+        - link "TOML Formatter" [ref=e12] [cursor=pointer]:
+          - /url: /toml-formatter
+        - link "JSON to CSV" [ref=e13] [cursor=pointer]:
+          - /url: /json-to-csv-converter
+        - link "JSON to TOON" [ref=e14] [cursor=pointer]:
+          - /url: /json-to-toon-converter
+        - link "Diff Checker" [ref=e15] [cursor=pointer]:
+          - /url: /diff-checker
+  - main [ref=e16]:
+    - generic [ref=e18]:
+      - generic [ref=e20]:
+        - generic [ref=e21]:
+          - img "Cherry Blossom" [ref=e23]
+          - generic [ref=e24]: JSON Tool
+        - paragraph [ref=e25]: Cherry Blossom — Symbolizes renewal, the fleeting nature of life, and the beauty of new beginnings.
+      - generic [ref=e26]:
+        - generic [ref=e27]:
+          - generic [ref=e30]:
+            - generic [ref=e31]:
+              - heading "JSON Formatter, Validator & Beautifier" [level=1] [ref=e32]
+              - paragraph [ref=e33]: Free online tool to format, beautify, minify, and validate JSON. Fix JSON errors, structural issues, and format your code with 2-space, 4-space, or custom tab sizes. Prettier your JSON instantly.
+            - generic:
+              - generic:
+                - insertion
+          - main [ref=e34]:
+            - generic [ref=e35]:
+              - generic [ref=e36]:
+                - generic [ref=e37]:
+                  - generic [ref=e38]:
+                    - generic [ref=e39]: Input
+                    - generic [ref=e42]: Saved
+                  - generic [ref=e43]:
+                    - button "Upload File" [ref=e44]:
+                      - img [ref=e45]
+                    - button "Load from URL" [ref=e48]:
+                      - img [ref=e49]
+                    - button "Clear" [ref=e52]:
+                      - img [ref=e53]
+                - generic [ref=e57]:
+                  - button "Copy" [ref=e59]:
+                    - img [ref=e60]
+                  - generic [ref=e63]:
+                    - generic [ref=e65]: "1"
+                    - textbox "Paste your code here..." [ref=e66]
+                - generic [ref=e67]:
+                  - generic [ref=e68]:
+                    - generic [ref=e69]: 0 LN
+                    - generic [ref=e70]: 0 CH
+                  - generic [ref=e71]: 0.00 KB
+              - generic [ref=e72]:
+                - generic [ref=e73]:
+                  - button "Beautify" [ref=e74]:
+                    - generic [ref=e76]:
+                      - img [ref=e77]
+                      - generic [ref=e80]: Beautify
+                  - link "To CSV" [ref=e81] [cursor=pointer]:
+                    - /url: /json-to-csv-converter
+                    - img [ref=e82]
+                    - text: To CSV
+                  - link "Diff" [ref=e85] [cursor=pointer]:
+                    - /url: /diff-checker
+                    - img [ref=e86]
+                    - text: Diff
+                  - button "Minify" [ref=e91]:
+                    - img [ref=e92]
+                    - text: Minify
+                  - button "Swap" [ref=e97]:
+                    - img [ref=e98]
+                    - text: Swap
+                - generic [ref=e100]:
+                  - generic [ref=e101]: Indentation
+                  - generic [ref=e102]:
+                    - combobox [ref=e103] [cursor=pointer]:
+                      - option "2 Spaces" [selected]
+                      - option "3 Spaces"
+                      - option "4 Spaces"
+                      - option "8 Spaces"
+                    - generic:
+                      - img
+                - button "Load Sample" [ref=e104]
+                - insertion [ref=e106]:
+                  - iframe [ref=e108]:
+                    
+              - generic [ref=e109]:
+                - generic [ref=e110]:
+                  - generic [ref=e112]: Output
+                  - button "Download" [ref=e114]:
+                    - img [ref=e115]
+                - generic [ref=e119]:
+                  - button "Copy" [ref=e121]:
+                    - img [ref=e122]
+                  - generic [ref=e125]:
+                    - generic [ref=e127]: "1"
+                    - textbox "Result will appear here..." [ref=e128]
+                - generic [ref=e129]:
+                  - generic [ref=e130]:
+                    - generic [ref=e131]: 0 LN
+                    - generic [ref=e132]: 0 CH
+                  - generic [ref=e133]: 0.00 KB
+        - generic [ref=e135]:
+          - heading "Key Features" [level=2] [ref=e136]
+          - generic [ref=e137]:
+            - generic [ref=e138]:
+              - heading "Format & Beautify" [level=3] [ref=e139]: Format & Beautify
+              - paragraph [ref=e141]: Instantly format and beautify JSON with customizable indentation (2-space, 4-space, or custom tabs). Makes JSON readable and properly structured.
+            - generic [ref=e142]:
+              - heading "Minify JSON" [level=3] [ref=e143]: Minify JSON
+              - paragraph [ref=e145]: Compress JSON by removing whitespace and line breaks. Perfect for reducing file size and optimizing API responses.
+            - generic [ref=e146]:
+              - heading "Validation" [level=3] [ref=e147]: Validation
+              - paragraph [ref=e149]: Automatically validates JSON structure and syntax. Get instant error messages with line numbers for quick debugging.
+            - generic [ref=e150]:
+              - heading "100% Client-Side" [level=3] [ref=e151]: 100% Client-Side
+              - paragraph [ref=e153]: All processing happens in your browser. Your JSON data never leaves your device, ensuring complete privacy and security.
+        - generic [ref=e154]:
+          - heading "Frequently Asked Questions" [level=2] [ref=e155]
+          - generic [ref=e156]:
+            - group [ref=e157]:
+              - generic "How do I format JSON? ▼" [ref=e158] [cursor=pointer]:
+                - text: How do I format JSON?
+                - generic [ref=e159]: ▼
+            - group [ref=e160]:
+              - generic "Can I minify JSON to reduce file size? ▼" [ref=e161] [cursor=pointer]:
+                - text: Can I minify JSON to reduce file size?
+                - generic [ref=e162]: ▼
+            - group [ref=e163]:
+              - generic "Is my JSON data private and secure? ▼" [ref=e164] [cursor=pointer]:
+                - text: Is my JSON data private and secure?
+                - generic [ref=e165]: ▼
+            - group [ref=e166]:
+              - generic "What JSON errors does this tool detect? ▼" [ref=e167] [cursor=pointer]:
+                - text: What JSON errors does this tool detect?
+                - generic [ref=e168]: ▼
+        - generic [ref=e169]:
+          - generic [ref=e170]:
+            - heading "What is JSON file?" [level=2] [ref=e171]
+            - generic [ref=e172]:
+              - paragraph [ref=e173]: JSON (JavaScript Object Notation) is a lightweight data-interchange format. It is easy for humans to read and write. It is easy for machines to parse and generate. It is based on a subset of the JavaScript Programming Language Standard ECMA-262 3rd Edition - December 1999.
+              - paragraph [ref=e174]: JSON is a text format that is completely language independent but uses conventions that are familiar to programmers of the C-family of languages, including C, C++, C#, Java, JavaScript, Perl, Python, and many others. These properties make JSON an ideal data-interchange language.
+          - generic [ref=e175]:
+            - heading "JSON Examples" [level=2] [ref=e176]
+            - paragraph [ref=e177]: "Here is a simple example of JSON data representing a user:"
+            - generic [ref=e179]: "{ \"name\": \"John Doe\", \"age\": 30, \"isStudent\": false, \"courses\": [\"Math\", \"Science\"], \"address\": { \"city\": \"New York\", \"zip\": \"10001\" } }"
+          - generic [ref=e180]:
+            - heading "JSON Beautifier helps to perform below tasks:" [level=2] [ref=e181]
+            - generic [ref=e182]:
+              - link "JSON Beautifier" [ref=e183] [cursor=pointer]:
+                - /url: /json-formatter
+              - link "JSON Parser" [ref=e184] [cursor=pointer]:
+                - /url: /json-formatter
+              - link "JSON Editor" [ref=e185] [cursor=pointer]:
+                - /url: /json-formatter
+              - link "JSON Viewer" [ref=e186] [cursor=pointer]:
+                - /url: /json-formatter
+              - link "JSON Formatter" [ref=e187] [cursor=pointer]:
+                - /url: /json-formatter
+              - link "JSON Pretty Print" [ref=e188] [cursor=pointer]:
+                - /url: /json-formatter
+              - link "JSON Minify" [ref=e189] [cursor=pointer]:
+                - /url: /json-formatter
+              - link "JSON Validator" [ref=e190] [cursor=pointer]:
+                - /url: /json-formatter
+          - paragraph [ref=e193]:
+            - text: JSON Formatter working properly in
+            - strong [ref=e194]: Windows
+            - text: ","
+            - strong [ref=e195]: Mac
+            - text: ","
+            - strong [ref=e196]: Linux
+            - text: ","
+            - strong [ref=e197]: Chrome
+            - text: ","
+            - strong [ref=e198]: Firefox
+            - text: ","
+            - strong [ref=e199]: Safari
+            - text: and
+            - strong [ref=e200]: Edge
+            - text: and it's
+            - strong [ref=e201]: Free
+            - text: .
+  - contentinfo [ref=e202]:
+    - generic [ref=e203]:
+      - generic [ref=e204]:
+        - generic [ref=e205]:
+          - link "TextGauge Logo TextGauge" [ref=e206] [cursor=pointer]:
+            - /url: /
+            - img "TextGauge Logo" [ref=e207]
+            - generic [ref=e208]: TextGauge
+          - paragraph [ref=e209]: Free, secure, and privacy-focused developer tools for text analysis and data conversion.
+        - generic [ref=e210]:
+          - heading "Tools" [level=3] [ref=e211]
+          - list [ref=e212]:
+            - listitem [ref=e213]:
+              - link "Character Counter" [ref=e214] [cursor=pointer]:
+                - /url: /
+            - listitem [ref=e215]:
+              - link "JSON Formatter" [ref=e216] [cursor=pointer]:
+                - /url: /json-formatter
+            - listitem [ref=e217]:
+              - link "YAML Formatter" [ref=e218] [cursor=pointer]:
+                - /url: /yaml-formatter
+            - listitem [ref=e219]:
+              - link "TOML Formatter" [ref=e220] [cursor=pointer]:
+                - /url: /toml-formatter
+            - listitem [ref=e221]:
+              - link "JSON to CSV" [ref=e222] [cursor=pointer]:
+                - /url: /json-to-csv-converter
+            - listitem [ref=e223]:
+              - link "JSON to TOON" [ref=e224] [cursor=pointer]:
+                - /url: /json-to-toon-converter
+            - listitem [ref=e225]:
+              - link "Diff Checker" [ref=e226] [cursor=pointer]:
+                - /url: /diff-checker
+        - generic [ref=e227]:
+          - heading "Legal" [level=3] [ref=e228]
+          - list [ref=e229]:
+            - listitem [ref=e230]:
+              - link "Privacy Policy" [ref=e231] [cursor=pointer]:
+                - /url: /privacy
+            - listitem [ref=e232]:
+              - link "Terms of Service" [ref=e233] [cursor=pointer]:
+                - /url: /terms
+            - listitem [ref=e234]:
+              - link "Cookie Policy" [ref=e235] [cursor=pointer]:
+                - /url: /cookie-policy
+        - generic [ref=e236]:
+          - heading "Company" [level=3] [ref=e237]
+          - list [ref=e238]:
+            - listitem [ref=e239]:
+              - link "About Us" [ref=e240] [cursor=pointer]:
+                - /url: /about
+            - listitem [ref=e241]:
+              - link "Contact" [ref=e242] [cursor=pointer]:
+                - /url: /contact
+      - paragraph [ref=e244]: © 2025 TextGauge. All rights reserved.
+  - generic [ref=e247]:
+    - paragraph [ref=e248]:
+      - text: We use cookies to enhance your experience and analyze traffic. By continuing to visit this site you agree to our use of cookies.
+      - link "Learn more" [ref=e249] [cursor=pointer]:
+        - /url: /cookie-policy
+    - button "Got it" [ref=e250]
+  - button "Toggle theme" [ref=e251]:
+    - img [ref=e252]
+  - generic [ref=e258] [cursor=pointer]:
+    - button "Open Next.js Dev Tools" [ref=e259]:
+      - img [ref=e260]
+    - generic [ref=e263]:
+      - button "Open issues overlay" [ref=e264]:
+        - generic [ref=e265]:
+          - generic [ref=e266]: "0"
+          - generic [ref=e267]: "1"
+        - generic [ref=e268]: Issue
+      - button "Collapse issues badge" [ref=e269]:
+        - img [ref=e270]
+  - alert [ref=e272]
+```

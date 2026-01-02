@@ -52,6 +52,7 @@ export function Converter({
     const [error, setError] = useState<string | null>(null);
     const [isUrlModalOpen, setIsUrlModalOpen] = useState(false);
     const [copied, setCopied] = useState(false);
+    const [copiedLeft, setCopiedLeft] = useState(false);
 
     // Stats helper
     const getStats = (text: string) => {
@@ -99,6 +100,12 @@ export function Converter({
         setTimeout(() => setCopied(false), 2000);
     };
 
+    const handleCopyLeft = (text: string) => {
+        navigator.clipboard.writeText(text);
+        setCopiedLeft(true);
+        setTimeout(() => setCopiedLeft(false), 2000);
+    };
+
     const handleLoadUrl = async (url: string) => {
         try {
             const res = await fetch(url);
@@ -124,7 +131,7 @@ export function Converter({
     const editorTheme = theme === 'dark' ? 'vs-dark' : 'light';
 
     return (
-        <div className="h-screen supports-[height:100dvh]:h-[100dvh] flex flex-col bg-slate-50 dark:bg-slate-950 text-slate-900 dark:text-slate-50 transition-colors duration-200 overflow-hidden font-sans">
+        <div className="h-screen supports-[height:100dvh]:h-[100dvh] flex flex-col text-slate-900 dark:text-slate-50 transition-colors duration-200 overflow-hidden font-sans">
 
             {/* Header - Identical to Formatter.tsx */}
             <header className="shrink-0 bg-white/80 dark:bg-slate-900/80 backdrop-blur-md shadow-sm border-b border-slate-200 dark:border-slate-800 z-10 sticky top-0">
@@ -166,6 +173,9 @@ export function Converter({
                                     <Upload size={16} strokeWidth={2} />
                                     <input id="file-upload" type="file" className="hidden" onChange={handleFileUpload} />
                                 </button>
+                                <button onClick={() => handleCopyLeft(leftCode)} className="p-1.5 text-slate-500 hover:text-indigo-600 hover:bg-indigo-50 dark:text-slate-400 dark:hover:text-indigo-400 dark:hover:bg-indigo-900/20 rounded-md transition-all duration-200" title="Copy Input">
+                                    {copiedLeft ? <Check size={16} className="text-emerald-500" /> : <Copy size={16} strokeWidth={2} />}
+                                </button>
                                 <button onClick={() => setIsUrlModalOpen(true)} className="p-1.5 text-slate-500 hover:text-indigo-600 hover:bg-indigo-50 dark:text-slate-400 dark:hover:text-indigo-400 dark:hover:bg-indigo-900/20 rounded-md transition-all duration-200" title="Load URL">
                                     <Globe size={16} strokeWidth={2} />
                                 </button>
@@ -175,7 +185,7 @@ export function Converter({
                             </div>
                         </div>
 
-                        <div className="flex-1 relative min-h-0 bg-slate-50/30 dark:bg-black/20">
+                        <div className="h-[700px] relative min-h-0 bg-slate-50/30 dark:bg-black/20">
                             <CodeEditor
                                 value={leftCode}
                                 onChange={(val) => setLeftCode(val || "")}
@@ -194,7 +204,7 @@ export function Converter({
                     </div>
 
                     {/* MIDDLE COLUMN: Controls */}
-                    <div className="flex flex-col gap-3 lg:w-[200px] shrink-0 h-full overflow-y-auto py-1 scrollbar-hide">
+                    <div className="flex flex-col gap-3 lg:w-[200px] shrink-0 h-[700px] overflow-y-auto py-1 scrollbar-hide">
 
                         {/* Main Convert Button */}
                         <button
@@ -233,7 +243,7 @@ export function Converter({
 
                         {/* Sidebar Ad */}
                         {process.env.NEXT_PUBLIC_AD_SLOT_SIDEBAR && (
-                            <div className="flex-1 rounded-lg overflow-hidden min-h-[150px] flex items-center justify-center bg-slate-100/50 dark:bg-slate-800/30 border border-dashed border-slate-200 dark:border-slate-800">
+                            <div className="w-full rounded-lg overflow-hidden min-h-[150px] flex items-center justify-center bg-slate-100/50 dark:bg-slate-800/30 border border-dashed border-slate-200 dark:border-slate-800 shrink-0">
                                 <GoogleAdsense adSlot={process.env.NEXT_PUBLIC_AD_SLOT_SIDEBAR} style={{ display: 'block', width: '100%' }} />
                             </div>
                         )}
@@ -273,7 +283,7 @@ export function Converter({
                             </div>
                         </div>
 
-                        <div className="flex-1 relative min-h-0 bg-slate-50/30 dark:bg-black/20">
+                        <div className="h-[700px] relative min-h-0 bg-slate-50/30 dark:bg-black/20">
                             {error ? (
                                 <div className="absolute inset-0 p-6 z-10 overflow-auto bg-white/95 dark:bg-slate-900/95 backdrop-blur-sm">
                                     <div className="rounded-xl border border-red-200 bg-red-50 p-6 dark:border-red-900/30 dark:bg-red-900/10 shadow-sm">

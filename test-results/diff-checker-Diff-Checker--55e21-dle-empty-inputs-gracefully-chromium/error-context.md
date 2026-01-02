@@ -1,0 +1,206 @@
+# Page snapshot
+
+```yaml
+- generic [active] [ref=e1]:
+  - navigation [ref=e2]:
+    - generic [ref=e4]:
+      - link "TextGauge Logo TextGauge" [ref=e5] [cursor=pointer]:
+        - /url: /
+        - img "TextGauge Logo" [ref=e6]
+        - generic [ref=e7]: TextGauge
+      - generic [ref=e8]:
+        - link "Character Counter" [ref=e9] [cursor=pointer]:
+          - /url: /
+        - link "JSON Formatter" [ref=e10] [cursor=pointer]:
+          - /url: /json-formatter
+        - link "YAML Formatter" [ref=e11] [cursor=pointer]:
+          - /url: /yaml-formatter
+        - link "TOML Formatter" [ref=e12] [cursor=pointer]:
+          - /url: /toml-formatter
+        - link "JSON to CSV" [ref=e13] [cursor=pointer]:
+          - /url: /json-to-csv-converter
+        - link "JSON to TOON" [ref=e14] [cursor=pointer]:
+          - /url: /json-to-toon-converter
+        - link "Diff Checker" [ref=e15] [cursor=pointer]:
+          - /url: /diff-checker
+  - main [ref=e16]:
+    - generic [ref=e18]:
+      - generic [ref=e20]:
+        - generic [ref=e21]:
+          - img "Red Rose" [ref=e23]
+          - generic [ref=e24]: Diff Tool
+        - paragraph [ref=e25]: Red Rose — Symbolizes passion, courage, and the dedication to finding differences that matter.
+      - generic [ref=e26]:
+        - generic [ref=e28]:
+          - heading "Diff Checker" [level=1] [ref=e29]
+          - paragraph [ref=e30]: Professional-grade text comparison. Uses Myers Diff Algorithm for precise line-by-line analysis.
+          - generic [ref=e31]:
+            - generic [ref=e32]: JSON
+            - generic [ref=e33]: YAML
+            - generic [ref=e34]: TOML
+            - generic [ref=e35]: XML
+            - generic [ref=e36]: SQL
+            - generic [ref=e37]: Config
+        - generic [ref=e38]:
+          - generic [ref=e39]:
+            - generic [ref=e40]:
+              - generic [ref=e42]: Original Text
+              - generic [ref=e44]:
+                - generic [ref=e45]:
+                  - button "Upload File" [ref=e46]:
+                    - img [ref=e47]
+                  - button "Clear" [ref=e50]:
+                    - img [ref=e51]
+                  - button "Copy" [ref=e54]:
+                    - img [ref=e55]
+                - generic [ref=e58]:
+                  - generic [ref=e60]: "1"
+                  - textbox "Paste original text here..." [ref=e61]
+              - generic [ref=e62]:
+                - generic [ref=e63]: "Lines: 0"
+                - generic [ref=e64]: "Chars: 0"
+                - generic [ref=e65]: "Size: 0 B"
+            - generic [ref=e66]:
+              - generic [ref=e68]: Modified Text
+              - generic [ref=e70]:
+                - generic [ref=e71]:
+                  - button "Upload File" [ref=e72]:
+                    - img [ref=e73]
+                  - button "Clear" [ref=e76]:
+                    - img [ref=e77]
+                  - button "Copy" [ref=e80]:
+                    - img [ref=e81]
+                - generic [ref=e84]:
+                  - generic [ref=e86]: "1"
+                  - textbox "Paste modified text here..." [ref=e87]
+              - generic [ref=e88]:
+                - generic [ref=e89]: "Lines: 0"
+                - generic [ref=e90]: "Chars: 0"
+                - generic [ref=e91]: "Size: 0 B"
+          - generic [ref=e94]:
+            - button "Compare" [disabled] [ref=e95]:
+              - img [ref=e96]
+              - text: Compare
+            - button "Swap" [disabled] [ref=e101]:
+              - img [ref=e102]
+              - text: Swap
+            - button "Clear All" [ref=e105]:
+              - img [ref=e106]
+              - text: Clear All
+            - button "Load Sample" [ref=e109]
+            - generic [ref=e111]:
+              - link "JSON" [ref=e112] [cursor=pointer]:
+                - /url: /json-formatter
+                - img [ref=e113]
+                - generic [ref=e118]: JSON
+              - link "YAML" [ref=e119] [cursor=pointer]:
+                - /url: /yaml-formatter
+                - img [ref=e120]
+                - generic [ref=e121]: YAML
+              - link "TOML" [ref=e122] [cursor=pointer]:
+                - /url: /toml-formatter
+                - img [ref=e123]
+                - generic [ref=e128]: TOML
+            - generic [ref=e130]:
+              - generic [ref=e131]: ⌘
+              - text: +
+              - generic [ref=e132]: Enter
+              - generic [ref=e133]: to Compare
+        - generic [ref=e135]:
+          - heading "Technical Specifications" [level=2] [ref=e136]
+          - generic [ref=e137]:
+            - generic [ref=e138]:
+              - heading "Myers Diff Algorithm" [level=3] [ref=e139]: Myers Diff Algorithm
+              - paragraph [ref=e141]: We utilize the industry-standard Myers difference algorithm (O(ND)) to minimize edit distance, ensuring that the computed diffs are as human-readable and concise as possible.
+            - generic [ref=e142]:
+              - heading "Zero-Latency Evaluation" [level=3] [ref=e143]: Zero-Latency Evaluation
+              - paragraph [ref=e145]: Unlike server-side solutions, our diff engine runs entirely in your browser's main thread or worker (future), proving near-instant feedback even for large config files.
+            - generic [ref=e146]:
+              - heading "Privacy by Design" [level=3] [ref=e147]: Privacy by Design
+              - paragraph [ref=e149]: Your data never leaves your RAM. There are no API calls, no database writes, and no analytics tracking your file contents. Secure for proprietary code and sensitive keys.
+        - generic [ref=e150]:
+          - heading "Developer FAQ" [level=2] [ref=e151]
+          - generic [ref=e152]:
+            - group [ref=e153]:
+              - generic "Which diff algorithm is used? ▼" [ref=e154] [cursor=pointer]:
+                - text: Which diff algorithm is used?
+                - generic [ref=e155]: ▼
+            - group [ref=e156]:
+              - generic "What are the file size limits? ▼" [ref=e157] [cursor=pointer]:
+                - text: What are the file size limits?
+                - generic [ref=e158]: ▼
+            - group [ref=e159]:
+              - generic "Do you support syntax highlighting? ▼" [ref=e160] [cursor=pointer]:
+                - text: Do you support syntax highlighting?
+                - generic [ref=e161]: ▼
+            - group [ref=e162]:
+              - generic "Is my proprietary code safe? ▼" [ref=e163] [cursor=pointer]:
+                - text: Is my proprietary code safe?
+                - generic [ref=e164]: ▼
+  - contentinfo [ref=e165]:
+    - generic [ref=e166]:
+      - generic [ref=e167]:
+        - generic [ref=e168]:
+          - link "TextGauge Logo TextGauge" [ref=e169] [cursor=pointer]:
+            - /url: /
+            - img "TextGauge Logo" [ref=e170]
+            - generic [ref=e171]: TextGauge
+          - paragraph [ref=e172]: Free, secure, and privacy-focused developer tools for text analysis and data conversion.
+        - generic [ref=e173]:
+          - heading "Tools" [level=3] [ref=e174]
+          - list [ref=e175]:
+            - listitem [ref=e176]:
+              - link "Character Counter" [ref=e177] [cursor=pointer]:
+                - /url: /
+            - listitem [ref=e178]:
+              - link "JSON Formatter" [ref=e179] [cursor=pointer]:
+                - /url: /json-formatter
+            - listitem [ref=e180]:
+              - link "YAML Formatter" [ref=e181] [cursor=pointer]:
+                - /url: /yaml-formatter
+            - listitem [ref=e182]:
+              - link "TOML Formatter" [ref=e183] [cursor=pointer]:
+                - /url: /toml-formatter
+            - listitem [ref=e184]:
+              - link "JSON to CSV" [ref=e185] [cursor=pointer]:
+                - /url: /json-to-csv-converter
+            - listitem [ref=e186]:
+              - link "JSON to TOON" [ref=e187] [cursor=pointer]:
+                - /url: /json-to-toon-converter
+            - listitem [ref=e188]:
+              - link "Diff Checker" [ref=e189] [cursor=pointer]:
+                - /url: /diff-checker
+        - generic [ref=e190]:
+          - heading "Legal" [level=3] [ref=e191]
+          - list [ref=e192]:
+            - listitem [ref=e193]:
+              - link "Privacy Policy" [ref=e194] [cursor=pointer]:
+                - /url: /privacy
+            - listitem [ref=e195]:
+              - link "Terms of Service" [ref=e196] [cursor=pointer]:
+                - /url: /terms
+            - listitem [ref=e197]:
+              - link "Cookie Policy" [ref=e198] [cursor=pointer]:
+                - /url: /cookie-policy
+        - generic [ref=e199]:
+          - heading "Company" [level=3] [ref=e200]
+          - list [ref=e201]:
+            - listitem [ref=e202]:
+              - link "About Us" [ref=e203] [cursor=pointer]:
+                - /url: /about
+            - listitem [ref=e204]:
+              - link "Contact" [ref=e205] [cursor=pointer]:
+                - /url: /contact
+      - paragraph [ref=e207]: © 2025 TextGauge. All rights reserved.
+  - generic [ref=e210]:
+    - paragraph [ref=e211]:
+      - text: We use cookies to enhance your experience and analyze traffic. By continuing to visit this site you agree to our use of cookies.
+      - link "Learn more" [ref=e212] [cursor=pointer]:
+        - /url: /cookie-policy
+    - button "Got it" [ref=e213]
+  - button "Toggle theme" [ref=e214]:
+    - img [ref=e215]
+  - button "Open Next.js Dev Tools" [ref=e222] [cursor=pointer]:
+    - img [ref=e223]
+  - alert [ref=e226]
+```

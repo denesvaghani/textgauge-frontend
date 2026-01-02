@@ -1,7 +1,6 @@
 'use client';
 
 import { Editor } from "@/components/Editor";
-import { ThemeToggle } from "@/components/ThemeToggle";
 import Image from "next/image";
 import { flowerThemes } from "@/config/flowerThemes";
 
@@ -62,58 +61,40 @@ const tools = [
   },
 ];
 
+import { FlowerBackground } from "@/components/FlowerBackground";
+
 export default function Page() {
   return (
-    <main className="bg-gradient-to-b from-amber-50/50 via-yellow-50/30 to-slate-50 dark:from-amber-950/20 dark:via-yellow-950/10 dark:to-slate-950 min-h-screen transition-colors duration-300 pb-12">
-      {/* Sunflower glow for homepage */}
-      <div 
-        className="pointer-events-none fixed inset-0 opacity-50 dark:opacity-30"
-        style={{
-          background: `radial-gradient(ellipse 80% 50% at 50% -20%, rgba(234, 179, 8, 0.15), transparent)`,
-        }}
-      />
-      
-      <ThemeToggle />
-
-      {/* Hero Section */}
-      <section className="relative bg-white/50 dark:bg-slate-900/50 border-b border-slate-200 dark:border-slate-800 pt-12 pb-16 transition-colors duration-200">
-        <div className="max-w-[1920px] mx-auto px-4 sm:px-6 lg:px-8 text-center">
-          {/* Sunflower Brand Badge */}
-          <div className="inline-flex items-center gap-3 px-4 py-2 rounded-full bg-white/80 dark:bg-slate-900/80 backdrop-blur-sm border border-yellow-200/50 dark:border-yellow-800/50 shadow-lg mb-6">
-            <div className="w-10 h-10 rounded-full overflow-hidden ring-2 ring-yellow-400 ring-offset-2 ring-offset-white dark:ring-offset-slate-900 shadow-md group-hover:scale-110 transition-transform">
-              <Image
-                src="/images/logo/sunflower-logo.webp"
-                alt="TextGauge Sunflower"
-                width={40}
-                height={40}
-                className="w-full h-full object-cover"
-              />
+    <FlowerBackground theme={flowerThemes.sunflower} badgeText="Character Tool">
+      <div className="flex flex-col min-h-screen">
+        {/* Header Section - Matches Formatter.tsx EXACTLY */}
+        <header className="shrink-0 bg-white/80 dark:bg-slate-900/80 backdrop-blur-md shadow-sm border-b border-slate-200 dark:border-slate-800 z-10 sticky top-0">
+            <div className="max-w-[1920px] mx-auto px-4 sm:px-6 lg:px-8 py-3">
+                <div className="flex flex-col md:flex-row md:items-center justify-between gap-4">
+                    <div className="flex flex-col gap-0.5">
+                        <h1 className="text-xl sm:text-2xl font-extrabold tracking-tight text-slate-900 dark:text-white bg-clip-text text-transparent bg-gradient-to-r from-yellow-500 to-amber-500 dark:from-yellow-400 dark:to-amber-400 w-fit">
+                            Character Counter & Text Tools
+                        </h1>
+                        <p className="text-sm text-slate-500 dark:text-slate-400 max-w-2xl font-medium hidden sm:block">
+                            Free online tools to <strong>count characters</strong>, format <strong>JSON</strong> & <strong>YAML</strong>, and analyze text.
+                        </p>
+                    </div>
+                </div>
             </div>
-            <span className="text-xs font-bold uppercase tracking-wider text-yellow-600 dark:text-yellow-400">
-              Free Developer Tools
-            </span>
-          </div>
-          
-          <h1 className="text-4xl md:text-5xl font-extrabold text-slate-900 dark:text-white tracking-tight mb-4">
-            Character Counter & Text Tools
-          </h1>
-          <p className="text-lg md:text-xl text-slate-600 dark:text-slate-300 max-w-2xl mx-auto leading-relaxed">
-            Free online tools to <strong>count characters</strong>, format <strong>JSON</strong> & <strong>YAML</strong>, and analyze text.
-            Clean, privacy-focused, and developer-friendly.
-          </p>
-        </div>
-      </section>
+        </header>
 
-      {/* Editor Section */}
-      <section className="relative max-w-[1920px] mx-auto px-4 sm:px-6 lg:px-8 -mt-8 z-10">
-        <div className="bg-white dark:bg-slate-900 rounded-2xl shadow-xl ring-1 ring-slate-900/5 dark:ring-white/10 overflow-hidden">
-          <Editor />
-        </div>
-      </section>
+        {/* Main Content */}
+        <main className="flex-1 flex flex-col min-h-0 w-full">
+            {/* Editor Section */}
+            <div className="w-full max-w-[1920px] mx-auto px-4 sm:px-6 lg:px-8 py-4">
+                <div className="bg-white dark:bg-slate-900 rounded-2xl shadow-xl ring-1 ring-slate-900/5 dark:ring-white/10 overflow-hidden">
+                    <Editor />
+                </div>
+            </div>
 
-      {/* Tools Grid */}
-      <section className="relative max-w-[1920px] mx-auto px-4 sm:px-6 lg:px-8 py-16 z-10">
-        <div className="text-center mb-10">
+            {/* Tools Grid */}
+            <section className="w-full max-w-[1920px] mx-auto px-4 sm:px-6 lg:px-8 py-16">
+                <div className="text-center mb-10">
           <h2 className="text-2xl md:text-3xl font-bold text-slate-900 dark:text-white mb-3">
             🌸 Our Flower-Powered Tools 🌸
           </h2>
@@ -172,8 +153,8 @@ export default function Page() {
       </section>
 
       {/* SEO Content Section */}
-      <section className="relative max-w-[1920px] mx-auto px-4 sm:px-6 lg:px-8 pb-16 z-10">
-        <div className="bg-white dark:bg-slate-900 rounded-2xl shadow-sm border border-slate-200 dark:border-slate-800 p-8 transition-colors duration-200">
+      <section className="w-full relative max-w-[1920px] mx-auto px-4 sm:px-6 lg:px-8 pb-16 z-10">
+        <div className="bg-white/80 dark:bg-slate-900/80 backdrop-blur-sm rounded-2xl shadow-sm border border-yellow-200/50 dark:border-yellow-800/30 p-8 transition-colors duration-200">
           <h2 className="text-2xl font-bold text-slate-900 dark:text-white mb-6">
             Everything you need to analyze text
           </h2>
@@ -220,29 +201,31 @@ export default function Page() {
       </section>
 
       {/* FAQ Section */}
-      <section className="relative max-w-[1920px] mx-auto px-4 sm:px-6 lg:px-8 pb-16 z-10">
+      <section className="w-full max-w-[1920px] mx-auto px-4 sm:px-6 lg:px-8 pb-16 z-10 relative">
         <h2 className="text-2xl font-bold text-center text-slate-900 dark:text-white mb-8">
           Frequently Asked Questions
         </h2>
-        <div className="space-y-4">
+        <div className="space-y-4 w-full">
           {[
             { q: "How do I count characters in my text?", a: "Simply paste or type your text in the editor above. The character count updates instantly as you type." },
             { q: "Is this tool free?", a: "Yes, 100% free with no limits. Analyze as much text as you need." },
             { q: "Does it count spaces?", a: "Yes, we provide counts both with and without spaces to suit your needs." },
             { q: "Is my text private?", a: "ABSOLUTELY. All analysis happens in your browser. Your text is never sent to our servers." }
           ].map((faq, i) => (
-            <details key={i} className="w-full group bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-xl overflow-hidden transition-all duration-200">
-              <summary className="flex items-center justify-between p-5 font-semibold cursor-pointer text-slate-800 dark:text-white hover:bg-slate-50 dark:hover:bg-slate-800/50 transition-colors">
+            <details key={i} className="w-full group bg-white/80 dark:bg-slate-900/80 backdrop-blur-sm border border-yellow-200/50 dark:border-yellow-800/50 rounded-xl overflow-hidden transition-all duration-200 shadow-sm hover:shadow-md hover:border-yellow-300/50 dark:hover:border-yellow-700/50">
+              <summary className="flex items-center justify-between p-5 font-semibold cursor-pointer text-slate-800 dark:text-white hover:bg-yellow-50/50 dark:hover:bg-yellow-900/20 transition-colors">
                 {faq.q}
                 <span className="text-slate-400 group-open:rotate-180 transition-transform">▼</span>
               </summary>
-              <div className="px-5 pb-5 text-slate-600 dark:text-slate-300 text-sm leading-relaxed border-t border-slate-100 dark:border-slate-800/50 pt-4">
+              <div className="px-5 pb-5 text-slate-600 dark:text-slate-300 text-sm leading-relaxed border-t border-yellow-100/50 dark:border-yellow-800/30 pt-4 bg-white/50 dark:bg-slate-900/50">
                 {faq.a}
               </div>
             </details>
           ))}
         </div>
       </section>
-    </main>
+      </main>
+      </div>
+    </FlowerBackground>
   );
 }

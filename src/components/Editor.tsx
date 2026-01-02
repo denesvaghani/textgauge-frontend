@@ -481,7 +481,7 @@ export function Editor() {
               onInput={handleInput}
               className="
                 w-full
-                min-h-[260px] sm:min-h-[340px] lg:min-h-[420px]
+                min-h-[700px]
                 bg-transparent
                 px-4 sm:px-6
                 py-5
@@ -494,7 +494,6 @@ export function Editor() {
               "
               data-placeholder="Start typing here or paste your content..."
               style={{ 
-                maxHeight: "70vh", 
                 overflowY: "auto", 
                 fontFamily: "'JetBrains Mono', 'Fira Code', 'SF Mono', Menlo, Consolas, monospace",
                 caretColor: "currentColor",

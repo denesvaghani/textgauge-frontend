@@ -37,6 +37,7 @@ export default function YamlFormatterPage() {
                     outputType="yaml"
                     onTransform={formatYaml}
                     sampleData={sampleData}
+                    titleGradient="bg-gradient-to-r from-emerald-600 to-green-600 dark:from-emerald-400 dark:to-green-400"
                     customActions={
                         <Link
                             href="/diff-checker"

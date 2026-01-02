@@ -49,34 +49,38 @@ Jane Smith,jane@example.com,London,SW1A`;
     };
 
     const directionToggle = (
-        <div className="w-full flex items-center justify-center gap-3 py-1">
-            <span className={`text-sm font-medium transition-colors ${
+        <div className="w-full flex items-center justify-center gap-2 py-1">
+            {/* Left label - JSON → CSV */}
+            <div className={`text-sm font-medium transition-colors text-right ${
                 direction === "json-csv" 
                     ? "text-yellow-600 dark:text-yellow-400" 
                     : "text-slate-400 dark:text-slate-500"
             }`}>
-                JSON → CSV
-            </span>
+                <div className="whitespace-nowrap">JSON →</div>
+                <div className="pr-2">CSV</div>
+            </div>
             
             <button
                 onClick={toggleDirection}
-                className="relative w-14 h-7 shrink-0 rounded-full bg-slate-200 dark:bg-slate-700 transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-yellow-500 focus:ring-offset-2 dark:focus:ring-offset-slate-900"
+                className="relative w-16 h-8 shrink-0 rounded-full bg-slate-200 dark:bg-slate-700 transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-yellow-500 focus:ring-offset-2 dark:focus:ring-offset-slate-900 overflow-hidden"
                 aria-label="Toggle conversion direction"
             >
                 <span
-                    className={`absolute top-0.5 left-0.5 w-6 h-6 rounded-full bg-white shadow-md transition-transform duration-200 ${
-                        direction === "csv-json" ? "translate-x-7" : "translate-x-0"
+                    className={`absolute top-1 left-1 w-6 h-6 rounded-full bg-white shadow-md transition-transform duration-200 ${
+                        direction === "csv-json" ? "translate-x-8" : "translate-x-0"
                     }`}
                 />
             </button>
             
-            <span className={`text-sm font-medium transition-colors ${
+            {/* Right label - CSV → JSON */}
+            <div className={`text-sm font-medium transition-colors text-left ${
                 direction === "csv-json" 
                     ? "text-yellow-600 dark:text-yellow-400" 
                     : "text-slate-400 dark:text-slate-500"
             }`}>
-                CSV → JSON
-            </span>
+                <div className="whitespace-nowrap">CSV →</div>
+                <div className="pl-2">JSON</div>
+            </div>
         </div>
     );
 
@@ -91,6 +95,7 @@ Jane Smith,jane@example.com,London,SW1A`;
                     onTransform={handleTransform}
                     sampleData={direction === "json-csv" ? sampleJson : sampleCsv}
                     customActions={directionToggle}
+                    titleGradient="bg-gradient-to-r from-yellow-600 to-amber-600 dark:from-yellow-400 dark:to-amber-400"
                     actionLabel="Convert"
                 />
                 

@@ -1,0 +1,260 @@
+# Page snapshot
+
+```yaml
+- generic [ref=e1]:
+  - navigation [ref=e2]:
+    - generic [ref=e4]:
+      - link "TextGauge Logo TextGauge" [ref=e5] [cursor=pointer]:
+        - /url: /
+        - img "TextGauge Logo" [ref=e6]
+        - generic [ref=e7]: TextGauge
+      - generic [ref=e8]:
+        - link "Character Counter" [ref=e9] [cursor=pointer]:
+          - /url: /
+        - link "JSON Formatter" [ref=e10] [cursor=pointer]:
+          - /url: /json-formatter
+        - link "YAML Formatter" [ref=e11] [cursor=pointer]:
+          - /url: /yaml-formatter
+        - link "TOML Formatter" [ref=e12] [cursor=pointer]:
+          - /url: /toml-formatter
+        - link "JSON to CSV" [ref=e13] [cursor=pointer]:
+          - /url: /json-to-csv-converter
+        - link "JSON to TOON" [ref=e14] [cursor=pointer]:
+          - /url: /json-to-toon-converter
+        - link "Diff Checker" [ref=e15] [cursor=pointer]:
+          - /url: /diff-checker
+  - main [ref=e16]:
+    - main [ref=e17]:
+      - button "Toggle theme" [ref=e18]:
+        - img [ref=e19]
+      - generic [ref=e22]:
+        - generic [ref=e23]:
+          - img "TextGauge Sunflower" [ref=e25]
+          - generic [ref=e26]: Free Developer Tools
+        - heading "Character Counter & Text Tools" [level=1] [ref=e27]
+        - paragraph [ref=e28]:
+          - text: Free online tools to
+          - strong [ref=e29]: count characters
+          - text: ", format"
+          - strong [ref=e30]: JSON
+          - text: "&"
+          - strong [ref=e31]: YAML
+          - text: ", and analyze text. Clean, privacy-focused, and developer-friendly."
+      - generic [ref=e34]:
+        - generic [ref=e35]:
+          - generic [ref=e36]:
+            - heading "Live Statistics" [level=2] [ref=e37]
+            - generic [ref=e38]:
+              - generic [ref=e39]:
+                - generic [ref=e40]: "5"
+                - generic [ref=e41]: Words
+              - generic [ref=e42]:
+                - generic [ref=e43]: "23"
+                - generic [ref=e44]: Chars
+              - generic [ref=e45]:
+                - generic [ref=e46]: "1"
+                - generic [ref=e47]: Sentences
+              - generic [ref=e48]:
+                - generic [ref=e49]: "1"
+                - generic [ref=e50]: Paragraphs
+              - generic [ref=e51]:
+                - generic [ref=e52]: 2 sec
+                - generic [ref=e53]: Read Time
+              - generic [ref=e54]:
+                - generic [ref=e55]: 2 sec
+                - generic [ref=e56]: Speak Time
+          - generic [ref=e58]:
+            - generic [ref=e59]:
+              - generic [ref=e60]:
+                - button "Clear" [ref=e61]
+                - button "Undo" [ref=e62]
+                - button "Redo" [disabled] [ref=e63]
+                - button "B" [ref=e65]
+                - button "i" [ref=e66]
+                - generic [ref=e68]: "Case:"
+                - button "Title" [ref=e69]
+                - button "Sentence" [ref=e70]
+                - button "lower" [ref=e71]
+                - button "UPPER" [ref=e72]
+                - button "snake_case" [ref=e73]
+              - button "✨ Rephrase" [ref=e75]:
+                - generic [ref=e76]: ✨
+                - generic [ref=e77]: Rephrase
+            - generic [active] [ref=e78]: One two three four five
+            - generic [ref=e82]:
+              - generic:
+                - generic: 🎯
+              - textbox "Target SEO Keyword (e.g., best laptops under 50000)" [ref=e83]
+        - generic [ref=e85]:
+          - heading "Analysis Dashboard" [level=2] [ref=e86]
+          - generic [ref=e87]:
+            - heading "SEO Keyword Metrics" [level=3] [ref=e88]
+            - paragraph [ref=e89]: Enter a keyword above to track
+          - generic [ref=e90]:
+            - heading "Repeated Phrases" [level=3] [ref=e91]
+            - paragraph [ref=e93]: No repeated phrases found
+      - generic [ref=e94]:
+        - generic [ref=e95]:
+          - heading "🌸 Our Flower-Powered Tools 🌸" [level=2] [ref=e96]
+          - paragraph [ref=e97]: Each tool has its own flower identity
+        - generic [ref=e98]:
+          - link "Cherry Blossom → JSON Formatter Validate, beautify, and minify JSON data with our advanced Monaco-based editor. Cherry Blossom" [ref=e99] [cursor=pointer]:
+            - /url: /json-formatter
+            - generic [ref=e101]:
+              - generic [ref=e102]:
+                - img "Cherry Blossom" [ref=e104]
+                - generic [ref=e105]: →
+              - heading "JSON Formatter" [level=3] [ref=e106]
+              - paragraph [ref=e107]: Validate, beautify, and minify JSON data with our advanced Monaco-based editor.
+              - generic [ref=e108]: Cherry Blossom
+          - link "White Lily → YAML Formatter Convert, validate, and format YAML files with syntax highlighting and error detection. White Lily" [ref=e110] [cursor=pointer]:
+            - /url: /yaml-formatter
+            - generic [ref=e112]:
+              - generic [ref=e113]:
+                - img "White Lily" [ref=e115]
+                - generic [ref=e116]: →
+              - heading "YAML Formatter" [level=3] [ref=e117]
+              - paragraph [ref=e118]: Convert, validate, and format YAML files with syntax highlighting and error detection.
+              - generic [ref=e119]: White Lily
+          - link "Frangipani → TOML Formatter Validate, format, and beautify TOML configuration files (Cargo.toml, pyproject.toml) instantly. Frangipani" [ref=e121] [cursor=pointer]:
+            - /url: /toml-formatter
+            - generic [ref=e123]:
+              - generic [ref=e124]:
+                - img "Frangipani" [ref=e126]
+                - generic [ref=e127]: →
+              - heading "TOML Formatter" [level=3] [ref=e128]
+              - paragraph [ref=e129]: Validate, format, and beautify TOML configuration files (Cargo.toml, pyproject.toml) instantly.
+              - generic [ref=e130]: Frangipani
+          - link "Sunflower → JSON to CSV Convert JSON data to CSV format instantly. Reduces file size by 50-60% for easy spreadsheet use. Sunflower" [ref=e132] [cursor=pointer]:
+            - /url: /json-to-csv-converter
+            - generic [ref=e134]:
+              - generic [ref=e135]:
+                - img "Sunflower" [ref=e137]
+                - generic [ref=e138]: →
+              - heading "JSON to CSV" [level=3] [ref=e139]
+              - paragraph [ref=e140]: Convert JSON data to CSV format instantly. Reduces file size by 50-60% for easy spreadsheet use.
+              - generic [ref=e141]: Sunflower
+          - link "Lavender → JSON to TOON AI-optimized format. Reduce token usage by 30-60% for ChatGPT, Claude, and other LLMs. Lavender" [ref=e143] [cursor=pointer]:
+            - /url: /json-to-toon-converter
+            - generic [ref=e145]:
+              - generic [ref=e146]:
+                - img "Lavender" [ref=e148]
+                - generic [ref=e149]: →
+              - heading "JSON to TOON" [level=3] [ref=e150]
+              - paragraph [ref=e151]: AI-optimized format. Reduce token usage by 30-60% for ChatGPT, Claude, and other LLMs.
+              - generic [ref=e152]: Lavender
+          - link "Red Rose → Diff Checker Compare two texts and see differences instantly. Perfect for code reviews and config comparisons. Red Rose" [ref=e154] [cursor=pointer]:
+            - /url: /diff-checker
+            - generic [ref=e156]:
+              - generic [ref=e157]:
+                - img "Red Rose" [ref=e159]
+                - generic [ref=e160]: →
+              - heading "Diff Checker" [level=3] [ref=e161]
+              - paragraph [ref=e162]: Compare two texts and see differences instantly. Perfect for code reviews and config comparisons.
+              - generic [ref=e163]: Red Rose
+      - generic [ref=e166]:
+        - heading "Everything you need to analyze text" [level=2] [ref=e167]
+        - generic [ref=e168]:
+          - generic [ref=e169]:
+            - heading "Character & Word Count" [level=3] [ref=e170]: Character & Word Count
+            - paragraph [ref=e172]:
+              - text: Instantly
+              - strong [ref=e173]: count characters
+              - text: and
+              - strong [ref=e174]: count words
+              - text: as you type. Perfect for Twitter posts (280 chars), meta descriptions (155-160 chars), essays, and articles. We also track sentences, paragraphs, and reading time.
+          - generic [ref=e175]:
+            - heading "Case Converter" [level=3] [ref=e176]: Case Converter
+            - paragraph [ref=e178]: Transform text to Title Case, lowercase, UPPERCASE, or snake_case instantly. Format your content quickly without retyping.
+          - generic [ref=e179]:
+            - heading "Repeats Finder" [level=3] [ref=e180]: Repeats Finder
+            - paragraph [ref=e182]: Detect repeated phrases automatically. Our tool identifies redundant 3-word phrases to help you improve readability and style.
+          - generic [ref=e183]:
+            - heading "SEO Analysis" [level=3] [ref=e184]: SEO Analysis
+            - paragraph [ref=e186]: Analyze keyword density and structure. Essential for content writers looking to optimize articles for search engines.
+      - generic [ref=e187]:
+        - heading "Frequently Asked Questions" [level=2] [ref=e188]
+        - generic [ref=e189]:
+          - group [ref=e190]:
+            - generic "How do I count characters in my text? ▼" [ref=e191] [cursor=pointer]:
+              - text: How do I count characters in my text?
+              - generic [ref=e192]: ▼
+          - group [ref=e193]:
+            - generic "Is this tool free? ▼" [ref=e194] [cursor=pointer]:
+              - text: Is this tool free?
+              - generic [ref=e195]: ▼
+          - group [ref=e196]:
+            - generic "Does it count spaces? ▼" [ref=e197] [cursor=pointer]:
+              - text: Does it count spaces?
+              - generic [ref=e198]: ▼
+          - group [ref=e199]:
+            - generic "Is my text private? ▼" [ref=e200] [cursor=pointer]:
+              - text: Is my text private?
+              - generic [ref=e201]: ▼
+  - contentinfo [ref=e202]:
+    - generic [ref=e203]:
+      - generic [ref=e204]:
+        - generic [ref=e205]:
+          - link "TextGauge Logo TextGauge" [ref=e206] [cursor=pointer]:
+            - /url: /
+            - img "TextGauge Logo" [ref=e207]
+            - generic [ref=e208]: TextGauge
+          - paragraph [ref=e209]: Free, secure, and privacy-focused developer tools for text analysis and data conversion.
+        - generic [ref=e210]:
+          - heading "Tools" [level=3] [ref=e211]
+          - list [ref=e212]:
+            - listitem [ref=e213]:
+              - link "Character Counter" [ref=e214] [cursor=pointer]:
+                - /url: /
+            - listitem [ref=e215]:
+              - link "JSON Formatter" [ref=e216] [cursor=pointer]:
+                - /url: /json-formatter
+            - listitem [ref=e217]:
+              - link "YAML Formatter" [ref=e218] [cursor=pointer]:
+                - /url: /yaml-formatter
+            - listitem [ref=e219]:
+              - link "TOML Formatter" [ref=e220] [cursor=pointer]:
+                - /url: /toml-formatter
+            - listitem [ref=e221]:
+              - link "JSON to CSV" [ref=e222] [cursor=pointer]:
+                - /url: /json-to-csv-converter
+            - listitem [ref=e223]:
+              - link "JSON to TOON" [ref=e224] [cursor=pointer]:
+                - /url: /json-to-toon-converter
+            - listitem [ref=e225]:
+              - link "Diff Checker" [ref=e226] [cursor=pointer]:
+                - /url: /diff-checker
+        - generic [ref=e227]:
+          - heading "Legal" [level=3] [ref=e228]
+          - list [ref=e229]:
+            - listitem [ref=e230]:
+              - link "Privacy Policy" [ref=e231] [cursor=pointer]:
+                - /url: /privacy
+            - listitem [ref=e232]:
+              - link "Terms of Service" [ref=e233] [cursor=pointer]:
+                - /url: /terms
+            - listitem [ref=e234]:
+              - link "Cookie Policy" [ref=e235] [cursor=pointer]:
+                - /url: /cookie-policy
+        - generic [ref=e236]:
+          - heading "Company" [level=3] [ref=e237]
+          - list [ref=e238]:
+            - listitem [ref=e239]:
+              - link "About Us" [ref=e240] [cursor=pointer]:
+                - /url: /about
+            - listitem [ref=e241]:
+              - link "Contact" [ref=e242] [cursor=pointer]:
+                - /url: /contact
+      - paragraph [ref=e244]: © 2025 TextGauge. All rights reserved.
+  - generic [ref=e247]:
+    - paragraph [ref=e248]:
+      - text: We use cookies to enhance your experience and analyze traffic. By continuing to visit this site you agree to our use of cookies.
+      - link "Learn more" [ref=e249] [cursor=pointer]:
+        - /url: /cookie-policy
+    - button "Got it" [ref=e250]
+  - button "Toggle theme" [ref=e251]:
+    - img [ref=e252]
+  - button "Open Next.js Dev Tools" [ref=e259] [cursor=pointer]:
+    - img [ref=e260]
+  - alert [ref=e263]
+```
