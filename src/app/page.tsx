@@ -6,7 +6,7 @@ import { flowerThemes } from "@/config/flowerThemes";
 import { useState } from "react";
 
 const categories = {
-  "Data & Developer": [
+  "Formatters": [
     {
       href: "/json-formatter",
       theme: flowerThemes.cherryBlossom,
@@ -34,6 +34,8 @@ const categories = {
       hoverShadow: "hover:shadow-orange-500/20",
       hoverText: "group-hover:text-orange-600 dark:group-hover:text-orange-400",
     },
+  ],
+  "Converters": [
     {
       href: "/json-to-csv-converter",
       theme: flowerThemes.sunflower,
@@ -52,17 +54,8 @@ const categories = {
       hoverShadow: "hover:shadow-violet-500/20",
       hoverText: "group-hover:text-violet-600 dark:group-hover:text-violet-400",
     },
-    {
-      href: "/diff-checker",
-      theme: flowerThemes.redRose,
-      title: "Diff Checker",
-      description: "Compare two texts and see differences instantly. Perfect for code reviews and config comparisons.",
-      hoverBorder: "hover:border-rose-400/60 dark:hover:border-rose-400/40",
-      hoverShadow: "hover:shadow-rose-500/20",
-      hoverText: "group-hover:text-rose-600 dark:group-hover:text-rose-400",
-    },
   ],
-  "Frontend & Design": [
+  "Design Tools": [
     {
       href: "/palette-forge",
       theme: flowerThemes.orchid,
@@ -73,17 +66,30 @@ const categories = {
       hoverText: "group-hover:text-stone-600 dark:group-hover:text-stone-400",
     },
   ],
+  "Comparison": [
+    {
+      href: "/diff-checker",
+      theme: flowerThemes.redRose,
+      title: "Diff Checker",
+      description: "Compare two texts and see differences instantly. Perfect for code reviews and config comparisons.",
+      hoverBorder: "hover:border-rose-400/60 dark:hover:border-rose-400/40",
+      hoverShadow: "hover:shadow-rose-500/20",
+      hoverText: "group-hover:text-rose-600 dark:group-hover:text-rose-400",
+    },
+  ],
 };
 
 const categoryLabels: Record<string, { image: string; color: string }> = {
-  "Data & Developer": { image: flowerThemes.sunflower.image, color: "violet" },
-  "Frontend & Design": { image: flowerThemes.orchid.image, color: "stone" },
+  "Formatters": { image: flowerThemes.cherryBlossom.image, color: "violet" },
+  "Converters": { image: flowerThemes.sunflower.image, color: "yellow" },
+  "Design Tools": { image: flowerThemes.orchid.image, color: "stone" },
+  "Comparison": { image: flowerThemes.redRose.image, color: "rose" },
 };
 
 type CategoryKey = keyof typeof categories;
 
 function ToolsSection() {
-  const [activeCategory, setActiveCategory] = useState<CategoryKey>("Data & Developer");
+  const [activeCategory, setActiveCategory] = useState<CategoryKey>("Formatters");
   const categoryKeys = Object.keys(categories) as CategoryKey[];
   const tools = categories[activeCategory];
 
