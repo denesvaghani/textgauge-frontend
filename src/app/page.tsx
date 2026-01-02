@@ -191,44 +191,46 @@ export default function Page() {
   return (
     <FlowerBackground theme={flowerThemes.sunflower} showFlowerBadge={false}>
       <div className="flex flex-col min-h-screen">
-        {/* Compact Smart Header */}
-        <header className="shrink-0 bg-white/70 dark:bg-slate-900/70 backdrop-blur-xl shadow-sm border-b border-slate-200/50 dark:border-slate-800/50 z-20 sticky top-0 transition-all duration-300">
-            <div className="max-w-[1920px] mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between gap-4">
-                
-                {/* Left: Branding & Title */}
-                <div className="flex items-center gap-3 md:gap-4 overflow-hidden">
-                    <div className="shrink-0 w-8 h-8 md:w-10 md:h-10 rounded-full shadow-md ring-2 ring-white dark:ring-slate-800 relative z-10"
-                         style={{ boxShadow: `0 0 10px ${flowerThemes.sunflower.colors.glow}` }}>
+        {/* Hero Dashboard Header - V2 Redesign */}
+        <div className="flex flex-col items-center justify-center pt-8 pb-6 px-4 sm:px-6 lg:px-8 space-y-4 shrink-0">
+            {/* Logo & Title Group */}
+            <div className="flex flex-col md:flex-row items-center gap-3 md:gap-5">
+                {/* Glowing Logo Container */}
+                <div className="relative w-14 h-14 md:w-16 md:h-16 shrink-0 group">
+                    <div className="absolute inset-0 bg-yellow-400 rounded-full blur-xl opacity-40 animate-pulse group-hover:opacity-60 transition-opacity duration-500"></div>
+                    <div className="relative w-full h-full rounded-full ring-2 ring-white dark:ring-slate-800 shadow-xl overflow-hidden bg-white dark:bg-slate-900 z-10">
                         <Image 
                             src={flowerThemes.sunflower.image} 
                             alt="Sunflower" 
-                            width={40} 
-                            height={40} 
-                            className="w-full h-full object-cover rounded-full"
+                            fill
+                            className="object-cover"
+                            priority
                         />
-                    </div>
-                    
-                    <div className="flex flex-col justify-center min-w-0">
-                        <div className="flex items-baseline gap-3">
-                            <h1 className="text-lg md:text-xl font-bold tracking-tight text-slate-900 dark:text-white truncate">
-                                Character Counter
-                            </h1>
-                            <span className="hidden sm:inline-block px-2 py-0.5 rounded-full text-[10px] uppercase font-bold tracking-wider bg-yellow-100/50 dark:bg-yellow-900/30 text-yellow-700 dark:text-yellow-400 border border-yellow-200 dark:border-yellow-800">
-                                Text Tool
-                            </span>
-                        </div>
-                        <p className="text-xs text-slate-500 dark:text-slate-400 truncate hidden sm:block">
-                            Analyze text, format JSON/YAML & more
-                        </p>
                     </div>
                 </div>
 
-                {/* Right: Flower Significance (Subtle) */}
-                <div className="hidden md:flex items-center gap-2 text-xs text-slate-400 dark:text-slate-500 max-w-md text-right">
-                    <span className="italic truncate">{flowerThemes.sunflower.significance}</span>
+                {/* Title & Badge */}
+                <div className="flex flex-col items-center md:items-start text-center md:text-left">
+                    <div className="flex items-center gap-3">
+                        <h1 className="text-3xl md:text-4xl font-extrabold tracking-tight bg-clip-text text-transparent bg-gradient-to-r from-slate-900 via-slate-700 to-slate-900 dark:from-white dark:via-slate-200 dark:to-white">
+                            Character Counter
+                        </h1>
+                        <span className="hidden md:inline-flex items-center px-2.5 py-0.5 rounded-full text-[10px] uppercase font-bold tracking-wider bg-yellow-100 dark:bg-yellow-900/30 text-yellow-700 dark:text-yellow-400 border border-yellow-200 dark:border-yellow-800/50 shadow-sm">
+                            Text Tool
+                        </span>
+                    </div>
+                    {/* Mobile Badge */}
+                    <span className="md:hidden inline-flex mt-2 items-center px-2.5 py-0.5 rounded-full text-[10px] uppercase font-bold tracking-wider bg-yellow-100 dark:bg-yellow-900/30 text-yellow-700 dark:text-yellow-400 border border-yellow-200 dark:border-yellow-800/50 shadow-sm">
+                        Text Tool
+                    </span>
                 </div>
             </div>
-        </header>
+
+            {/* Description */}
+            <p className="text-center text-slate-500 dark:text-slate-400 max-w-xl text-sm md:text-base font-medium leading-relaxed">
+                Free online tool to <strong className="text-slate-700 dark:text-slate-300 font-semibold">count characters</strong>, format <strong>JSON & YAML</strong>, and analyze your text.
+            </p>
+        </div>
 
         {/* Main Content */}
         <main className="flex-1 flex flex-col min-h-0 w-full">
