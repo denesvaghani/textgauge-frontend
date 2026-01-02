@@ -153,7 +153,7 @@ export default function Page() {
       </section>
 
       {/* SEO Content Section */}
-      <section className="relative max-w-[1920px] mx-auto px-4 sm:px-6 lg:px-8 pb-16 z-10">
+      <section className="w-full relative max-w-[1920px] mx-auto px-4 sm:px-6 lg:px-8 pb-16 z-10">
         <div className="bg-white/80 dark:bg-slate-900/80 backdrop-blur-sm rounded-2xl shadow-sm border border-yellow-200/50 dark:border-yellow-800/30 p-8 transition-colors duration-200">
           <h2 className="text-2xl font-bold text-slate-900 dark:text-white mb-6">
             Everything you need to analyze text
@@ -201,7 +201,7 @@ export default function Page() {
       </section>
 
       {/* FAQ Section */}
-      <section className="relative max-w-[1920px] mx-auto px-4 sm:px-6 lg:px-8 pb-16 z-10">
+      <section className="w-full max-w-[1920px] mx-auto px-4 sm:px-6 lg:px-8 pb-16 z-10 relative">
         <h2 className="text-2xl font-bold text-center text-slate-900 dark:text-white mb-8">
           Frequently Asked Questions
         </h2>
