@@ -75,9 +75,9 @@ const categories = {
   ],
 };
 
-const categoryLabels: Record<string, { icon: string; color: string }> = {
-  "Data & Developer": { icon: "⚙️", color: "violet" },
-  "Frontend & Design": { icon: "🎨", color: "stone" },
+const categoryLabels: Record<string, { image: string; color: string }> = {
+  "Data & Developer": { image: flowerThemes.sunflower.image, color: "violet" },
+  "Frontend & Design": { image: flowerThemes.orchid.image, color: "stone" },
 };
 
 type CategoryKey = keyof typeof categories;
@@ -101,13 +101,21 @@ function ToolsSection() {
             <button
               key={category}
               onClick={() => setActiveCategory(category)}
-              className={`px-5 py-2.5 rounded-full font-medium text-sm transition-all duration-200 flex items-center gap-2 ${
+              className={`px-3 py-2 sm:px-5 sm:py-2.5 rounded-full font-medium text-sm transition-all duration-200 flex items-center gap-2 ${
                 activeCategory === category
                   ? 'bg-slate-900 dark:bg-white text-white dark:text-slate-900 shadow-lg scale-105'
                   : 'bg-white dark:bg-slate-800 text-slate-600 dark:text-slate-300 border border-slate-200 dark:border-slate-700 hover:border-slate-400 dark:hover:border-slate-500'
               }`}
             >
-              <span>{categoryLabels[category]?.icon}</span>
+              <div className="w-5 h-5 sm:w-6 sm:h-6 rounded-full overflow-hidden shrink-0 border border-current opacity-90 relative">
+                <Image 
+                    src={categoryLabels[category]?.image} 
+                    alt="" 
+                    fill
+                    sizes="24px"
+                    className="object-cover"
+                />
+              </div>
               <span>{category}</span>
               <span className="ml-1 px-2 py-0.5 rounded-full text-xs bg-slate-200/50 dark:bg-slate-700/50">
                 {categories[category].length}
