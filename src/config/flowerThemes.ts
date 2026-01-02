@@ -155,6 +155,28 @@ export const flowerThemes = {
       dark: "dark:bg-gradient-to-br dark:from-rose-950/30 dark:via-red-950/20 dark:to-slate-950",
     },
   },
+  orchid: {
+    name: "Orchid",
+    slug: "orchid",
+    image: "/images/flowers/orchid.webp",
+    significance: "Represents creativity, beauty, and the refinement of design into production-ready tokens.",
+    colors: {
+      primary: "#8B5CF6",
+      secondary: "#6366F1",
+      accent: "#E0E7FF",
+      glow: "rgba(139, 92, 246, 0.25)",
+      text: "text-violet-600",
+      textDark: "dark:text-violet-400",
+    },
+    gradient: {
+      light: "from-violet-500 to-indigo-500",
+      dark: "from-violet-600 to-indigo-600",
+    },
+    bgGradient: {
+      light: "bg-gradient-to-br from-violet-50 via-indigo-50/50 to-white",
+      dark: "dark:bg-gradient-to-br dark:from-violet-950/30 dark:via-indigo-950/20 dark:to-slate-950",
+    },
+  },
 } as const;
 
 export type FlowerThemeKey = keyof typeof flowerThemes;
