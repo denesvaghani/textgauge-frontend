@@ -835,6 +835,56 @@ export function PaletteForgeClient() {
         )}
       </main>
 
+      {/* FAQ Section */}
+      <section className="w-full max-w-[1920px] mx-auto px-4 sm:px-6 lg:px-8 py-16">
+        <h2 className="text-2xl font-bold text-center text-slate-900 dark:text-white mb-8">
+          Frequently Asked Questions
+        </h2>
+        <div className="max-w-4xl mx-auto space-y-4">
+          {[
+            {
+              q: 'What does "Mixed (60% harmony)" mean?',
+              a: 'This is the Color Harmony Analysis. It shows how well your extracted colors work together based on color theory. "Mixed" means your palette is diverse and doesn\'t follow a specific harmony pattern (like Analogous, Complementary, or Triadic). The percentage (60%) indicates how closely the palette aligns with traditional color harmony rules. Higher scores mean more cohesive, theory-aligned palettes.',
+            },
+            {
+              q: 'What do AAA, AA, and Fail badges mean?',
+              a: 'These are WCAG (Web Content Accessibility Guidelines) contrast ratings. AAA (green) means excellent contrast ≥7:1 - readable for all text sizes. AA (yellow/amber) means good contrast ≥4.5:1 - readable for normal text. Fail (red) means poor contrast <4.5:1 - text may be hard to read. The badge shows how readable white text would be on that color as a background.',
+            },
+            {
+              q: 'Why does a color show "Fail" for accessibility?',
+              a: 'A "Fail" rating means there isn\'t enough contrast between that color and white text. Colors like light oranges, yellows, and pastels often fail because they\'re too bright. For these colors, use dark text instead, or use them as accents rather than backgrounds for text.',
+            },
+            {
+              q: 'What are the three token layers?',
+              a: 'Primitive tokens are raw color values (--color-purple-500). Semantic tokens describe purpose (--color-text-primary, --color-bg-secondary). Component tokens are UI-specific (--button-primary-bg, --input-border-focus). This 3-layer system is what professional design systems use for maintainability.',
+            },
+            {
+              q: 'What do the color scale numbers (50-950) mean?',
+              a: 'These are Tailwind-style shade values. 50 is the lightest shade, 500 is the base color, and 950 is the darkest. Lower numbers = lighter shades (for backgrounds), higher numbers = darker shades (for text and emphasis). Click any shade to copy its hex code.',
+            },
+            {
+              q: 'Which export format should I use?',
+              a: 'Use CSS Variables for vanilla projects, Tailwind for Tailwind CSS projects, SCSS for Sass projects, JSON for Style Dictionary, Figma for Figma variables, and Tokens Studio for design tokens management. All formats include your complete color system.',
+            },
+          ].map((faq, i) => (
+            <details
+              key={i}
+              className="w-full group bg-white/80 dark:bg-slate-900/80 backdrop-blur-sm border border-violet-200/50 dark:border-violet-800/50 rounded-xl overflow-hidden transition-all duration-200 shadow-sm hover:shadow-md hover:border-violet-300/50 dark:hover:border-violet-700/50"
+            >
+              <summary className="flex items-center justify-between p-5 font-semibold cursor-pointer text-slate-800 dark:text-white hover:bg-violet-50/50 dark:hover:bg-violet-900/20 transition-colors">
+                {faq.q}
+                <span className="text-slate-400 group-open:rotate-180 transition-transform">
+                  ▼
+                </span>
+              </summary>
+              <div className="px-5 pb-5 text-slate-600 dark:text-slate-300 text-sm leading-relaxed border-t border-violet-100/50 dark:border-violet-800/30 pt-4 bg-white/50 dark:bg-slate-900/50">
+                {faq.a}
+              </div>
+            </details>
+          ))}
+        </div>
+      </section>
+
       {/* Footer */}
       <footer className="w-full border-t border-slate-200 dark:border-slate-800 py-6">
         <div className="max-w-[1920px] mx-auto px-4 sm:px-6 lg:px-8 text-center text-sm text-slate-500 dark:text-slate-400">
