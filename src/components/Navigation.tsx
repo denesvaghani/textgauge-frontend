@@ -138,6 +138,7 @@ export function Navigation() {
                                                         fill
                                                         sizes="32px"
                                                         className="object-cover"
+                                                        priority
                                                     />
                                                 </div>
                                                 <span className="font-medium">{link.label}</span>

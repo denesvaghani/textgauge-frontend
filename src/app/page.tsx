@@ -114,6 +114,7 @@ function ToolsSection() {
                     fill
                     sizes="24px"
                     className="object-cover"
+                    priority
                 />
               </div>
               <span>{category}</span>
