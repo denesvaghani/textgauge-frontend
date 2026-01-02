@@ -191,14 +191,14 @@ export default function Page() {
   return (
     <FlowerBackground theme={flowerThemes.sunflower} showFlowerBadge={false}>
       <div className="flex flex-col min-h-screen">
-        {/* Hero Dashboard Header - V2 Redesign */}
-        <div className="flex flex-col items-center justify-center pt-8 pb-6 px-4 sm:px-6 lg:px-8 space-y-4 shrink-0">
-            {/* Logo & Title Group */}
-            <div className="flex flex-col md:flex-row items-center gap-3 md:gap-5">
+        {/* Hero Dashboard Header - V3 Clean & Semantic */}
+        <div className="flex flex-col items-center justify-center pt-10 pb-8 px-4 sm:px-6 lg:px-8 space-y-5 shrink-0 animate-in fade-in zoom-in duration-500">
+            {/* Logo & Title Stack */}
+            <div className="flex flex-col items-center gap-4">
                 {/* Glowing Logo Container */}
-                <div className="relative w-14 h-14 md:w-16 md:h-16 shrink-0 group">
-                    <div className="absolute inset-0 bg-yellow-400 rounded-full blur-xl opacity-40 animate-pulse group-hover:opacity-60 transition-opacity duration-500"></div>
-                    <div className="relative w-full h-full rounded-full ring-2 ring-white dark:ring-slate-800 shadow-xl overflow-hidden bg-white dark:bg-slate-900 z-10">
+                <div className="relative w-16 h-16 md:w-20 md:h-20 shrink-0 group transition-transform hover:scale-105 duration-300">
+                    <div className="absolute inset-0 bg-yellow-400 rounded-full blur-2xl opacity-30 animate-pulse group-hover:opacity-50 transition-opacity duration-700"></div>
+                    <div className="relative w-full h-full rounded-full ring-4 ring-white dark:ring-slate-900 shadow-xl overflow-hidden bg-white dark:bg-slate-900 z-10">
                         <Image 
                             src={flowerThemes.sunflower.image} 
                             alt="Sunflower" 
@@ -209,36 +209,30 @@ export default function Page() {
                     </div>
                 </div>
 
-                {/* Title & Badge */}
-                <div className="flex flex-col items-center md:items-start text-center md:text-left">
-                    <div className="flex items-center gap-3">
-                        <h1 className="text-3xl md:text-4xl font-extrabold tracking-tight bg-clip-text text-transparent bg-gradient-to-r from-slate-900 via-slate-700 to-slate-900 dark:from-white dark:via-slate-200 dark:to-white">
-                            Character Counter
-                        </h1>
-                        <span className="hidden md:inline-flex items-center px-2.5 py-0.5 rounded-full text-[10px] uppercase font-bold tracking-wider bg-yellow-100 dark:bg-yellow-900/30 text-yellow-700 dark:text-yellow-400 border border-yellow-200 dark:border-yellow-800/50 shadow-sm">
-                            Text Tool
-                        </span>
-                    </div>
-                    {/* Mobile Badge */}
-                    <span className="md:hidden inline-flex mt-2 items-center px-2.5 py-0.5 rounded-full text-[10px] uppercase font-bold tracking-wider bg-yellow-100 dark:bg-yellow-900/30 text-yellow-700 dark:text-yellow-400 border border-yellow-200 dark:border-yellow-800/50 shadow-sm">
-                        Text Tool
-                    </span>
-                </div>
+                {/* Title */}
+                <h1 className="text-4xl md:text-5xl font-black tracking-tight text-center bg-clip-text text-transparent bg-gradient-to-br from-slate-900 via-slate-700 to-slate-800 dark:from-white dark:via-slate-200 dark:to-slate-400 drop-shadow-sm pb-1">
+                    Character Counter
+                </h1>
             </div>
 
-            {/* Description */}
-            <p className="text-center text-slate-500 dark:text-slate-400 max-w-xl text-sm md:text-base font-medium leading-relaxed">
-                Free online tool to <strong className="text-slate-700 dark:text-slate-300 font-semibold">count characters</strong>, format <strong>JSON & YAML</strong>, and analyze your text.
+            {/* Significance (Personal Line) - Now the Hero Subtitle */}
+            <p className="text-center text-slate-400 dark:text-slate-500 text-sm md:text-base italic font-medium tracking-wide max-w-lg">
+                {flowerThemes.sunflower.significance}
             </p>
         </div>
 
         {/* Main Content */}
         <main className="flex-1 flex flex-col min-h-0 w-full">
             {/* Editor Section */}
-            <div className="w-full max-w-[1920px] mx-auto px-4 sm:px-6 lg:px-8 py-4">
+            <div className="w-full max-w-[1920px] mx-auto px-4 sm:px-6 lg:px-8 py-4 space-y-6">
                 <div className="bg-white dark:bg-slate-900 rounded-2xl shadow-xl ring-1 ring-slate-900/5 dark:ring-white/10 overflow-hidden">
                     <Editor />
                 </div>
+
+                {/* SEO Description - Moved Below Editor */}
+                <p className="text-center text-slate-400 dark:text-slate-500 text-xs md:text-sm max-w-2xl mx-auto opacity-70 hover:opacity-100 transition-opacity">
+                    Free online tool to <strong className="text-slate-600 dark:text-slate-300 font-semibold">count characters</strong>, format <strong>JSON & YAML</strong>, and analyze your text.
+                </p>
             </div>
 
             {/* Tools Grid with Categories */}
