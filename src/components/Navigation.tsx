@@ -6,25 +6,26 @@ import { usePathname } from "next/navigation";
 import { useState, useEffect, useRef } from "react";
 import { Menu, X, Moon, Sun, ChevronDown } from "lucide-react";
 import { useTheme } from "@/contexts/ThemeContext";
+import { flowerThemes } from "@/config/flowerThemes";
 
 const navCategories = {
     "Text Tools": [
-        { href: "/", label: "Character Counter", icon: "📝" },
+        { href: "/", label: "Character Counter", image: flowerThemes.sunflower.image },
     ],
     "Formatters": [
-        { href: "/json-formatter", label: "JSON Formatter", icon: "{ }" },
-        { href: "/yaml-formatter", label: "YAML Formatter", icon: "📄" },
-        { href: "/toml-formatter", label: "TOML Formatter", icon: "⚙️" },
+        { href: "/json-formatter", label: "JSON Formatter", image: flowerThemes.cherryBlossom.image },
+        { href: "/yaml-formatter", label: "YAML Formatter", image: flowerThemes.whiteLily.image },
+        { href: "/toml-formatter", label: "TOML Formatter", image: flowerThemes.frangipani.image },
     ],
     "Converters": [
-        { href: "/json-to-csv-converter", label: "JSON to CSV", icon: "📊" },
-        { href: "/json-to-toon-converter", label: "JSON to TOON", icon: "🤖" },
+        { href: "/json-to-csv-converter", label: "JSON to CSV", image: flowerThemes.sunflower.image },
+        { href: "/json-to-toon-converter", label: "JSON to TOON", image: flowerThemes.lavender.image },
     ],
     "Design Tools": [
-        { href: "/palette-forge", label: "PaletteForge", icon: "🎨" },
+        { href: "/palette-forge", label: "PaletteForge", image: flowerThemes.orchid.image },
     ],
     "Comparison": [
-        { href: "/diff-checker", label: "Diff Checker", icon: "🔍" },
+        { href: "/diff-checker", label: "Diff Checker", image: flowerThemes.redRose.image },
     ],
 };
 
@@ -98,7 +99,6 @@ export function Navigation() {
                     {/* Desktop Navigation - Category Dropdowns */}
                     <div className="hidden md:flex items-center gap-1" ref={dropdownRef}>
 
-
                         {/* Category Dropdowns */}
                         {Object.entries(navCategories).map(([category, links]) => (
                             <div key={category} className="relative">
@@ -119,19 +119,28 @@ export function Navigation() {
 
                                 {/* Dropdown Menu */}
                                 {openDropdown === category && (
-                                    <div className="absolute top-full left-0 mt-1 w-48 py-2 bg-white dark:bg-slate-800 rounded-xl shadow-xl border border-slate-200 dark:border-slate-700 z-50">
+                                    <div className="absolute top-full left-0 mt-1 w-56 py-2 bg-white dark:bg-slate-800 rounded-xl shadow-xl border border-slate-200 dark:border-slate-700 z-50 overflow-hidden">
                                         {links.map((link) => (
                                             <Link
                                                 key={link.href}
                                                 href={link.href}
                                                 onClick={() => setOpenDropdown(null)}
-                                                className={`block px-4 py-2 text-sm transition-colors ${
+                                                className={`flex items-center gap-3 px-4 py-2.5 text-sm transition-colors ${
                                                     isLinkActive(link.href)
                                                         ? "bg-indigo-50 dark:bg-indigo-900/20 text-indigo-600 dark:text-indigo-400"
                                                         : "text-slate-700 dark:text-slate-300 hover:bg-slate-50 dark:hover:bg-slate-700/50"
                                                 }`}
                                             >
-                                                {link.label}
+                                                <div className="w-8 h-8 rounded-full overflow-hidden shrink-0 border border-slate-100 dark:border-slate-700 shadow-sm relative">
+                                                    <Image 
+                                                        src={link.image} 
+                                                        alt="" 
+                                                        fill
+                                                        sizes="32px"
+                                                        className="object-cover"
+                                                    />
+                                                </div>
+                                                <span className="font-medium">{link.label}</span>
                                             </Link>
                                         ))}
                                     </div>
