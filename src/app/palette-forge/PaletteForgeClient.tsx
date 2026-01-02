@@ -171,7 +171,7 @@ export function PaletteForgeClient() {
       {/* Title Section */}
       <section className="w-full max-w-[1920px] mx-auto px-4 sm:px-6 lg:px-8 py-4">
         <h1 className="text-2xl md:text-3xl font-bold text-slate-900 dark:text-white">
-          <span className="bg-gradient-to-r from-violet-600 to-indigo-600 dark:from-violet-400 dark:to-indigo-400 bg-clip-text text-transparent">
+          <span className="bg-gradient-to-r from-stone-600 to-slate-600 dark:from-stone-400 dark:to-slate-400 bg-clip-text text-transparent">
             PaletteForge
           </span>
         </h1>
@@ -188,8 +188,8 @@ export function PaletteForgeClient() {
           <div
             className={`relative max-w-2xl mx-auto border-2 border-dashed rounded-2xl p-12 text-center transition-all duration-300 cursor-pointer
               ${isDragOver
-                ? 'border-violet-500 bg-violet-50 dark:bg-violet-900/20 scale-[1.02]'
-                : 'border-slate-300 dark:border-slate-700 hover:border-violet-400 hover:bg-violet-50/50 dark:hover:bg-violet-900/10'
+                ? 'border-stone-500 bg-stone-50 dark:bg-stone-900/20 scale-[1.02]'
+                : 'border-slate-300 dark:border-slate-700 hover:border-stone-400 hover:bg-stone-50/50 dark:hover:bg-stone-900/10'
               }
               ${isProcessing ? 'pointer-events-none opacity-60' : ''}
             `}
@@ -208,7 +208,7 @@ export function PaletteForgeClient() {
 
             {isProcessing ? (
               <div className="flex flex-col items-center gap-4">
-                <div className="w-12 h-12 border-4 border-violet-500 border-t-transparent rounded-full animate-spin" />
+                <div className="w-12 h-12 border-4 border-stone-500 border-t-transparent rounded-full animate-spin" />
                 <p className="text-lg font-medium text-slate-700 dark:text-slate-300">
                   Analyzing your design...
                 </p>
@@ -226,8 +226,8 @@ export function PaletteForgeClient() {
               </div>
             ) : (
               <div className="flex flex-col items-center gap-4">
-                <div className="w-16 h-16 rounded-full bg-violet-100 dark:bg-violet-900/30 flex items-center justify-center">
-                  <Upload className="w-8 h-8 text-violet-600 dark:text-violet-400" />
+                <div className="w-16 h-16 rounded-full bg-stone-100 dark:bg-stone-900/30 flex items-center justify-center">
+                  <Upload className="w-8 h-8 text-stone-600 dark:text-stone-400" />
                 </div>
                 <div>
                   <p className="text-lg font-medium text-slate-700 dark:text-slate-300">
@@ -258,7 +258,7 @@ export function PaletteForgeClient() {
               <div className="flex items-center justify-between mb-6">
                 <div>
                   <h2 className="text-2xl font-bold text-slate-900 dark:text-white flex items-center gap-2">
-                    <Palette className="w-6 h-6 text-violet-500" />
+                    <Palette className="w-6 h-6 text-stone-500" />
                     Extracted Colors
                   </h2>
                   <p className="text-slate-600 dark:text-slate-400 mt-1">
@@ -340,7 +340,7 @@ export function PaletteForgeClient() {
             {/* Color Scales */}
             <section className="w-full max-w-[1920px] mx-auto px-4 sm:px-6 lg:px-8 py-8">
               <h2 className="text-2xl font-bold text-slate-900 dark:text-white flex items-center gap-2 mb-6">
-                <Droplets className="w-6 h-6 text-violet-500" />
+                <Droplets className="w-6 h-6 text-stone-500" />
                 Color Scales
               </h2>
 
@@ -378,7 +378,7 @@ export function PaletteForgeClient() {
             <section className="w-full max-w-[1920px] mx-auto px-4 sm:px-6 lg:px-8 py-8">
               <div className="flex items-center justify-between mb-6">
                 <h2 className="text-2xl font-bold text-slate-900 dark:text-white flex items-center gap-2">
-                  <Sparkles className="w-6 h-6 text-violet-500" />
+                  <Sparkles className="w-6 h-6 text-stone-500" />
                   Preview in Action
                 </h2>
                 <div className="flex items-center gap-2 p-1 bg-slate-100 dark:bg-slate-800 rounded-lg">
@@ -673,7 +673,7 @@ export function PaletteForgeClient() {
                       onClick={() => setActiveTab(tab.id)}
                       className={`px-4 py-2 rounded-lg text-sm font-medium transition-colors ${
                         activeTab === tab.id
-                          ? 'bg-violet-100 text-violet-700 dark:bg-violet-900/30 dark:text-violet-300'
+                          ? 'bg-stone-100 text-stone-700 dark:bg-stone-900/30 dark:text-stone-300'
                           : 'text-slate-600 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-slate-800'
                       }`}
                     >
@@ -690,7 +690,7 @@ export function PaletteForgeClient() {
                         key={name}
                         className="flex items-center justify-between py-2 px-3 bg-white dark:bg-slate-800 rounded-lg"
                       >
-                        <code className="text-sm text-violet-600 dark:text-violet-400">
+                        <code className="text-sm text-stone-600 dark:text-stone-400">
                           {name}
                         </code>
                         <div className="flex items-center gap-2">
@@ -714,7 +714,7 @@ export function PaletteForgeClient() {
             {/* Export Panel */}
             <section className="w-full max-w-[1920px] mx-auto px-4 sm:px-6 lg:px-8 py-8 pb-16">
               <h2 className="text-2xl font-bold text-slate-900 dark:text-white flex items-center gap-2 mb-6">
-                <FileCode className="w-6 h-6 text-violet-500" />
+                <FileCode className="w-6 h-6 text-stone-500" />
                 Export
               </h2>
 
@@ -726,7 +726,7 @@ export function PaletteForgeClient() {
                     onClick={() => setActiveExportFormat(format.id)}
                     className={`px-4 py-2 rounded-lg text-sm font-medium transition-colors ${
                       activeExportFormat === format.id
-                        ? 'bg-violet-500 text-white'
+                        ? 'bg-stone-500 text-white'
                         : 'bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-400 hover:bg-slate-200 dark:hover:bg-slate-700'
                     }`}
                   >
@@ -762,7 +762,7 @@ export function PaletteForgeClient() {
                       onClick={() =>
                         downloadTokens(activeExportFormat, getExportContent())
                       }
-                      className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-sm bg-violet-600 text-white hover:bg-violet-500 transition-colors"
+                      className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-sm bg-stone-600 text-white hover:bg-stone-500 transition-colors"
                     >
                       <Download className="w-4 h-4" />
                       Download
@@ -808,7 +808,7 @@ export function PaletteForgeClient() {
                   key={i}
                   className="bg-white dark:bg-slate-800 rounded-2xl p-6 shadow-sm border border-slate-200 dark:border-slate-700 hover:shadow-lg hover:-translate-y-1 transition-all duration-300"
                 >
-                  <div className="w-14 h-14 rounded-xl bg-violet-100 dark:bg-violet-900/30 flex items-center justify-center text-violet-600 dark:text-violet-400 mb-4">
+                  <div className="w-14 h-14 rounded-xl bg-stone-100 dark:bg-stone-900/30 flex items-center justify-center text-stone-600 dark:text-stone-400 mb-4">
                     {feature.icon}
                   </div>
                   <h3 className="text-lg font-semibold text-slate-900 dark:text-white mb-2">
@@ -848,12 +848,12 @@ export function PaletteForgeClient() {
               a: 'Choose based on your project: CSS Variables for vanilla web projects, Tailwind for Tailwind CSS, SCSS for Sass projects, JSON for Style Dictionary, Figma for Figma variables, and Tokens Studio for token management tools.',
             },
           ].map((faq, i) => (
-            <details key={i} className="w-full group bg-white/80 dark:bg-slate-900/80 backdrop-blur-sm border border-violet-200/50 dark:border-violet-800/30 rounded-xl overflow-hidden transition-all duration-200">
-              <summary className="flex items-center justify-between p-5 font-semibold cursor-pointer text-slate-800 dark:text-white hover:bg-violet-50/50 dark:hover:bg-violet-900/20 transition-colors">
+            <details key={i} className="w-full group bg-white/80 dark:bg-slate-900/80 backdrop-blur-sm border border-stone-200/50 dark:border-stone-800/30 rounded-xl overflow-hidden transition-all duration-200">
+              <summary className="flex items-center justify-between p-5 font-semibold cursor-pointer text-slate-800 dark:text-white hover:bg-stone-50/50 dark:hover:bg-stone-900/20 transition-colors">
                 {faq.q}
                 <span className="text-slate-400 group-open:rotate-180 transition-transform">▼</span>
               </summary>
-              <div className="px-5 pb-5 text-slate-600 dark:text-slate-300 text-sm leading-relaxed border-t border-violet-100/50 dark:border-violet-800/30 pt-4">
+              <div className="px-5 pb-5 text-slate-600 dark:text-slate-300 text-sm leading-relaxed border-t border-stone-100/50 dark:border-stone-800/30 pt-4">
                 {faq.a}
               </div>
             </details>
@@ -863,9 +863,9 @@ export function PaletteForgeClient() {
 
       {/* Platform Compatibility */}
       <section className="w-full max-w-[1920px] mx-auto px-4 sm:px-6 lg:px-8 pb-16">
-        <div className="bg-gradient-to-r from-violet-50 to-indigo-50 dark:from-violet-950/20 dark:to-indigo-950/20 rounded-2xl border border-violet-200 dark:border-violet-800 p-6 text-center">
+        <div className="bg-gradient-to-r from-stone-50 to-slate-50 dark:from-stone-950/20 dark:to-slate-950/20 rounded-2xl border border-stone-200 dark:border-stone-800 p-6 text-center">
           <p className="text-slate-700 dark:text-slate-300 font-medium text-base">
-            PaletteForge works on <strong>Windows</strong>, <strong>Mac</strong>, <strong>Linux</strong>, <strong>Chrome</strong>, <strong>Firefox</strong>, <strong>Safari</strong> and <strong>Edge</strong> – and it&apos;s <strong className="text-violet-600 dark:text-violet-400">Free</strong>.
+            PaletteForge works on <strong>Windows</strong>, <strong>Mac</strong>, <strong>Linux</strong>, <strong>Chrome</strong>, <strong>Firefox</strong>, <strong>Safari</strong> and <strong>Edge</strong> – and it&apos;s <strong className="text-stone-600 dark:text-stone-400">Free</strong>.
           </p>
         </div>
       </section>
