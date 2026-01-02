@@ -29,7 +29,7 @@ interface FormatterProps {
   sampleData?: string;
   id?: string;
   customActions?: React.ReactNode;
-  customActions?: React.ReactNode;
+
   actionLabel?: string; // Default: "Beautify", Use "Convert" for converters
   titleGradient?: string;
 }
