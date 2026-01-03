@@ -37,8 +37,8 @@ export async function generateMetadata(): Promise<Metadata> {
       locale: "en_US",
     },
     icons: {
-      icon: "/icon.png",
-      apple: "/apple-icon.png",
+      icon: "/images/logo/sunflower-logo.webp",
+      apple: "/images/logo/sunflower-logo.webp",
     },
     verification: {
       google: "xALwEqgM-o40Pv6kbAfwOcTAQsoUFcnzuUryWOfJwVA",
