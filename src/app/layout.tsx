@@ -5,32 +5,43 @@ import { ThemeProvider } from "@/contexts/ThemeContext";
 import { ThemeToggle } from "@/components/ThemeToggle";
 import { GoogleAnalytics } from "@/components/GoogleAnalytics";
 
-export const metadata: Metadata = {
-  title: {
-    default: "TextGauge - Free Developer Tools Suite",
-    template: "%s | TextGauge",
-  },
-  description:
-    "Free, secure, and privacy-focused developer tools suite. Instantly count characters, format JSON/YAML/TOML, convert data formats, and analyze text - all in your browser.",
-  metadataBase: new URL("https://www.textgauge.com"), // User didn't specify domain change but title suggests TextGauge. Sticking to existing or assumed new if rebrand. User said "TextGauge". Let's check sitemap.ts for domain. sitemap says countcharacters.org. I will stick to countcharacters.org for now to avoid broken links unless user asked to change domain. User asked for "TextGauge - Developer Tools Suite".
-  // Actually, let's keep the domain as is for now in metadataBase but update the title/desc.
-  alternates: {
-    canonical: "https://www.countcharacters.org/",
-  },
-  openGraph: {
-    title: "TextGauge - Free Developer Tools Suite",
+import { headers } from "next/headers";
+
+export async function generateMetadata(): Promise<Metadata> {
+  const headersList = await headers();
+  const host = headersList.get("host") || "www.countcharacters.org";
+  const protocol = "https"; // Force HTTPS for canonicals
+  const domain = host.includes("countcharacters.in")
+    ? "www.countcharacters.in"
+    : "www.countcharacters.org";
+  const baseUrl = `${protocol}://${domain}`;
+
+  return {
+    title: {
+      default: "TextGauge - Free Developer Tools Suite",
+      template: "%s | TextGauge",
+    },
     description:
-      "Free, secure, and privacy-focused developer tools suite. Instantly count characters, format JSON/YAML/TOML, convert data formats, and analyze text.",
-    url: "https://www.countcharacters.org/",
-    siteName: "TextGauge",
-    type: "website",
-    locale: "en_US",
-  },
-  icons: {
-    icon: "/icon.png", // Explicitly pointing to it can help if auto-detection fails, but removing manual link tags is key. Next.js 13 metadata API prefers this.
-    apple: "/apple-icon.png",
-  },
-};
+      "Free, secure, and privacy-focused developer tools suite. Instantly count characters, format JSON/YAML/TOML, convert data formats, and analyze text - all in your browser.",
+    metadataBase: new URL(baseUrl),
+    alternates: {
+      canonical: baseUrl,
+    },
+    openGraph: {
+      title: "TextGauge - Free Developer Tools Suite",
+      description:
+        "Free, secure, and privacy-focused developer tools suite. Instantly count characters, format JSON/YAML/TOML, convert data formats, and analyze text.",
+      url: baseUrl,
+      siteName: "TextGauge",
+      type: "website",
+      locale: "en_US",
+    },
+    icons: {
+      icon: "/icon.png",
+      apple: "/apple-icon.png",
+    },
+  };
+}
 
 const structuredData = {
   "@context": "https://schema.org",
