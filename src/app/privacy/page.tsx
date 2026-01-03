@@ -22,8 +22,7 @@ export default function PrivacyPage() {
             <h2>Information We Collect</h2>
             <h3>Information You Provide</h3>
             <p>
-                TextGauge is designed with privacy in mind. All text processing (character counting, JSON/YAML formatting,
-                CSV conversion) happens entirely in your browser. We do not collect, store, or transmit the content you
+                TextGauge is designed with privacy in mind. All processing (data formatting, conversion, diff checking, text analysis) happens entirely in your browser. We do not collect, store, or transmit the content you
                 process through our tools.
             </p>
 

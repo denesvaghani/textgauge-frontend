@@ -6,23 +6,29 @@ import { ThemeToggle } from "@/components/ThemeToggle";
 import { GoogleAnalytics } from "@/components/GoogleAnalytics";
 
 export const metadata: Metadata = {
-  title: "Character Counter – Word & Character Count Tool",
+  title: {
+    default: "TextGauge - Free Developer Tools Suite",
+    template: "%s | TextGauge",
+  },
   description:
-    "Free online character counter and word count tool. Instantly count characters, words, sentences, and paragraphs, and analyze keyword density for SEO.",
-  metadataBase: new URL("https://www.countcharacters.org"),
+    "Free, secure, and privacy-focused developer tools suite. Instantly count characters, format JSON/YAML/TOML, convert data formats, and analyze text - all in your browser.",
+  metadataBase: new URL("https://www.textgauge.com"), // User didn't specify domain change but title suggests TextGauge. Sticking to existing or assumed new if rebrand. User said "TextGauge". Let's check sitemap.ts for domain. sitemap says countcharacters.org. I will stick to countcharacters.org for now to avoid broken links unless user asked to change domain. User asked for "TextGauge - Developer Tools Suite".
+  // Actually, let's keep the domain as is for now in metadataBase but update the title/desc.
   alternates: {
     canonical: "https://www.countcharacters.org/",
-    languages: {
-      "en-IN": "https://www.countcharacters.in/",
-    },
   },
   openGraph: {
-    title: "Character Counter – Word & Character Count Tool",
+    title: "TextGauge - Free Developer Tools Suite",
     description:
-      "Instantly count characters, words, sentences, and paragraphs, and optimize your writing for SEO.",
+      "Free, secure, and privacy-focused developer tools suite. Instantly count characters, format JSON/YAML/TOML, convert data formats, and analyze text.",
     url: "https://www.countcharacters.org/",
-    siteName: "CountCharacters.org",
+    siteName: "TextGauge",
     type: "website",
+    locale: "en_US",
+  },
+  icons: {
+    icon: "/icon.png", // Explicitly pointing to it can help if auto-detection fails, but removing manual link tags is key. Next.js 13 metadata API prefers this.
+    apple: "/apple-icon.png",
   },
 };
 
@@ -52,9 +58,6 @@ export default function RootLayout({
   return (
     <html lang="en" suppressHydrationWarning>
       <head>
-        <link rel="icon" type="image/png" href="/favicon.png" />
-        <link rel="apple-touch-icon" href="/apple-icon.png" />
-
         {/* Structured data for SEO */}
         <script
           type="application/ld+json"

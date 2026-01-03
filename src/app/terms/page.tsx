@@ -3,7 +3,7 @@ import { Metadata } from 'next';
 
 export const metadata: Metadata = {
     title: 'Terms of Service | TextGauge',
-    description: 'Terms of Service for TextGauge - Read our terms and conditions for using our text analysis tools.',
+    description: 'Terms of Service for TextGauge - Read our terms and conditions for using our developer tools suite.',
 };
 
 export default function TermsPage() {

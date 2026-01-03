@@ -3,15 +3,15 @@ import { Metadata } from 'next';
 import { Shield, Zap, CircleDollarSign } from 'lucide-react';
 
 export const metadata: Metadata = {
-    title: 'About TextGauge | Free Text Analysis Tools',
-    description: 'Learn about TextGauge - Free, secure, and efficient text analysis tools for developers, writers, and data analysts.',
+    title: 'About TextGauge | Developer Tools Suite',
+    description: 'Learn about TextGauge - The free, privacy-focused developer tools suite. JSON Formatter, YAML Validator, Diff Checker, Converters, and more.',
 };
 
 export default function AboutPage() {
     return (
         <LegalLayout title="About TextGauge">
             <p className="lead">
-                Free, secure, and efficient text analysis tools for the modern web.
+                Free, secure, and efficient developer tools suite for the modern web.
             </p>
 
             <h2>Our Mission</h2>
@@ -61,9 +61,10 @@ export default function AboutPage() {
             <h2>Our Tools</h2>
             <p>TextGauge offers a growing suite of text analysis and formatting tools:</p>
             <ul>
-                <li><strong>Character Counter:</strong> Analyze text with detailed metrics including word count, character count, reading time, and more.</li>
-                <li><strong>JSON Formatter:</strong> Beautify, validate, and minify JSON data with our advanced Monaco-based editor.</li>
-                <li><strong>YAML Formatter:</strong> Format and validate YAML configuration files with ease.</li>
+                <li><strong>Developer Utilities:</strong> Format, validate, and minify JSON, TOML, and YAML with advanced editors.</li>
+                <li><strong>Data Converters:</strong> Instantly convert between JSON, CSV, XML, and YAML formats.</li>
+                <li><strong>Diff Tools:</strong> Compare text and code side-by-side to spot differences immediately.</li>
+                <li><strong>Text Analysis:</strong> Count characters, words, and analyze text density for SEO.</li>
             </ul>
 
             <h2>Built for Everyone</h2>
