@@ -37,8 +37,8 @@ export async function generateMetadata(): Promise<Metadata> {
       locale: "en_US",
     },
     icons: {
-      icon: "/icon.png",
-      apple: "/apple-icon.png",
+      icon: "/images/logo/sunflower-logo.webp",
+      apple: "/images/logo/sunflower-logo.webp",
     },
     verification: {
       google: "xALwEqgM-o40Pv6kbAfwOcTAQsoUFcnzuUryWOfJwVA",
@@ -49,12 +49,12 @@ export async function generateMetadata(): Promise<Metadata> {
 const structuredData = {
   "@context": "https://schema.org",
   "@type": "WebApplication",
-  name: "Character Counter – Word & Character Count Tool",
+  name: "TextGauge - Developer Tools Suite",
   url: "https://www.countcharacters.org",
   applicationCategory: "UtilityApplication",
   operatingSystem: "All",
   description:
-    "Free online character counter and word count tool. Instantly count characters, words, sentences, and paragraphs, and analyze keyword density for SEO.",
+    "Free, secure, and privacy-focused developer tools suite. Instantly count characters, format JSON/YAML/TOML, convert data formats, and analyze text - all in your browser.",
 };
 
 import { Navigation } from "@/components/Navigation";
