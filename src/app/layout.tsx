@@ -40,6 +40,9 @@ export async function generateMetadata(): Promise<Metadata> {
       icon: "/icon.png",
       apple: "/apple-icon.png",
     },
+    verification: {
+      google: "xALwEqgM-o40Pv6kbAfwOcTAQsoUFcnzuUryWOfJwVA",
+    },
   };
 }
 
