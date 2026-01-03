@@ -186,34 +186,28 @@ function ToolsSection() {
 }
 
 import { FlowerBackground } from "@/components/FlowerBackground";
+import { SmartHeroHeader, HeroDescription } from "@/components/SmartHeroHeader";
 
 export default function Page() {
   return (
-    <FlowerBackground theme={flowerThemes.sunflower} badgeText="Character Tool">
+    <FlowerBackground theme={flowerThemes.sunflower} showFlowerBadge={false}>
       <div className="flex flex-col min-h-screen">
-        {/* Header Section - Matches Formatter.tsx EXACTLY */}
-        <header className="shrink-0 bg-white/80 dark:bg-slate-900/80 backdrop-blur-md shadow-sm border-b border-slate-200 dark:border-slate-800 z-10 sticky top-0">
-            <div className="max-w-[1920px] mx-auto px-4 sm:px-6 lg:px-8 py-3">
-                <div className="flex flex-col md:flex-row md:items-center justify-between gap-4">
-                    <div className="flex flex-col gap-0.5">
-                        <h1 className="text-xl sm:text-2xl font-extrabold tracking-tight text-slate-900 dark:text-white bg-clip-text text-transparent bg-gradient-to-r from-yellow-500 to-amber-500 dark:from-yellow-400 dark:to-amber-400 w-fit">
-                            Character Counter & Text Tools
-                        </h1>
-                        <p className="text-sm text-slate-500 dark:text-slate-400 max-w-2xl font-medium hidden sm:block">
-                            Free online tools to <strong>count characters</strong>, format <strong>JSON</strong> & <strong>YAML</strong>, and analyze text.
-                        </p>
-                    </div>
-                </div>
-            </div>
-        </header>
+        {/* Smart V3 Hero Header */}
+        <SmartHeroHeader 
+            title="Character Counter" 
+            theme={flowerThemes.sunflower}
+        />
 
         {/* Main Content */}
         <main className="flex-1 flex flex-col min-h-0 w-full">
             {/* Editor Section */}
-            <div className="w-full max-w-[1920px] mx-auto px-4 sm:px-6 lg:px-8 py-4">
+            <div className="w-full max-w-[1920px] mx-auto px-4 sm:px-6 lg:px-8 py-4 space-y-6">
                 <div className="bg-white dark:bg-slate-900 rounded-2xl shadow-xl ring-1 ring-slate-900/5 dark:ring-white/10 overflow-hidden">
                     <Editor />
                 </div>
+
+                {/* SEO Description - Moved Below Editor */}
+                <HeroDescription text="Free online tool to count characters, format JSON & YAML, and analyze your text." />
             </div>
 
             {/* Tools Grid with Categories */}

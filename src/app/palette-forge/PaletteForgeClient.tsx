@@ -15,6 +15,7 @@ import {
   Droplets,
 } from 'lucide-react';
 import { flowerThemes } from '@/config/flowerThemes';
+import { SmartHeroHeader, HeroDescription } from "@/components/SmartHeroHeader";
 import {
   extractColorsFromImage,
   isValidImageFile,
@@ -168,17 +169,14 @@ export function PaletteForgeClient() {
 
   return (
     <div className="flex flex-col min-h-screen">
-      {/* Title Section */}
-      <section className="w-full max-w-[1920px] mx-auto px-4 sm:px-6 lg:px-8 py-4">
-        <h1 className="text-2xl md:text-3xl font-bold text-slate-900 dark:text-white">
-          <span className="bg-gradient-to-r from-stone-600 to-slate-600 dark:from-stone-400 dark:to-slate-400 bg-clip-text text-transparent">
-            PaletteForge
-          </span>
-        </h1>
-        <p className="text-slate-600 dark:text-slate-400 mt-1">
-          Upload any design mockup. Get production-ready color tokens for Tailwind, CSS, SCSS, or Figma.
-        </p>
-      </section>
+      {/* Smart V3 Hero Header */}
+      <SmartHeroHeader 
+          title="PaletteForge"
+          theme={theme}
+          adSlot={process.env.NEXT_PUBLIC_AD_SLOT_HEADER}
+      />
+      
+      <HeroDescription text="Upload any design mockup. Get production-ready color tokens for Tailwind, CSS, SCSS, or Figma." />
 
       <main className="flex-1">
         {/* Upload Section */}
