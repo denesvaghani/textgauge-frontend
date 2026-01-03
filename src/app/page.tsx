@@ -207,7 +207,7 @@ export default function Page() {
                 </div>
 
                 {/* SEO Description - Moved Below Editor */}
-                <HeroDescription text="Free online tool to count characters, format JSON & YAML, and analyze your text." />
+                <HeroDescription text="Free developer tools suite to count characters, format JSON & YAML, and analyze text." />
             </div>
 
             {/* Tools Grid with Categories */}
