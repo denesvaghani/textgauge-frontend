@@ -5,26 +5,43 @@ import { ThemeProvider } from "@/contexts/ThemeContext";
 import { ThemeToggle } from "@/components/ThemeToggle";
 import { GoogleAnalytics } from "@/components/GoogleAnalytics";
 
-export const metadata: Metadata = {
-  title: "Character Counter – Word & Character Count Tool",
-  description:
-    "Free online character counter and word count tool. Instantly count characters, words, sentences, and paragraphs, and analyze keyword density for SEO.",
-  metadataBase: new URL("https://www.countcharacters.org"),
-  alternates: {
-    canonical: "https://www.countcharacters.org/",
-    languages: {
-      "en-IN": "https://www.countcharacters.in/",
+import { headers } from "next/headers";
+
+export async function generateMetadata(): Promise<Metadata> {
+  const headersList = await headers();
+  const host = headersList.get("host") || "www.countcharacters.org";
+  const protocol = "https"; // Force HTTPS for canonicals
+  const domain = host.includes("countcharacters.in")
+    ? "www.countcharacters.in"
+    : "www.countcharacters.org";
+  const baseUrl = `${protocol}://${domain}`;
+
+  return {
+    title: {
+      default: "TextGauge - Free Developer Tools Suite",
+      template: "%s | TextGauge",
     },
-  },
-  openGraph: {
-    title: "Character Counter – Word & Character Count Tool",
     description:
-      "Instantly count characters, words, sentences, and paragraphs, and optimize your writing for SEO.",
-    url: "https://www.countcharacters.org/",
-    siteName: "CountCharacters.org",
-    type: "website",
-  },
-};
+      "Free, secure, and privacy-focused developer tools suite. Instantly count characters, format JSON/YAML/TOML, convert data formats, and analyze text - all in your browser.",
+    metadataBase: new URL(baseUrl),
+    alternates: {
+      canonical: baseUrl,
+    },
+    openGraph: {
+      title: "TextGauge - Free Developer Tools Suite",
+      description:
+        "Free, secure, and privacy-focused developer tools suite. Instantly count characters, format JSON/YAML/TOML, convert data formats, and analyze text.",
+      url: baseUrl,
+      siteName: "TextGauge",
+      type: "website",
+      locale: "en_US",
+    },
+    icons: {
+      icon: "/icon.png",
+      apple: "/apple-icon.png",
+    },
+  };
+}
 
 const structuredData = {
   "@context": "https://schema.org",
@@ -52,9 +69,6 @@ export default function RootLayout({
   return (
     <html lang="en" suppressHydrationWarning>
       <head>
-        <link rel="icon" type="image/png" href="/favicon.png" />
-        <link rel="apple-touch-icon" href="/apple-icon.png" />
-
         {/* Structured data for SEO */}
         <script
           type="application/ld+json"
