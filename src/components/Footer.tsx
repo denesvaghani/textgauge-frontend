@@ -47,7 +47,7 @@ export function Footer() {
                             </span>
                         </Link>
                         <p className="mt-4 text-sm text-slate-600 dark:text-slate-400">
-                            Free, secure, and privacy-focused developer tools for text analysis and data conversion.
+                            Free, secure, and privacy-focused developer tools suite. JSON Formatter, Diff Checker, Converters, and more - all in your browser.
                         </p>
                     </div>
 
