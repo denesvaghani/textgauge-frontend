@@ -13,7 +13,7 @@ interface FlowerBackgroundProps {
 export function FlowerBackground({ 
   theme, 
   children, 
-  showFlowerBadge = true,
+  showFlowerBadge = false,
   badgeText = "Dev Tool"
 }: FlowerBackgroundProps) {
   return (
