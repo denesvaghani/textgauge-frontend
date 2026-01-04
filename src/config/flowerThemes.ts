@@ -178,10 +178,10 @@ export const flowerThemes = {
     },
   },
   hydrangea: {
-    name: "Hydrangea",
-    slug: "hydrangea",
-    image: "/images/flowers/hydrangea.webp",
-    significance: "Symbolizes deep understanding, heartfelt emotion, and the ability to adapt to change.",
+    name: "Feather",
+    slug: "feather",
+    image: "/images/flowers/compression-icon.jpg",
+    significance: "Represents lightweight efficiency and crystal-clear quality — ensuring your images remain pristine.",
     colors: {
       primary: "#3b82f6",
       secondary: "#60a5fa",
