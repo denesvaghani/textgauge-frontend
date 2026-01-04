@@ -177,6 +177,28 @@ export const flowerThemes = {
       dark: "dark:bg-gradient-to-br dark:from-stone-950/30 dark:via-slate-950/20 dark:to-slate-950",
     },
   },
+  hydrangea: {
+    name: "Feather",
+    slug: "feather",
+    image: "/images/flowers/compression-icon.jpg",
+    significance: "Represents lightweight efficiency and crystal-clear quality — ensuring your images remain pristine.",
+    colors: {
+      primary: "#3b82f6",
+      secondary: "#60a5fa",
+      accent: "#eff6ff",
+      glow: "rgba(59, 130, 246, 0.25)",
+      text: "text-blue-600",
+      textDark: "dark:text-blue-400",
+    },
+    gradient: {
+      light: "from-blue-500 to-indigo-500",
+      dark: "from-blue-600 to-indigo-600",
+    },
+    bgGradient: {
+      light: "bg-gradient-to-br from-blue-50 via-indigo-50/50 to-white",
+      dark: "dark:bg-gradient-to-br dark:from-blue-950/30 dark:via-indigo-950/20 dark:to-slate-950",
+    },
+  },
 } as const;
 
 export type FlowerThemeKey = keyof typeof flowerThemes;
