@@ -7,7 +7,9 @@ import { useImageCompression } from "@/hooks/useImageCompression";
 import { UploadZone } from "@/components/image-compressor/UploadZone";
 import { CompressionControls } from "@/components/image-compressor/CompressionControls";
 import { ImageCard } from "@/components/image-compressor/ImageCard";
-import { Download, Archive, RefreshCw, X } from "lucide-react";
+import { FAQSection, FAQStructuredData } from "@/components/image-compressor/FAQSection";
+import { SEOContentSection } from "@/components/image-compressor/SEOContentSection";
+import { Archive, RefreshCw, X } from "lucide-react";
 import JSZip from "jszip";
 import { useState } from "react";
 import { AnimatePresence, motion } from "framer-motion";
@@ -28,11 +30,9 @@ export function ImageCompressorClient() {
 
   // Handle re-compression when settings change
   const handleSettingsChange = (newSettings: Partial<typeof globalSettings>) => {
-    // Optimistic update of settings
     const updated = { ...globalSettings, ...newSettings };
     setGlobalSettings(updated);
     
-    // Trigger re-compression for existing images
     if (images.length > 0) {
         recompressAll(updated, images);
     }
@@ -48,7 +48,6 @@ export function ImageCompressorClient() {
       images.forEach((img) => {
         if (img.status === "done" && img.compressedResult) {
            const format = globalSettings.fileType || img.originalFile.type;
-           // Improve extension logic if needed, simple mapping for now
            let ext = img.originalFile.name.split('.').pop();
            if (format === 'image/webp') ext = 'webp';
            if (format === 'image/jpeg') ext = 'jpg';
@@ -77,16 +76,16 @@ export function ImageCompressorClient() {
 
   return (
     <FlowerBackground theme={theme}>
+      <FAQStructuredData />
       <div className="flex flex-col min-h-screen">
         <SmartHeroHeader
             title="Image Compressor"
             theme={theme}
-            subtitle="Compress JPG, PNG, and WebP images securely in your browser."
         />
         
         <main className="flex-1 w-full max-w-[1920px] mx-auto px-4 sm:px-6 lg:px-8 py-8 space-y-8">
            
-           {/* Top Area: Controls + Stats or Upload */}
+           {/* Top Area: Controls + Upload */}
            <div className="grid lg:grid-cols-3 gap-8 items-start">
                
                {/* Left Column: Settings */}
@@ -112,8 +111,6 @@ export function ImageCompressorClient() {
                            
                            <button
                              onClick={() => {
-                                 // Clear all logic would be nice in hook, implementing manual iteration for now
-                                 // Ideally hook exposes clearAll. We'll use removeImage loop.
                                  images.forEach(img => removeImage(img.id));
                              }}
                              className="w-full flex items-center justify-center gap-2 py-2.5 rounded-lg border border-red-200 dark:border-red-900/50 text-red-600 dark:text-red-400 font-medium hover:bg-red-50 dark:hover:bg-red-900/10 transition-colors"
@@ -159,7 +156,14 @@ export function ImageCompressorClient() {
                </div>
            </div>
         </main>
+
+        {/* SEO Content */}
+        <SEOContentSection />
+        
+        {/* FAQ */}
+        <FAQSection />
       </div>
     </FlowerBackground>
   );
 }
+

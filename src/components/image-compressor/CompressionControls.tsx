@@ -1,4 +1,44 @@
 import { CompressionSettings, ImageFormat } from "@/lib/image-compressor/compressionService";
+import { Globe, Mail, Printer, FileDown, Zap } from "lucide-react";
+
+// Predefined compression presets
+const PRESETS = [
+  { 
+    id: "web", 
+    label: "Web", 
+    icon: Globe, 
+    settings: { maxSizeMB: 0.5, maxWidthOrHeight: 1920, initialQuality: 0.8, fileType: "image/webp" as ImageFormat },
+    description: "Optimized for websites"
+  },
+  { 
+    id: "email", 
+    label: "Email", 
+    icon: Mail, 
+    settings: { maxSizeMB: 0.3, maxWidthOrHeight: 1200, initialQuality: 0.75, fileType: "image/jpeg" as ImageFormat },
+    description: "Small enough for email"
+  },
+  { 
+    id: "print", 
+    label: "Print", 
+    icon: Printer, 
+    settings: { maxSizeMB: 5, maxWidthOrHeight: 4000, initialQuality: 0.95, fileType: undefined },
+    description: "High quality for printing"
+  },
+  { 
+    id: "100kb", 
+    label: "≤100KB", 
+    icon: FileDown, 
+    settings: { maxSizeMB: 0.1, maxWidthOrHeight: 1200, initialQuality: 0.6, fileType: "image/webp" as ImageFormat },
+    description: "Under 100KB guaranteed"
+  },
+  { 
+    id: "50kb", 
+    label: "≤50KB", 
+    icon: Zap, 
+    settings: { maxSizeMB: 0.05, maxWidthOrHeight: 800, initialQuality: 0.5, fileType: "image/webp" as ImageFormat },
+    description: "Ultra-compressed"
+  },
+];
 
 interface CompressionControlsProps {
   settings: CompressionSettings;
@@ -13,6 +53,27 @@ export function CompressionControls({ settings, onSettingsChange, disabled }: Co
         <span className="w-1 h-6 bg-blue-500 rounded-full"></span>
         Compression Settings
       </h3>
+
+      {/* Quick Presets */}
+      <div className="space-y-3">
+        <label className="text-sm font-medium text-slate-700 dark:text-slate-300">
+          Quick Presets
+        </label>
+        <div className="grid grid-cols-2 sm:grid-cols-5 gap-2">
+          {PRESETS.map((preset) => (
+            <button
+              key={preset.id}
+              onClick={() => onSettingsChange(preset.settings)}
+              disabled={disabled}
+              title={preset.description}
+              className="flex flex-col items-center gap-1 p-3 rounded-lg border border-slate-200 dark:border-slate-700 hover:border-blue-400 dark:hover:border-blue-500 hover:bg-blue-50 dark:hover:bg-blue-900/20 transition-all text-slate-600 dark:text-slate-400 hover:text-blue-600 dark:hover:text-blue-400 disabled:opacity-50"
+            >
+              <preset.icon size={18} />
+              <span className="text-xs font-medium">{preset.label}</span>
+            </button>
+          ))}
+        </div>
+      </div>
 
       {/* Quality Slider */}
       <div className="space-y-3">
