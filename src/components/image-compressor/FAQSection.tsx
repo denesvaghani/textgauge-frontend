@@ -31,7 +31,7 @@ export function FAQSection() {
       <h2 className="text-2xl font-bold text-center text-slate-900 dark:text-white mb-8">
         Frequently Asked Questions
       </h2>
-      <div className="space-y-4 max-w-3xl mx-auto">
+      <div className="space-y-4 w-full">
         {FAQ_DATA.map((faq, i) => (
           <details 
             key={i} 

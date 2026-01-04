@@ -66,6 +66,17 @@ const categories = {
       hoverText: "group-hover:text-stone-600 dark:group-hover:text-stone-400",
     },
   ],
+  "Media Tools": [
+    {
+      href: "/image-compressor",
+      theme: flowerThemes.hydrangea,
+      title: "Image Compressor",
+      description: "Compress JPG, PNG, WebP images to any size. Client-side processing - your images never leave your browser.",
+      hoverBorder: "hover:border-blue-400/60 dark:hover:border-blue-400/40",
+      hoverShadow: "hover:shadow-blue-500/20",
+      hoverText: "group-hover:text-blue-600 dark:group-hover:text-blue-400",
+    },
+  ],
   "Comparison": [
     {
       href: "/diff-checker",
@@ -83,6 +94,7 @@ const categoryLabels: Record<string, { image: string; color: string }> = {
   "Formatters": { image: flowerThemes.cherryBlossom.image, color: "violet" },
   "Converters": { image: flowerThemes.sunflower.image, color: "yellow" },
   "Design Tools": { image: flowerThemes.orchid.image, color: "stone" },
+  "Media Tools": { image: flowerThemes.hydrangea.image, color: "blue" },
   "Comparison": { image: flowerThemes.redRose.image, color: "rose" },
 };
 

@@ -24,6 +24,9 @@ const navCategories = {
     "Design Tools": [
         { href: "/palette-forge", label: "PaletteForge", image: flowerThemes.orchid.image },
     ],
+    "Media Tools": [
+        { href: "/image-compressor", label: "Image Compressor", image: flowerThemes.hydrangea.image },
+    ],
     "Comparison": [
         { href: "/diff-checker", label: "Diff Checker", image: flowerThemes.redRose.image },
     ],

@@ -15,6 +15,8 @@ export function Footer() {
         { name: 'JSON to CSV', href: '/json-to-csv-converter' },
         { name: 'JSON to TOON', href: '/json-to-toon-converter' },
         { name: 'Diff Checker', href: '/diff-checker' },
+        { name: 'PaletteForge', href: '/palette-forge' },
+        { name: 'Image Compressor', href: '/image-compressor' },
     ];
 
     const legalLinks = [
