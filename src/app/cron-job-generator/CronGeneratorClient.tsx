@@ -107,6 +107,41 @@ export default function CronGeneratorClient() {
                 </div>
             </div>
 
+           {/* Educational Content */}
+           <section className="w-full max-w-[1920px] mx-auto px-4 sm:px-6 lg:px-8 py-12 bg-white/50 dark:bg-slate-900/50">
+            <div className="max-w-4xl mx-auto space-y-8">
+              <div>
+                <h2 className="text-2xl font-bold text-slate-900 dark:text-white mb-4">Understanding Cron Expressions</h2>
+                <p className="text-slate-600 dark:text-slate-300 leading-relaxed mb-4">
+                  A cron expression is a string of 5 characters separated by spaces that represents a schedule. 
+                  It is the standard way to schedule recurring tasks on Unix/Linux servers.
+                </p>
+                <div className="bg-slate-100 dark:bg-slate-800 p-4 rounded-lg font-mono text-sm overflow-x-auto">
+                    <p className="whitespace-pre">
+{`*    *    *    *    *
+┬    ┬    ┬    ┬    ┬
+│    │    │    │    │
+│    │    │    │    └─ Day of Week (0-6) (Sunday=0)
+│    │    │    └─── Month (1-12)
+│    │    └───── Day of Month (1-31)
+│    └─────── Hour (0-23)
+└───────── Minute (0-59)`}
+                    </p>
+                </div>
+              </div>
+
+              <div>
+                <h2 className="text-2xl font-bold text-slate-900 dark:text-white mb-4">Common Cron Use Cases</h2>
+                <ul className="list-disc pl-5 space-y-2 text-slate-600 dark:text-slate-300">
+                  <li><strong>Database Backups:</strong> Run a dump script every night at 2 AM (<code>0 2 * * *</code>).</li>
+                  <li><strong>Email Newsletters:</strong> Send weekly updates every Monday morning at 9 AM (<code>0 9 * * 1</code>).</li>
+                  <li><strong>Log Rotation:</strong> Clear old logs every 1st of the month (<code>0 0 1 * *</code>).</li>
+                  <li><strong>Status Checks:</strong> Ping a server every 5 minutes to check uptime (<code>*/5 * * * *</code>).</li>
+                </ul>
+              </div>
+            </div>
+          </section>
+
           {/* FAQ Section */}
           <section className="w-full max-w-[1920px] mx-auto px-4 sm:px-6 lg:px-8 pb-16">
             <h2 className="text-2xl font-bold text-center text-slate-900 dark:text-white mb-8">

@@ -152,10 +152,38 @@ export default function UuidGeneratorClient() {
               <textarea
                   value={generatedUuids.join('\n')}
                   readOnly
-                  className="w-full h-[500px] p-6 font-mono tracking-wider text-sm bg-white dark:bg-slate-950 border border-slate-200 dark:border-slate-800 rounded-xl shadow-inner resize-y focus:outline-none focus:ring-2 focus:ring-blue-500/20"
+                  className="w-full h-96 p-6 font-mono tracking-wider text-sm bg-white dark:bg-slate-950 border border-slate-200 dark:border-slate-800 rounded-xl shadow-inner resize-y focus:outline-none focus:ring-2 focus:ring-blue-500/20"
               />
             </div>
           </div>
+
+          {/* Educational Content */}
+          <section className="w-full max-w-[1920px] mx-auto px-4 sm:px-6 lg:px-8 py-12 bg-white/50 dark:bg-slate-900/50">
+            <div className="max-w-4xl mx-auto space-y-8">
+              <div>
+                <h2 className="text-2xl font-bold text-slate-900 dark:text-white mb-4">Why use a UUID Generator?</h2>
+                <p className="text-slate-600 dark:text-slate-300 leading-relaxed mb-4">
+                  A <strong>UUID (Universally Unique Identifier)</strong> is essential when you need to identify information without a central coordination system. 
+                  Unlike auto-incrementing database IDs (1, 2, 3...), UUIDs are unique across all space and time. This makes them perfect for:
+                </p>
+                <ul className="list-disc pl-5 space-y-2 text-slate-600 dark:text-slate-300">
+                  <li><strong>Distributed Systems:</strong> Generate IDs on different servers without collision.</li>
+                  <li><strong>Database Keys:</strong> Merge records from multiple databases securely.</li>
+                  <li><strong>Security:</strong> Hide the total number of records (unlike ID #500 implies 500 records).</li>
+                  <li><strong>Offline Generation:</strong> Create IDs in mobile apps before syncing to a server.</li>
+                </ul>
+              </div>
+
+              <div>
+                <h2 className="text-2xl font-bold text-slate-900 dark:text-white mb-4">Understanding UUID Version 4</h2>
+                <p className="text-slate-600 dark:text-slate-300 leading-relaxed">
+                  Our tool generates <strong>Version 4 UUIDs</strong>. These are completely random, using 122 random bits. 
+                  The chance of a collision (two same UUIDs) is so small it's effectively impossible—you would need to generate 
+                  billions of UUIDs per second for years to even have a 50% chance of a single duplicate.
+                </p>
+              </div>
+            </div>
+          </section>
 
           {/* FAQ Section */}
           <section className="w-full max-w-[1920px] mx-auto px-4 sm:px-6 lg:px-8 pb-16">

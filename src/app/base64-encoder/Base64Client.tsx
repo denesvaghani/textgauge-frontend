@@ -202,6 +202,43 @@ export default function Base64Client() {
             </div>
           </div>
 
+          {/* Educational Content */}
+          <section className="w-full max-w-[1920px] mx-auto px-4 sm:px-6 lg:px-8 py-12 bg-white/50 dark:bg-slate-900/50">
+            <div className="max-w-4xl mx-auto space-y-8">
+              <div>
+                <h2 className="text-2xl font-bold text-slate-900 dark:text-white mb-4">When is Base64 Encoding Useful?</h2>
+                <p className="text-slate-600 dark:text-slate-300 leading-relaxed mb-4">
+                  <strong>Base64</strong> is a group of binary-to-text encoding schemes. It is commonly used when there is a need to encode binary data (like images or files) 
+                  that needs to be stored and transferred over media that are designed to deal with textual data.
+                </p>
+                <div className="grid md:grid-cols-2 gap-6">
+                    <div className="bg-white dark:bg-slate-800 p-6 rounded-xl border border-slate-200 dark:border-slate-700">
+                        <h3 className="font-bold text-slate-900 dark:text-white mb-2">Embedding Images (Data URIs)</h3>
+                        <p className="text-sm text-slate-500 dark:text-slate-400">
+                            Instead of linking to an image file (e.g., <code>&lt;img src="logo.png" /&gt;</code>), you can embed the image directly into HTML or CSS using Base64. 
+                            This reduces HTTP requests and speeds up page loading for small icons.
+                        </p>
+                    </div>
+                    <div className="bg-white dark:bg-slate-800 p-6 rounded-xl border border-slate-200 dark:border-slate-700">
+                        <h3 className="font-bold text-slate-900 dark:text-white mb-2">Email Attachments (MIME)</h3>
+                        <p className="text-sm text-slate-500 dark:text-slate-400">
+                            Email protocols (SMTP) were originally designed for text. To send attachments like PDFs or images, email clients encode them in Base64 
+                            to turn binary data into safe ASCII text characters.
+                        </p>
+                    </div>
+                </div>
+              </div>
+
+               <div>
+                <h2 className="text-2xl font-bold text-slate-900 dark:text-white mb-4">URL Safe Base64</h2>
+                <p className="text-slate-600 dark:text-slate-300 leading-relaxed">
+                   Standard Base64 uses the characters <code>+</code> and <code>/</code>, which can cause issues in URLs (where <code>+</code> means space and <code>/</code> is a separator). 
+                   <strong>URL Safe Base64</strong> replaces these with <code>-</code> and <code>_</code> respectively, making the string safe to use in web addresses and query parameters.
+                </p>
+              </div>
+            </div>
+          </section>
+
           {/* FAQ Section */}
           <section className="w-full max-w-[1920px] mx-auto px-4 sm:px-6 lg:px-8 pb-16">
             <h2 className="text-2xl font-bold text-center text-slate-900 dark:text-white mb-8">
