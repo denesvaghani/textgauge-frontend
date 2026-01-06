@@ -84,10 +84,13 @@ export default function CronGeneratorClient() {
                 ))}
             </div>
 
-            <GoogleAdsense 
-                adSlot={process.env.NEXT_PUBLIC_AD_SLOT_IN_ARTICLE || ""} 
-                layout="in-article"
-            />
+            <div className="min-h-[100px] mt-8">
+                <GoogleAdsense 
+                    adSlot={process.env.NEXT_PUBLIC_AD_SLOT_IN_ARTICLE || ""} 
+                    layout="in-article"
+                    style={{ display: 'block', width: '100%', maxWidth: '100%' }}
+                />
+            </div>
           </div>
 
           <div className="mt-12 text-center">
@@ -102,7 +105,7 @@ export default function CronGeneratorClient() {
           </div>
 
           {/* FAQ Section */}
-          <section className="w-full max-w-[1920px] mx-auto pb-16 mt-16">
+          <section className="w-full mt-16 pb-8 border-t border-slate-200 dark:border-slate-800 pt-12">
             <h2 className="text-2xl font-bold text-center text-slate-900 dark:text-white mb-8">
               Frequently Asked Questions
             </h2>

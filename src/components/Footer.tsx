@@ -36,7 +36,7 @@ export function Footer() {
     return (
         <footer className="border-t border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 mt-auto">
             <div className="max-w-[1920px] mx-auto px-4 sm:px-6 lg:px-8 py-12">
-                <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
+                <div className="grid grid-cols-1 md:grid-cols-5 gap-8">
                     {/* Brand Section */}
                     <div>
                         <Link href="/" className="flex items-center gap-2">
@@ -56,11 +56,28 @@ export function Footer() {
                         </p>
                     </div>
 
-                    {/* Tools Section */}
+                    {/* Tools Column 1 */}
                     <div>
-                        <h3 className="font-semibold text-slate-900 dark:text-slate-100 mb-4">Tools</h3>
+                        <h3 className="font-semibold text-slate-900 dark:text-slate-100 mb-4">Formatters</h3>
                         <ul className="space-y-2">
-                            {toolLinks.map((link) => (
+                            {toolLinks.slice(0, 6).map((link) => (
+                                <li key={link.href}>
+                                    <Link
+                                        href={link.href}
+                                        className="text-sm text-slate-600 dark:text-slate-400 hover:text-indigo-600 dark:hover:text-indigo-400 transition-colors"
+                                    >
+                                        {link.name}
+                                    </Link>
+                                </li>
+                            ))}
+                        </ul>
+                    </div>
+
+                    {/* Tools Column 2 */}
+                    <div>
+                        <h3 className="font-semibold text-slate-900 dark:text-slate-100 mb-4">Generators</h3>
+                        <ul className="space-y-2">
+                            {toolLinks.slice(6).map((link) => (
                                 <li key={link.href}>
                                     <Link
                                         href={link.href}

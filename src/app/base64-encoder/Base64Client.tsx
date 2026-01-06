@@ -171,15 +171,16 @@ export default function Base64Client() {
             </div>
           </div>
 
-           <div className="mt-8">
+           <div className="mt-12 mb-12 min-h-[100px] flex justify-center">
             <GoogleAdsense 
                 adSlot={process.env.NEXT_PUBLIC_AD_SLOT_IN_ARTICLE || ""} 
                 layout="in-article"
+                style={{ display: 'block', width: '100%', maxWidth: '100%' }}
             />
           </div>
 
           {/* FAQ Section */}
-          <section className="w-full max-w-[1920px] mx-auto pb-16 mt-16">
+          <section className="w-full mt-4 pb-8 border-t border-slate-200 dark:border-slate-800 pt-12">
             <h2 className="text-2xl font-bold text-center text-slate-900 dark:text-white mb-8">
               Frequently Asked Questions
             </h2>
