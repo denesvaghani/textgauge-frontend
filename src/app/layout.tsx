@@ -44,7 +44,7 @@ export async function generateMetadata(): Promise<Metadata> {
       google:
         domain === "www.countcharacters.in"
           ? process.env.NEXT_PUBLIC_GOOGLE_SITE_VERIFICATION_IN
-          : "xALwEqgM-o40Pv6kbAfwOcTAQsoUFcnzuUryWOfJwVA",
+          : process.env.NEXT_PUBLIC_GOOGLE_SITE_VERIFICATION_ORG,
     },
   };
 }
