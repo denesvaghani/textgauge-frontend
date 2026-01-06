@@ -193,7 +193,7 @@ export default function Base64Client() {
                 </div>
             </div>
 
-             <div className="mt-4 mb-2 min-h-[50px] flex justify-center">
+             <div className="mt-2 mb-0">
                 <GoogleAdsense 
                     adSlot={process.env.NEXT_PUBLIC_AD_SLOT_IN_ARTICLE || ""} 
                     layout="in-article"
@@ -203,7 +203,7 @@ export default function Base64Client() {
           </div>
 
           {/* Educational Content */}
-          <section className="w-full max-w-[1920px] mx-auto px-4 sm:px-6 lg:px-8 py-12 bg-white/50 dark:bg-slate-900/50">
+          <section className="w-full max-w-[1920px] mx-auto px-4 sm:px-6 lg:px-8 pt-0 pb-12 bg-white/50 dark:bg-slate-900/50">
             <div className="max-w-5xl mx-auto space-y-8">
               <div>
                 <h2 className="text-2xl font-bold text-slate-900 dark:text-white mb-4">When is Base64 Encoding Useful?</h2>
