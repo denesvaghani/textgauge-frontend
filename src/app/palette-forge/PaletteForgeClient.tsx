@@ -252,7 +252,7 @@ export function PaletteForgeClient() {
 
         {/* Ad: In-Article 1 */}
         {process.env.NEXT_PUBLIC_AD_SLOT_IN_ARTICLE && (
-            <div className="w-full max-w-[1920px] mx-auto px-4 sm:px-6 lg:px-8 py-8 flex justify-center">
+            <div className="w-full max-w-[1920px] mx-auto px-4 sm:px-6 lg:px-8 py-4 flex justify-center">
                 <div className="w-full max-w-4xl bg-slate-50 dark:bg-slate-900/50 rounded-xl overflow-hidden min-h-[100px] flex items-center justify-center border border-dashed border-slate-200 dark:border-slate-800">
                         <GoogleAdsense
                         adSlot={process.env.NEXT_PUBLIC_AD_SLOT_IN_ARTICLE}
@@ -511,8 +511,8 @@ export function PaletteForgeClient() {
                         key={i}
                         className="px-3 py-1 rounded-full text-sm font-medium"
                         style={{
-                          backgroundColor: `${color.hex}20`,
-                          color: color.hex,
+                          backgroundColor: color.hex,
+                          color: getTextColorForBackground(color.hex),
                         }}
                       >
                         {color.name}
@@ -565,7 +565,7 @@ export function PaletteForgeClient() {
 
             {/* Ad: In-Article 2 */}
             {process.env.NEXT_PUBLIC_AD_SLOT_IN_ARTICLE && (
-                <div className="w-full max-w-[1920px] mx-auto px-4 sm:px-6 lg:px-8 py-8 flex justify-center">
+                <div className="w-full max-w-[1920px] mx-auto px-4 sm:px-6 lg:px-8 py-4 flex justify-center">
                     <div className="w-full max-w-4xl bg-slate-50 dark:bg-slate-900/50 rounded-xl overflow-hidden min-h-[100px] flex items-center justify-center border border-dashed border-slate-200 dark:border-slate-800">
                              <GoogleAdsense
                             adSlot={process.env.NEXT_PUBLIC_AD_SLOT_IN_ARTICLE}
