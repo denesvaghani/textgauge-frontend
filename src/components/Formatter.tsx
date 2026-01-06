@@ -200,7 +200,19 @@ export function Formatter({
                   title="Upload File"
                 >
                   <Upload size={16} strokeWidth={2} />
-                  <input type="file" id="file-upload" className="hidden" accept=".json,.yaml,.yml,.txt" onChange={handleFileUpload} />
+                  <input 
+                    type="file" 
+                    id="file-upload" 
+                    className="hidden" 
+                    accept={
+                      inputType === "json" ? ".json" :
+                      inputType === "yaml" ? ".yaml,.yml" :
+                      inputType === "csv" ? ".csv" :
+                      inputType === "toml" ? ".toml" :
+                      ".txt,.text"
+                    } 
+                    onChange={handleFileUpload} 
+                  />
                 </button>
                 <button
                   type="button"
