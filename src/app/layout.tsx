@@ -45,6 +45,12 @@ export async function generateMetadata(): Promise<Metadata> {
         domain === "www.countcharacters.in"
           ? process.env.NEXT_PUBLIC_GOOGLE_SITE_VERIFICATION_IN
           : process.env.NEXT_PUBLIC_GOOGLE_SITE_VERIFICATION_ORG,
+      other: {
+        "msvalidate.01":
+          (domain === "www.countcharacters.in"
+            ? process.env.NEXT_PUBLIC_BING_SITE_VERIFICATION_IN
+            : process.env.NEXT_PUBLIC_BING_SITE_VERIFICATION_ORG) || "",
+      },
     },
   };
 }
@@ -80,6 +86,11 @@ export default function RootLayout({
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(structuredData) }}
         />
+
+        {/* AdSense Verification Meta Tag */}
+        {adsenseId && (
+          <meta name="google-adsense-account" content={adsenseId} />
+        )}
 
         {/* Google AdSense – load once, after hydration */}
         {adsenseId && (

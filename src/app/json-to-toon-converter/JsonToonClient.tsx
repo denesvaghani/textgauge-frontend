@@ -2,6 +2,7 @@
 
 import { Formatter } from "@/components/Formatter";
 import { FlowerBackground } from "@/components/FlowerBackground";
+import { GoogleAdsense } from "@/components/GoogleAdsense";
 import { flowerThemes } from "@/config/flowerThemes";
 import { jsonToToon, toonToJson } from "@/lib/converters/json-toon";
 import { useState } from "react";
@@ -127,6 +128,20 @@ Jane Smith, jane@example.com, Designer, 88`;
                     </div>
                 </section>
 
+                {/* Ad: In-Article 1 */}
+                {process.env.NEXT_PUBLIC_AD_SLOT_IN_ARTICLE && (
+                    <div className="w-full max-w-[1920px] mx-auto px-4 sm:px-6 lg:px-8 pb-16 flex justify-center">
+                        <div className="w-full max-w-4xl bg-slate-50 dark:bg-slate-900/50 rounded-xl overflow-hidden min-h-[100px] flex items-center justify-center border border-dashed border-slate-200 dark:border-slate-800">
+                             <GoogleAdsense
+                                adSlot={process.env.NEXT_PUBLIC_AD_SLOT_IN_ARTICLE}
+                                style={{ display: 'block', textAlign: 'center' }}
+                                adFormat="fluid"
+                                layout="in-article"
+                             />
+                        </div>
+                    </div>
+                )}
+
                 {/* Key Features Section */}
                 <section className="w-full max-w-[1920px] mx-auto px-4 sm:px-6 lg:px-8 pb-16">
                     <div className="bg-white/80 dark:bg-slate-900/80 backdrop-blur-sm rounded-2xl shadow-sm border border-violet-200/50 dark:border-violet-800/30 p-8 transition-colors duration-200">
@@ -169,6 +184,20 @@ Jane Smith, jane@example.com, Designer, 88`;
                         </div>
                     </div>
                 </section>
+
+                {/* Ad: In-Article 2 */}
+                {process.env.NEXT_PUBLIC_AD_SLOT_IN_ARTICLE && (
+                    <div className="w-full max-w-[1920px] mx-auto px-4 sm:px-6 lg:px-8 pb-16 flex justify-center">
+                        <div className="w-full max-w-4xl bg-slate-50 dark:bg-slate-900/50 rounded-xl overflow-hidden min-h-[100px] flex items-center justify-center border border-dashed border-slate-200 dark:border-slate-800">
+                             <GoogleAdsense
+                                adSlot={process.env.NEXT_PUBLIC_AD_SLOT_IN_ARTICLE}
+                                style={{ display: 'block', textAlign: 'center' }}
+                                adFormat="fluid"
+                                layout="in-article"
+                             />
+                        </div>
+                    </div>
+                )}
 
                 {/* Why TOON is Better Section */}
                 <section className="w-full max-w-[1920px] mx-auto px-4 sm:px-6 lg:px-8 pb-16">
@@ -316,6 +345,20 @@ Jane Smith, jane@example.com, Designer, 88`;
                     </div>
                 </section>
 
+                {/* Ad: In-Article 3 */}
+                {process.env.NEXT_PUBLIC_AD_SLOT_IN_ARTICLE && (
+                    <div className="w-full max-w-[1920px] mx-auto px-4 sm:px-6 lg:px-8 pb-16 flex justify-center">
+                        <div className="w-full max-w-4xl bg-slate-50 dark:bg-slate-900/50 rounded-xl overflow-hidden min-h-[100px] flex items-center justify-center border border-dashed border-slate-200 dark:border-slate-800">
+                             <GoogleAdsense
+                                adSlot={process.env.NEXT_PUBLIC_AD_SLOT_IN_ARTICLE}
+                                style={{ display: 'block', textAlign: 'center' }}
+                                adFormat="fluid"
+                                layout="in-article"
+                             />
+                        </div>
+                    </div>
+                )}
+
                 {/* FAQ Section */}
                 <section className="w-full max-w-[1920px] mx-auto px-4 sm:px-6 lg:px-8 pb-16">
                     <h2 className="text-2xl font-bold text-center text-slate-900 dark:text-white mb-8">
@@ -399,6 +442,18 @@ Jane Smith, jane@example.com, Designer, 88`;
                         </div>
                     </div>
                 </section>
+                {/* Ad: Multiplex (Related Content) */}
+                 {process.env.NEXT_PUBLIC_AD_SLOT_MULTIPLEX && (
+                    <section className="w-full max-w-[1920px] mx-auto px-4 sm:px-6 lg:px-8 pb-16">
+                        <div className="w-full bg-slate-50 dark:bg-slate-900/50 rounded-xl overflow-hidden min-h-[200px] border border-dashed border-slate-200 dark:border-slate-800 p-4">
+                             <GoogleAdsense
+                                adSlot={process.env.NEXT_PUBLIC_AD_SLOT_MULTIPLEX}
+                                adFormat="autorelaxed"
+                                style={{ display: 'block' }}
+                             />
+                        </div>
+                    </section>
+                )}
             </div>
         </FlowerBackground>
     );
