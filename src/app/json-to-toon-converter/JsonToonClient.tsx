@@ -86,7 +86,7 @@ Jane Smith, jane@example.com, Designer, 88`;
                 <Formatter
                     title="JSON to TOON Converter"
                     description="Convert JSON to TOON format – the AI-native data format that reduces token usage by 30-60%."
-                    inputType={direction === "json-toon" ? "json" : "text"}
+                    inputType={direction === "json-toon" ? "json" : "toon"}
                     outputType={direction === "json-toon" ? "text" : "json"}
                     onTransform={handleTransform}
                     sampleData={direction === "json-toon" ? sampleJson : sampleToon}

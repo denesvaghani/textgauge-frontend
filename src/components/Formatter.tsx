@@ -24,8 +24,8 @@ import { type FlowerTheme } from "@/config/flowerThemes";
 interface FormatterProps {
   title: string;
   description: string;
-  inputType: "json" | "yaml" | "text" | "csv" | "toml";
-  outputType: "json" | "yaml" | "text" | "csv" | "toml";
+  inputType: "json" | "yaml" | "text" | "csv" | "toml" | "toon";
+  outputType: "json" | "yaml" | "text" | "csv" | "toml" | "toon";
   defaultValue?: string;
   onTransform: (input: string, tabSize: number) => Promise<string>;
   onMinify?: (input: string) => Promise<string>;
@@ -200,7 +200,20 @@ export function Formatter({
                   title="Upload File"
                 >
                   <Upload size={16} strokeWidth={2} />
-                  <input type="file" id="file-upload" className="hidden" accept=".json,.yaml,.yml,.txt" onChange={handleFileUpload} />
+                  <input 
+                    type="file" 
+                    id="file-upload" 
+                    className="hidden" 
+                    accept={
+                      inputType === "json" ? ".json" :
+                      inputType === "yaml" ? ".yaml,.yml" :
+                      inputType === "csv" ? ".csv" :
+                      inputType === "toml" ? ".toml" :
+                      inputType === "toon" ? ".toon,.txt,.text" :
+                      ".txt,.text"
+                    } 
+                    onChange={handleFileUpload} 
+                  />
                 </button>
                 <button
                   type="button"
@@ -235,7 +248,7 @@ export function Formatter({
                 value={inputCode}
                 onChange={setInputCode}
                 placeholder="Paste your code here..."
-                language={inputType}
+                language={inputType === "toon" ? "text" : inputType}
                 className="flex-1"
                 hideCopy={true}
               />
@@ -401,7 +414,7 @@ export function Formatter({
                     value={outputCode}
                     readOnly={true}
                     placeholder="Result will appear here..."
-                    language={outputType === "text" ? "text" : outputType}
+                    language={outputType === "toon" ? "text" : outputType === "text" ? "text" : outputType}
                     className="flex-1"
                     hideCopy={true}
                   />
