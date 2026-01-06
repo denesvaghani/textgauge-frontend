@@ -248,7 +248,7 @@ export function Formatter({
                 value={inputCode}
                 onChange={setInputCode}
                 placeholder="Paste your code here..."
-                language={inputType}
+                language={inputType === "toon" ? "text" : inputType}
                 className="flex-1"
                 hideCopy={true}
               />
@@ -414,7 +414,7 @@ export function Formatter({
                     value={outputCode}
                     readOnly={true}
                     placeholder="Result will appear here..."
-                    language={outputType === "text" ? "text" : outputType}
+                    language={outputType === "toon" ? "text" : outputType === "text" ? "text" : outputType}
                     className="flex-1"
                     hideCopy={true}
                   />
