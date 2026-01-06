@@ -10,7 +10,7 @@ import { Clock, Copy, Info } from "lucide-react";
 import { useEffect, useState } from "react";
 
 export default function CronGeneratorClient() {
-  const theme = flowerThemes.cherryBlossom;
+  const theme = flowerThemes.morningGlory;
   const [cronString, setCronString] = useState("* * * * *");
   const [humanDesc, setHumanDesc] = useState("Every minute");
   const [copied, setCopied] = useState(false);

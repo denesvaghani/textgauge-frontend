@@ -10,7 +10,7 @@ import { Copy, Upload, X } from "lucide-react";
 import { useState } from "react";
 
 export default function Base64Client() {
-  const theme = flowerThemes.lavender;
+  const theme = flowerThemes.blueIris;
   const [mode, setMode] = useState<"encode" | "decode">("encode");
   const [input, setInput] = useState("");
   const [output, setOutput] = useState("");

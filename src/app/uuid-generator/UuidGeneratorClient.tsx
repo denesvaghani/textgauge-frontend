@@ -10,7 +10,7 @@ import { Copy, Download, RefreshCw, Settings2 } from "lucide-react";
 import { useEffect, useState } from "react";
 
 export default function UuidGeneratorClient() {
-  const theme = flowerThemes.sunflower;
+  const theme = flowerThemes.morningGlory;
   const [count, setCount] = useState(10);
   const [hyphens, setHyphens] = useState(true);
   const [uppercase, setUppercase] = useState(false);

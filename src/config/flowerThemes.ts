@@ -199,6 +199,72 @@ export const flowerThemes = {
       dark: "dark:bg-gradient-to-br dark:from-blue-950/30 dark:via-indigo-950/20 dark:to-slate-950",
     },
   },
+  dahlia: {
+    name: "Dahlia",
+    slug: "dahlia",
+    image: "/images/flowers/dahlia.jpg",
+    significance: "Represents elegance, inner strength, and the intricate complexity of unique patterns.",
+    colors: {
+      primary: "#be123c",
+      secondary: "#e11d48",
+      accent: "#ffe4e6",
+      glow: "rgba(190, 18, 60, 0.25)",
+      text: "text-rose-700",
+      textDark: "dark:text-rose-400",
+    },
+    gradient: {
+      light: "from-rose-600 to-pink-600",
+      dark: "from-rose-700 to-pink-700",
+    },
+    bgGradient: {
+      light: "bg-gradient-to-br from-rose-50 via-pink-50/50 to-white",
+      dark: "dark:bg-gradient-to-br dark:from-rose-950/30 dark:via-pink-950/20 dark:to-slate-950",
+    },
+  },
+  morningGlory: {
+    name: "Morning Glory",
+    slug: "morning-glory",
+    image: "/images/flowers/morning-glory.jpg",
+    significance: "Symbolizes the precise cycle of time, routine, and the promise of a new start.",
+    colors: {
+      primary: "#4f46e5",
+      secondary: "#6366f1",
+      accent: "#eef2ff",
+      glow: "rgba(79, 70, 229, 0.25)",
+      text: "text-indigo-700",
+      textDark: "dark:text-indigo-400",
+    },
+    gradient: {
+      light: "from-indigo-600 to-blue-600",
+      dark: "from-indigo-700 to-blue-700",
+    },
+    bgGradient: {
+      light: "bg-gradient-to-br from-indigo-50 via-blue-50/50 to-white",
+      dark: "dark:bg-gradient-to-br dark:from-indigo-950/30 dark:via-blue-950/20 dark:to-slate-950",
+    },
+  },
+  blueIris: {
+    name: "Blue Iris",
+    slug: "blue-iris",
+    image: "/images/flowers/blue-iris.jpg",
+    significance: "Represents wisdom, communication, and the faithful transmission of messages.",
+    colors: {
+      primary: "#2563eb",
+      secondary: "#3b82f6",
+      accent: "#eff6ff",
+      glow: "rgba(37, 99, 235, 0.25)",
+      text: "text-blue-700",
+      textDark: "dark:text-blue-400",
+    },
+    gradient: {
+      light: "from-blue-600 to-indigo-600",
+      dark: "from-blue-700 to-indigo-700",
+    },
+    bgGradient: {
+      light: "bg-gradient-to-br from-blue-50 via-indigo-50/50 to-white",
+      dark: "dark:bg-gradient-to-br dark:from-blue-950/30 dark:via-indigo-950/20 dark:to-slate-950",
+    },
+  },
 } as const;
 
 export type FlowerThemeKey = keyof typeof flowerThemes;

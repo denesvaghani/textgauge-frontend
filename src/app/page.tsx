@@ -91,7 +91,7 @@ const categories = {
   "Generators": [
     {
       href: "/uuid-generator",
-      theme: flowerThemes.sunflower,
+      theme: flowerThemes.dahlia,
       title: "UUID Generator",
       description: "Generate random UUIDs (v4) in bulk. Fast, free, and secure generation for developers.",
       hoverBorder: "hover:border-yellow-400/60 dark:hover:border-yellow-400/40",
@@ -100,7 +100,7 @@ const categories = {
     },
     {
       href: "/cron-job-generator",
-      theme: flowerThemes.cherryBlossom,
+      theme: flowerThemes.morningGlory,
       title: "Cron Generator",
       description: "Build cron schedules visually. Translate complex cron expressions into human-readable text.",
       hoverBorder: "hover:border-pink-400/60 dark:hover:border-pink-400/40",
@@ -109,7 +109,7 @@ const categories = {
     },
     {
       href: "/base64-encoder",
-      theme: flowerThemes.lavender,
+      theme: flowerThemes.blueIris,
       title: "Base64 Tool",
       description: "Encode and decode Base64 strings and files. Supports Unicode and emoji handling.",
       hoverBorder: "hover:border-violet-400/60 dark:hover:border-violet-400/40",
@@ -125,7 +125,7 @@ const categoryLabels: Record<string, { image: string; color: string }> = {
   "Design Tools": { image: flowerThemes.orchid.image, color: "stone" },
   "Media Tools": { image: flowerThemes.hydrangea.image, color: "blue" },
   "Comparison": { image: flowerThemes.redRose.image, color: "rose" },
-  "Generators": { image: flowerThemes.whiteLily.image, color: "slate" },
+  "Generators": { image: flowerThemes.dahlia.image, color: "slate" },
 };
 
 type CategoryKey = keyof typeof categories;

@@ -31,9 +31,9 @@ const navCategories = {
         { href: "/diff-checker", label: "Diff Checker", image: flowerThemes.redRose.image },
     ],
     "Generators": [
-        { href: "/uuid-generator", label: "UUID Generator", image: flowerThemes.sunflower.image },
-        { href: "/cron-job-generator", label: "Cron Generator", image: flowerThemes.cherryBlossom.image },
-        { href: "/base64-encoder", label: "Base64 Tool", image: flowerThemes.lavender.image },
+        { href: "/uuid-generator", label: "UUID Generator", image: flowerThemes.dahlia.image },
+        { href: "/cron-job-generator", label: "Cron Generator", image: flowerThemes.morningGlory.image },
+        { href: "/base64-encoder", label: "Base64 Tool", image: flowerThemes.blueIris.image },
     ],
 };
 
