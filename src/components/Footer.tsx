@@ -15,6 +15,9 @@ export function Footer() {
         { name: 'JSON to CSV', href: '/json-to-csv-converter' },
         { name: 'JSON to TOON', href: '/json-to-toon-converter' },
         { name: 'Diff Checker', href: '/diff-checker' },
+        { name: 'UUID Generator', href: '/uuid-generator' },
+        { name: 'Cron Generator', href: '/cron-job-generator' },
+        { name: 'Base64 Tool', href: '/base64-encoder' },
         { name: 'PaletteForge', href: '/palette-forge' },
         { name: 'Image Compressor', href: '/image-compressor' },
     ];

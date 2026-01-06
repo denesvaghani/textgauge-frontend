@@ -101,6 +101,31 @@ export default function CronGeneratorClient() {
             </div>
           </div>
 
+          {/* FAQ Section */}
+          <section className="w-full max-w-[1920px] mx-auto pb-16 mt-16">
+            <h2 className="text-2xl font-bold text-center text-slate-900 dark:text-white mb-8">
+              Frequently Asked Questions
+            </h2>
+            <div className="space-y-4 w-full">
+              {[
+                { q: "What is Cron?", a: "Cron is a time-based job scheduler in Unix-like computer operating systems. Users can schedule jobs (commands or scripts) to run periodically at fixed times, dates, or intervals." },
+                { q: "How do I use the generated expression?", a: "Copy the expression (e.g., '*/5 * * * *') and paste it into your crontab file. You can edit your crontab by running 'crontab -e' in your terminal." },
+                { q: "What does the * mean?", a: "The asterisk (*) represents 'every'. For example, a * in the minute field means 'every minute'." },
+                { q: "Can I use this for non-Linux systems?", a: "The syntax generated here is standard standard Vixie Cron, compatible with most Unix/Linux systems. Some systems (like Quartz or Jenkins) may have slightly different variations." }
+              ].map((faq, i) => (
+                <details key={i} className="w-full group bg-white/80 dark:bg-slate-900/80 backdrop-blur-sm border border-slate-200 dark:border-slate-800 rounded-xl overflow-hidden transition-all duration-200 hover:shadow-md">
+                  <summary className="flex items-center justify-between p-5 font-semibold cursor-pointer text-slate-800 dark:text-white hover:bg-slate-50 dark:hover:bg-slate-800/50 transition-colors">
+                    {faq.q}
+                    <span className="text-slate-400 group-open:rotate-180 transition-transform">▼</span>
+                  </summary>
+                  <div className="px-5 pb-5 text-slate-600 dark:text-slate-300 text-sm leading-relaxed border-t border-slate-100 dark:border-slate-800 pt-4 bg-white/50 dark:bg-slate-900/50">
+                    {faq.a}
+                  </div>
+                </details>
+              ))}
+            </div>
+          </section>
+
         </main>
       </div>
     </FlowerBackground>

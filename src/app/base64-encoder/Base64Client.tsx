@@ -178,6 +178,31 @@ export default function Base64Client() {
             />
           </div>
 
+          {/* FAQ Section */}
+          <section className="w-full max-w-[1920px] mx-auto pb-16 mt-16">
+            <h2 className="text-2xl font-bold text-center text-slate-900 dark:text-white mb-8">
+              Frequently Asked Questions
+            </h2>
+            <div className="space-y-4 w-full">
+              {[
+                 { q: "What is Base64 encoding?", a: "Base64 is a way to represent binary data (like images or files) using only 64 ASCII characters. It ensures data remains intact during transport over protocols that might otherwise mangle binary content." },
+                 { q: "Is my data secure?", a: "Yes. All processing happens locally in your browser. We never upload your text or files to our servers." },
+                 { q: "Can I convert images to Base64?", a: "Yes! Switch to 'Encode' mode and upload an image file. The tool will generate the Base64 string that you can use in HTML or CSS." },
+                 { q: "Does this support emojis?", a: "Yes. Our tool correctly handles UTF-8 characters, so emojis and non-Latin scripts are encoded and decoded without errors." }
+              ].map((faq, i) => (
+                <details key={i} className="w-full group bg-white/80 dark:bg-slate-900/80 backdrop-blur-sm border border-slate-200 dark:border-slate-800 rounded-xl overflow-hidden transition-all duration-200 hover:shadow-md">
+                  <summary className="flex items-center justify-between p-5 font-semibold cursor-pointer text-slate-800 dark:text-white hover:bg-slate-50 dark:hover:bg-slate-800/50 transition-colors">
+                    {faq.q}
+                    <span className="text-slate-400 group-open:rotate-180 transition-transform">▼</span>
+                  </summary>
+                  <div className="px-5 pb-5 text-slate-600 dark:text-slate-300 text-sm leading-relaxed border-t border-slate-100 dark:border-slate-800 pt-4 bg-white/50 dark:bg-slate-900/50">
+                    {faq.a}
+                  </div>
+                </details>
+              ))}
+            </div>
+          </section>
+
         </main>
       </div>
     </FlowerBackground>

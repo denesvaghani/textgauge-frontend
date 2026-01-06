@@ -151,9 +151,34 @@ export default function UuidGeneratorClient() {
             <textarea
                 value={generatedUuids.join('\n')}
                 readOnly
-                className="w-full h-[500px] p-6 font-mono text-sm bg-white dark:bg-slate-950 border border-slate-200 dark:border-slate-800 rounded-xl shadow-inner resize-y focus:outline-none focus:ring-2 focus:ring-blue-500/20"
+                className="w-full h-[500px] p-6 font-mono tracking-wider text-sm bg-white dark:bg-slate-950 border border-slate-200 dark:border-slate-800 rounded-xl shadow-inner resize-y focus:outline-none focus:ring-2 focus:ring-blue-500/20"
             />
           </div>
+
+          {/* FAQ Section */}
+          <section className="w-full max-w-[1920px] mx-auto px-4 sm:px-6 lg:px-8 pb-16">
+            <h2 className="text-2xl font-bold text-center text-slate-900 dark:text-white mb-8">
+              Frequently Asked Questions
+            </h2>
+            <div className="space-y-4 w-full">
+              {[
+                { q: "What is a UUID?", a: "A UUID (Universally Unique Identifier) is a 128-bit label used for information in computer systems. It creates a unique ID without a central coordination." },
+                { q: "Are these UUIDs unique?", a: "Yes. We generate standard Version 4 UUIDs using a cryptographically strong random number generator. The probability of collision is astronomically low." },
+                { q: "Is it free to use?", a: "Yes, you can generate up to 5,000 UUIDs at a time for free. There are no limits on daily usage." },
+                { q: "Do you store my UUIDs?", a: "No. All generation happens locally in your browser. We never see or store the IDs you generate." }
+              ].map((faq, i) => (
+                <details key={i} className="w-full group bg-white/80 dark:bg-slate-900/80 backdrop-blur-sm border border-slate-200 dark:border-slate-800 rounded-xl overflow-hidden transition-all duration-200 hover:shadow-md">
+                  <summary className="flex items-center justify-between p-5 font-semibold cursor-pointer text-slate-800 dark:text-white hover:bg-slate-50 dark:hover:bg-slate-800/50 transition-colors">
+                    {faq.q}
+                    <span className="text-slate-400 group-open:rotate-180 transition-transform">▼</span>
+                  </summary>
+                  <div className="px-5 pb-5 text-slate-600 dark:text-slate-300 text-sm leading-relaxed border-t border-slate-100 dark:border-slate-800 pt-4 bg-white/50 dark:bg-slate-900/50">
+                    {faq.a}
+                  </div>
+                </details>
+              ))}
+            </div>
+          </section>
 
         </main>
       </div>
