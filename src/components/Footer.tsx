@@ -58,7 +58,7 @@ export function Footer() {
 
                     {/* Tools Column 1 */}
                     <div>
-                        <h3 className="font-semibold text-slate-900 dark:text-slate-100 mb-4">Formatters</h3>
+                        <h3 className="font-semibold text-slate-900 dark:text-slate-100 mb-4">Formatters & Converters</h3>
                         <ul className="space-y-2">
                             {toolLinks.slice(0, 6).map((link) => (
                                 <li key={link.href}>
@@ -75,7 +75,7 @@ export function Footer() {
 
                     {/* Tools Column 2 */}
                     <div>
-                        <h3 className="font-semibold text-slate-900 dark:text-slate-100 mb-4">Generators</h3>
+                        <h3 className="font-semibold text-slate-900 dark:text-slate-100 mb-4">Generators & Utilities</h3>
                         <ul className="space-y-2">
                             {toolLinks.slice(6).map((link) => (
                                 <li key={link.href}>

@@ -1,16 +1,23 @@
 /**
  * Encodes a string to Base64, handling UTF-8 characters correctly.
  */
-export const toBase64 = (str: string): string => {
+export function toBase64(str: string, urlSafe = false): string {
   try {
-    return btoa(encodeURIComponent(str).replace(/%([0-9A-F]{2})/g,
-      function toSolidBytes(match, p1) {
-        return String.fromCharCode(parseInt(p1, 16));
-      }));
-  } catch (e) {
-    throw new Error('Unable to encode input.');
+    // Handle Unicode strings
+    const bytes = new TextEncoder().encode(str);
+    const binString = Array.from(bytes, (byte) =>
+      String.fromCodePoint(byte)
+    ).join("");
+    const base64 = btoa(binString);
+    
+    if (urlSafe) {
+        return base64.replace(/\+/g, '-').replace(/\//g, '_').replace(/=+$/, '');
+    }
+    return base64;
+  } catch (err) {
+    return "";
   }
-};
+}
 
 /**
  * Decodes a Base64 string to text, handling UTF-8 characters correctly.

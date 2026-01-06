@@ -11,101 +11,104 @@ import { useEffect, useState } from "react";
 
 export default function CronGeneratorClient() {
   const theme = flowerThemes.morningGlory;
-  const [cronString, setCronString] = useState("* * * * *");
-  const [humanDesc, setHumanDesc] = useState("Every minute");
-  const [copied, setCopied] = useState(false);
+  const [cronExpression, setCronExpression] = useState("* * * * *");
+  const [description, setDescription] = useState("");
+  const [fields, setFields] = useState({
+    minute: "*",
+    hour: "*",
+    dayMonth: "*",
+    month: "*",
+    dayWeek: "*",
+  });
 
   useEffect(() => {
-    setHumanDesc(describeCron(cronString));
-  }, [cronString]);
+    // Generate description
+    setDescription(describeCron(cronExpression));
+  }, [cronExpression]);
 
-  const handleCopy = async () => {
-    await navigator.clipboard.writeText(cronString);
-    setCopied(true);
-    setTimeout(() => setCopied(false), 2000);
+  const updateField = (field: keyof typeof fields, value: string) => {
+    const newFields = { ...fields, [field]: value };
+    setFields(newFields);
+    setCronExpression(
+      `${newFields.minute} ${newFields.hour} ${newFields.dayMonth} ${newFields.month} ${newFields.dayWeek}`
+    );
+  };
+
+  const handleCopy = () => {
+    navigator.clipboard.writeText(cronExpression);
   };
 
   return (
     <FlowerBackground theme={theme} badgeText="Cron Tool">
-      <SchemaMarkup
+       <SchemaMarkup
         name="Cron Job Generator"
-        description="Free online Cron expression generator. Visual builder for cron jobs with human-readable explanations and quick presets."
+        description="Free online Cron expression generator and text describer. Create, test, and understand cron schedules easily."
         url="https://www.countcharacters.org/cron-job-generator"
       />
       <div className="flex flex-col min-h-screen">
         <SmartHeroHeader
-          title="Cron Job Generator"
+          title="Cron Generator"
           theme={theme}
         />
 
-        <main className="flex-grow container mx-auto px-4 py-8 max-w-5xl">
-
-          <div className="text-center text-slate-500 mb-8 max-w-2xl mx-auto">
-             Generate standard crontab expressions for Linux/Unix scheduling.
-          </div>
-
-          {/* Main Card */}
-          <div className="bg-white dark:bg-slate-900 rounded-2xl border border-slate-200 dark:border-slate-800 shadow-xl p-6 md:p-8 mb-8">
-            
-            {/* Display & Output */}
-            <div className="flex flex-col items-center gap-6 mb-8">
-                <div className="relative w-full max-w-2xl">
-                    <input
-                        type="text"
-                        value={cronString}
-                        onChange={(e) => setCronString(e.target.value)}
-                        className="w-full text-center text-4xl md:text-5xl font-mono font-bold text-slate-800 dark:text-slate-100 bg-slate-50 dark:bg-slate-950 border border-slate-200 dark:border-slate-800 rounded-xl py-6 px-4 focus:ring-4 focus:ring-blue-500/10 focus:border-blue-500 transition-all outline-none tracking-widest"
-                    />
-                    <button 
-                        onClick={handleCopy}
-                        className="absolute right-4 top-1/2 -translate-y-1/2 text-slate-400 hover:text-blue-500 transition-colors"
-                        title="Copy to clipboard"
-                    >
-                        {copied ? <span className="text-green-500 text-sm font-bold">Copied</span> : <Copy size={24} />}
-                    </button>
+        <main className="flex-grow w-full">
+            <div className="container mx-auto px-4 py-8 max-w-5xl">
+                <div className="text-center text-slate-500 mb-8 max-w-2xl mx-auto">
+                    Create and understand cron schedules for your scripts and jobs.
                 </div>
-                
-                <div className="flex items-center gap-2 text-blue-600 dark:text-blue-400 font-medium text-lg bg-blue-50 dark:bg-blue-900/20 px-4 py-2 rounded-full">
-                    <Info size={20} />
-                    <span>{humanDesc}</span>
-                </div>
-            </div>
 
-            {/* Presets */}
-            <div className="grid grid-cols-2 md:grid-cols-4 gap-3 mb-8">
-                {CRON_Presets.map((preset) => (
+                {/* Display & Copy */}
+                <div className="bg-white dark:bg-slate-900 rounded-2xl shadow-lg border border-slate-200 dark:border-slate-800 p-8 mb-8 text-center transition-all hover:shadow-xl">
+                    <div className="text-4xl md:text-5xl font-mono font-bold text-slate-800 dark:text-white mb-4 tracking-wider">
+                    {cronExpression}
+                    </div>
+                    <div className="text-lg text-emerald-600 dark:text-emerald-400 font-medium mb-6 h-8">
+                    {description}
+                    </div>
                     <button
-                        key={preset.name}
-                        onClick={() => setCronString(preset.value)}
-                        className="text-sm px-3 py-2 bg-slate-50 dark:bg-slate-800 hover:bg-slate-100 dark:hover:bg-slate-700 border border-slate-200 dark:border-slate-700 rounded-lg text-slate-600 dark:text-slate-300 transition-colors text-left"
+                        onClick={handleCopy}
+                        className="inline-flex items-center gap-2 px-6 py-2.5 bg-blue-600 hover:bg-blue-700 text-white font-medium rounded-full transition-all active:scale-95 shadow-md shadow-blue-500/20"
                     >
-                        {preset.name}
+                    <Copy size={18} />
+                    Copy Expression
                     </button>
-                ))}
-            </div>
+                </div>
 
-            <div className="min-h-[100px] mt-8">
-                <GoogleAdsense 
-                    adSlot={process.env.NEXT_PUBLIC_AD_SLOT_IN_ARTICLE || ""} 
-                    layout="in-article"
-                    style={{ display: 'block', width: '100%', maxWidth: '100%' }}
-                />
-            </div>
-          </div>
+                {/* Field Editors */}
+                <div className="grid grid-cols-1 md:grid-cols-5 gap-4 mb-8">
+                    {['minute', 'hour', 'dayMonth', 'month', 'dayWeek'].map((field) => (
+                    <div key={field} className="bg-white/80 dark:bg-slate-900/80 backdrop-blur-sm p-4 rounded-xl border border-slate-200 dark:border-slate-800">
+                        <label className="block text-xs font-bold uppercase text-slate-500 dark:text-slate-400 mb-2">
+                        {field.replace(/([A-Z])/g, ' $1').trim()}
+                        </label>
+                        <input
+                        type="text"
+                        value={fields[field as keyof typeof fields]}
+                        onChange={(e) => updateField(field as keyof typeof fields, e.target.value)}
+                        className="w-full text-center font-mono text-lg bg-transparent border-b-2 border-slate-200 dark:border-slate-700 focus:border-blue-500 outline-none py-1 transition-colors text-slate-900 dark:text-white"
+                        />
+                        <div className="mt-2 text-[10px] text-slate-400">
+                        {field === 'minute' && '0-59'}
+                        {field === 'hour' && '0-23'}
+                        {field === 'dayMonth' && '1-31'}
+                        {field === 'month' && '1-12'}
+                        {field === 'dayWeek' && '0-6'}
+                        </div>
+                    </div>
+                    ))}
+                </div>
 
-          <div className="mt-12 text-center">
-            <h2 className="text-2xl font-bold text-slate-800 dark:text-slate-200 mb-4">How to check your jobs?</h2>
-            <div className="bg-slate-900 text-slate-200 p-4 rounded-lg font-mono inline-block text-left text-sm md:text-base">
-                <p># List all cron jobs</p>
-                <p className="text-green-400">crontab -l</p>
-                <br />
-                <p># Edit cron jobs</p>
-                <p className="text-green-400">crontab -e</p>
+                <div className="min-h-[100px] mt-8">
+                    <GoogleAdsense 
+                        adSlot={process.env.NEXT_PUBLIC_AD_SLOT_IN_ARTICLE || ""} 
+                        layout="in-article"
+                        style={{ display: 'block', width: '100%', maxWidth: '100%' }}
+                    />
+                </div>
             </div>
-          </div>
 
           {/* FAQ Section */}
-          <section className="w-full mt-16 pb-8 border-t border-slate-200 dark:border-slate-800 pt-12">
+          <section className="w-full max-w-[1920px] mx-auto px-4 sm:px-6 lg:px-8 pb-16">
             <h2 className="text-2xl font-bold text-center text-slate-900 dark:text-white mb-8">
               Frequently Asked Questions
             </h2>

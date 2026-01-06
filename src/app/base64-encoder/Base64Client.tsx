@@ -7,75 +7,103 @@ import { SmartHeroHeader } from "@/components/SmartHeroHeader";
 import { flowerThemes } from "@/config/flowerThemes";
 import { fromBase64, toBase64 } from "@/lib/base64-utils";
 import { Copy, Upload, X } from "lucide-react";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 
 export default function Base64Client() {
   const theme = flowerThemes.blueIris;
-  const [mode, setMode] = useState<"encode" | "decode">("encode");
-  const [input, setInput] = useState("");
-  const [output, setOutput] = useState("");
-  const [error, setError] = useState<string | null>(null);
-  const [copied, setCopied] = useState(false);
+  const [mode, setMode] = useState<'encode' | 'decode'>('encode');
+  const [input, setInput] = useState('');
+  const [output, setOutput] = useState('');
+  const [isUrlSafe, setIsUrlSafe] = useState(false);
+  const [fileName, setFileName] = useState('');
+  const [error, setError] = useState<string | null>(null); // Re-introducing error state for file upload
 
-  const handleTransform = (value: string, currentMode: "encode" | "decode") => {
-    setInput(value);
-    setError(null);
-    if (!value) {
-      setOutput("");
+  useEffect(() => {
+    setError(null); // Clear error on input/mode/urlsafe change
+    if (!input) {
+      setOutput('');
       return;
     }
 
     try {
-      if (currentMode === "encode") {
-        setOutput(toBase64(value));
+      if (mode === 'encode') {
+        const result = toBase64(input, isUrlSafe);
+        setOutput(result);
       } else {
-        setOutput(fromBase64(value));
+        const result = fromBase64(input);
+        setOutput(result);
       }
-    } catch (err) {
-      // Don't show error for empty decode attempts that are invalid partials
-      if (currentMode === "decode") {
-         // Only show error if the string is plausibly complete or user stopped typing
-         // For now, simple error handling
-         // setError("Invalid Base64 string"); 
+    } catch (e: any) {
+      // Only show error for decode if it's a real error, not just partial input
+      if (mode === 'decode') {
+        setError("Invalid Base64 string");
       }
+      setOutput(''); // Clear output on error
     }
-  };
+  }, [input, mode, isUrlSafe]);
 
   const handleFileUpload = (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
     if (!file) return;
 
+    setError(null); // Clear previous errors
     if (file.size > 5 * 1024 * 1024) { // 5MB limit
       setError("File is too large (max 5MB)");
       return;
     }
 
+    setFileName(file.name);
     const reader = new FileReader();
     reader.onload = (event) => {
       const result = event.target?.result as string;
-      setMode("encode");
-      // result is already a data URL (base64)
-      // If we want just the base64 content without data prefix:
-      // const base64 = result.split(',')[1];
-      // But usually "Image to Base64" implies the whole data string for CSS.
-      setInput(`[File: ${file.name}]`); 
-      setOutput(result);
+      
+      if (mode === 'encode') {
+          // For encoding, we want the base64 representation of the file.
+          // If it's a data URL (e.g., image), we can use that directly.
+          // If it's a text file, we read it as text and then encode.
+          if (result.startsWith("data:")) {
+            // It's already a data URL, which is base64 encoded.
+            // We can set the output directly and provide a placeholder for input.
+            setOutput(result);
+            setInput(`[File: ${file.name} encoded]`); // Placeholder for input
+          } else {
+            // Assume it's a text file, read as text and then encode.
+            const textReader = new FileReader();
+            textReader.onload = (ev) => {
+                setInput(ev.target?.result as string); // This will trigger the useEffect to encode
+            }
+            textReader.readAsText(file);
+          }
+      } else {
+          // For decoding, we assume the file contains a Base64 string.
+          // Read the file as text and set it as input.
+          const textReader = new FileReader();
+          textReader.onload = (ev) => {
+              setInput(ev.target?.result as string); // This will trigger the useEffect to decode
+          }
+          textReader.readAsText(file);
+      }
     };
-    reader.readAsDataURL(file);
+
+    // For encoding, read as data URL for binary files (images, etc.)
+    // For decoding, read as text (assuming the file contains base64 text)
+    if (mode === 'encode' && file.type.startsWith('image/')) { // Example for images
+      reader.readAsDataURL(file);
+    } else {
+      reader.readAsText(file);
+    }
   };
 
-  const handleCopy = async () => {
-    await navigator.clipboard.writeText(output);
-    setCopied(true);
-    setTimeout(() => setCopied(false), 2000);
+  const handleCopy = () => {
+    navigator.clipboard.writeText(output);
   };
 
   return (
     <FlowerBackground theme={theme} badgeText="Base64 Tool">
-      <SchemaMarkup
-        name="Base64 Encoder & Decoder"
-        description="Free online Base64 encoder and decoder. Convert text and files to Base64 string or decode Base64 back to text instantly."
-        url="https://www.countcharacters.org/base64-encoder"
+       <SchemaMarkup
+        name="Base64 Encoder/Decoder"
+        description="Free online Base64 encoder and decoder. Convert text and files to Base64 strings and vice versa securely in your browser."
+        url="https://www.countcharacters.org/base64-converter"
       />
       <div className="flex flex-col min-h-screen">
         <SmartHeroHeader
@@ -83,104 +111,99 @@ export default function Base64Client() {
           theme={theme}
         />
 
-        <main className="flex-grow container mx-auto px-4 py-8 max-w-5xl">
+        <main className="flex-grow w-full">
           
-          <div className="text-center text-slate-500 mb-8 max-w-2xl mx-auto">
-             Encode text and files to Base64 or decode Base64 strings back to readable format.
-          </div>
+          <div className="container mx-auto px-4 py-8 max-w-5xl">
 
-          {/* Controls */}
-          <div className="bg-white/80 dark:bg-slate-900/80 backdrop-blur-sm rounded-xl border border-slate-200 dark:border-slate-800 shadow-sm p-2 mb-6 max-w-md mx-auto flex">
-             <button
-                onClick={() => { setMode("encode"); handleTransform(input, "encode"); }}
-                className={`flex-1 py-2 px-4 rounded-lg text-sm font-semibold transition-all ${
-                    mode === "encode" 
-                    ? "bg-white dark:bg-slate-800 text-blue-600 shadow-sm ring-1 ring-slate-200 dark:ring-slate-700" 
-                    : "text-slate-500 hover:text-slate-700 dark:hover:text-slate-300"
-                }`}
-             >
-                Encode
-             </button>
-             <button
-                onClick={() => { setMode("decode"); handleTransform(input, "decode"); }}
-                className={`flex-1 py-2 px-4 rounded-lg text-sm font-semibold transition-all ${
-                    mode === "decode" 
-                    ? "bg-white dark:bg-slate-800 text-blue-600 shadow-sm ring-1 ring-slate-200 dark:ring-slate-700" 
-                    : "text-slate-500 hover:text-slate-700 dark:hover:text-slate-300"
-                }`}
-             >
-                Decode
-             </button>
-          </div>
-
-          <div className="grid md:grid-cols-2 gap-6">
-            {/* Input */}
-            <div className="space-y-3">
-                <div className="flex justify-between items-center">
-                    <label className="text-sm font-medium text-slate-700 dark:text-slate-300">
-                        Input {mode === "encode" ? "Text or File" : "Base64 String"}
-                    </label>
-                    {mode === "encode" && (
-                        <div className="relative">
-                            <input 
-                                type="file" 
-                                onChange={handleFileUpload} 
-                                className="absolute inset-0 w-full h-full opacity-0 cursor-pointer"
-                            />
-                            <button className="flex items-center gap-1.5 text-xs font-medium text-blue-600 hover:text-blue-700 bg-blue-50 hover:bg-blue-100 px-3 py-1.5 rounded-md transition-colors">
-                                <Upload size={14} /> Upload File
-                            </button>
-                        </div>
-                    )}
-                </div>
-                <textarea
-                    value={input}
-                    onChange={(e) => handleTransform(e.target.value, mode)}
-                    placeholder={mode === "encode" ? "Type text to encode..." : "Paste Base64 to decode..."}
-                    className="w-full h-[400px] p-4 font-mono text-sm bg-white dark:bg-slate-950 border border-slate-200 dark:border-slate-800 rounded-xl shadow-inner resize-none focus:outline-none focus:ring-2 focus:ring-blue-500/20"
-                />
-            </div>
-
-            {/* Output */}
-            <div className="space-y-3">
-                 <div className="flex justify-between items-center">
-                    <label className="text-sm font-medium text-slate-700 dark:text-slate-300">
-                        Result
-                    </label>
+            <div className="flex justify-center mb-8">
+                <div className="bg-slate-100 dark:bg-slate-800 p-1 rounded-lg inline-flex">
                     <button
-                        onClick={handleCopy}
-                        disabled={!output}
-                        className="flex items-center gap-1.5 text-xs font-medium text-slate-600 hover:text-blue-600 bg-white hover:bg-slate-50 border border-slate-200 px-3 py-1.5 rounded-md transition-colors disabled:opacity-50"
+                        onClick={() => setMode('encode')}
+                        className={`px-6 py-2 rounded-md text-sm font-medium transition-all ${
+                            mode === 'encode'
+                                ? 'bg-white dark:bg-slate-700 text-blue-600 dark:text-blue-400 shadow-sm'
+                                : 'text-slate-500 hover:text-slate-700 dark:text-slate-400'
+                        }`}
                     >
-                         {copied ? "Copied!" : <><Copy size={14} /> Copy Result</>}
+                        Encode
+                    </button>
+                    <button
+                        onClick={() => setMode('decode')}
+                        className={`px-6 py-2 rounded-md text-sm font-medium transition-all ${
+                            mode === 'decode'
+                                ? 'bg-white dark:bg-slate-700 text-blue-600 dark:text-blue-400 shadow-sm'
+                                : 'text-slate-500 hover:text-slate-700 dark:text-slate-400'
+                        }`}
+                    >
+                        Decode
                     </button>
                 </div>
-                <div className="relative">
+            </div>
+
+            <div className="grid md:grid-cols-2 gap-6 mb-8">
+                {/* Input */}
+                <div className="flex flex-col gap-2">
+                    <label className="text-sm font-bold text-slate-500 uppercase flex justify-between items-center">
+                        <span>Input</span>
+                        {mode === 'encode' && (
+                             <label className="cursor-pointer text-blue-500 hover:text-blue-600 lowercase font-normal flex items-center gap-1">
+                                <Upload size={14} />
+                                <span>Upload File</span>
+                                <input type="file" className="hidden" onChange={handleFileUpload} />
+                             </label>
+                        )}
+                    </label>
                     <textarea
-                        value={output}
+                        value={input}
+                        onChange={(e) => setInput(e.target.value)}
+                        placeholder={mode === 'encode' ? "Paste text to encode..." : "Paste Base64 to decode..."}
+                        className={`w-full h-80 p-4 font-mono text-sm bg-white dark:bg-slate-900 border ${error && mode === 'decode' ? "border-red-300 dark:border-red-900/50" : "border-slate-200 dark:border-slate-800"} rounded-xl resize-none focus:ring-2 focus:ring-blue-500/20 focus:border-blue-500 outline-none transition-all`}
+                    />
+                     {mode === 'encode' && (
+                        <label className="flex items-center gap-2 cursor-pointer mt-1">
+                            <input 
+                                type="checkbox" 
+                                checked={isUrlSafe}
+                                onChange={(e) => setIsUrlSafe(e.target.checked)}
+                                className="rounded text-blue-600"
+                            />
+                            <span className="text-sm text-slate-500">URL Safe (replace +/ with -_)</span>
+                        </label>
+                    )}
+                </div>
+
+                {/* Output */}
+                <div className="flex flex-col gap-2">
+                    <label className="text-sm font-bold text-slate-500 uppercase flex justify-between items-center">
+                        <span>Output</span>
+                        <button onClick={handleCopy} className="text-blue-500 hover:text-blue-600 lowercase font-normal flex items-center gap-1">
+                            <Copy size={14} /> Copy
+                        </button>
+                    </label>
+                    <textarea
                         readOnly
-                        placeholder="Result will appear here..."
-                        className={`w-full h-[400px] p-4 font-mono text-sm bg-slate-50 dark:bg-slate-900 border ${error ? "border-red-300 dark:border-red-900/50" : "border-slate-200 dark:border-slate-800"} rounded-xl shadow-inner resize-none focus:outline-none`}
+                        value={output}
+                        className={`w-full h-80 p-4 font-mono text-sm bg-slate-50 dark:bg-slate-950 border ${error ? "border-red-300 dark:border-red-900/50" : "border-slate-200 dark:border-slate-800"} rounded-xl resize-none focus:outline-none text-slate-600 dark:text-slate-400`}
                     />
                     {error && (
-                        <div className="absolute bottom-4 left-4 right-4 bg-red-100 dark:bg-red-900/20 text-red-600 dark:text-red-400 text-sm px-4 py-3 rounded-lg flex items-center gap-2">
+                        <div className="bg-red-100 dark:bg-red-900/20 text-red-600 dark:text-red-400 text-sm px-4 py-3 rounded-lg flex items-center gap-2 mt-1">
                             <X size={16} /> {error}
                         </div>
                     )}
                 </div>
             </div>
-          </div>
 
-           <div className="mt-12 mb-12 min-h-[100px] flex justify-center">
-            <GoogleAdsense 
-                adSlot={process.env.NEXT_PUBLIC_AD_SLOT_IN_ARTICLE || ""} 
-                layout="in-article"
-                style={{ display: 'block', width: '100%', maxWidth: '100%' }}
-            />
+             <div className="min-h-[100px] mt-8">
+                <GoogleAdsense 
+                    adSlot={process.env.NEXT_PUBLIC_AD_SLOT_IN_ARTICLE || ""} 
+                    layout="in-article"
+                    style={{ display: 'block', width: '100%', maxWidth: '100%' }}
+                />
+            </div>
           </div>
 
           {/* FAQ Section */}
-          <section className="w-full mt-4 pb-8 border-t border-slate-200 dark:border-slate-800 pt-12">
+          <section className="w-full max-w-[1920px] mx-auto px-4 sm:px-6 lg:px-8 pb-16">
             <h2 className="text-2xl font-bold text-center text-slate-900 dark:text-white mb-8">
               Frequently Asked Questions
             </h2>
