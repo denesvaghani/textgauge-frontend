@@ -30,6 +30,11 @@ const navCategories = {
     "Comparison": [
         { href: "/diff-checker", label: "Diff Checker", image: flowerThemes.redRose.image },
     ],
+    "Generators": [
+        { href: "/uuid-generator", label: "UUID Generator", image: flowerThemes.sunflower.image },
+        { href: "/cron-job-generator", label: "Cron Generator", image: flowerThemes.cherryBlossom.image },
+        { href: "/base64-encoder", label: "Base64 Tool", image: flowerThemes.lavender.image },
+    ],
 };
 
 export function Navigation() {

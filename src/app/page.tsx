@@ -88,6 +88,35 @@ const categories = {
       hoverText: "group-hover:text-rose-600 dark:group-hover:text-rose-400",
     },
   ],
+  "Generators": [
+    {
+      href: "/uuid-generator",
+      theme: flowerThemes.sunflower,
+      title: "UUID Generator",
+      description: "Generate random UUIDs (v4) in bulk. Fast, free, and secure generation for developers.",
+      hoverBorder: "hover:border-yellow-400/60 dark:hover:border-yellow-400/40",
+      hoverShadow: "hover:shadow-yellow-500/20",
+      hoverText: "group-hover:text-yellow-600 dark:group-hover:text-yellow-400",
+    },
+    {
+      href: "/cron-job-generator",
+      theme: flowerThemes.cherryBlossom,
+      title: "Cron Generator",
+      description: "Build cron schedules visually. Translate complex cron expressions into human-readable text.",
+      hoverBorder: "hover:border-pink-400/60 dark:hover:border-pink-400/40",
+      hoverShadow: "hover:shadow-pink-500/20",
+      hoverText: "group-hover:text-pink-600 dark:group-hover:text-pink-400",
+    },
+    {
+      href: "/base64-encoder",
+      theme: flowerThemes.lavender,
+      title: "Base64 Tool",
+      description: "Encode and decode Base64 strings and files. Supports Unicode and emoji handling.",
+      hoverBorder: "hover:border-violet-400/60 dark:hover:border-violet-400/40",
+      hoverShadow: "hover:shadow-violet-500/20",
+      hoverText: "group-hover:text-violet-600 dark:group-hover:text-violet-400",
+    },
+  ],
 };
 
 const categoryLabels: Record<string, { image: string; color: string }> = {
@@ -96,6 +125,7 @@ const categoryLabels: Record<string, { image: string; color: string }> = {
   "Design Tools": { image: flowerThemes.orchid.image, color: "stone" },
   "Media Tools": { image: flowerThemes.hydrangea.image, color: "blue" },
   "Comparison": { image: flowerThemes.redRose.image, color: "rose" },
+  "Generators": { image: flowerThemes.whiteLily.image, color: "slate" },
 };
 
 type CategoryKey = keyof typeof categories;
