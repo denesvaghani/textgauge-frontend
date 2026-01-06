@@ -65,7 +65,7 @@ export default function UuidGeneratorClient() {
 
         <main className="flex-grow w-full">
           
-          <div className="container mx-auto px-4 py-8 max-w-5xl">
+          <div className="container mx-auto px-4 pt-8 pb-0 max-w-5xl">
             <div className="text-center text-slate-500 mb-8 max-w-2xl mx-auto">
                Generate random version 4 UUIDs (Universally Unique Identifier) in bulk.
             </div>

@@ -52,7 +52,7 @@ export default function CronGeneratorClient() {
         />
 
         <main className="flex-grow w-full">
-            <div className="container mx-auto px-4 py-8 max-w-5xl">
+            <div className="container mx-auto px-4 pt-8 pb-0 max-w-5xl">
                 <div className="text-center text-slate-500 mb-8 max-w-2xl mx-auto">
                     Create and understand cron schedules for your scripts and jobs.
                 </div>
@@ -75,7 +75,7 @@ export default function CronGeneratorClient() {
                 </div>
 
                 {/* Field Editors */}
-                <div className="grid grid-cols-1 md:grid-cols-5 gap-4 mb-8">
+                <div className="grid grid-cols-1 md:grid-cols-5 gap-4 mb-4">
                     {['minute', 'hour', 'dayMonth', 'month', 'dayWeek'].map((field) => (
                     <div key={field} className="bg-white/80 dark:bg-slate-900/80 backdrop-blur-sm p-4 rounded-xl border border-slate-200 dark:border-slate-800">
                         <label className="block text-xs font-bold uppercase text-slate-500 dark:text-slate-400 mb-2">
@@ -98,7 +98,7 @@ export default function CronGeneratorClient() {
                     ))}
                 </div>
 
-                <div className="min-h-[100px] mt-8">
+                <div className="mt-4 mb-2">
                     <GoogleAdsense 
                         adSlot={process.env.NEXT_PUBLIC_AD_SLOT_IN_ARTICLE || ""} 
                         layout="in-article"

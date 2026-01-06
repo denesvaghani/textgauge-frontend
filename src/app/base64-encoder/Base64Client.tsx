@@ -113,7 +113,7 @@ export default function Base64Client() {
 
         <main className="flex-grow w-full">
           
-          <div className="container mx-auto px-4 py-8 max-w-5xl">
+          <div className="container mx-auto px-4 pt-8 pb-0 max-w-5xl">
 
             <div className="flex justify-center mb-8">
                 <div className="bg-slate-100 dark:bg-slate-800 p-1 rounded-lg inline-flex">
@@ -193,7 +193,7 @@ export default function Base64Client() {
                 </div>
             </div>
 
-             <div className="min-h-[100px] mt-8">
+             <div className="mt-4 mb-2 min-h-[50px] flex justify-center">
                 <GoogleAdsense 
                     adSlot={process.env.NEXT_PUBLIC_AD_SLOT_IN_ARTICLE || ""} 
                     layout="in-article"
