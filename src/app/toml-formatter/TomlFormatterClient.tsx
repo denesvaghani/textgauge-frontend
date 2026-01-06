@@ -2,6 +2,7 @@
 
 import { Formatter } from "@/components/Formatter";
 import { FlowerBackground } from "@/components/FlowerBackground";
+import { GoogleAdsense } from "@/components/GoogleAdsense";
 import { flowerThemes } from "@/config/flowerThemes";
 import { parse, stringify } from "smol-toml";
 import Link from "next/link";
@@ -99,6 +100,20 @@ temp_targets = { cpu = 79.5, case = 72.0 }
                     </div>
                 </section>
 
+                {/* Ad: In-Article 1 */}
+                {process.env.NEXT_PUBLIC_AD_SLOT_IN_ARTICLE && (
+                    <div className="w-full max-w-[1920px] mx-auto px-4 sm:px-6 lg:px-8 pb-16 flex justify-center">
+                        <div className="w-full max-w-4xl bg-slate-50 dark:bg-slate-900/50 rounded-xl overflow-hidden min-h-[100px] flex items-center justify-center border border-dashed border-slate-200 dark:border-slate-800">
+                             <GoogleAdsense
+                                adSlot={process.env.NEXT_PUBLIC_AD_SLOT_IN_ARTICLE}
+                                style={{ display: 'block', textAlign: 'center' }}
+                                adFormat="fluid"
+                                layout="in-article"
+                             />
+                        </div>
+                    </div>
+                )}
+
                 {/* When to choose TOML Section */}
                 <section className="w-full max-w-[1920px] mx-auto px-4 sm:px-6 lg:px-8 pb-16">
                     <div className="bg-gradient-to-br from-orange-50 to-white dark:from-orange-950/20 dark:to-slate-900 rounded-2xl shadow-sm border border-orange-200/50 dark:border-orange-800/30 p-8">
@@ -127,6 +142,20 @@ temp_targets = { cpu = 79.5, case = 72.0 }
                         </div>
                     </div>
                 </section>
+
+                {/* Ad: In-Article 2 */}
+                {process.env.NEXT_PUBLIC_AD_SLOT_IN_ARTICLE && (
+                    <div className="w-full max-w-[1920px] mx-auto px-4 sm:px-6 lg:px-8 pb-16 flex justify-center">
+                        <div className="w-full max-w-4xl bg-slate-50 dark:bg-slate-900/50 rounded-xl overflow-hidden min-h-[100px] flex items-center justify-center border border-dashed border-slate-200 dark:border-slate-800">
+                             <GoogleAdsense
+                                adSlot={process.env.NEXT_PUBLIC_AD_SLOT_IN_ARTICLE}
+                                style={{ display: 'block', textAlign: 'center' }}
+                                adFormat="fluid"
+                                layout="in-article"
+                             />
+                        </div>
+                    </div>
+                )}
 
                 {/* FAQ Section */}
                 <section className="w-full max-w-[1920px] mx-auto px-4 sm:px-6 lg:px-8 pb-16">
@@ -162,6 +191,8 @@ temp_targets = { cpu = 79.5, case = 72.0 }
                             <div className="px-5 pb-5 text-slate-600 dark:text-slate-300 text-sm leading-relaxed border-t border-orange-100/50 dark:border-orange-800/30 pt-4">
                                 Use <strong>TOML</strong> for configuration files — it supports comments and is easy to edit. Use <strong>JSON</strong> for APIs and data exchange. Use <strong>YAML</strong> for DevOps configs (Docker, Kubernetes). TOML avoids YAML&apos;s whitespace pitfalls and JSON&apos;s lack of comments.
                             </div>
+
+
                         </details>
 
                         <details className="w-full group bg-white/80 dark:bg-slate-900/80 backdrop-blur-sm border border-orange-200/50 dark:border-orange-800/30 rounded-xl overflow-hidden transition-all duration-200 hover:shadow-md">
@@ -176,6 +207,19 @@ temp_targets = { cpu = 79.5, case = 72.0 }
                     </div>
                 </section>
             </div>
+
+                {/* Ad: Multiplex (Related Content) */}
+                 {process.env.NEXT_PUBLIC_AD_SLOT_MULTIPLEX && (
+                    <section className="w-full max-w-[1920px] mx-auto px-4 sm:px-6 lg:px-8 pb-16">
+                        <div className="w-full bg-slate-50 dark:bg-slate-900/50 rounded-xl overflow-hidden min-h-[200px] border border-dashed border-slate-200 dark:border-slate-800 p-4">
+                             <GoogleAdsense
+                                adSlot={process.env.NEXT_PUBLIC_AD_SLOT_MULTIPLEX}
+                                adFormat="autorelaxed"
+                                style={{ display: 'block' }}
+                             />
+                        </div>
+                    </section>
+                )}
         </FlowerBackground>
     );
 }

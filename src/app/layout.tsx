@@ -87,6 +87,11 @@ export default function RootLayout({
           dangerouslySetInnerHTML={{ __html: JSON.stringify(structuredData) }}
         />
 
+        {/* AdSense Verification Meta Tag */}
+        {adsenseId && (
+          <meta name="google-adsense-account" content={adsenseId} />
+        )}
+
         {/* Google AdSense – load once, after hydration */}
         {adsenseId && (
           <Script

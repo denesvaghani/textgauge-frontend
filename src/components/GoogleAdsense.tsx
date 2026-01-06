@@ -6,6 +6,7 @@ interface GoogleAdsenseProps {
   adSlot: string;
   adFormat?: string;
   fullWidthResponsive?: boolean;
+  layout?: string;
   style?: React.CSSProperties;
 }
 
@@ -13,6 +14,7 @@ export function GoogleAdsense({
   adSlot,
   adFormat = "auto",
   fullWidthResponsive = true,
+  layout,
   style = { display: "block" },
 }: GoogleAdsenseProps) {
   useEffect(() => {
@@ -32,6 +34,7 @@ export function GoogleAdsense({
       data-ad-slot={adSlot}
       data-ad-format={adFormat}
       data-full-width-responsive={fullWidthResponsive.toString()}
+      data-ad-layout={layout}
     />
   );
 }

@@ -16,6 +16,7 @@ import {
 } from 'lucide-react';
 import { flowerThemes } from '@/config/flowerThemes';
 import { SmartHeroHeader, HeroDescription } from "@/components/SmartHeroHeader";
+import { GoogleAdsense } from "@/components/GoogleAdsense";
 import {
   extractColorsFromImage,
   isValidImageFile,
@@ -247,6 +248,20 @@ export function PaletteForgeClient() {
             </div>
           )}
         </section>
+
+        {/* Ad: In-Article 1 */}
+        {process.env.NEXT_PUBLIC_AD_SLOT_IN_ARTICLE && (
+            <div className="w-full max-w-[1920px] mx-auto px-4 sm:px-6 lg:px-8 py-8 flex justify-center">
+                <div className="w-full max-w-4xl bg-slate-50 dark:bg-slate-900/50 rounded-xl overflow-hidden min-h-[100px] flex items-center justify-center border border-dashed border-slate-200 dark:border-slate-800">
+                        <GoogleAdsense
+                        adSlot={process.env.NEXT_PUBLIC_AD_SLOT_IN_ARTICLE}
+                        style={{ display: 'block', textAlign: 'center' }}
+                        adFormat="fluid"
+                        layout="in-article"
+                        />
+                </div>
+            </div>
+        )}
 
         {/* Results Section */}
         {extractedColors.length > 0 && (
@@ -546,6 +561,20 @@ export function PaletteForgeClient() {
                 </div>
               </div>
             </section>
+
+            {/* Ad: In-Article 2 */}
+            {process.env.NEXT_PUBLIC_AD_SLOT_IN_ARTICLE && (
+                <div className="w-full max-w-[1920px] mx-auto px-4 sm:px-6 lg:px-8 py-8 flex justify-center">
+                    <div className="w-full max-w-4xl bg-slate-50 dark:bg-slate-900/50 rounded-xl overflow-hidden min-h-[100px] flex items-center justify-center border border-dashed border-slate-200 dark:border-slate-800">
+                             <GoogleAdsense
+                            adSlot={process.env.NEXT_PUBLIC_AD_SLOT_IN_ARTICLE}
+                            style={{ display: 'block', textAlign: 'center' }}
+                            adFormat="fluid"
+                            layout="in-article"
+                            />
+                    </div>
+                </div>
+            )}
 
             {/* Contrast Matrix */}
             <section className="w-full max-w-[1920px] mx-auto px-4 sm:px-6 lg:px-8 py-8">
@@ -929,6 +958,19 @@ export function PaletteForgeClient() {
           </details>
         </div>
       </section>
+
+      {/* Ad: Multiplex (Related Content) */}
+        {process.env.NEXT_PUBLIC_AD_SLOT_MULTIPLEX && (
+        <section className="w-full max-w-[1920px] mx-auto px-4 sm:px-6 lg:px-8 pb-16">
+            <div className="w-full bg-slate-50 dark:bg-slate-900/50 rounded-xl overflow-hidden min-h-[200px] border border-dashed border-slate-200 dark:border-slate-800 p-4">
+                    <GoogleAdsense
+                    adSlot={process.env.NEXT_PUBLIC_AD_SLOT_MULTIPLEX}
+                    adFormat="autorelaxed"
+                    style={{ display: 'block' }}
+                    />
+            </div>
+        </section>
+    )}
     </div>
   );
 }
