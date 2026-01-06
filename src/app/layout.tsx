@@ -103,7 +103,7 @@ export default function RootLayout({
           />
         )}
       </head>
-      <body className="bg-slate-50 text-slate-900 dark:bg-slate-950 dark:text-slate-50 font-sans antialiased selection:bg-indigo-100 dark:selection:bg-indigo-900/30 flex flex-col min-h-screen">
+      <body className="bg-slate-50 text-slate-900 dark:bg-slate-950 dark:text-slate-50 font-sans antialiased selection:bg-indigo-200 selection:text-indigo-900 dark:selection:bg-indigo-500/40 dark:selection:text-indigo-50 flex flex-col min-h-screen">
         <ThemeProvider>
           <Navigation />
           <main className="flex-1">

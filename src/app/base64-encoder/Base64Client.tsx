@@ -204,7 +204,7 @@ export default function Base64Client() {
 
           {/* Educational Content */}
           <section className="w-full max-w-[1920px] mx-auto px-4 sm:px-6 lg:px-8 py-12 bg-white/50 dark:bg-slate-900/50">
-            <div className="max-w-4xl mx-auto space-y-8">
+            <div className="max-w-5xl mx-auto space-y-8">
               <div>
                 <h2 className="text-2xl font-bold text-slate-900 dark:text-white mb-4">When is Base64 Encoding Useful?</h2>
                 <p className="text-slate-600 dark:text-slate-300 leading-relaxed mb-4">

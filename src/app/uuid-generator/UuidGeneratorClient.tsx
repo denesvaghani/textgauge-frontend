@@ -71,7 +71,7 @@ export default function UuidGeneratorClient() {
             </div>
 
             {/* Controls */}
-            <div className="bg-white/80 dark:bg-slate-900/80 backdrop-blur-sm rounded-xl border border-slate-200 dark:border-slate-800 shadow-sm p-6 mb-6">
+            <div className="bg-white/80 dark:bg-slate-900/80 backdrop-blur-sm rounded-xl border border-slate-200 dark:border-slate-800 shadow-sm p-6 mb-4">
               <div className="flex flex-wrap items-center gap-6 justify-between">
                 
                 <div className="flex flex-col gap-2 min-w-[200px] flex-1">
@@ -124,7 +124,7 @@ export default function UuidGeneratorClient() {
               </div>
             </div>
 
-            <div className="mb-8">
+            <div className="my-2">
               <GoogleAdsense 
                   adSlot={process.env.NEXT_PUBLIC_AD_SLOT_IN_ARTICLE || ""} 
                   layout="in-article"
@@ -159,7 +159,7 @@ export default function UuidGeneratorClient() {
 
           {/* Educational Content */}
           <section className="w-full max-w-[1920px] mx-auto px-4 sm:px-6 lg:px-8 py-12 bg-white/50 dark:bg-slate-900/50">
-            <div className="max-w-4xl mx-auto space-y-8">
+            <div className="max-w-5xl mx-auto space-y-8">
               <div>
                 <h2 className="text-2xl font-bold text-slate-900 dark:text-white mb-4">Why use a UUID Generator?</h2>
                 <p className="text-slate-600 dark:text-slate-300 leading-relaxed mb-4">
