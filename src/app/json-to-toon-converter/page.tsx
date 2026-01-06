@@ -27,7 +27,7 @@ export const metadata: Metadata = {
         description: "Reduce AI API costs by 30-60% with TOON format. Free online converter.",
     },
     alternates: {
-        canonical: "/json-to-toon-converter",
+        canonical: "https://www.countcharacters.org/json-to-toon-converter",
     },
 };
 
