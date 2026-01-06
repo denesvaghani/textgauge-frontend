@@ -17,6 +17,7 @@ import {
 import { flowerThemes } from '@/config/flowerThemes';
 import { SmartHeroHeader, HeroDescription } from "@/components/SmartHeroHeader";
 import { GoogleAdsense } from "@/components/GoogleAdsense";
+import { SchemaMarkup } from "@/components/SchemaMarkup";
 import {
   extractColorsFromImage,
   isValidImageFile,

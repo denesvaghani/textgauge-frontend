@@ -4,6 +4,7 @@ import { flowerThemes } from "@/config/flowerThemes";
 import { FlowerBackground } from "@/components/FlowerBackground";
 import { SmartHeroHeader } from "@/components/SmartHeroHeader";
 import { GoogleAdsense } from "@/components/GoogleAdsense";
+import { SchemaMarkup } from "@/components/SchemaMarkup";
 import { useImageCompression } from "@/hooks/useImageCompression";
 import { UploadZone } from "@/components/image-compressor/UploadZone";
 import { CompressionControls } from "@/components/image-compressor/CompressionControls";

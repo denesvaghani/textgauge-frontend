@@ -8,6 +8,7 @@ import { SimpleCodeEditor } from "@/components/SimpleCodeEditor";
 import { DiffViewer } from "@/components/DiffViewer";
 import { GoogleAdsense } from "@/components/GoogleAdsense";
 import { FlowerBackground } from "@/components/FlowerBackground";
+import { SchemaMarkup } from "@/components/SchemaMarkup";
 import { flowerThemes } from "@/config/flowerThemes";
 import { SmartHeroHeader, HeroDescription } from "@/components/SmartHeroHeader";
 

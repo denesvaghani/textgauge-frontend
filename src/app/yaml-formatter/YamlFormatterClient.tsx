@@ -3,6 +3,7 @@
 import { Formatter } from "@/components/Formatter";
 import { FlowerBackground } from "@/components/FlowerBackground";
 import { GoogleAdsense } from "@/components/GoogleAdsense";
+import { SchemaMarkup } from "@/components/SchemaMarkup";
 import { flowerThemes } from "@/config/flowerThemes";
 import yaml from "js-yaml";
 import Link from "next/link";

@@ -3,8 +3,10 @@
 import { Formatter } from "@/components/Formatter";
 import { FlowerBackground } from "@/components/FlowerBackground";
 import { GoogleAdsense } from "@/components/GoogleAdsense";
+import { SchemaMarkup } from "@/components/SchemaMarkup";
 import { flowerThemes } from "@/config/flowerThemes";
 import { parse, stringify } from "smol-toml";
+
 import Link from "next/link";
 import { GitCompare } from "lucide-react";
 
@@ -45,6 +47,11 @@ temp_targets = { cpu = 79.5, case = 72.0 }
 
     return (
         <FlowerBackground theme={theme} badgeText="TOML Tool">
+             <SchemaMarkup
+                name="TOML Formatter & Validator"
+                description="Free online TOML formatter and validator. Beautify TOML configuration files, fix errors, and convert to JSON/YAML."
+                url="https://www.countcharacters.org/toml-formatter"
+            />
             <div className="flex flex-col min-h-screen">
                 <Formatter
                     title="TOML Formatter"

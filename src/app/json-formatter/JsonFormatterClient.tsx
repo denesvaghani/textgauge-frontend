@@ -2,6 +2,7 @@
 
 import { Formatter } from "@/components/Formatter";
 import { GoogleAdsense } from "@/components/GoogleAdsense";
+import { SchemaMarkup } from "@/components/SchemaMarkup";
 import { FlowerBackground } from "@/components/FlowerBackground";
 import { flowerThemes } from "@/config/flowerThemes";
 import Link from "next/link";
@@ -26,6 +27,11 @@ export default function JsonFormatterPage() {
 
     return (
         <FlowerBackground theme={theme} badgeText="JSON Tool">
+            <SchemaMarkup
+                name="JSON Formatter & Validator"
+                description="Free online JSON formatter, validator, and beautifier. Minify JSON, fix errors, and convert to other formats instantly."
+                url="https://www.countcharacters.org/json-formatter"
+            />
             <div className="flex flex-col min-h-screen">
                 <Formatter
                     title="JSON Formatter, Validator & Beautifier"
