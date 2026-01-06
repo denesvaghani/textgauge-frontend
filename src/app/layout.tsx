@@ -45,6 +45,12 @@ export async function generateMetadata(): Promise<Metadata> {
         domain === "www.countcharacters.in"
           ? process.env.NEXT_PUBLIC_GOOGLE_SITE_VERIFICATION_IN
           : process.env.NEXT_PUBLIC_GOOGLE_SITE_VERIFICATION_ORG,
+      other: {
+        "msvalidate.01":
+          (domain === "www.countcharacters.in"
+            ? process.env.NEXT_PUBLIC_BING_SITE_VERIFICATION_IN
+            : process.env.NEXT_PUBLIC_BING_SITE_VERIFICATION_ORG) || "",
+      },
     },
   };
 }
