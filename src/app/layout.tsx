@@ -41,7 +41,10 @@ export async function generateMetadata(): Promise<Metadata> {
       apple: "/images/logo/sunflower-logo.webp",
     },
     verification: {
-      google: "xALwEqgM-o40Pv6kbAfwOcTAQsoUFcnzuUryWOfJwVA",
+      google:
+        domain === "www.countcharacters.in"
+          ? process.env.NEXT_PUBLIC_GOOGLE_SITE_VERIFICATION_IN
+          : "xALwEqgM-o40Pv6kbAfwOcTAQsoUFcnzuUryWOfJwVA",
     },
   };
 }
