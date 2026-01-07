@@ -62,7 +62,11 @@ export default function CronGeneratorClient() {
                     <div className="text-4xl md:text-5xl font-mono font-bold text-slate-800 dark:text-white mb-4 tracking-wider">
                     {cronExpression}
                     </div>
-                    <div className="text-lg text-emerald-600 dark:text-emerald-400 font-medium mb-6 h-8">
+                    <div className={`text-lg font-medium mb-6 h-8 ${
+                        description.toLowerCase().startsWith('invalid') 
+                            ? 'text-red-500 dark:text-red-400 font-bold' 
+                            : 'text-emerald-600 dark:text-emerald-400'
+                    }`}>
                     {description}
                     </div>
                     <button
@@ -107,6 +111,40 @@ export default function CronGeneratorClient() {
                 </div>
             </div>
 
+            {/* Quick Reference / Cheat Sheet */}
+            <section className="w-full max-w-[1920px] mx-auto px-4 sm:px-6 lg:px-8 pt-8 pb-4">
+                <h2 className="text-xl font-bold text-center text-slate-800 dark:text-white mb-6">
+                    Quick Reference / Cheat Sheet
+                </h2>
+                <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+                    {CRON_Presets.map((preset) => (
+                        <button
+                            key={preset.name}
+                            onClick={() => {
+                                setCronExpression(preset.value);
+                                // Also update fields to match
+                                const parts = preset.value.split(" ");
+                                setFields({
+                                    minute: parts[0],
+                                    hour: parts[1],
+                                    dayMonth: parts[2],
+                                    month: parts[3],
+                                    dayWeek: parts[4]
+                                });
+                            }}
+                            className="bg-white dark:bg-slate-800 p-4 rounded-xl border border-slate-200 dark:border-slate-700 hover:border-blue-500 dark:hover:border-blue-400 hover:shadow-md transition-all text-left group"
+                        >
+                            <div className="font-semibold text-slate-700 dark:text-slate-200 mb-1 group-hover:text-blue-600 dark:group-hover:text-blue-400">
+                                {preset.name}
+                            </div>
+                            <code className="text-xs bg-slate-100 dark:bg-slate-900 px-2 py-1 rounded text-slate-500 font-mono">
+                                {preset.value}
+                            </code>
+                        </button>
+                    ))}
+                </div>
+            </section>
+
            {/* Educational Content */}
            <section className="w-full max-w-[1920px] mx-auto px-4 sm:px-6 lg:px-8 pt-0 pb-12 bg-white/50 dark:bg-slate-900/50">
             <div className="max-w-[1920px] mx-auto space-y-8">
@@ -116,16 +154,15 @@ export default function CronGeneratorClient() {
                   A cron expression is a string of 5 characters separated by spaces that represents a schedule. 
                   It is the standard way to schedule recurring tasks on Unix/Linux servers.
                 </p>
-                <div className="bg-slate-100 dark:bg-slate-800 p-4 rounded-lg font-mono text-sm overflow-x-auto">
-                    <p className="whitespace-pre">
+                <div className="bg-slate-100 dark:bg-slate-800 p-6 rounded-lg font-mono text-sm overflow-x-auto border border-slate-200 dark:border-slate-700">
+                    <p className="whitespace-pre text-slate-700 dark:text-slate-300">
 {`*    *    *    *    *
-┬    ┬    ┬    ┬    ┬
-│    │    │    │    │
-│    │    │    │    └─ Day of Week (0-6) (Sunday=0)
-│    │    │    └─── Month (1-12)
-│    │    └───── Day of Month (1-31)
-│    └─────── Hour (0-23)
-└───────── Minute (0-59)`}
+|    |    |    |    |
+|    |    |    |    +---- Day of Week (0-6) (Sun=0)
+|    |    |    +--------- Month (1-12)
+|    |    +-------------- Day of Month (1-31)
+|    +------------------- Hour (0-23)
++------------------------ Minute (0-59)`}
                     </p>
                 </div>
               </div>
