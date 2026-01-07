@@ -162,7 +162,7 @@ Jane Smith,jane@example.com,London,SW1A`;
                 )}
 
                 {/* Key Features Section */}
-                <section className="max-w-[1920px] mx-auto px-4 sm:px-6 lg:px-8 pb-16">
+                <section className="w-full max-w-[1920px] mx-auto px-4 sm:px-6 lg:px-8 pb-16">
                     <div className="bg-white/80 dark:bg-slate-900/80 backdrop-blur-sm rounded-2xl shadow-sm border border-yellow-200/50 dark:border-yellow-800/30 p-8 transition-colors duration-200">
                         <h2 className="text-2xl font-bold text-slate-900 dark:text-white mb-6">
                             Key Features

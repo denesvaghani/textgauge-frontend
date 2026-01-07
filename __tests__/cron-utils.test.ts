@@ -24,4 +24,34 @@ describe('describeCron', () => {
         const desc = describeCron("0 9 * * 1");
         expect(desc).toContain("day of week 1");
     });
+
+    // EDGE CASES
+    it('should return empty string for empty input', () => {
+        expect(describeCron("")).toBe("");
+    });
+
+    it('should return error message for invalid cron format', () => {
+        expect(describeCron("invalid cron string")).toBe("Invalid format (needs 5 parts)");
+        expect(describeCron("* * *")).toBe("Invalid format (needs 5 parts)");
+    });
+
+    it('should handle ranges nicely (pass-through)', () => {
+        // 1-5 * * * * -> runs at minute 1-5
+        const desc = describeCron("1-5 * * * *");
+        expect(desc).toContain("at minute 1-5");
+    });
+
+    it('should handle lists nicely (pass-through)', () => {
+        // 1,15,30 * * * * -> runs at minute 1,15,30
+        const desc = describeCron("1,15,30 * * * *");
+        expect(desc).toContain("at minute 1,15,30");
+    });
+
+    it('should show error for invalid characters in parts', () => {
+        // User reported issue: "* * 4 * *e" 
+        // Current behavior: "Runs every minute... on day of week *e"
+        // Expected behavior: "Invalid cron expression" or similar specific error
+        const desc = describeCron("* * 4 * *e");
+        expect(desc).toBe("Invalid cron expression"); // This will fail currently
+    });
 });

@@ -24,7 +24,9 @@ export function toBase64(str: string, urlSafe = false): string {
  */
 export const fromBase64 = (str: string): string => {
   try {
-    return decodeURIComponent(atob(str).split('').map(function(c) {
+    // Auto-fix URL safe characters
+    const standard = str.replace(/-/g, '+').replace(/_/g, '/');
+    return decodeURIComponent(atob(standard).split('').map(function(c) {
       return '%' + ('00' + c.charCodeAt(0).toString(16)).slice(-2);
     }).join(''));
   } catch (e) {
