@@ -103,7 +103,7 @@ Jane Smith,jane@example.com,London,SW1A`;
                 />
                 
                 {/* File Size Savings */}
-                <section className="w-full max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 pb-12">
+                <section className="w-full max-w-[1920px] mx-auto px-4 sm:px-6 lg:px-8 pb-12">
                     <div className="bg-gradient-to-r from-yellow-500 to-amber-500 rounded-2xl p-8 text-white">
                         <div className="flex flex-col md:flex-row items-center justify-between gap-6">
                             <div className="flex items-center gap-4">
@@ -162,7 +162,7 @@ Jane Smith,jane@example.com,London,SW1A`;
                 )}
 
                 {/* Key Features Section */}
-                <section className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 pb-16">
+                <section className="w-full max-w-[1920px] mx-auto px-4 sm:px-6 lg:px-8 pb-16">
                     <div className="bg-white/80 dark:bg-slate-900/80 backdrop-blur-sm rounded-2xl shadow-sm border border-yellow-200/50 dark:border-yellow-800/30 p-8 transition-colors duration-200">
                         <h2 className="text-2xl font-bold text-slate-900 dark:text-white mb-6">
                             Key Features
@@ -219,7 +219,7 @@ Jane Smith,jane@example.com,London,SW1A`;
                 )}
 
                 {/* FAQ Section */}
-                <section className="w-full max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 pb-16">
+                <section className="w-full max-w-[1920px] mx-auto px-4 sm:px-6 lg:px-8 pb-16">
                     <h2 className="text-2xl font-bold text-center text-slate-900 dark:text-white mb-8">
                         Frequently Asked Questions
                     </h2>
@@ -278,7 +278,7 @@ Jane Smith,jane@example.com,London,SW1A`;
 
 
                 {/* Educational Content */}
-                <section className="w-full max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 pb-16 space-y-16">
+                <section className="w-full max-w-[1920px] mx-auto px-4 sm:px-6 lg:px-8 pb-16 space-y-16">
                     <div id="what-is-json-to-csv" className="border-t border-yellow-200/50 dark:border-yellow-800/30 pt-12">
                         <h2 className="text-2xl font-bold text-slate-900 dark:text-white mb-6">
                             What is JSON to CSV conversion?

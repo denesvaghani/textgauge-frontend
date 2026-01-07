@@ -65,7 +65,7 @@ export default function UuidGeneratorClient() {
 
         <main className="flex-grow w-full">
           
-          <div className="container mx-auto px-4 pt-8 pb-0 max-w-5xl">
+          <div className="container mx-auto px-4 pt-8 pb-0 max-w-[1920px]">
             <div className="text-center text-slate-500 mb-8 max-w-2xl mx-auto">
                Generate random version 4 UUIDs (Universally Unique Identifier) in bulk.
             </div>
@@ -160,7 +160,7 @@ export default function UuidGeneratorClient() {
 
           {/* Educational Content */}
           <section className="w-full max-w-[1920px] mx-auto px-4 sm:px-6 lg:px-8 pt-0 pb-12 bg-white/50 dark:bg-slate-900/50">
-            <div className="max-w-5xl mx-auto space-y-8">
+            <div className="max-w-[1920px] mx-auto space-y-8">
               <div>
                 <h2 className="text-2xl font-bold text-slate-900 dark:text-white mb-4">Why use a UUID Generator?</h2>
                 <p className="text-slate-600 dark:text-slate-300 leading-relaxed mb-4">

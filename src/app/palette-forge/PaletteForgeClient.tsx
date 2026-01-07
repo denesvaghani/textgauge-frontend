@@ -811,7 +811,7 @@ export function PaletteForgeClient() {
             <h2 className="text-2xl font-bold text-center text-slate-900 dark:text-white mb-12">
               What You'll Get
             </h2>
-            <div className="grid md:grid-cols-3 gap-8 max-w-5xl mx-auto">
+            <div className="grid md:grid-cols-3 gap-8 max-w-[1920px] mx-auto">
               {[
                 {
                   title: '3-Layer Token System',
