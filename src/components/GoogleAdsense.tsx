@@ -8,6 +8,7 @@ interface GoogleAdsenseProps {
   fullWidthResponsive?: boolean;
   layout?: string;
   style?: React.CSSProperties;
+  className?: string;
 }
 
 export function GoogleAdsense({
@@ -16,6 +17,7 @@ export function GoogleAdsense({
   fullWidthResponsive = true,
   layout,
   style = { display: "block" },
+  className = "",
 }: GoogleAdsenseProps) {
   useEffect(() => {
     try {

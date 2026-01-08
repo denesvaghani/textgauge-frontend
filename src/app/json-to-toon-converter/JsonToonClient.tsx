@@ -2,9 +2,7 @@
 
 import { Formatter } from "@/components/Formatter";
 import { FlowerBackground } from "@/components/FlowerBackground";
-import { FlowerBackground } from "@/components/FlowerBackground";
 import { DynamicAd } from "@/components/DynamicAd";
-import { SchemaMarkup } from "@/components/SchemaMarkup";
 import { SchemaMarkup } from "@/components/SchemaMarkup";
 import { flowerThemes } from "@/config/flowerThemes";
 import { jsonToToon, toonToJson } from "@/lib/converters/json-toon";
