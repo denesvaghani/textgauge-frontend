@@ -181,7 +181,11 @@ export function Formatter({
         <div className="flex flex-col lg:flex-row gap-4 h-full">
 
           {/* LEFT COLUMN: Input Editor */}
-          <div className="flex-1 flex flex-col bg-white dark:bg-slate-900 rounded-xl shadow-sm ring-1 ring-slate-900/5 dark:ring-white/10 lg:w-[calc(50%-120px)] h-[700px] overflow-hidden transition-all duration-200">
+          <div className={`flex-1 flex flex-col bg-white dark:bg-slate-900 rounded-xl shadow-sm ring-1 lg:w-[calc(50%-120px)] h-[700px] overflow-hidden transition-all duration-200 ${
+            error 
+              ? 'ring-2 ring-red-500 dark:ring-red-500 shadow-red-100 dark:shadow-none' 
+              : 'ring-slate-900/5 dark:ring-white/10'
+          }`}>
             {/* Toolbar */}
             <div className="shrink-0 px-3 py-2 border-b border-slate-100 dark:border-slate-800 flex items-center justify-between bg-white dark:bg-slate-900">
               <div className="flex items-center gap-2">
@@ -246,7 +250,10 @@ export function Formatter({
             <div className="h-[1400px] relative min-h-0 bg-slate-50/30 dark:bg-black/20" >
               <SimpleCodeEditor
                 value={inputCode}
-                onChange={setInputCode}
+                onChange={(val) => {
+                  setInputCode(val);
+                  if (error) setError(null);
+                }}
                 placeholder="Paste your code here..."
                 language={inputType === "toon" ? "text" : inputType}
                 className="flex-1"

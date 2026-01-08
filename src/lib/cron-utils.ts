@@ -10,7 +10,8 @@ export const CRON_Presets = [
 ];
 
 // Validation Helper
-const isValidPart = (part: string, minVal: number, maxVal: number): boolean => {
+// Validation Helper
+export const isValidPart = (part: string, minVal: number, maxVal: number): boolean => {
     // 1. Basic Character Check: 0-9, *, /, -, ,
     if (!/^[\d\*\/\-,]+$/.test(part)) return false;
 
