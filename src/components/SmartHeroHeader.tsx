@@ -37,7 +37,7 @@ export function SmartHeroHeader({ title, theme, adSlot, className = "" }: SmartH
             </div>
 
             {/* Significance (Personal Line) - Hero Subtitle */}
-            <p className="text-center text-slate-400 dark:text-slate-500 text-sm md:text-base italic font-medium tracking-wide max-w-lg">
+            <p className="text-center text-slate-600 dark:text-slate-500 text-sm md:text-base italic font-medium tracking-wide max-w-lg">
                 {theme.significance}
             </p>
 

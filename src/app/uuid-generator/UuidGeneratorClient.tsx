@@ -1,7 +1,7 @@
 "use client";
 
 import { FlowerBackground } from "@/components/FlowerBackground";
-import { GoogleAdsense } from "@/components/GoogleAdsense";
+import { DynamicAd } from "@/components/DynamicAd";
 import { SchemaMarkup } from "@/components/SchemaMarkup";
 import { SmartHeroHeader } from "@/components/SmartHeroHeader";
 import { flowerThemes } from "@/config/flowerThemes";
@@ -124,13 +124,13 @@ export default function UuidGeneratorClient() {
               </div>
             </div>
 
-            <div className="mt-2 mb-0">
-              <GoogleAdsense 
+                <div className="mt-8 mb-0">
+                  <DynamicAd 
                   adSlot={process.env.NEXT_PUBLIC_AD_SLOT_IN_ARTICLE || ""} 
                   layout="in-article"
                   style={{ display: 'block', width: '100%', maxWidth: '100%' }}
-              />
-            </div>
+                  />
+                </div>
 
             {/* Output Area */}
             <div className="relative">

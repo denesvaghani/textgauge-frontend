@@ -8,6 +8,7 @@ interface GoogleAdsenseProps {
   fullWidthResponsive?: boolean;
   layout?: string;
   style?: React.CSSProperties;
+  className?: string;
 }
 
 export function GoogleAdsense({
@@ -16,6 +17,7 @@ export function GoogleAdsense({
   fullWidthResponsive = true,
   layout,
   style = { display: "block" },
+  className = "",
 }: GoogleAdsenseProps) {
   useEffect(() => {
     try {
@@ -26,6 +28,15 @@ export function GoogleAdsense({
     }
   }, []);
 
-  // Ads are temporarily disabled to improve UI/UX
-  return null;
+  return (
+    <ins
+      className={`adsbygoogle ${className}`}
+      style={style}
+      data-ad-client={process.env.NEXT_PUBLIC_GOOGLE_ADSENSE_ID}
+      data-ad-slot={adSlot}
+      data-ad-format={adFormat}
+      data-full-width-responsive={fullWidthResponsive}
+      data-ad-layout={layout}
+    />
+  );
 }
