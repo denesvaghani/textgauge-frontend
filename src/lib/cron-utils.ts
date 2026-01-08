@@ -9,6 +9,61 @@ export const CRON_Presets = [
   { name: "First of Month at Midnight", value: "0 0 1 * *" },
 ];
 
+// Validation Helper
+const isValidPart = (part: string, minVal: number, maxVal: number): boolean => {
+    // 1. Basic Character Check: 0-9, *, /, -, ,
+    if (!/^[\d\*\/\-,]+$/.test(part)) return false;
+
+    // 2. Specific bad patterns
+    if (part.includes("*") && part.length > 1 && !part.startsWith("*/")) return false; // Reject *e, *5, 5*
+
+    // 3. Logic Validation (Ranges, Lists, Steps)
+    // Split by comma for lists
+    const listItems = part.split(",");
+    
+    for (const item of listItems) {
+        // Step check
+        if (item.includes("/")) {
+            const [base, step] = item.split("/");
+            // Base must be * or a range/number
+            // Step must be a positive integer
+            if (!/^\d+$/.test(step) || parseInt(step) <= 0) return false;
+            
+            if (base !== "*" && !isValidRangeOrNumber(base, minVal, maxVal)) return false;
+            continue;
+        }
+
+        if (!isValidRangeOrNumber(item, minVal, maxVal)) return false;
+    }
+
+    return true;
+};
+
+const isValidRangeOrNumber = (item: string, minVal: number, maxVal: number): boolean => {
+    // Range check
+    if (item.includes("-")) {
+        const [start, end] = item.split("-");
+        // Both must be numbers
+        if (!/^\d+$/.test(start) || !/^\d+$/.test(end)) return false;
+        
+        const s = parseInt(start);
+        const e = parseInt(end);
+        
+        return s >= minVal && s <= maxVal && e >= minVal && e <= maxVal && s <= e;
+    }
+
+    // Number check
+    if (/^\d+$/.test(item)) {
+        const val = parseInt(item);
+        return val >= minVal && val <= maxVal;
+    }
+    
+    // Wildcard
+    if (item === "*") return true;
+
+    return false;
+};
+
 export function describeCron(cron: string): string {
   if (!cron) return "";
   
@@ -17,49 +72,23 @@ export function describeCron(cron: string): string {
   
   const [min, hour, dom, month, dow] = parts;
 
+  // Strict Validation Constraints
+  if (!isValidPart(min, 0, 59)) return "Invalid cron expression";
+  if (!isValidPart(hour, 0, 23)) return "Invalid cron expression";
+  if (!isValidPart(dom, 1, 31)) return "Invalid cron expression";
+  if (!isValidPart(month, 1, 12)) return "Invalid cron expression";
+  if (!isValidPart(dow, 0, 6)) return "Invalid cron expression";
 
+  // Special case: Simple "every X"
+  if (cron === "* * * * *") return "Every minute";
+  if (cron === "0 * * * *") return "At minute 0 past every hour";
+  if (cron === "0 0 * * *") return "Every Day at Midnight";
 
-  // Validation Helper
-  const isValidPart = (part: string): boolean => {
-    // Regex allows: * , / - 0-9 
-    // It should NOT allow letters unless they are months/days (JAN, MON) - but for simplicity we might restrict to numbers unless extended
-    // The user's issue was "*e". 'e' is not valid.
-    // Allowed chars: 0-9, *, /, -, , (comma)
-    // Also strictly speaking, names (JAN-DEC, SUN-SAT) are valid in some crons.
-    // Let's allow A-Z for now but check structure.
-    // Actually, "e" is not a valid day or month. 
-    // A simple robust check: must match ^[\d\*\/\-,\w]+$ AND if it has letters, they must be valid names?
-    // Let's start with a regex that forbids likely typos like *e
-    // Valid: * or */5 or 1-5 or 1,2 or MON or JAN
-    // Invalid: *e, *5, e*, 5*
-    
-    // Very basic check: 
-    // 1. Must contain only valid characters: 0-9, *, /, -, , (comma)
-    // We are deliberately excluding letters for now to prevent "ee", "e", etc. being valid.
-    // If we support names like JAN, MON later, we will add specific checks.
-    if (!/^[\d\*\/\-,]+$/.test(part)) return false;
-    
-    // 2. Specific bad patterns from typos
-    if (part.includes("*") && part.length > 1) {
-        // if it has *, it must be "*" or "*/N"
-        if (!part.startsWith("*/")) return false; // Reject *e, *5 
-    }
-    
-    return true;
-  };
-  
-  if (!parts.every(isValidPart)) return "Invalid cron expression";
-
-  // Simple English translation helper
   const translate = (val: string, unit: string) => {
     if (val === "*") return `every ${unit}`;
     if (val.includes("*/")) return `every ${val.split("/")[1]} ${unit}s`;
     return `at ${unit} ${val}`;
   };
-
-  // Special case: Simple "every X"
-  if (cron === "* * * * *") return "Every minute";
-  if (cron === "0 * * * *") return "At minute 0 past every hour";
 
   let description = "Runs ";
   

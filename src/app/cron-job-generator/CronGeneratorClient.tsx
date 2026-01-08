@@ -1,7 +1,7 @@
 "use client";
 
 import { FlowerBackground } from "@/components/FlowerBackground";
-import { GoogleAdsense } from "@/components/GoogleAdsense";
+import { DynamicAd } from "@/components/DynamicAd";
 import { SchemaMarkup } from "@/components/SchemaMarkup";
 import { SmartHeroHeader } from "@/components/SmartHeroHeader";
 import { flowerThemes } from "@/config/flowerThemes";
@@ -81,29 +81,46 @@ export default function CronGeneratorClient() {
                 {/* Field Editors */}
                 <div className="grid grid-cols-1 md:grid-cols-5 gap-4 mb-4">
                     {['minute', 'hour', 'dayMonth', 'month', 'dayWeek'].map((field) => (
-                    <div key={field} className="bg-white/80 dark:bg-slate-900/80 backdrop-blur-sm p-4 rounded-xl border border-slate-200 dark:border-slate-800">
+                    <div key={field} className="relative bg-white/80 dark:bg-slate-900/80 backdrop-blur-sm p-4 rounded-xl border border-slate-200 dark:border-slate-800 flex flex-col items-center">
                         <label className="block text-xs font-bold uppercase text-slate-500 dark:text-slate-400 mb-2">
                         {field.replace(/([A-Z])/g, ' $1').trim()}
                         </label>
-                        <input
-                        type="text"
-                        value={fields[field as keyof typeof fields]}
-                        onChange={(e) => updateField(field as keyof typeof fields, e.target.value)}
-                        className="w-full text-center font-mono text-lg bg-transparent border-b-2 border-slate-200 dark:border-slate-700 focus:border-blue-500 outline-none py-1 transition-colors text-slate-900 dark:text-white"
-                        />
-                        <div className="mt-2 text-[10px] text-slate-400">
-                        {field === 'minute' && '0-59'}
-                        {field === 'hour' && '0-23'}
-                        {field === 'dayMonth' && '1-31'}
-                        {field === 'month' && '1-12'}
-                        {field === 'dayWeek' && '0-6'}
+                        <div className="relative w-full">
+                            <input
+                                type="text"
+                                value={fields[field as keyof typeof fields]}
+                                onChange={(e) => {
+                                    let newVal = e.target.value;
+                                    // Smart Input: If current val is "*" and user types a number, clear the "*"
+                                    // Exception: If user types "/" (for steps), keep it.
+                                    if (fields[field as keyof typeof fields] === "*" && /^\d$/.test(newVal.slice(-1)) && newVal.length > 1) {
+                                        newVal = newVal.slice(-1);
+                                    }
+                                    updateField(field as keyof typeof fields, newVal);
+                                }}
+                                onBlur={() => {
+                                    // Auto-Fill: If empty, revert to "*"
+                                    if (fields[field as keyof typeof fields].trim() === "") {
+                                        updateField(field as keyof typeof fields, "*");
+                                    }
+                                }}
+                                className="w-full text-center font-mono text-lg bg-transparent border-b-2 border-slate-200 dark:border-slate-700 focus:border-blue-500 outline-none py-1 transition-colors text-slate-900 dark:text-white pr-8"
+                            />
+                            {/* Inline Range Indicator */}
+                            <span className="absolute right-0 top-1/2 -translate-y-1/2 text-[10px] text-slate-400 pointer-events-none select-none">
+                                {field === 'minute' && '0-59'}
+                                {field === 'hour' && '0-23'}
+                                {field === 'dayMonth' && '1-31'}
+                                {field === 'month' && '1-12'}
+                                {field === 'dayWeek' && '0-6'}
+                            </span>
                         </div>
                     </div>
                     ))}
                 </div>
 
                 <div className="mt-2 mb-0">
-                    <GoogleAdsense 
+                    <DynamicAd 
                         adSlot={process.env.NEXT_PUBLIC_AD_SLOT_IN_ARTICLE || ""} 
                         layout="in-article"
                         style={{ display: 'block', width: '100%', maxWidth: '100%' }}

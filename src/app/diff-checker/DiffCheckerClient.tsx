@@ -6,7 +6,7 @@ import Link from "next/link";
 import Image from "next/image";
 import { SimpleCodeEditor } from "@/components/SimpleCodeEditor";
 import { DiffViewer } from "@/components/DiffViewer";
-import { GoogleAdsense } from "@/components/GoogleAdsense";
+import { DynamicAd } from "@/components/DynamicAd";
 import { FlowerBackground } from "@/components/FlowerBackground";
 import { SchemaMarkup } from "@/components/SchemaMarkup";
 import { flowerThemes } from "@/config/flowerThemes";
@@ -394,14 +394,11 @@ export default function DiffCheckerPage() {
                 {/* Ad: In-Article 1 */}
                 {process.env.NEXT_PUBLIC_AD_SLOT_IN_ARTICLE && (
                     <div className="w-full max-w-[1920px] mx-auto px-4 sm:px-6 lg:px-8 pb-16 flex justify-center">
-                         <div className="w-full max-w-4xl bg-slate-50 dark:bg-slate-900/50 rounded-xl overflow-hidden min-h-[100px] flex items-center justify-center border border-dashed border-slate-200 dark:border-slate-800">
-                             <GoogleAdsense
-                                adSlot={process.env.NEXT_PUBLIC_AD_SLOT_IN_ARTICLE}
-                                style={{ display: 'block', textAlign: 'center' }}
-                                adFormat="fluid"
-                                layout="in-article"
-                             />
-                        </div>
+                         <DynamicAd
+                            adSlot={process.env.NEXT_PUBLIC_AD_SLOT_IN_ARTICLE}
+                            adFormat="fluid"
+                            layout="in-article"
+                         />
                     </div>
                 )}
 
@@ -480,14 +477,11 @@ export default function DiffCheckerPage() {
                 {/* Ad: In-Article 2 */}
                 {process.env.NEXT_PUBLIC_AD_SLOT_IN_ARTICLE && (
                     <div className="w-full max-w-[1920px] mx-auto px-4 sm:px-6 lg:px-8 pb-16 flex justify-center">
-                        <div className="w-full max-w-4xl bg-slate-50 dark:bg-slate-900/50 rounded-xl overflow-hidden min-h-[100px] flex items-center justify-center border border-dashed border-slate-200 dark:border-slate-800">
-                             <GoogleAdsense
-                                adSlot={process.env.NEXT_PUBLIC_AD_SLOT_IN_ARTICLE}
-                                style={{ display: 'block', textAlign: 'center' }}
-                                adFormat="fluid"
-                                layout="in-article"
-                             />
-                        </div>
+                         <DynamicAd
+                            adSlot={process.env.NEXT_PUBLIC_AD_SLOT_IN_ARTICLE}
+                            adFormat="fluid"
+                            layout="in-article"
+                         />
                     </div>
                 )}
 
@@ -537,13 +531,10 @@ export default function DiffCheckerPage() {
                 {/* Ad: Multiplex (Related Content) */}
                  {process.env.NEXT_PUBLIC_AD_SLOT_MULTIPLEX && (
                     <section className="w-full max-w-[1920px] mx-auto px-4 sm:px-6 lg:px-8 pb-16">
-                        <div className="w-full bg-slate-50 dark:bg-slate-900/50 rounded-xl overflow-hidden min-h-[200px] border border-dashed border-slate-200 dark:border-slate-800 p-4">
-                             <GoogleAdsense
-                                adSlot={process.env.NEXT_PUBLIC_AD_SLOT_MULTIPLEX}
-                                adFormat="autorelaxed"
-                                style={{ display: 'block' }}
-                             />
-                        </div>
+                         <DynamicAd
+                            adSlot={process.env.NEXT_PUBLIC_AD_SLOT_MULTIPLEX}
+                            adFormat="autorelaxed"
+                         />
                     </section>
                 )}
         </FlowerBackground>
