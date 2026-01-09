@@ -305,7 +305,7 @@ export function Formatter({
           </div >
 
           {/* MIDDLE COLUMN: Controls - Narrower & Cleaner */}
-          <div className="flex flex-col gap-3 lg:w-[220px] shrink-0 h-[700px] overflow-y-auto py-1 scrollbar-hide">
+          <div className="flex flex-col gap-3 lg:w-[220px] shrink-0 py-1">
 
             {/* Main Actions - Premium Gradient Button */}
             < div className="flex flex-col gap-2 shrink-0" >
