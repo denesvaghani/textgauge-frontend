@@ -675,92 +675,94 @@ function Sidebar({
   const m = metrics;
 
   return (
-    <div className="sticky top-6 space-y-4">
-      <div className="flex items-center gap-2 mb-2">
+    <div className="sticky top-6 rounded-lg bg-white p-6 shadow-xl transition-colors duration-200 dark:bg-gray-800">
+      <div className="flex items-center gap-2 mb-6 border-b border-gray-100 dark:border-gray-700 pb-4">
         <LayoutDashboard className="w-5 h-5 text-indigo-500" />
         <h2 className="text-xl font-bold text-gray-800 dark:text-white">Analysis Dashboard</h2>
       </div>
 
-      {/* Item 10: Platform Presets */}
-      <div className="bg-white dark:bg-gray-800 rounded-lg shadow-lg p-6 transition-colors duration-200">
-         <h3 className="text-sm font-bold text-slate-500 dark:text-slate-400 uppercase tracking-wider mb-3">
-           Platform Limits
-         </h3>
-         <select
-            value={limit}
-            onChange={(e) => onLimitChange(Number(e.target.value))}
-            className="w-full p-2.5 bg-slate-50 dark:bg-slate-700 border border-slate-200 dark:border-slate-600 rounded-lg text-sm text-slate-800 dark:text-white outline-none focus:ring-2 focus:ring-indigo-500"
-         >
-            {LIMIT_PRESETS.map(p => (
-                <option key={p.label} value={p.value}>
-                    {p.label} {p.value > 0 ? `(${p.value})` : ''}
-                </option>
-            ))}
-         </select>
-         {limit > 0 && (
-             <div className="mt-3 flex justify-between text-xs font-medium text-slate-500">
-                 <span>{m.charCount} / {limit}</span>
-                 <span className={m.charCount > limit ? 'text-red-500' : 'text-emerald-500'}>
-                     {limit - m.charCount} left
-                 </span>
-             </div>
-         )}
-      </div>
+      <div className="space-y-8">
+        {/* Item 10: Platform Presets */}
+        <div className="transition-colors duration-200">
+           <h3 className="text-sm font-bold text-slate-500 dark:text-slate-400 uppercase tracking-wider mb-3">
+             Platform Limits
+           </h3>
+           <select
+              value={limit}
+              onChange={(e) => onLimitChange(Number(e.target.value))}
+              className="w-full p-2.5 bg-slate-50 dark:bg-slate-700 border border-slate-200 dark:border-slate-600 rounded-lg text-sm text-slate-800 dark:text-white outline-none focus:ring-2 focus:ring-indigo-500"
+           >
+              {LIMIT_PRESETS.map(p => (
+                  <option key={p.label} value={p.value}>
+                      {p.label} {p.value > 0 ? `(${p.value})` : ''}
+                  </option>
+              ))}
+           </select>
+           {limit > 0 && (
+               <div className="mt-3 flex justify-between text-xs font-medium text-slate-500">
+                   <span>{m.charCount} / {limit}</span>
+                   <span className={m.charCount > limit ? 'text-red-500' : 'text-emerald-500'}>
+                       {limit - m.charCount} left
+                   </span>
+               </div>
+           )}
+        </div>
 
-      {/* Keyword Stats */}
-      <div className="bg-white dark:bg-gray-800 rounded-lg shadow-lg p-6 transition-colors duration-200">
-        <h3 className="text-lg font-bold text-gray-800 dark:text-white mb-3">
-          SEO Keyword Metrics
-        </h3>
-        {keyword && (
-          <div className="mb-3 px-3 py-2 bg-blue-50 dark:bg-gray-700 rounded-lg transition-colors duration-200">
-            <span className="text-xs text-gray-600 dark:text-gray-400">Tracking:</span>
-            <p className="text-sm font-semibold text-blue-700 dark:text-blue-400 break-words">
-              &quot;{keyword}&quot;
-            </p>
-          </div>
-        )}
-        {m.keywordCount > 0 ? (
-          <div className="space-y-2">
-            <div className="flex justify-between items-center">
-              <span className="text-sm text-gray-600 dark:text-gray-400">Occurrences:</span>
-              <span className="text-lg font-bold text-blue-600 dark:text-blue-400">{m.keywordCount}</span>
+        {/* Keyword Stats */}
+        <div className="transition-colors duration-200">
+          <h3 className="text-lg font-bold text-gray-800 dark:text-white mb-3">
+            SEO Keyword Metrics
+          </h3>
+          {keyword && (
+            <div className="mb-3 px-3 py-2 bg-blue-50 dark:bg-gray-700 rounded-lg transition-colors duration-200">
+              <span className="text-xs text-gray-600 dark:text-gray-400">Tracking:</span>
+              <p className="text-sm font-semibold text-blue-700 dark:text-blue-400 break-words">
+                &quot;{keyword}&quot;
+              </p>
             </div>
-            <div className="flex justify-between items-center">
-              <span className="text-sm text-gray-600 dark:text-gray-400">Density:</span>
-              <span className="text-lg font-bold text-green-600 dark:text-green-400">{m.keywordDensity}%</span>
-            </div>
-          </div>
-        ) : (
-          <p className="text-gray-500 dark:text-gray-400 italic text-sm">
-            {m.wordCount > 0 && keyword ? "Keyword not found in text" : m.wordCount > 0 ? "Enter a keyword above to track" : "Start typing and add a keyword..."}
-          </p>
-        )}
-      </div>
-
-      {/* Repeated Phrases */}
-      <div className="bg-white dark:bg-gray-800 rounded-lg shadow-lg p-6 transition-colors duration-200">
-        <h3 className="text-lg font-bold text-gray-800 dark:text-white mb-3">
-          Repeated Phrases
-        </h3>
-        <div className="h-40 overflow-y-auto text-xs space-y-1">
-          {m.repeatedPhrases.length > 0 ? (
-            m.repeatedPhrases.map((p) => (
-              <div
-                key={p.phrase + p.count}
-                className="flex justify-between items-center border-b border-gray-100 dark:border-gray-600 py-1"
-              >
-                <span className="text-gray-700 dark:text-gray-300">{p.phrase}</span>
-                <span className="px-2 py-0.5 bg-blue-100 dark:bg-blue-900 text-blue-800 dark:text-blue-200 rounded-full font-bold">
-                  {p.count}x
-                </span>
+          )}
+          {m.keywordCount > 0 ? (
+            <div className="space-y-2">
+              <div className="flex justify-between items-center">
+                <span className="text-sm text-gray-600 dark:text-gray-400">Occurrences:</span>
+                <span className="text-lg font-bold text-blue-600 dark:text-blue-400">{m.keywordCount}</span>
               </div>
-            ))
+              <div className="flex justify-between items-center">
+                <span className="text-sm text-gray-600 dark:text-gray-400">Density:</span>
+                <span className="text-lg font-bold text-green-600 dark:text-green-400">{m.keywordDensity}%</span>
+              </div>
+            </div>
           ) : (
-            <p className="text-gray-500 dark:text-gray-400 italic text-center mt-4">
-              {m.wordCount > 0 ? "No repeated phrases found" : "Start typing to see patterns..."}
+            <p className="text-gray-500 dark:text-gray-400 italic text-sm">
+              {m.wordCount > 0 && keyword ? "Keyword not found in text" : m.wordCount > 0 ? "Enter a keyword above to track" : "Start typing and add a keyword..."}
             </p>
           )}
+        </div>
+
+        {/* Repeated Phrases */}
+        <div className="transition-colors duration-200">
+          <h3 className="text-lg font-bold text-gray-800 dark:text-white mb-3">
+            Repeated Phrases
+          </h3>
+          <div className="h-40 overflow-y-auto text-xs space-y-1 pr-2 scrollbar-thin scrollbar-thumb-slate-200 dark:scrollbar-thumb-slate-700">
+            {m.repeatedPhrases.length > 0 ? (
+              m.repeatedPhrases.map((p) => (
+                <div
+                  key={p.phrase + p.count}
+                  className="flex justify-between items-center border-b border-gray-100 dark:border-gray-600 py-1"
+                >
+                  <span className="text-gray-700 dark:text-gray-300">{p.phrase}</span>
+                  <span className="px-2 py-0.5 bg-blue-100 dark:bg-blue-900 text-blue-800 dark:text-blue-200 rounded-full font-bold">
+                    {p.count}x
+                  </span>
+                </div>
+              ))
+            ) : (
+              <p className="text-gray-500 dark:text-gray-400 italic text-center mt-4">
+                {m.wordCount > 0 ? "No repeated phrases found" : "Start typing to see patterns..."}
+              </p>
+            )}
+          </div>
         </div>
       </div>
     </div>
