@@ -21,6 +21,7 @@ import { SmartHeroHeader, HeroDescription } from "@/components/SmartHeroHeader";
 import { TrustPanel } from "@/components/TrustPanel";
 
 import { type FlowerTheme } from "@/config/flowerThemes";
+import { encodingForModel } from "js-tiktoken";
 
 interface FormatterProps {
   title: string;
@@ -37,6 +38,7 @@ interface FormatterProps {
   actionLabel?: string; // Default: "Beautify", Use "Convert" for converters
   titleGradient?: string;
   flowerTheme: FlowerTheme;
+  showTokenCount?: boolean;
 }
 
 export function Formatter({
@@ -53,6 +55,7 @@ export function Formatter({
   actionLabel = "Beautify",
   titleGradient = "bg-gradient-to-r from-indigo-600 to-violet-600 dark:from-indigo-400 dark:to-violet-400",
   flowerTheme,
+  showTokenCount = false,
 }: FormatterProps) {
   const { theme } = useTheme();
   // SimpleCodeEditor parses theme from class/context, usage here is simplified
@@ -66,6 +69,30 @@ export function Formatter({
   const [mounted, setMounted] = useState(false);
   const [copiedInput, setCopiedInput] = useState(false);
   const [copiedOutput, setCopiedOutput] = useState(false);
+  const [inputTokens, setInputTokens] = useState(0);
+  const [outputTokens, setOutputTokens] = useState(0);
+  
+  // Token Counting Logic
+  useEffect(() => {
+    if (!showTokenCount) return;
+
+    const calculateTokens = async () => {
+        try {
+            // Use GPT-4o tokenizer (o200k_base)
+            const enc = encodingForModel("gpt-4o");
+            const inTokens = enc.encode(inputCode).length;
+            const outTokens = enc.encode(outputCode).length;
+            setInputTokens(inTokens);
+            setOutputTokens(outTokens);
+        } catch (e) {
+            console.error("Token counting error:", e);
+        }
+    };
+    
+    // Debounce to prevent freezing on large edits
+    const timer = setTimeout(calculateTokens, 300);
+    return () => clearTimeout(timer);
+  }, [inputCode, outputCode, showTokenCount]);
 
   // Auto-load removed per user request
   useEffect(() => {
@@ -267,6 +294,9 @@ export function Formatter({
               <div className="flex gap-3">
                 <span>{getStats(inputCode).lines} LN</span>
                 <span>{getStats(inputCode).chars} CH</span>
+                {showTokenCount && (
+                     <span className="text-indigo-500 dark:text-indigo-400 font-semibold">{inputTokens.toLocaleString()} TKS</span>
+                )}
               </div>
               <div>
                 {(getStats(inputCode).size / 1024).toFixed(2)} KB
@@ -434,6 +464,9 @@ export function Formatter({
               <div className="flex gap-3">
                 <span>{getStats(outputCode).lines} LN</span>
                 <span>{getStats(outputCode).chars} CH</span>
+                {showTokenCount && (
+                     <span className="text-indigo-500 dark:text-indigo-400 font-semibold">{outputTokens.toLocaleString()} TKS</span>
+                )}
               </div>
               <div>
                 {(getStats(outputCode).size / 1024).toFixed(2)} KB

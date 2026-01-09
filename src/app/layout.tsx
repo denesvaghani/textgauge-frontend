@@ -30,6 +30,8 @@ export async function generateMetadata(): Promise<Metadata> {
       type: "website",
       locale: "en_US",
     },
+    manifest: "/manifest.json",
+    themeColor: "#4f46e5",
     icons: {
       icon: "/images/logo/sunflower-logo.webp",
       apple: "/images/logo/sunflower-logo.webp",
@@ -98,7 +100,21 @@ export default function RootLayout({
             {children}
           </main>
           <Footer />
-          <CookieConsent />
+          
+          {/* PWA: Register Service Worker */}
+          <Script
+             id="sw-registration"
+             strategy="afterInteractive"
+             dangerouslySetInnerHTML={{
+               __html: `
+                 if ('serviceWorker' in navigator && window.location.protocol === 'https:') {
+                   window.addEventListener('load', function() {
+                     navigator.serviceWorker.register('/service-worker.js');
+                   });
+                 }
+               `,
+             }}
+          />
 
           {/* Google Analytics 4 */}
           {gaId && <GoogleAnalytics measurementId={gaId} />}
