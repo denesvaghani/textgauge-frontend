@@ -174,8 +174,6 @@ export function ImageCompressorClient() {
 
         {/* SEO Content */}
         <SEOContentSection />
-        
-        <SEOContentSection />
 
         {/* Ad: In-Article 2 */}
         {process.env.NEXT_PUBLIC_AD_SLOT_IN_ARTICLE && (

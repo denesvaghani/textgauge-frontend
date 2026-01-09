@@ -5,6 +5,7 @@ import { useLiveMetrics } from "../lib/useLiveMetrics";
 import type { Metrics } from "../lib/types";
 import RelatedKeywords from "./RelatedKeywords";
 import { LIMIT_PRESETS } from "@/config/editorPresets";
+import { LayoutDashboard } from "lucide-react";
 
 export function Editor() {
   const divRef = useRef<HTMLDivElement | null>(null);
@@ -675,7 +676,10 @@ function Sidebar({
 
   return (
     <div className="sticky top-6 space-y-4">
-      <h2 className="text-xl font-bold text-gray-800 dark:text-white">Analysis Dashboard</h2>
+      <div className="flex items-center gap-2 mb-2">
+        <LayoutDashboard className="w-5 h-5 text-indigo-500" />
+        <h2 className="text-xl font-bold text-gray-800 dark:text-white">Analysis Dashboard</h2>
+      </div>
 
       {/* Item 10: Platform Presets */}
       <div className="bg-white dark:bg-gray-800 rounded-lg shadow-lg p-6 transition-colors duration-200">
