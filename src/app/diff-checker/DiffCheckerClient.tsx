@@ -1,7 +1,7 @@
 "use client";
 
 import { useState, useCallback, useRef, useEffect } from "react";
-import { ArrowLeftRight, Trash2, GitCompare, Eye, Upload, Copy, Check } from "lucide-react";
+import { ArrowLeftRight, Trash2, GitCompare, Eye, Upload, Copy, Check, FileJson, FileType, FileCode, AlignLeft, Table } from "lucide-react";
 import Link from "next/link";
 import Image from "next/image";
 import { SimpleCodeEditor } from "@/components/SimpleCodeEditor";
@@ -17,6 +17,7 @@ type ViewMode = "side-by-side" | "unified";
 const theme = flowerThemes.redRose;
 
 export default function DiffCheckerPage() {
+    const [language, setLanguage] = useState<"text" | "json" | "yaml" | "toml" | "csv">("text");
     const [original, setOriginal] = useState("");
     const [modified, setModified] = useState("");
     const [showDiff, setShowDiff] = useState(false);
@@ -25,12 +26,16 @@ export default function DiffCheckerPage() {
     const [copiedModified, setCopiedModified] = useState(false);
 
     const handleCompare = useCallback(() => {
+        // Auto-detect language if currently text
+        if (language === "text" && (original.trim().startsWith("{") || original.trim().startsWith("["))) {
+            setLanguage("json");
+        }
         setShowDiff(true);
         // Scroll to diff result after state updates
         setTimeout(() => {
             diffResultRef.current?.scrollIntoView({ behavior: 'smooth', block: 'start' });
         }, 100);
-    }, []);
+    }, [language, original]);
 
     const handleSwap = useCallback(() => {
         const temp = original;
@@ -71,6 +76,7 @@ export default function DiffCheckerPage() {
 }`;
 
     const loadSample = () => {
+        setLanguage("json");
         setOriginal(sampleOriginal);
         setModified(sampleModified);
         setShowDiff(false);
@@ -88,6 +94,13 @@ export default function DiffCheckerPage() {
     const handleFileUpload = (e: React.ChangeEvent<HTMLInputElement>, setContent: (val: string) => void) => {
         const file = e.target.files?.[0];
         if (!file) return;
+        
+        // Auto-detect language from extension
+        if (file.name.endsWith(".json")) setLanguage("json");
+        else if (file.name.endsWith(".yaml") || file.name.endsWith(".yml")) setLanguage("yaml");
+        else if (file.name.endsWith(".toml")) setLanguage("toml");
+        else if (file.name.endsWith(".csv")) setLanguage("csv");
+
         const reader = new FileReader();
         reader.onload = (event) => {
             const text = event.target?.result as string;
@@ -196,7 +209,7 @@ export default function DiffCheckerPage() {
                                     value={original}
                                     onChange={setOriginal}
                                     placeholder="Paste original text here..."
-                                    language="text"
+                                    language={language}
                                     hideCopy
                                 />
                             </div>
@@ -258,7 +271,7 @@ export default function DiffCheckerPage() {
                                     value={modified}
                                     onChange={setModified}
                                     placeholder="Paste modified text here..."
-                                    language="text"
+                                    language={language}
                                     hideCopy
                                 />
                             </div>
@@ -319,6 +332,45 @@ export default function DiffCheckerPage() {
                                     </span>
                                 </div>
                             </div>
+
+                            {/* Language Selector */}
+                            <div className="flex items-center gap-2 bg-slate-100 dark:bg-slate-800 p-1 rounded-lg border border-slate-200 dark:border-slate-700">
+                                <button
+                                    onClick={() => setLanguage("text")}
+                                    className={`p-2 rounded-md transition-all ${language === "text" ? "bg-white dark:bg-slate-700 shadow-sm text-rose-600 dark:text-rose-400" : "text-slate-500 hover:text-slate-900 dark:text-slate-400 dark:hover:text-slate-200"}`}
+                                    title="Plain Text"
+                                >
+                                    <AlignLeft size={18} />
+                                </button>
+                                <button
+                                    onClick={() => setLanguage("json")}
+                                    className={`p-2 rounded-md transition-all ${language === "json" ? "bg-white dark:bg-slate-700 shadow-sm text-rose-600 dark:text-rose-400" : "text-slate-500 hover:text-slate-900 dark:text-slate-400 dark:hover:text-slate-200"}`}
+                                    title="JSON"
+                                >
+                                    <FileJson size={18} />
+                                </button>
+                                <button
+                                    onClick={() => setLanguage("yaml")}
+                                    className={`p-2 rounded-md transition-all ${language === "yaml" ? "bg-white dark:bg-slate-700 shadow-sm text-rose-600 dark:text-rose-400" : "text-slate-500 hover:text-slate-900 dark:text-slate-400 dark:hover:text-slate-200"}`}
+                                    title="YAML"
+                                >
+                                    <FileType size={18} />
+                                </button>
+                                <button
+                                    onClick={() => setLanguage("toml")}
+                                    className={`p-2 rounded-md transition-all ${language === "toml" ? "bg-white dark:bg-slate-700 shadow-sm text-rose-600 dark:text-rose-400" : "text-slate-500 hover:text-slate-900 dark:text-slate-400 dark:hover:text-slate-200"}`}
+                                    title="TOML"
+                                >
+                                    <FileCode size={18} />
+                                </button>
+                                <button
+                                    onClick={() => setLanguage("csv")}
+                                    className={`p-2 rounded-md transition-all ${language === "csv" ? "bg-white dark:bg-slate-700 shadow-sm text-rose-600 dark:text-rose-400" : "text-slate-500 hover:text-slate-900 dark:text-slate-400 dark:hover:text-slate-200"}`}
+                                    title="CSV"
+                                >
+                                    <Table size={18} />
+                                </button>
+                            </div>
                         </div>
                     </div>
 
@@ -346,6 +398,7 @@ export default function DiffCheckerPage() {
                                 original={original}
                                 modified={modified}
                                 viewMode={viewMode}
+                                language={language}
                             />
                         </div>
                     )}

@@ -4,6 +4,7 @@ import { Formatter } from "@/components/Formatter";
 import { DynamicAd } from "@/components/DynamicAd";
 import { SchemaMarkup } from "@/components/SchemaMarkup";
 import { FlowerBackground } from "@/components/FlowerBackground";
+import { RelatedTools } from "@/components/RelatedTools";
 import { flowerThemes } from "@/config/flowerThemes";
 import Link from "next/link";
 import { FileSpreadsheet, GitCompare } from "lucide-react";
@@ -273,6 +274,9 @@ export default function JsonFormatterPage() {
                          />
                     </section>
                 )}
+
+                 {/* Related Tools */}
+                 <RelatedTools currentPath="/json-formatter" />
             </div>
         </FlowerBackground>
     );

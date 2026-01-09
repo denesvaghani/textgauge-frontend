@@ -8,6 +8,7 @@ import { flowerThemes } from "@/config/flowerThemes";
 import { jsonToCsv, csvToJson } from "@/lib/converters/json-csv";
 import { useState } from "react";
 import { FileSpreadsheet } from "lucide-react";
+import { RelatedTools } from "@/components/RelatedTools";
 
 const theme = flowerThemes.sunflower;
 
@@ -289,25 +290,8 @@ Jane Smith,jane@example.com,London,SW1A`;
                     </div>
 
                     <div className="border-t border-yellow-200/50 dark:border-yellow-800/30 pt-12">
-                        <h2 className="text-2xl font-bold text-slate-900 dark:text-white mb-8">
-                            Related Tools
-                        </h2>
-                        <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
-                            {[
-                                { label: "JSON Beautifier", href: "/json-formatter" },
-                                { label: "JSON Formatter", href: "/json-formatter" },
-                                { label: "JSON to TOON", href: "/json-to-toon-converter" },
-                                { label: "YAML Formatter", href: "/yaml-formatter" },
-                            ].map((link) => (
-                                <a
-                                    key={link.label}
-                                    href={link.href}
-                                    className="px-4 py-2 text-center text-sm font-medium text-yellow-600 dark:text-yellow-400 bg-yellow-50 dark:bg-yellow-900/20 rounded-lg hover:bg-yellow-100 dark:hover:bg-yellow-900/30 transition-colors border border-yellow-200 dark:border-yellow-800"
-                                >
-                                    {link.label}
-                                </a>
-                            ))}
-                        </div>
+                        {/* Related Tools */}
+                        <RelatedTools currentPath="/json-to-csv-converter" />
                     </div>
                 </section>
                 {/* Ad: Multiplex (Related Content) */}

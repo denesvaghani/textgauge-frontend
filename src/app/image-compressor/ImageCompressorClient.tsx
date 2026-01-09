@@ -1,5 +1,7 @@
 "use client";
 
+
+import { TrustPanel } from "@/components/TrustPanel";
 import { flowerThemes } from "@/config/flowerThemes";
 import { FlowerBackground } from "@/components/FlowerBackground";
 import { SmartHeroHeader } from "@/components/SmartHeroHeader";
@@ -186,6 +188,11 @@ export function ImageCompressorClient() {
             </div>
         )}
         
+        {/* Trust Panel (Item 6) */}
+        <section className="w-full max-w-[1920px] mx-auto px-4 sm:px-6 lg:px-8 pb-8">
+            <TrustPanel />
+        </section>
+
         {/* FAQ */}
         <FAQSection />
 

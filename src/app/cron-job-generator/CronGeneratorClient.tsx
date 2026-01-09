@@ -6,6 +6,8 @@ import { SchemaMarkup } from "@/components/SchemaMarkup";
 import { SmartHeroHeader } from "@/components/SmartHeroHeader";
 import { flowerThemes } from "@/config/flowerThemes";
 import { CRON_Presets, describeCron, isValidPart } from "@/lib/cron-utils";
+import { TrustPanel } from "@/components/TrustPanel";
+import { RelatedTools } from "@/components/RelatedTools";
 import { Clock, Copy, Info } from "lucide-react";
 import { useEffect, useState } from "react";
 
@@ -207,6 +209,11 @@ export default function CronGeneratorClient() {
             </div>
           </section>
 
+          {/* Trust Panel (Item 6) */}
+          <section className="w-full max-w-[1920px] mx-auto px-4 sm:px-6 lg:px-8 pb-8">
+             <TrustPanel />
+          </section>
+
           {/* FAQ Section */}
           <section className="w-full max-w-[1920px] mx-auto px-4 sm:px-6 lg:px-8 pb-16">
             <h2 className="text-2xl font-bold text-center text-slate-900 dark:text-white mb-8">
@@ -231,6 +238,9 @@ export default function CronGeneratorClient() {
               ))}
             </div>
           </section>
+
+          {/* Related Tools */}
+          <RelatedTools currentPath="/cron-job-generator" />
 
         </main>
       </div>

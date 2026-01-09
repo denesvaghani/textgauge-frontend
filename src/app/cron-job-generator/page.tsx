@@ -14,8 +14,35 @@ export const metadata: Metadata = {
     type: 'website',
   },
   keywords: ['cron generator', 'crontab generator', 'cron job builder', 'cron schedule', 'developer tools'],
+  twitter: {
+    card: 'summary_large_image',
+    title: 'Cron Job Generator - Visual Builder',
+    description: 'Build standard crontab schedules visually with human-readable explanations.',
+    creator: '@textgauge', // Update if there is a handle
+  },
+};
+
+import { StructuredData } from '@/components/StructuredData';
+
+const jsonLd = {
+  '@context': 'https://schema.org',
+  '@type': 'SoftwareApplication',
+  name: 'Cron Job Generator',
+  applicationCategory: 'DeveloperApplication',
+  operatingSystem: 'Any',
+  offers: {
+    '@type': 'Offer',
+    price: '0',
+    priceCurrency: 'USD',
+  },
+  description: 'Free online Cron expression generator. Build standard crontab schedules visually.',
 };
 
 export default function CronPage() {
-  return <CronGeneratorClient />;
+  return (
+    <>
+      <StructuredData data={jsonLd} />
+      <CronGeneratorClient />
+    </>
+  );
 }

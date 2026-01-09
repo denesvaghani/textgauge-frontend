@@ -4,10 +4,12 @@ import { useEffect, useRef, useState } from "react";
 import { useLiveMetrics } from "../lib/useLiveMetrics";
 import type { Metrics } from "../lib/types";
 import RelatedKeywords from "./RelatedKeywords";
+import { LIMIT_PRESETS } from "@/config/editorPresets";
 
 export function Editor() {
   const divRef = useRef<HTMLDivElement | null>(null);
   const [keyword, setKeyword] = useState("");
+  const [limit, setLimit] = useState(0); // Item 10: Limit State
   const [isRephrasing, setIsRephrasing] = useState(false);
   const [rephraseError, setRephraseError] = useState<string | null>(null);
 
@@ -228,6 +230,16 @@ export function Editor() {
       return;
     }
 
+    // AI Consent Logic (Item 9)
+    const hasConsent = localStorage.getItem('textgauge_ai_consent');
+    if (!hasConsent) {
+      if (confirm("Disclaimer: Text will be sent to Google Gemini AI for processing. Your data is not stored or trained on. Continue?")) {
+        localStorage.setItem('textgauge_ai_consent', 'true');
+      } else {
+        return;
+      }
+    }
+
     setIsRephrasing(true);
 
     try {
@@ -280,7 +292,7 @@ export function Editor() {
   };
 
   return (
-    <div className="grid grid-cols-1 gap-6 lg:grid-cols-12">
+    <div className="grid grid-cols-1 gap-6 lg:col-span-12">
       {/* Left column */}
       <div className="space-y-6 lg:col-span-9">
         {/* Card 1: Live Statistics */}
@@ -288,7 +300,13 @@ export function Editor() {
           <h2 className="mb-4 text-xl font-bold text-gray-800 dark:text-white">
             Live Statistics
           </h2>
-          <StatsBar metrics={metrics} />
+          {/* Item 10: Limit Indicator in Header */}
+          {limit > 0 && (
+            <div className={`text-sm font-bold ${metrics.charCount > limit ? 'text-red-500 animate-pulse' : 'text-slate-500'}`}>
+              {metrics.charCount} / {limit} chars
+            </div>
+          )}
+          <StatsBar metrics={metrics} limit={limit} />
         </div>
 
         {/* Card 2: Editor & Tools */}
@@ -571,6 +589,8 @@ export function Editor() {
             const text = getPlainText();
             analyze(text, kw.trim());
           }}
+          limit={limit}
+          onLimitChange={setLimit}
         />
       </div>
     </div>
@@ -581,7 +601,7 @@ export function Editor() {
 
 /* --- Stats & Sidebar components --- */
 
-function StatsBar({ metrics }: { metrics: Metrics }) {
+function StatsBar({ metrics, limit }: { metrics: Metrics; limit: number }) {
   const m = metrics;
 
   const fmt = (sec: number) => {
@@ -593,26 +613,47 @@ function StatsBar({ metrics }: { metrics: Metrics }) {
     return rem ? `${min} min ${rem} sec` : `${min} min`;
   };
 
+  // Limit Calculation
+  const percentage = limit > 0 ? Math.min((m.charCount / limit) * 100, 100) : 0;
+  const isOverLimit = limit > 0 && m.charCount > limit;
+  const progressColor = isOverLimit ? 'bg-red-500' : percentage > 90 ? 'bg-amber-500' : 'bg-green-500';
+
   return (
-    <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-3 sm:gap-4 mb-6">
-      {[
-        ["Words", m.wordCount],
-        ["Chars", m.charCount],
-        ["Sentences", m.sentenceCount],
-        ["Paragraphs", m.paragraphCount],
-        ["Read Time", fmt(m.readingTime)],
-        ["Speak Time", fmt(m.speakingTime)],
-      ].map(([label, value]) => (
-        <div
-          key={label}
-          className="bg-gray-50 dark:bg-gray-700 p-3 rounded-lg shadow-inner text-center transition-colors duration-200"
-        >
-          <div className="text-xl font-bold text-blue-600 dark:text-blue-400">
-            {String(value)}
-          </div>
-          <div className="text-xs text-gray-600 dark:text-gray-300">{label}</div>
+    <div className="space-y-4">
+        {/* Limit Progress Bar (Item 10) */}
+        {limit > 0 && (
+            <div className="w-full bg-slate-100 dark:bg-slate-700 rounded-full h-2.5 mb-4 overflow-hidden">
+                <div 
+                    className={`h-2.5 rounded-full transition-all duration-500 ${progressColor}`} 
+                    style={{ width: `${percentage}%` }}
+                ></div>
+            </div>
+        )}
+
+        <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-3 sm:gap-4 mb-6">
+        {[
+            ["Words", m.wordCount, false],
+            ["Chars", m.charCount, isOverLimit], // Highlight Chars if over
+            ["Sentences", m.sentenceCount, false],
+            ["Paragraphs", m.paragraphCount, false],
+            ["Read Time", fmt(m.readingTime), false],
+            ["Speak Time", fmt(m.speakingTime), false],
+        ].map(([label, value, error]) => (
+            <div
+            key={label as string}
+            className={`p-3 rounded-lg shadow-inner text-center transition-colors duration-200 ${
+                error 
+                    ? 'bg-red-50 dark:bg-red-900/20 border border-red-200 dark:border-red-800' 
+                    : 'bg-gray-50 dark:bg-gray-700'
+            }`}
+            >
+            <div className={`text-xl font-bold ${error ? 'text-red-600 dark:text-red-400' : 'text-blue-600 dark:text-blue-400'}`}>
+                {String(value)}
+            </div>
+            <div className={`text-xs ${error ? 'text-red-500 dark:text-red-300' : 'text-gray-600 dark:text-gray-300'}`}>{label}</div>
+            </div>
+        ))}
         </div>
-      ))}
     </div>
   );
 }
@@ -620,17 +661,47 @@ function StatsBar({ metrics }: { metrics: Metrics }) {
 function Sidebar({
   metrics,
   keyword,
-  onKeywordSelect
+  onKeywordSelect,
+  limit,
+  onLimitChange
 }: {
   metrics: Metrics;
   keyword: string;
   onKeywordSelect: (keyword: string) => void;
+  limit: number;
+  onLimitChange: (l: number) => void;
 }) {
   const m = metrics;
 
   return (
     <div className="sticky top-6 space-y-4">
       <h2 className="text-xl font-bold text-gray-800 dark:text-white">Analysis Dashboard</h2>
+
+      {/* Item 10: Platform Presets */}
+      <div className="bg-white dark:bg-gray-800 rounded-lg shadow-lg p-6 transition-colors duration-200">
+         <h3 className="text-sm font-bold text-slate-500 dark:text-slate-400 uppercase tracking-wider mb-3">
+           Platform Limits
+         </h3>
+         <select
+            value={limit}
+            onChange={(e) => onLimitChange(Number(e.target.value))}
+            className="w-full p-2.5 bg-slate-50 dark:bg-slate-700 border border-slate-200 dark:border-slate-600 rounded-lg text-sm text-slate-800 dark:text-white outline-none focus:ring-2 focus:ring-indigo-500"
+         >
+            {LIMIT_PRESETS.map(p => (
+                <option key={p.label} value={p.value}>
+                    {p.label} {p.value > 0 ? `(${p.value})` : ''}
+                </option>
+            ))}
+         </select>
+         {limit > 0 && (
+             <div className="mt-3 flex justify-between text-xs font-medium text-slate-500">
+                 <span>{m.charCount} / {limit}</span>
+                 <span className={m.charCount > limit ? 'text-red-500' : 'text-emerald-500'}>
+                     {limit - m.charCount} left
+                 </span>
+             </div>
+         )}
+      </div>
 
       {/* Keyword Stats */}
       <div className="bg-white dark:bg-gray-800 rounded-lg shadow-lg p-6 transition-colors duration-200">
@@ -688,8 +759,6 @@ function Sidebar({
           )}
         </div>
       </div>
-
-
     </div>
   );
 }

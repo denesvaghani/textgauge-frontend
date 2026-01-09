@@ -2,6 +2,7 @@
 
 import { useState, useEffect } from 'react';
 import { CodeEditor } from './CodeEditor';
+import { TrustPanel } from '@/components/TrustPanel';
 import { useConverter } from '@/hooks/useConverter';
 import { ConversionFormat } from '@/types/converter';
 import { ArrowRight, Loader2, Copy, Check } from 'lucide-react';
@@ -128,6 +129,10 @@ export function ConverterLayout({ defaultFrom = 'json', defaultTo = 'yaml' }: Co
                         )}
                     </div>
                 </div>
+            </div>
+            
+            <div className="mt-4">
+                <TrustPanel />
             </div>
         </div>
     );

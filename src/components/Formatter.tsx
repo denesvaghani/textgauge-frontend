@@ -18,6 +18,7 @@ import { GoogleAdsense } from "./GoogleAdsense"; // Ensure this path is correct
 import { useTheme } from "@/contexts/ThemeContext";
 import { SimpleCodeEditor } from "@/components/SimpleCodeEditor";
 import { SmartHeroHeader, HeroDescription } from "@/components/SmartHeroHeader";
+import { TrustPanel } from "@/components/TrustPanel";
 
 import { type FlowerTheme } from "@/config/flowerThemes";
 
@@ -441,6 +442,11 @@ export function Formatter({
           </div >
 
         </div >
+
+        {/* Trust Panel (Item 6) */}
+        <div className="mt-8 mb-4">
+             <TrustPanel />
+        </div>
         
         {/* SEO Description - Moved to bottom */}
         <HeroDescription text={description} />

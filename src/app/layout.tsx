@@ -5,16 +5,10 @@ import { ThemeProvider } from "@/contexts/ThemeContext";
 import { ThemeToggle } from "@/components/ThemeToggle";
 import { GoogleAnalytics } from "@/components/GoogleAnalytics";
 
-import { headers } from "next/headers";
+
 
 export async function generateMetadata(): Promise<Metadata> {
-  const headersList = await headers();
-  const host = headersList.get("host") || "www.countcharacters.org";
-  const protocol = "https"; // Force HTTPS for canonicals
-  const domain = host.includes("countcharacters.in")
-    ? "www.countcharacters.in"
-    : "www.countcharacters.org";
-  const baseUrl = `${protocol}://${domain}`;
+  const baseUrl = "https://www.countcharacters.org";
 
   return {
     title: {
@@ -41,15 +35,9 @@ export async function generateMetadata(): Promise<Metadata> {
       apple: "/images/logo/sunflower-logo.webp",
     },
     verification: {
-      google:
-        domain === "www.countcharacters.in"
-          ? process.env.NEXT_PUBLIC_GOOGLE_SITE_VERIFICATION_IN
-          : process.env.NEXT_PUBLIC_GOOGLE_SITE_VERIFICATION_ORG,
+      google: process.env.NEXT_PUBLIC_GOOGLE_SITE_VERIFICATION_ORG,
       other: {
-        "msvalidate.01":
-          (domain === "www.countcharacters.in"
-            ? process.env.NEXT_PUBLIC_BING_SITE_VERIFICATION_IN
-            : process.env.NEXT_PUBLIC_BING_SITE_VERIFICATION_ORG) || "",
+        "msvalidate.01": process.env.NEXT_PUBLIC_BING_SITE_VERIFICATION_ORG || "",
       },
     },
   };

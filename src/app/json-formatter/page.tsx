@@ -14,8 +14,34 @@ export const metadata: Metadata = {
     siteName: "countcharacters.org",
     type: "website",
   },
+  twitter: {
+    card: "summary_large_image",
+    title: "JSON Formatter & Validator",
+    description: "Free online JSON Formatter, Validator, and Beautifier. Fix JSON errors instantly.",
+  },
+};
+
+import { StructuredData } from "@/components/StructuredData";
+
+const jsonLd = {
+  "@context": "https://schema.org",
+  "@type": "SoftwareApplication",
+  name: "JSON Formatter",
+  applicationCategory: "DeveloperApplication",
+  operatingSystem: "Any",
+  offers: {
+    "@type": "Offer",
+    price: "0",
+    priceCurrency: "USD",
+  },
+  description: "Free online JSON Formatter, Validator, and Beautifier. Fix JSON errors, format with 2-space or 4-space indentation.",
 };
 
 export default function Page() {
-  return <JsonFormatterClient />;
+  return (
+    <>
+      <StructuredData data={jsonLd} />
+      <JsonFormatterClient />
+    </>
+  );
 }

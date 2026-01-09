@@ -33,6 +33,15 @@ function GoogleAnalyticsInner({ measurementId }: { measurementId: string }) {
         {`
           window.dataLayer = window.dataLayer || [];
           function gtag(){dataLayer.push(arguments);}
+          
+          // Default consent to denied (Privacy First) - Item 7
+          gtag('consent', 'default', {
+            'ad_storage': 'denied',
+            'ad_user_data': 'denied',
+            'ad_personalization': 'denied',
+            'analytics_storage': 'denied'
+          });
+
           gtag('js', new Date());
           gtag('config', '${measurementId}', {
             page_path: window.location.pathname,

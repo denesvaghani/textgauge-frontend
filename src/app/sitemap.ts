@@ -2,10 +2,7 @@ import { MetadataRoute } from "next";
 import { headers } from "next/headers";
 
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
-  const headersList = await headers();
-  const host = headersList.get("host") || "www.countcharacters.org";
-  const protocol = host.includes("localhost") ? "http" : "https";
-  const baseUrl = `${protocol}://${host}`;
+  const baseUrl = "https://www.countcharacters.org";
 
   return [
     {

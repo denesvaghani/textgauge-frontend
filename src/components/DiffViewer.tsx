@@ -2,11 +2,34 @@
 
 import { useMemo } from "react";
 import * as Diff from "diff";
+import { highlightJson, highlightYaml, highlightToml, highlightCsv, escapeHtml } from "@/lib/syntax-highlighter";
 
 interface DiffViewerProps {
     original: string;
     modified: string;
     viewMode: "side-by-side" | "unified";
+    language?: "text" | "json" | "yaml" | "toml" | "csv";
+}
+
+// Helper to highlight a single line based on language
+function highlightLine(line: string, language: string | undefined): string {
+    if (!line) return " ";
+    if (!language || language === "text") return escapeHtml(line);
+
+    // Note: This is an approximation. Syntax highlighters usually need full context.
+    // However, for JSON/YAML/TOML, most lines are self-contained enough for basic highlighting.
+    // We wrap the line in a dummy container for the regex to work if needed, 
+    // but the shared helpers are robust enough for single lines or fragments.
+    
+    try {
+        if (language === "json") return highlightJson(line);
+        if (language === "yaml") return highlightYaml(line);
+        if (language === "toml") return highlightToml(line);
+        if (language === "csv") return highlightCsv(line, { isFragment: true });
+        return escapeHtml(line);
+    } catch (e) {
+        return escapeHtml(line);
+    }
 }
 
 // Helper to render word-level diff within a line
@@ -48,7 +71,7 @@ function renderWordDiff(oldText: string, newText: string, type: "added" | "remov
     });
 }
 
-export function DiffViewer({ original, modified, viewMode }: DiffViewerProps) {
+export function DiffViewer({ original, modified, viewMode, language }: DiffViewerProps) {
     const diffResult = useMemo(() => {
         if (!original && !modified) return [];
         return Diff.diffLines(original, modified);
@@ -73,109 +96,109 @@ export function DiffViewer({ original, modified, viewMode }: DiffViewerProps) {
         let removedBuffer: string[] = [];
         let addedBuffer: string[] = [];
         
-const levenshtein = (a: string, b: string): number => {
-    const matrix = [];
-    for (let i = 0; i <= b.length; i++) matrix[i] = [i];
-    for (let j = 0; j <= a.length; j++) matrix[0][j] = j;
+        const levenshtein = (a: string, b: string): number => {
+            const matrix = [];
+            for (let i = 0; i <= b.length; i++) matrix[i] = [i];
+            for (let j = 0; j <= a.length; j++) matrix[0][j] = j;
 
-    for (let i = 1; i <= b.length; i++) {
-        for (let j = 1; j <= a.length; j++) {
-            if (b.charAt(i - 1) === a.charAt(j - 1)) {
-                matrix[i][j] = matrix[i - 1][j - 1];
-            } else {
-                matrix[i][j] = Math.min(
-                    matrix[i - 1][j - 1] + 1,
-                    Math.min(
-                        matrix[i][j - 1] + 1,
-                        matrix[i - 1][j] + 1
-                    )
-                );
+            for (let i = 1; i <= b.length; i++) {
+                for (let j = 1; j <= a.length; j++) {
+                    if (b.charAt(i - 1) === a.charAt(j - 1)) {
+                        matrix[i][j] = matrix[i - 1][j - 1];
+                    } else {
+                        matrix[i][j] = Math.min(
+                            matrix[i - 1][j - 1] + 1,
+                            Math.min(
+                                matrix[i][j - 1] + 1,
+                                matrix[i - 1][j] + 1
+                            )
+                        );
+                    }
+                }
             }
-        }
-    }
-    return matrix[b.length][a.length];
-};
+            return matrix[b.length][a.length];
+        };
 
-const calculateSimilarity = (str1: string, str2: string): number => {
-    if (!str1 && !str2) return 1;
-    if (!str1 || !str2) return 0;
-    const maxLength = Math.max(str1.length, str2.length);
-    if (maxLength === 0) return 1.0;
-    const distance = levenshtein(str1, str2);
-    return 1 - (distance / maxLength);
-};
+        const calculateSimilarity = (str1: string, str2: string): number => {
+            if (!str1 && !str2) return 1;
+            if (!str1 || !str2) return 0;
+            const maxLength = Math.max(str1.length, str2.length);
+            if (maxLength === 0) return 1.0;
+            const distance = levenshtein(str1, str2);
+            return 1 - (distance / maxLength);
+        };
 
-const flushBuffers = () => {
-    // Pair up removed and added lines for word-level diff
-    const maxLen = Math.max(removedBuffer.length, addedBuffer.length);
-    for (let i = 0; i < maxLen; i++) {
-        const hasRemoved = i < removedBuffer.length;
-        const hasAdded = i < addedBuffer.length;
-        
-        if (hasRemoved && hasAdded) {
-            // Both exist - CHECK SIMILARITY
-            const similarity = calculateSimilarity(removedBuffer[i], addedBuffer[i]);
-            
-            if (similarity > 0.4) {
-                 // Good match - Pair them for word-level diff
-                const pairIdx = origLines.length;
-                origLines.push({ 
-                    text: removedBuffer[i], 
-                    type: "removed", 
-                    pairIndex: pairIdx 
-                });
-                modLines.push({ 
-                    text: addedBuffer[i], 
-                    type: "added",
-                    pairIndex: pairIdx
-                });
-            } else {
-                // Bad match - treat as separate remove then add
-                // 1. Removed line
-                origLines.push({ 
-                    text: removedBuffer[i], 
-                    type: "removed"
-                });
-                modLines.push({ 
-                    text: "", 
-                    type: "unchanged"
-                });
+        const flushBuffers = () => {
+            // Pair up removed and added lines for word-level diff
+            const maxLen = Math.max(removedBuffer.length, addedBuffer.length);
+            for (let i = 0; i < maxLen; i++) {
+                const hasRemoved = i < removedBuffer.length;
+                const hasAdded = i < addedBuffer.length;
                 
-                // 2. Added line
-                origLines.push({ 
-                    text: "", 
-                    type: "unchanged"
-                });
-                modLines.push({ 
-                    text: addedBuffer[i], 
-                    type: "added"
-                });
+                if (hasRemoved && hasAdded) {
+                    // Both exist - CHECK SIMILARITY
+                    const similarity = calculateSimilarity(removedBuffer[i], addedBuffer[i]);
+                    
+                    if (similarity > 0.4) {
+                         // Good match - Pair them for word-level diff
+                        const pairIdx = origLines.length;
+                        origLines.push({ 
+                            text: removedBuffer[i], 
+                            type: "removed", 
+                            pairIndex: pairIdx 
+                        });
+                        modLines.push({ 
+                            text: addedBuffer[i], 
+                            type: "added",
+                            pairIndex: pairIdx
+                        });
+                    } else {
+                        // Bad match - treat as separate remove then add
+                        // 1. Removed line
+                        origLines.push({ 
+                            text: removedBuffer[i], 
+                            type: "removed"
+                        });
+                        modLines.push({ 
+                            text: "", 
+                            type: "unchanged"
+                        });
+                        
+                        // 2. Added line
+                        origLines.push({ 
+                            text: "", 
+                            type: "unchanged"
+                        });
+                        modLines.push({ 
+                            text: addedBuffer[i], 
+                            type: "added"
+                        });
+                    }
+                } else if (hasRemoved) {
+                    // Only removed line - no pair, show as deleted
+                    origLines.push({ 
+                        text: removedBuffer[i], 
+                        type: "removed"
+                    });
+                    modLines.push({ 
+                        text: "", 
+                        type: "unchanged"
+                    });
+                } else if (hasAdded) {
+                    // Only added line - NEW LINE, highlight as addition
+                    origLines.push({ 
+                        text: "", 
+                        type: "unchanged"
+                    });
+                    modLines.push({ 
+                        text: addedBuffer[i], 
+                        type: "added"
+                    });
+                }
             }
-        } else if (hasRemoved) {
-            // Only removed line - no pair, show as deleted
-            origLines.push({ 
-                text: removedBuffer[i], 
-                type: "removed"
-            });
-            modLines.push({ 
-                text: "", 
-                type: "unchanged"
-            });
-        } else if (hasAdded) {
-            // Only added line - NEW LINE, highlight as addition
-            origLines.push({ 
-                text: "", 
-                type: "unchanged"
-            });
-            modLines.push({ 
-                text: addedBuffer[i], 
-                type: "added"
-            });
-        }
-    }
-    removedBuffer = [];
-    addedBuffer = [];
-};
+            removedBuffer = [];
+            addedBuffer = [];
+        };
 
         diffResult.forEach((part) => {
             const lines = part.value.split("\n").filter((l, i, arr) => l || i < arr.length - 1);
@@ -272,7 +295,7 @@ const flushBuffers = () => {
                                                 className="flex w-full bg-red-200 dark:bg-red-900/60 text-red-900 dark:text-red-50 font-bold py-0.5 border-l-4 border-red-600"
                                             >
                                                 <span className="select-none px-2 text-red-600 font-extrabold shrink-0 sticky left-0 bg-red-200 dark:bg-red-900/60">-</span>
-                                                <span className="pr-2 whitespace-pre">{oldLine}</span>
+                                                <span className="pr-2 whitespace-pre" dangerouslySetInnerHTML={{ __html: highlightLine(oldLine, language) }} />
                                             </div>
                                         );
                                     } else if (newLine) {
@@ -283,7 +306,7 @@ const flushBuffers = () => {
                                                 className="flex w-full bg-green-200 dark:bg-green-900/60 text-green-900 dark:text-green-50 font-bold py-0.5 border-l-4 border-green-600"
                                             >
                                                 <span className="select-none px-2 text-green-600 font-extrabold shrink-0 sticky left-0 bg-green-200 dark:bg-green-900/60">+</span>
-                                                <span className="pr-2 whitespace-pre">{newLine}</span>
+                                                <span className="pr-2 whitespace-pre" dangerouslySetInnerHTML={{ __html: highlightLine(newLine, language) }} />
                                             </div>
                                         );
                                     }
@@ -306,10 +329,13 @@ const flushBuffers = () => {
                                         elements.push(
                                             <div
                                                 key={keyCounter++}
-                                                className="flex w-full text-slate-700 dark:text-slate-300 py-0.5 border-l-4 border-transparent"
+                                                className={`flex w-full py-0.5 border-l-4 border-transparent ${language ? "text-slate-800 dark:text-slate-200" : "text-slate-700 dark:text-slate-300"}`}
                                             >
                                                 <span className="select-none px-2 text-slate-400 shrink-0 sticky left-0 bg-white dark:bg-slate-900"> </span>
-                                                <span className="pr-2 whitespace-pre">{line || " "}</span>
+                                                <span 
+                                                    className="pr-2 whitespace-pre"
+                                                    dangerouslySetInnerHTML={{ __html: highlightLine(line, language) }}
+                                                />
                                             </div>
                                         );
                                     });
@@ -353,8 +379,18 @@ const flushBuffers = () => {
                             const showWordDiff = line.type === "removed" && pairedModLine?.type === "added";
                             
                             // Determine style based on whether it is paired (word diff) or unpaired (full line diff)
-                            let lineStyle = "text-slate-700 dark:text-slate-300 bg-slate-50 dark:bg-slate-900/50";
+                            let lineStyle = `text-slate-700 dark:text-slate-300 bg-slate-50 dark:bg-slate-900/50`;
                             let lineNumBg = "bg-slate-50 dark:bg-slate-900/50";
+                            
+                            // Use clearer text color if syntax highlighting is NOT active
+                            if (!language) {
+                                lineStyle = "text-slate-700 dark:text-slate-300 bg-slate-50 dark:bg-slate-900/50";
+                            } else {
+                                // If syntax highlighting is active, use brighter text base
+                                lineStyle = "text-slate-800 dark:text-slate-200 bg-slate-50 dark:bg-slate-900/50";
+                            }
+
+
                             if (line.type === "removed") {
                                 if (showWordDiff) {
                                     lineStyle = "bg-red-100 dark:bg-red-900/30 text-red-900 dark:text-red-100";
@@ -377,9 +413,10 @@ const flushBuffers = () => {
                                     {showWordDiff && pairedModLine
                                         ? renderWordDiff(line.text, pairedModLine.text, "removed")
                                         : (
-                                            <span className={line.type === "removed" && !showWordDiff ? "text-red-800 dark:text-red-100" : ""}>
-                                                {line.text || " "}
-                                            </span>
+                                            <span 
+                                                className={line.type === "removed" && !showWordDiff ? "text-red-800 dark:text-red-100" : ""}
+                                                dangerouslySetInnerHTML={{ __html: highlightLine(line.text, language) }}
+                                            />
                                         )}
                                     </span>
                                 </div>
@@ -403,6 +440,15 @@ const flushBuffers = () => {
                             // Determine style based on whether it is paired (word diff) or unpaired (full line diff)
                             let lineStyle = "text-slate-700 dark:text-slate-300 bg-slate-50 dark:bg-slate-900/50";
                             let lineNumBg = "bg-slate-50 dark:bg-slate-900/50";
+
+                            // Use clearer text color if syntax highlighting is NOT active
+                            if (!language) {
+                                lineStyle = "text-slate-700 dark:text-slate-300 bg-slate-50 dark:bg-slate-900/50";
+                            } else {
+                                // If syntax highlighting is active, use brighter text base
+                                lineStyle = "text-slate-800 dark:text-slate-200 bg-slate-50 dark:bg-slate-900/50";
+                            }
+
                             if (line.type === "added") {
                                 if (showWordDiff) {
                                     lineStyle = "bg-green-100 dark:bg-green-900/30 text-green-900 dark:text-green-100";
@@ -425,9 +471,10 @@ const flushBuffers = () => {
                                     {showWordDiff && pairedOrigLine
                                         ? renderWordDiff(pairedOrigLine.text, line.text, "added")
                                         : (
-                                            <span className={line.type === "added" && !showWordDiff ? "text-green-800 dark:text-green-100" : ""}>
-                                                {line.text || " "}
-                                            </span>
+                                            <span 
+                                                className={line.type === "added" && !showWordDiff ? "text-green-800 dark:text-green-100" : ""}
+                                                dangerouslySetInnerHTML={{ __html: highlightLine(line.text, language) }}
+                                            />
                                         )}
                                     </span>
                                 </div>
