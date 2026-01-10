@@ -1,41 +1,62 @@
 #!/bin/bash
-# IndexNow Ping Script
-# Usage: ./scripts/ping-indexnow.sh /path/to/changed/page
+# IndexNow Batch Ping Script (POST method)
+# Usage: ./scripts/ping-indexnow.sh
 
 KEY="ac48b59f6ee5f44dcfef38cd7a0531bc"
 HOST="www.countcharacters.org"
 KEY_LOCATION="https://${HOST}/${KEY}.txt"
 
-# If specific URL provided, ping that
-if [ -n "$1" ]; then
-  URL="https://${HOST}$1"
-  echo "Pinging IndexNow for: $URL"
-  curl -s "https://api.indexnow.org/indexnow?url=${URL}&key=${KEY}&keyLocation=${KEY_LOCATION}"
-  echo ""
-  exit 0
-fi
-
-# Otherwise, ping all main pages
-URLS=(
-  "/"
-  "/json-formatter"
-  "/yaml-formatter"
-  "/toml-formatter"
-  "/diff-checker"
-  "/json-to-csv-converter"
-  "/json-to-toon-converter"
-  "/uuid-generator"
-  "/base64-encoder"
-  "/cron-job-generator"
-  "/image-compressor"
-  "/palette-forge"
+# All main URLs to submit
+URLS=$(cat <<EOF
+[
+  "https://${HOST}/",
+  "https://${HOST}/json-formatter",
+  "https://${HOST}/yaml-formatter",
+  "https://${HOST}/toml-formatter",
+  "https://${HOST}/diff-checker",
+  "https://${HOST}/json-to-csv-converter",
+  "https://${HOST}/json-to-toon-converter",
+  "https://${HOST}/uuid-generator",
+  "https://${HOST}/base64-encoder",
+  "https://${HOST}/cron-job-generator",
+  "https://${HOST}/image-compressor",
+  "https://${HOST}/palette-forge",
+  "https://${HOST}/converter/json-to-yaml",
+  "https://${HOST}/converter/yaml-to-json",
+  "https://${HOST}/converter/xml-to-json",
+  "https://${HOST}/converter/json-to-xml"
+]
+EOF
 )
 
-echo "Pinging IndexNow for all main pages..."
-for path in "${URLS[@]}"; do
-  URL="https://${HOST}${path}"
-  echo "  → $URL"
-  curl -s "https://api.indexnow.org/indexnow?url=${URL}&key=${KEY}&keyLocation=${KEY_LOCATION}" > /dev/null
-done
+# Build JSON payload
+PAYLOAD=$(cat <<EOF
+{
+  "host": "${HOST}",
+  "key": "${KEY}",
+  "keyLocation": "${KEY_LOCATION}",
+  "urlList": ${URLS}
+}
+EOF
+)
 
-echo "Done! All URLs submitted to IndexNow."
+echo "Submitting URLs to IndexNow (Bing/Yandex)..."
+echo "Host: ${HOST}"
+echo "URLs: 16 pages"
+echo ""
+
+# POST to IndexNow API
+RESPONSE=$(curl -s -w "\n%{http_code}" -X POST "https://api.indexnow.org/IndexNow" \
+  -H "Content-Type: application/json; charset=utf-8" \
+  -d "${PAYLOAD}")
+
+HTTP_CODE=$(echo "$RESPONSE" | tail -n1)
+BODY=$(echo "$RESPONSE" | head -n-1)
+
+if [ "$HTTP_CODE" = "200" ] || [ "$HTTP_CODE" = "202" ]; then
+  echo "✅ Success! HTTP ${HTTP_CODE}"
+  echo "All URLs submitted to IndexNow."
+else
+  echo "⚠️ Response: HTTP ${HTTP_CODE}"
+  echo "$BODY"
+fi
