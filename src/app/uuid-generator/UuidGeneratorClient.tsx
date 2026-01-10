@@ -124,13 +124,7 @@ export default function UuidGeneratorClient() {
               </div>
             </div>
 
-                <div className="mt-4 mb-0">
-                  <DynamicAd 
-                  adSlot={process.env.NEXT_PUBLIC_AD_SLOT_IN_ARTICLE || ""} 
-                  layout="in-article"
-                  style={{ display: 'block', width: '100%', maxWidth: '100%' }}
-                  />
-                </div>
+
 
             {/* Output Area */}
             <div className="relative">
