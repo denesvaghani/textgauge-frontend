@@ -254,6 +254,13 @@ export default function JsonVsToonBenchmarkPage() {
               It uses YAML-like indentation instead of JSON's verbose syntax, resulting in significantly 
               fewer tokens while maintaining the same semantic meaning.
             </p>
+            <div className="mt-6 p-4 bg-amber-50 dark:bg-amber-900/20 border border-amber-200 dark:border-amber-800 rounded-xl">
+              <p className="text-sm text-amber-800 dark:text-amber-300">
+                <strong>Note:</strong> Token counts shown are approximate values based on industry benchmarks 
+                using the cl100k_base tokenizer. Actual savings may vary depending on your specific data structure 
+                and the AI model used. We recommend testing with your actual data for precise measurements.
+              </p>
+            </div>
           </div>
         </div>
       </section>
