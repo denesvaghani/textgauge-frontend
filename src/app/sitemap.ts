@@ -164,5 +164,12 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
       changeFrequency: "monthly",
       priority: 0.7,
     },
+    // Benchmark Pages (Linkable Assets)
+    {
+      url: `${baseUrl}/benchmarks/json-vs-toon`,
+      lastModified: new Date(),
+      changeFrequency: "monthly",
+      priority: 0.8,
+    },
   ];
 }
