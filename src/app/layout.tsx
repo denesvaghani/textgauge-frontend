@@ -118,6 +118,7 @@ export default function RootLayout({
 
           {/* Google Analytics 4 */}
           {gaId && <GoogleAnalytics measurementId={gaId} />}
+          <CookieConsent />
         </ThemeProvider>
       </body>
     </html>
