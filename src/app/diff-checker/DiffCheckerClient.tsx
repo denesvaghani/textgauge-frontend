@@ -159,6 +159,97 @@ export default function DiffCheckerPage() {
 
                 {/* Main Content */}
                 <section className="max-w-[1920px] mx-auto px-4 sm:px-6 lg:px-8 py-8 flex-1 w-full">
+
+
+                    {/* Action Bar */}
+                    <div className="sticky top-14 z-40 bg-white/90 dark:bg-slate-950/90 backdrop-blur-sm py-4 -mx-4 px-4 sm:-mx-6 sm:px-6 lg:-mx-8 lg:px-8 mb-6 border-b border-rose-200/50 dark:border-rose-800/30 rounded-lg">
+                        <div className="flex flex-wrap items-center justify-between gap-4">
+                            {/* Primary Actions */}
+                            <div className="flex flex-wrap items-center gap-3">
+                                <button
+                                    onClick={handleCompare}
+                                    disabled={!original && !modified}
+                                    className="inline-flex items-center gap-2 px-6 py-2.5 bg-rose-600 hover:bg-rose-700 disabled:bg-slate-300 dark:disabled:bg-slate-700 text-white font-semibold rounded-lg transition-colors shadow-sm"
+                                    title="Ctrl + Enter"
+                                >
+                                    <GitCompare size={18} />
+                                    Compare
+                                </button>
+                                <button
+                                    onClick={handleSwap}
+                                    disabled={!original && !modified}
+                                    className="inline-flex items-center gap-2 px-4 py-2.5 bg-slate-100 hover:bg-slate-200 dark:bg-slate-800 dark:hover:bg-slate-700 text-slate-700 dark:text-slate-300 font-medium rounded-lg transition-colors"
+                                >
+                                    <ArrowLeftRight size={18} />
+                                    Swap
+                                </button>
+                                <button
+                                    onClick={handleClearAll}
+                                    className="inline-flex items-center gap-2 px-4 py-2.5 bg-slate-100 hover:bg-slate-200 dark:bg-slate-800 dark:hover:bg-slate-700 text-slate-700 dark:text-slate-300 font-medium rounded-lg transition-colors"
+                                >
+                                    <Trash2 size={18} />
+                                    Clear All
+                                </button>
+                                <button
+                                    onClick={loadSample}
+                                    className="inline-flex items-center gap-2 px-4 py-2.5 bg-slate-100 hover:bg-slate-200 dark:bg-slate-800 dark:hover:bg-slate-700 text-slate-700 dark:text-slate-300 font-medium rounded-lg transition-colors"
+                                >
+                                    Load Sample
+                                </button>
+
+                                {/* Keyboard Legend */}
+                                <div className="hidden lg:flex items-center gap-3 ml-4 text-xs text-slate-400 font-mono border-l border-slate-200 dark:border-slate-700 pl-4">
+                                    <span className="flex items-center gap-1">
+                                        <kbd className="px-1.5 py-0.5 bg-white dark:bg-slate-800 border border-slate-300 dark:border-slate-600 rounded text-slate-500 dark:text-slate-400">⌘</kbd> 
+                                        + 
+                                        <kbd className="px-1.5 py-0.5 bg-white dark:bg-slate-800 border border-slate-300 dark:border-slate-600 rounded text-slate-500 dark:text-slate-400">Enter</kbd>
+                                        <span>to Compare</span>
+                                    </span>
+                                </div>
+                            </div>
+
+                            {/* Language Selector */}
+                            <div className="flex items-center gap-2 bg-slate-100 dark:bg-slate-800 p-1 rounded-lg border border-slate-200 dark:border-slate-700">
+                                <span className="text-[10px] font-bold text-slate-400 uppercase tracking-wider px-2 hidden sm:inline-block">Language:</span>
+                                <button
+                                    onClick={() => setLanguage("text")}
+                                    className={`p-2 rounded-md transition-all ${language === "text" ? "bg-white dark:bg-slate-700 shadow-sm text-rose-600 dark:text-rose-400" : "text-slate-500 hover:text-slate-900 dark:text-slate-400 dark:hover:text-slate-200"}`}
+                                    title="Plain Text"
+                                >
+                                    <AlignLeft size={18} />
+                                </button>
+                                <button
+                                    onClick={() => setLanguage("json")}
+                                    className={`p-2 rounded-md transition-all ${language === "json" ? "bg-white dark:bg-slate-700 shadow-sm text-rose-600 dark:text-rose-400" : "text-slate-500 hover:text-slate-900 dark:text-slate-400 dark:hover:text-slate-200"}`}
+                                    title="JSON"
+                                >
+                                    <FileJson size={18} />
+                                </button>
+                                <button
+                                    onClick={() => setLanguage("yaml")}
+                                    className={`p-2 rounded-md transition-all ${language === "yaml" ? "bg-white dark:bg-slate-700 shadow-sm text-rose-600 dark:text-rose-400" : "text-slate-500 hover:text-slate-900 dark:text-slate-400 dark:hover:text-slate-200"}`}
+                                    title="YAML"
+                                >
+                                    <FileType size={18} />
+                                </button>
+                                <button
+                                    onClick={() => setLanguage("toml")}
+                                    className={`p-2 rounded-md transition-all ${language === "toml" ? "bg-white dark:bg-slate-700 shadow-sm text-rose-600 dark:text-rose-400" : "text-slate-500 hover:text-slate-900 dark:text-slate-400 dark:hover:text-slate-200"}`}
+                                    title="TOML"
+                                >
+                                    <FileCode size={18} />
+                                </button>
+                                <button
+                                    onClick={() => setLanguage("csv")}
+                                    className={`p-2 rounded-md transition-all ${language === "csv" ? "bg-white dark:bg-slate-700 shadow-sm text-rose-600 dark:text-rose-400" : "text-slate-500 hover:text-slate-900 dark:text-slate-400 dark:hover:text-slate-200"}`}
+                                    title="CSV"
+                                >
+                                    <Table size={18} />
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+
                     {/* Editors Grid */}
                     <div ref={editorsRef} className="grid md:grid-cols-2 gap-4 mb-6 scroll-mt-20">
                         {/* Original Editor */}
@@ -282,94 +373,6 @@ export default function DiffCheckerPage() {
                                     <span>{modifiedStats.chars} CH</span>
                                 </div>
                                 <div>{modifiedStats.size}</div>
-                            </div>
-                        </div>
-                    </div>
-
-                    {/* Action Bar */}
-                    <div className="sticky top-14 z-40 bg-white/90 dark:bg-slate-950/90 backdrop-blur-sm py-4 -mx-4 px-4 sm:-mx-6 sm:px-6 lg:-mx-8 lg:px-8 mb-6 border-b border-rose-200/50 dark:border-rose-800/30 rounded-lg">
-                        <div className="flex flex-wrap items-center justify-between gap-4">
-                            {/* Primary Actions */}
-                            <div className="flex flex-wrap items-center gap-3">
-                                <button
-                                    onClick={handleCompare}
-                                    disabled={!original && !modified}
-                                    className="inline-flex items-center gap-2 px-6 py-2.5 bg-rose-600 hover:bg-rose-700 disabled:bg-slate-300 dark:disabled:bg-slate-700 text-white font-semibold rounded-lg transition-colors shadow-sm"
-                                    title="Ctrl + Enter"
-                                >
-                                    <GitCompare size={18} />
-                                    Compare
-                                </button>
-                                <button
-                                    onClick={handleSwap}
-                                    disabled={!original && !modified}
-                                    className="inline-flex items-center gap-2 px-4 py-2.5 bg-slate-100 hover:bg-slate-200 dark:bg-slate-800 dark:hover:bg-slate-700 text-slate-700 dark:text-slate-300 font-medium rounded-lg transition-colors"
-                                >
-                                    <ArrowLeftRight size={18} />
-                                    Swap
-                                </button>
-                                <button
-                                    onClick={handleClearAll}
-                                    className="inline-flex items-center gap-2 px-4 py-2.5 bg-slate-100 hover:bg-slate-200 dark:bg-slate-800 dark:hover:bg-slate-700 text-slate-700 dark:text-slate-300 font-medium rounded-lg transition-colors"
-                                >
-                                    <Trash2 size={18} />
-                                    Clear All
-                                </button>
-                                <button
-                                    onClick={loadSample}
-                                    className="inline-flex items-center gap-2 px-4 py-2.5 bg-slate-100 hover:bg-slate-200 dark:bg-slate-800 dark:hover:bg-slate-700 text-slate-700 dark:text-slate-300 font-medium rounded-lg transition-colors"
-                                >
-                                    Load Sample
-                                </button>
-
-                                {/* Keyboard Legend */}
-                                <div className="hidden lg:flex items-center gap-3 ml-4 text-xs text-slate-400 font-mono border-l border-slate-200 dark:border-slate-700 pl-4">
-                                    <span className="flex items-center gap-1">
-                                        <kbd className="px-1.5 py-0.5 bg-white dark:bg-slate-800 border border-slate-300 dark:border-slate-600 rounded text-slate-500 dark:text-slate-400">⌘</kbd> 
-                                        + 
-                                        <kbd className="px-1.5 py-0.5 bg-white dark:bg-slate-800 border border-slate-300 dark:border-slate-600 rounded text-slate-500 dark:text-slate-400">Enter</kbd>
-                                        <span>to Compare</span>
-                                    </span>
-                                </div>
-                            </div>
-
-                            {/* Language Selector */}
-                            <div className="flex items-center gap-2 bg-slate-100 dark:bg-slate-800 p-1 rounded-lg border border-slate-200 dark:border-slate-700">
-                                <button
-                                    onClick={() => setLanguage("text")}
-                                    className={`p-2 rounded-md transition-all ${language === "text" ? "bg-white dark:bg-slate-700 shadow-sm text-rose-600 dark:text-rose-400" : "text-slate-500 hover:text-slate-900 dark:text-slate-400 dark:hover:text-slate-200"}`}
-                                    title="Plain Text"
-                                >
-                                    <AlignLeft size={18} />
-                                </button>
-                                <button
-                                    onClick={() => setLanguage("json")}
-                                    className={`p-2 rounded-md transition-all ${language === "json" ? "bg-white dark:bg-slate-700 shadow-sm text-rose-600 dark:text-rose-400" : "text-slate-500 hover:text-slate-900 dark:text-slate-400 dark:hover:text-slate-200"}`}
-                                    title="JSON"
-                                >
-                                    <FileJson size={18} />
-                                </button>
-                                <button
-                                    onClick={() => setLanguage("yaml")}
-                                    className={`p-2 rounded-md transition-all ${language === "yaml" ? "bg-white dark:bg-slate-700 shadow-sm text-rose-600 dark:text-rose-400" : "text-slate-500 hover:text-slate-900 dark:text-slate-400 dark:hover:text-slate-200"}`}
-                                    title="YAML"
-                                >
-                                    <FileType size={18} />
-                                </button>
-                                <button
-                                    onClick={() => setLanguage("toml")}
-                                    className={`p-2 rounded-md transition-all ${language === "toml" ? "bg-white dark:bg-slate-700 shadow-sm text-rose-600 dark:text-rose-400" : "text-slate-500 hover:text-slate-900 dark:text-slate-400 dark:hover:text-slate-200"}`}
-                                    title="TOML"
-                                >
-                                    <FileCode size={18} />
-                                </button>
-                                <button
-                                    onClick={() => setLanguage("csv")}
-                                    className={`p-2 rounded-md transition-all ${language === "csv" ? "bg-white dark:bg-slate-700 shadow-sm text-rose-600 dark:text-rose-400" : "text-slate-500 hover:text-slate-900 dark:text-slate-400 dark:hover:text-slate-200"}`}
-                                    title="CSV"
-                                >
-                                    <Table size={18} />
-                                </button>
                             </div>
                         </div>
                     </div>
