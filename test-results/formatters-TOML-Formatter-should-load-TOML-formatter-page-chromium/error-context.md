@@ -1,0 +1,229 @@
+# Page snapshot
+
+```yaml
+- generic [active] [ref=e1]:
+  - navigation [ref=e2]:
+    - generic [ref=e4]:
+      - link "TextGauge Logo TextGauge" [ref=e5] [cursor=pointer]:
+        - /url: /
+        - img "TextGauge Logo" [ref=e6]
+        - generic [ref=e7]: TextGauge
+      - generic [ref=e8]:
+        - link "Character Counter" [ref=e9] [cursor=pointer]:
+          - /url: /
+        - link "JSON Formatter" [ref=e10] [cursor=pointer]:
+          - /url: /json-formatter
+        - link "YAML Formatter" [ref=e11] [cursor=pointer]:
+          - /url: /yaml-formatter
+        - link "TOML Formatter" [ref=e12] [cursor=pointer]:
+          - /url: /toml-formatter
+        - link "JSON to CSV" [ref=e13] [cursor=pointer]:
+          - /url: /json-to-csv-converter
+        - link "JSON to TOON" [ref=e14] [cursor=pointer]:
+          - /url: /json-to-toon-converter
+        - link "Diff Checker" [ref=e15] [cursor=pointer]:
+          - /url: /diff-checker
+  - main [ref=e16]:
+    - generic [ref=e18]:
+      - generic [ref=e20]:
+        - generic [ref=e21]:
+          - img "Frangipani" [ref=e23]
+          - generic [ref=e24]: TOML Tool
+        - paragraph [ref=e25]: Frangipani — Embodies warmth, creativity, and the welcoming spirit of tropical paradise.
+      - generic [ref=e26]:
+        - generic [ref=e27]:
+          - generic [ref=e30]:
+            - generic [ref=e31]:
+              - heading "TOML Formatter & Validator" [level=1] [ref=e32]
+              - paragraph [ref=e33]: Free online tool to format, beautify, and validate TOML files. Fix structural errors and ensure valid TOML syntax instantly.
+            - generic:
+              - generic:
+                - insertion
+          - main [ref=e34]:
+            - generic [ref=e35]:
+              - generic [ref=e36]:
+                - generic [ref=e37]:
+                  - generic [ref=e38]:
+                    - generic [ref=e39]: Input
+                    - generic [ref=e42]: Saved
+                  - generic [ref=e43]:
+                    - button "Upload File" [ref=e44]:
+                      - img [ref=e45]
+                    - button "Load from URL" [ref=e48]:
+                      - img [ref=e49]
+                    - button "Clear" [ref=e52]:
+                      - img [ref=e53]
+                - generic [ref=e57]:
+                  - button "Copy" [ref=e59]:
+                    - img [ref=e60]
+                  - generic [ref=e63]:
+                    - generic [ref=e65]: "1"
+                    - textbox "Paste your code here..." [ref=e66]
+                - generic [ref=e67]:
+                  - generic [ref=e68]:
+                    - generic [ref=e69]: 0 LN
+                    - generic [ref=e70]: 0 CH
+                  - generic [ref=e71]: 0.00 KB
+              - generic [ref=e72]:
+                - generic [ref=e73]:
+                  - button "Beautify" [ref=e74]:
+                    - generic [ref=e76]:
+                      - img [ref=e77]
+                      - generic [ref=e80]: Beautify
+                  - link "Diff" [ref=e81] [cursor=pointer]:
+                    - /url: /diff-checker
+                    - img [ref=e82]
+                    - text: Diff
+                  - button "Swap" [ref=e87]:
+                    - img [ref=e88]
+                    - text: Swap
+                - generic [ref=e90]:
+                  - generic [ref=e91]: Indentation
+                  - generic [ref=e92]:
+                    - combobox [ref=e93] [cursor=pointer]:
+                      - option "2 Spaces" [selected]
+                      - option "3 Spaces"
+                      - option "4 Spaces"
+                      - option "8 Spaces"
+                    - generic:
+                      - img
+                - button "Load Sample" [ref=e94]
+                - insertion [ref=e96]:
+                  - iframe [ref=e98]:
+                    
+              - generic [ref=e99]:
+                - generic [ref=e100]:
+                  - generic [ref=e102]: Output
+                  - button "Download" [ref=e104]:
+                    - img [ref=e105]
+                - generic [ref=e109]:
+                  - button "Copy" [ref=e111]:
+                    - img [ref=e112]
+                  - generic [ref=e115]:
+                    - generic [ref=e117]: "1"
+                    - textbox "Result will appear here..." [ref=e118]
+                - generic [ref=e119]:
+                  - generic [ref=e120]:
+                    - generic [ref=e121]: 0 LN
+                    - generic [ref=e122]: 0 CH
+                  - generic [ref=e123]: 0.00 KB
+        - generic [ref=e125]:
+          - heading "Key Features" [level=2] [ref=e126]
+          - generic [ref=e127]:
+            - generic [ref=e128]:
+              - heading "Format & Beautify" [level=3] [ref=e129]: Format & Beautify
+              - paragraph [ref=e131]: Instantly format and beautify TOML files. Makes TOML configs readable and properly structured for Rust (Cargo), Python (pyproject.toml), and other tools.
+            - generic [ref=e132]:
+              - heading "Validation" [level=3] [ref=e133]: Validation
+              - paragraph [ref=e135]: Validates TOML syntax and structure in real-time. Detects errors, types, and invalid TOML instantly with clear error messages.
+            - generic [ref=e136]:
+              - heading "100% Client-Side" [level=3] [ref=e137]: 100% Client-Side
+              - paragraph [ref=e139]: All processing happens in your browser. Your TOML configuration files never leave your device, ensuring complete privacy and security.
+        - generic [ref=e141]:
+          - heading "When to choose TOML?" [level=2] [ref=e142]
+          - generic [ref=e143]:
+            - generic [ref=e144]:
+              - heading "Configuration Files" [level=3] [ref=e145]
+              - paragraph [ref=e146]:
+                - text: TOML is the gold standard for configuration files. Its key-value pair structure is intuitive and easy for humans to edit without syntax errors. Perfect for project settings like
+                - strong [ref=e147]: Cargo.toml
+                - text: (Rust) or
+                - strong [ref=e148]: pyproject.toml
+                - text: (Python).
+            - generic [ref=e149]:
+              - heading "Readability First" [level=3] [ref=e150]
+              - paragraph [ref=e151]: Choose TOML when you want data to be readable. Unlike JSON, it supports comments and doesn't require quotes for every key. Unlike YAML, it avoids ambiguous whitespace parsing issues.
+            - generic [ref=e152]:
+              - heading "Simple Data Structures" [level=3] [ref=e153]
+              - paragraph [ref=e154]: Use TOML for flat or moderately nested data. If your data is deeply nested or complex (like API responses), JSON might be better. TOML shines where clarity and simplicity are paramount.
+        - generic [ref=e155]:
+          - heading "Frequently Asked Questions" [level=2] [ref=e156]
+          - generic [ref=e157]:
+            - group [ref=e158]:
+              - generic "What is TOML? ▼" [ref=e159] [cursor=pointer]:
+                - text: What is TOML?
+                - generic [ref=e160]: ▼
+            - group [ref=e161]:
+              - generic "How do I validate TOML? ▼" [ref=e162] [cursor=pointer]:
+                - text: How do I validate TOML?
+                - generic [ref=e163]: ▼
+            - group [ref=e164]:
+              - generic "Is my TOML data secure? ▼" [ref=e165] [cursor=pointer]:
+                - text: Is my TOML data secure?
+                - generic [ref=e166]: ▼
+  - contentinfo [ref=e167]:
+    - generic [ref=e168]:
+      - generic [ref=e169]:
+        - generic [ref=e170]:
+          - link "TextGauge Logo TextGauge" [ref=e171] [cursor=pointer]:
+            - /url: /
+            - img "TextGauge Logo" [ref=e172]
+            - generic [ref=e173]: TextGauge
+          - paragraph [ref=e174]: Free, secure, and privacy-focused developer tools for text analysis and data conversion.
+        - generic [ref=e175]:
+          - heading "Tools" [level=3] [ref=e176]
+          - list [ref=e177]:
+            - listitem [ref=e178]:
+              - link "Character Counter" [ref=e179] [cursor=pointer]:
+                - /url: /
+            - listitem [ref=e180]:
+              - link "JSON Formatter" [ref=e181] [cursor=pointer]:
+                - /url: /json-formatter
+            - listitem [ref=e182]:
+              - link "YAML Formatter" [ref=e183] [cursor=pointer]:
+                - /url: /yaml-formatter
+            - listitem [ref=e184]:
+              - link "TOML Formatter" [ref=e185] [cursor=pointer]:
+                - /url: /toml-formatter
+            - listitem [ref=e186]:
+              - link "JSON to CSV" [ref=e187] [cursor=pointer]:
+                - /url: /json-to-csv-converter
+            - listitem [ref=e188]:
+              - link "JSON to TOON" [ref=e189] [cursor=pointer]:
+                - /url: /json-to-toon-converter
+            - listitem [ref=e190]:
+              - link "Diff Checker" [ref=e191] [cursor=pointer]:
+                - /url: /diff-checker
+        - generic [ref=e192]:
+          - heading "Legal" [level=3] [ref=e193]
+          - list [ref=e194]:
+            - listitem [ref=e195]:
+              - link "Privacy Policy" [ref=e196] [cursor=pointer]:
+                - /url: /privacy
+            - listitem [ref=e197]:
+              - link "Terms of Service" [ref=e198] [cursor=pointer]:
+                - /url: /terms
+            - listitem [ref=e199]:
+              - link "Cookie Policy" [ref=e200] [cursor=pointer]:
+                - /url: /cookie-policy
+        - generic [ref=e201]:
+          - heading "Company" [level=3] [ref=e202]
+          - list [ref=e203]:
+            - listitem [ref=e204]:
+              - link "About Us" [ref=e205] [cursor=pointer]:
+                - /url: /about
+            - listitem [ref=e206]:
+              - link "Contact" [ref=e207] [cursor=pointer]:
+                - /url: /contact
+      - paragraph [ref=e209]: © 2025 TextGauge. All rights reserved.
+  - generic [ref=e212]:
+    - paragraph [ref=e213]:
+      - text: We use cookies to enhance your experience and analyze traffic. By continuing to visit this site you agree to our use of cookies.
+      - link "Learn more" [ref=e214] [cursor=pointer]:
+        - /url: /cookie-policy
+    - button "Got it" [ref=e215]
+  - button "Toggle theme" [ref=e216]:
+    - img [ref=e217]
+  - generic [ref=e223] [cursor=pointer]:
+    - button "Open Next.js Dev Tools" [ref=e224]:
+      - img [ref=e225]
+    - generic [ref=e228]:
+      - button "Open issues overlay" [ref=e229]:
+        - generic [ref=e230]:
+          - generic [ref=e231]: "0"
+          - generic [ref=e232]: "1"
+        - generic [ref=e233]: Issue
+      - button "Collapse issues badge" [ref=e234]:
+        - img [ref=e235]
+  - alert [ref=e237]
+```
