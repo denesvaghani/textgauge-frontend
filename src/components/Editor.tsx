@@ -301,13 +301,7 @@ export function Editor() {
           <h2 className="mb-4 text-xl font-bold text-gray-800 dark:text-white">
             Live Statistics
           </h2>
-          {/* Item 10: Limit Indicator in Header */}
-          {limit > 0 && (
-            <div className={`text-sm font-bold ${metrics.charCount > limit ? 'text-red-500 animate-pulse' : 'text-slate-500'}`}>
-              {metrics.charCount} / {limit} chars
-            </div>
-          )}
-          <StatsBar metrics={metrics} limit={limit} />
+          <StatsBar metrics={metrics} limit={limit} onLimitChange={setLimit} />
         </div>
 
         {/* Card 2: Editor & Tools */}
@@ -590,8 +584,6 @@ export function Editor() {
             const text = getPlainText();
             analyze(text, kw.trim());
           }}
-          limit={limit}
-          onLimitChange={setLimit}
         />
       </div>
     </div>
@@ -602,7 +594,9 @@ export function Editor() {
 
 /* --- Stats & Sidebar components --- */
 
-function StatsBar({ metrics, limit }: { metrics: Metrics; limit: number }) {
+/* --- Stats & Sidebar components --- */
+
+function StatsBar({ metrics, limit, onLimitChange }: { metrics: Metrics; limit: number; onLimitChange: (l: number) => void }) {
   const m = metrics;
 
   const fmt = (sec: number) => {
@@ -621,17 +615,44 @@ function StatsBar({ metrics, limit }: { metrics: Metrics; limit: number }) {
 
   return (
     <div className="space-y-4">
-        {/* Limit Progress Bar (Item 10) */}
+        {/* Item 10: Platform Presets Dropdown - Moved here for better visibility */}
+        <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-2 mb-2">
+           <div className="flex items-center gap-2">
+             <span className="text-xs font-bold text-slate-500 dark:text-slate-400 uppercase tracking-wide">
+               Limit:
+             </span>
+             <select
+                value={limit}
+                onChange={(e) => onLimitChange(Number(e.target.value))}
+                className="p-1.5 bg-slate-50 dark:bg-slate-700 border border-slate-200 dark:border-slate-600 rounded text-xs font-medium text-slate-800 dark:text-white outline-none focus:ring-1 focus:ring-indigo-500 cursor-pointer min-w-[140px]"
+             >
+                {LIMIT_PRESETS.map(p => (
+                    <option key={p.label} value={p.value}>
+                        {p.label} {p.value > 0 ? `(${p.value})` : ''}
+                    </option>
+                ))}
+             </select>
+           </div>
+
+           {/* Limit Progress Indicator */}
+           {limit > 0 && (
+             <span className={`text-xs font-bold ${isOverLimit ? 'text-red-500 animate-pulse' : 'text-slate-500'}`}>
+               {m.charCount} / {limit} chars
+             </span>
+           )}
+        </div>
+
+        {/* Limit Progress Bar */}
         {limit > 0 && (
-            <div className="w-full bg-slate-100 dark:bg-slate-700 rounded-full h-2.5 mb-4 overflow-hidden">
+            <div className="w-full bg-slate-100 dark:bg-slate-700 rounded-full h-2 mb-4 overflow-hidden">
                 <div 
-                    className={`h-2.5 rounded-full transition-all duration-500 ${progressColor}`} 
+                    className={`h-2 rounded-full transition-all duration-500 ${progressColor}`} 
                     style={{ width: `${percentage}%` }}
                 ></div>
             </div>
         )}
 
-        <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-3 sm:gap-4 mb-6">
+        <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-3 sm:gap-4 mb-2">
         {[
             ["Words", m.wordCount, false],
             ["Chars", m.charCount, isOverLimit], // Highlight Chars if over
@@ -663,14 +684,10 @@ function Sidebar({
   metrics,
   keyword,
   onKeywordSelect,
-  limit,
-  onLimitChange
 }: {
   metrics: Metrics;
   keyword: string;
   onKeywordSelect: (keyword: string) => void;
-  limit: number;
-  onLimitChange: (l: number) => void;
 }) {
   const m = metrics;
 
@@ -681,68 +698,49 @@ function Sidebar({
         <h2 className="text-xl font-bold text-gray-800 dark:text-white">Analysis Dashboard</h2>
       </div>
 
-      <div className="space-y-8">
-        {/* Item 10: Platform Presets */}
-        <div className="transition-colors duration-200">
-           <h3 className="text-sm font-bold text-slate-500 dark:text-slate-400 uppercase tracking-wider mb-3">
-             Platform Limits
-           </h3>
-           <select
-              value={limit}
-              onChange={(e) => onLimitChange(Number(e.target.value))}
-              className="w-full p-2.5 bg-slate-50 dark:bg-slate-700 border border-slate-200 dark:border-slate-600 rounded-lg text-sm text-slate-800 dark:text-white outline-none focus:ring-2 focus:ring-indigo-500"
-           >
-              {LIMIT_PRESETS.map(p => (
-                  <option key={p.label} value={p.value}>
-                      {p.label} {p.value > 0 ? `(${p.value})` : ''}
-                  </option>
-              ))}
-           </select>
-           {limit > 0 && (
-               <div className="mt-3 flex justify-between text-xs font-medium text-slate-500">
-                   <span>{m.charCount} / {limit}</span>
-                   <span className={m.charCount > limit ? 'text-red-500' : 'text-emerald-500'}>
-                       {limit - m.charCount} left
-                   </span>
-               </div>
-           )}
-        </div>
-
+      <div className="space-y-6">
+        
         {/* Keyword Stats */}
         <div className="transition-colors duration-200">
-          <h3 className="text-lg font-bold text-gray-800 dark:text-white mb-3">
-            SEO Keyword Metrics
+          <h3 className="text-sm font-bold text-slate-500 dark:text-slate-400 uppercase tracking-wider mb-4 flex items-center gap-2">
+            <span className="w-1.5 h-1.5 rounded-full bg-blue-500"></span>
+            SEO Metrics
           </h3>
           {keyword && (
-            <div className="mb-3 px-3 py-2 bg-blue-50 dark:bg-gray-700 rounded-lg transition-colors duration-200">
-              <span className="text-xs text-gray-600 dark:text-gray-400">Tracking:</span>
-              <p className="text-sm font-semibold text-blue-700 dark:text-blue-400 break-words">
+            <div className="mb-4 px-3 py-2 bg-blue-50 dark:bg-slate-700/50 border border-blue-100 dark:border-slate-700 rounded-lg transition-colors duration-200">
+              <span className="text-[10px] font-bold text-slate-400 dark:text-slate-500 uppercase tracking-wider">Tracking</span>
+              <p className="text-sm font-semibold text-blue-700 dark:text-blue-400 break-words mt-0.5">
                 &quot;{keyword}&quot;
               </p>
             </div>
           )}
           {m.keywordCount > 0 ? (
-            <div className="space-y-2">
-              <div className="flex justify-between items-center">
-                <span className="text-sm text-gray-600 dark:text-gray-400">Occurrences:</span>
+            <div className="space-y-3">
+              <div className="flex justify-between items-center p-2 bg-slate-50 dark:bg-slate-700/30 rounded-lg">
+                <span className="text-sm text-gray-600 dark:text-gray-400 font-medium">Occurrences</span>
                 <span className="text-lg font-bold text-blue-600 dark:text-blue-400">{m.keywordCount}</span>
               </div>
-              <div className="flex justify-between items-center">
-                <span className="text-sm text-gray-600 dark:text-gray-400">Density:</span>
+              <div className="flex justify-between items-center p-2 bg-slate-50 dark:bg-slate-700/30 rounded-lg">
+                <span className="text-sm text-gray-600 dark:text-gray-400 font-medium">Density</span>
                 <span className="text-lg font-bold text-green-600 dark:text-green-400">{m.keywordDensity}%</span>
               </div>
             </div>
           ) : (
-            <p className="text-gray-500 dark:text-gray-400 italic text-sm">
-              {m.wordCount > 0 && keyword ? "Keyword not found in text" : m.wordCount > 0 ? "Enter a keyword above to track" : "Start typing and add a keyword..."}
-            </p>
+            <div className="p-4 bg-slate-50 dark:bg-slate-700/30 rounded-lg text-center border border-dashed border-slate-200 dark:border-slate-700">
+              <p className="text-xs text-slate-500 dark:text-slate-400 italic">
+                 {m.wordCount > 0 && keyword ? "Keyword not found yet" : "Enter a target keyword below the editor to track SEO stats"}
+              </p>
+            </div>
           )}
         </div>
 
+        <hr className="border-slate-100 dark:border-slate-700" />
+
         {/* Repeated Phrases */}
         <div className="transition-colors duration-200">
-          <h3 className="text-lg font-bold text-gray-800 dark:text-white mb-3">
-            Repeated Phrases
+          <h3 className="text-sm font-bold text-slate-500 dark:text-slate-400 uppercase tracking-wider mb-4 flex items-center gap-2">
+            <span className="w-1.5 h-1.5 rounded-full bg-violet-500"></span>
+            Phrase Analysis
           </h3>
           <div className="h-40 overflow-y-auto text-xs space-y-1 pr-2 scrollbar-thin scrollbar-thumb-slate-200 dark:scrollbar-thumb-slate-700">
             {m.repeatedPhrases.length > 0 ? (
