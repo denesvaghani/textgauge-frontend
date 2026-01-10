@@ -68,16 +68,35 @@ export default function TermsPage() {
                 agreeing to be bound by the then current version of these Terms of Service.
             </p>
 
+            <h2>Third-Party AI Services</h2>
+            <p>
+                TextGauge's "Rephrase" feature uses Google's Gemini AI API to process your text. When you use this feature:
+            </p>
+            <ul>
+                <li>Your text is sent to Google's Gemini API for processing</li>
+                <li>Google's terms of service and privacy policy apply to this data</li>
+                <li>We do not store the text you send or receive from the AI service</li>
+                <li>This feature is optional and requires explicit user action to activate</li>
+            </ul>
+            <p>
+                By using the Rephrase feature, you acknowledge and consent to your text being processed by Google's Gemini AI.
+            </p>
+
             <h2>Governing Law</h2>
             <p>
-                These terms and conditions are governed by and construed in accordance with the laws and you irrevocably
-                submit to the exclusive jurisdiction of the courts in that location.
+                These Terms of Service shall be governed by and construed in accordance with the laws of India. 
+                Any disputes arising from or relating to these terms shall be subject to the exclusive jurisdiction 
+                of the courts located in Gujarat, India. By using TextGauge, you consent to the jurisdiction of such courts.
             </p>
 
             <h2>Contact Information</h2>
             <p>
                 If you have any questions about these Terms of Service, please contact us at:{' '}
                 <a href="mailto:denesdvaghani9200@gmail.com">denesdvaghani9200@gmail.com</a>
+            </p>
+
+            <p className="text-sm text-slate-500 mt-8">
+                Version 1.1 • Effective: January 10, 2026
             </p>
         </LegalLayout>
     );
