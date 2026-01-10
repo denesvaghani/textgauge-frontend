@@ -454,10 +454,15 @@ export function Editor() {
               </div>
 
               {/* Right cluster: AI rephrase */}
-              <div className="ml-auto flex items-center">
+              <div className="ml-auto flex items-center gap-2">
+                {/* Gemini Disclosure Badge - Item 9 */}
+                <span className="hidden sm:flex items-center gap-1 text-[10px] text-violet-500 dark:text-violet-400 bg-violet-50 dark:bg-violet-900/20 px-2 py-1 rounded-full border border-violet-200 dark:border-violet-800">
+                  <span>🤖</span>
+                  <span>Powered by Gemini AI</span>
+                </span>
                 <button
                   type="button"
-                  title="AI-powered text rephrasing"
+                  title="AI-powered rephrasing via Google Gemini. Your text is sent to Gemini API for processing."
                   onMouseDown={(e) => {
                     e.preventDefault();
                     handleRephrase();
@@ -487,11 +492,15 @@ export function Editor() {
               </div>
             )}
 
-            {/* Editor Text Area */}
+            {/* Editor Text Area - A11y Fixed */}
             <div
               ref={divRef}
               contentEditable
               onInput={handleInput}
+              tabIndex={0}
+              role="textbox"
+              aria-label="Text editor - type or paste your content here"
+              aria-multiline="true"
               className="
                 w-full
                 min-h-[700px]
@@ -501,9 +510,11 @@ export function Editor() {
                 text-[14px]
                 leading-[24px]
                 text-slate-900 dark:text-slate-100
-                outline-none
-                placeholder:text-slate-400
+                focus:outline-none
+                focus-visible:ring-2 focus-visible:ring-indigo-500 focus-visible:ring-offset-2
+                placeholder:text-slate-500 dark:placeholder:text-slate-400
                 text-left
+                rounded-lg
               "
               data-placeholder="Start typing here or paste your content..."
               style={{ 
