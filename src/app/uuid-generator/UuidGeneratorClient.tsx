@@ -280,7 +280,7 @@ export default function UuidGeneratorClient() {
           </div>
 
           {/* Educational Content */}
-          <section className="w-full max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 pt-12 pb-12">
+          <section className="w-full max-w-[1920px] mx-auto px-4 sm:px-6 lg:px-8 pt-12 pb-12 bg-white/50 dark:bg-slate-900/50">
             <div className="space-y-8">
               <div>
                 <h2 className="text-2xl font-bold text-slate-900 dark:text-white mb-4">Understanding ID Types</h2>
@@ -355,7 +355,7 @@ export default function UuidGeneratorClient() {
           </section>
 
           {/* FAQ Section */}
-          <section className="w-full max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 pb-16">
+          <section className="w-full max-w-[1920px] mx-auto px-4 sm:px-6 lg:px-8 pb-16">
             <h2 className="text-2xl font-bold text-center text-slate-900 dark:text-white mb-8">
               Frequently Asked Questions
             </h2>
