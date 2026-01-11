@@ -30,8 +30,8 @@ export function SmartHeroHeader({ title, theme, adSlot, className = "" }: SmartH
                     </div>
                 </div>
 
-                {/* Title */}
-                <h1 className="text-4xl md:text-5xl font-black tracking-tight text-center bg-clip-text text-transparent bg-gradient-to-br from-slate-900 via-slate-700 to-slate-800 dark:from-white dark:via-slate-200 dark:to-slate-400 drop-shadow-sm pb-1 max-w-4xl leading-tight">
+                {/* Title - Responsive sizing to prevent truncation on mobile */}
+                <h1 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-black tracking-tight text-center bg-clip-text text-transparent bg-gradient-to-br from-slate-900 via-slate-700 to-slate-800 dark:from-white dark:via-slate-200 dark:to-slate-400 drop-shadow-sm pb-1 max-w-4xl leading-tight px-2">
                     {title}
                 </h1>
             </div>
