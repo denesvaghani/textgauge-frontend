@@ -265,6 +265,94 @@ export const flowerThemes = {
       dark: "dark:bg-gradient-to-br dark:from-blue-950/30 dark:via-indigo-950/20 dark:to-slate-950",
     },
   },
+  magnolia: {
+    name: "Magnolia",
+    slug: "magnolia",
+    image: "/images/flowers/magnolia.jpg",
+    significance: "Represents endurance, nobility, and perseverance — robust and reliable for the long haul.",
+    colors: {
+      primary: "#059669",
+      secondary: "#10b981",
+      accent: "#ecfdf5",
+      glow: "rgba(5, 150, 105, 0.25)",
+      text: "text-emerald-700",
+      textDark: "dark:text-emerald-400",
+    },
+    gradient: {
+      light: "from-emerald-600 to-teal-600",
+      dark: "from-emerald-700 to-teal-700",
+    },
+    bgGradient: {
+      light: "bg-gradient-to-br from-emerald-50 via-teal-50/50 to-white",
+      dark: "dark:bg-gradient-to-br dark:from-emerald-950/30 dark:via-teal-950/20 dark:to-slate-950",
+    },
+  },
+  gardenia: {
+    name: "Gardenia",
+    slug: "gardenia",
+    image: "/images/flowers/gardenia.jpg",
+    significance: "Embodies purity, refinement, and clarity — producing crystal clear results without clutter.",
+    colors: {
+      primary: "#0d9488",
+      secondary: "#14b8a6",
+      accent: "#f0fdfa",
+      glow: "rgba(13, 148, 136, 0.25)",
+      text: "text-teal-700",
+      textDark: "dark:text-teal-400",
+    },
+    gradient: {
+      light: "from-teal-600 to-cyan-600",
+      dark: "from-teal-700 to-cyan-700",
+    },
+    bgGradient: {
+      light: "bg-gradient-to-br from-teal-50 via-cyan-50/50 to-white",
+      dark: "dark:bg-gradient-to-br dark:from-teal-950/30 dark:via-cyan-950/20 dark:to-slate-950",
+    },
+  },
+  lilac: {
+    name: "Lilac",
+    slug: "lilac",
+    image: "/images/flowers/lilac.jpg",
+    significance: "Symbolizes renewal, confidence, and fresh innovation — perfect for modernizing workflows.",
+    colors: {
+      primary: "#7c3aed",
+      secondary: "#8b5cf6",
+      accent: "#f5f3ff",
+      glow: "rgba(124, 58, 237, 0.25)",
+      text: "text-violet-700",
+      textDark: "dark:text-violet-400",
+    },
+    gradient: {
+      light: "from-violet-600 to-purple-600",
+      dark: "from-violet-700 to-purple-700",
+    },
+    bgGradient: {
+      light: "bg-gradient-to-br from-violet-50 via-purple-50/50 to-white",
+      dark: "dark:bg-gradient-to-br dark:from-violet-950/30 dark:via-purple-950/20 dark:to-slate-950",
+    },
+  },
+  jasmine: {
+    name: "Jasmine",
+    slug: "jasmine",
+    image: "/images/flowers/jasmine.jpg",
+    significance: "Represents love, beauty, and amiability — friendly, inviting, and pleasant to use.",
+    colors: {
+      primary: "#ca8a04",
+      secondary: "#eab308",
+      accent: "#fefce8",
+      glow: "rgba(202, 138, 4, 0.25)",
+      text: "text-yellow-700",
+      textDark: "dark:text-yellow-400",
+    },
+    gradient: {
+      light: "from-yellow-600 to-lime-600",
+      dark: "from-yellow-700 to-lime-700",
+    },
+    bgGradient: {
+      light: "bg-gradient-to-br from-yellow-50 via-lime-50/50 to-white",
+      dark: "dark:bg-gradient-to-br dark:from-yellow-950/30 dark:via-lime-950/20 dark:to-slate-950",
+    },
+  },
 } as const;
 
 export type FlowerThemeKey = keyof typeof flowerThemes;

@@ -61,10 +61,11 @@ export function DynamicAd({
     }
   }, []);
 
-  // Determine if we should show the ad container (loading or filled)
-  const shouldShow = adStatus !== 'unfilled';
+  // Only show the ad container when the ad is actually filled
+  // This prevents empty boxes from appearing on development/blocked environments
+  const shouldShow = adStatus === 'filled';
   
-  // Reserve height based on layout to minimize CLS
+  // Reserve height based on layout to minimize CLS (only when filled)
   const minHeightClass = layout === 'in-article' ? 'min-h-[100px]' : 'min-h-[250px]';
 
   return (
