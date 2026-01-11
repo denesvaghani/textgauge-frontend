@@ -32,7 +32,7 @@ const navCategories = {
     ],
     "Generators": [
         { href: "/uuid-generator", label: "UUID Generator", image: flowerThemes.dahlia.image },
-        { href: "/hash-generator", label: "Hash Generator", image: flowerThemes.lavender.image },
+        { href: "/hash-generator", label: "Hash Generator", image: flowerThemes.magnolia.image },
         { href: "/cron-job-generator", label: "Cron Generator", image: flowerThemes.morningGlory.image },
         { href: "/base64-encoder", label: "Base64 Tool", image: flowerThemes.blueIris.image },
     ],

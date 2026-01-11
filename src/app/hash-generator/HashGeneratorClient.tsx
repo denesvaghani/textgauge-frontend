@@ -30,7 +30,7 @@ import {
 type Mode = 'text' | 'file' | 'batch' | 'verify';
 
 export default function HashGeneratorClient() {
-  const theme = flowerThemes.lavender;
+  const theme = flowerThemes.magnolia;
   const [mode, setMode] = useState<Mode>('text');
   const [input, setInput] = useState('');
   const [results, setResults] = useState<HashResult[]>([]);
