@@ -35,6 +35,7 @@ const navCategories = {
         { href: "/hash-generator", label: "Hash Generator", image: flowerThemes.magnolia.image },
         { href: "/cron-job-generator", label: "Cron Generator", image: flowerThemes.morningGlory.image },
         { href: "/base64-encoder", label: "Base64 Tool", image: flowerThemes.blueIris.image },
+        { href: "/url-encoder", label: "URL Encoder", image: flowerThemes.jasmine.image },
     ],
 };
 

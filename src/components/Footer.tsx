@@ -19,6 +19,7 @@ export function Footer() {
         { name: 'Hash Generator', href: '/hash-generator' },
         { name: 'Cron Generator', href: '/cron-job-generator' },
         { name: 'Base64 Tool', href: '/base64-encoder' },
+        { name: 'URL Encoder', href: '/url-encoder' },
         { name: 'PaletteForge', href: '/palette-forge' },
         { name: 'Image Compressor', href: '/image-compressor' },
     ];

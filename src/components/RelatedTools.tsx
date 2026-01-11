@@ -21,6 +21,7 @@ const SITE_TOOLS = [
   { href: "/uuid-generator", title: "UUID Generator", category: "Generators", theme: flowerThemes.dahlia },
   { href: "/cron-job-generator", title: "Cron Generator", category: "Generators", theme: flowerThemes.morningGlory },
   { href: "/base64-encoder", title: "Base64 Tool", category: "Generators", theme: flowerThemes.blueIris },
+  { href: "/url-encoder", title: "URL Encoder", category: "Generators", theme: flowerThemes.jasmine },
 ];
 
 export function RelatedTools({ currentPath }: { currentPath: string }) {
