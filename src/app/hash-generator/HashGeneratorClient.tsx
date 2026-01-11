@@ -24,8 +24,6 @@ import {
   Shield, 
   ShieldAlert,
   Download,
-  FileJson,
-  Table,
   X
 } from "lucide-react";
 
@@ -44,11 +42,12 @@ export default function HashGeneratorClient() {
   const [verifyResult, setVerifyResult] = useState<'match' | 'mismatch' | null>(null);
   const [batchInput, setBatchInput] = useState('');
   const [batchResults, setBatchResults] = useState<{ input: string; hashes: HashResult[] }[]>([]);
+  const [showExportMenu, setShowExportMenu] = useState(false);
   const fileInputRef = useRef<HTMLInputElement>(null);
 
-  // Live hashing with debounce
+  // Live hashing with debounce - works for both text AND verify mode
   useEffect(() => {
-    if (mode !== 'text' || !input) {
+    if ((mode !== 'text' && mode !== 'verify') || !input) {
       if (!input) setResults([]);
       return;
     }
@@ -70,7 +69,7 @@ export default function HashGeneratorClient() {
       return;
     }
 
-    const normalizedExpected = expectedHash.toLowerCase().trim();
+    const normalizedExpected = expectedHash.toLowerCase().trim().replace(/-/g, '');
     const isMatch = results.some(r => r.hash.toLowerCase() === normalizedExpected);
     setVerifyResult(isMatch ? 'match' : 'mismatch');
   }, [expectedHash, results, mode]);
@@ -119,6 +118,7 @@ export default function HashGeneratorClient() {
     a.click();
     document.body.removeChild(a);
     URL.revokeObjectURL(url);
+    setShowExportMenu(false);
   };
 
   const handleFileChange = async (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -161,22 +161,22 @@ export default function HashGeneratorClient() {
   const getSecurityIcon = (security: string) => {
     switch (security) {
       case 'insecure':
-        return <ShieldAlert size={16} className="text-red-500" />;
+        return <ShieldAlert size={16} className="text-red-500 shrink-0" />;
       case 'weak':
-        return <AlertTriangle size={16} className="text-amber-500" />;
+        return <AlertTriangle size={16} className="text-amber-500 shrink-0" />;
       default:
-        return <Shield size={16} className="text-emerald-500" />;
+        return <Shield size={16} className="text-emerald-500 shrink-0" />;
     }
   };
 
   const getSecurityBadge = (security: string) => {
     switch (security) {
       case 'insecure':
-        return <span className="text-[10px] px-2 py-0.5 bg-red-100 text-red-700 dark:bg-red-900/30 dark:text-red-400 rounded-full font-medium">Insecure</span>;
+        return <span className="text-[10px] px-2 py-0.5 bg-red-100 text-red-700 dark:bg-red-900/30 dark:text-red-400 rounded-full font-medium whitespace-nowrap">Insecure</span>;
       case 'weak':
-        return <span className="text-[10px] px-2 py-0.5 bg-amber-100 text-amber-700 dark:bg-amber-900/30 dark:text-amber-400 rounded-full font-medium">Weak</span>;
+        return <span className="text-[10px] px-2 py-0.5 bg-amber-100 text-amber-700 dark:bg-amber-900/30 dark:text-amber-400 rounded-full font-medium whitespace-nowrap">Weak</span>;
       default:
-        return <span className="text-[10px] px-2 py-0.5 bg-emerald-100 text-emerald-700 dark:bg-emerald-900/30 dark:text-emerald-400 rounded-full font-medium">Secure</span>;
+        return <span className="text-[10px] px-2 py-0.5 bg-emerald-100 text-emerald-700 dark:bg-emerald-900/30 dark:text-emerald-400 rounded-full font-medium whitespace-nowrap">Secure</span>;
     }
   };
 
@@ -335,8 +335,8 @@ export default function HashGeneratorClient() {
 
             {/* Results Section */}
             {(results.length > 0 && (mode === 'text' || mode === 'file' || mode === 'verify')) && (
-              <div className="bg-white/80 dark:bg-slate-900/80 backdrop-blur-sm rounded-xl border border-slate-200 dark:border-slate-800 shadow-sm overflow-hidden">
-                <div className="px-4 py-3 bg-slate-50 dark:bg-slate-800/50 border-b border-slate-200 dark:border-slate-700 flex items-center justify-between">
+              <div className="bg-white/80 dark:bg-slate-900/80 backdrop-blur-sm rounded-xl border border-slate-200 dark:border-slate-800 shadow-sm overflow-hidden mb-4">
+                <div className="px-4 py-3 bg-slate-50 dark:bg-slate-800/50 border-b border-slate-200 dark:border-slate-700 flex items-center justify-between flex-wrap gap-2">
                   <span className="text-sm font-bold text-slate-600 dark:text-slate-300">
                     {isHashing ? 'Generating...' : 'Hash Results'}
                   </span>
@@ -348,46 +348,62 @@ export default function HashGeneratorClient() {
                       {copiedAll ? <Check size={14} className="text-green-500" /> : <Copy size={14} />}
                       {copiedAll ? 'Copied!' : 'Copy All'}
                     </button>
-                    <button
-                      onClick={() => handleExport('json')}
-                      className="flex items-center gap-1.5 px-3 py-1.5 text-xs font-medium bg-white dark:bg-slate-700 border border-slate-200 dark:border-slate-600 rounded-md hover:bg-slate-100 dark:hover:bg-slate-600 transition-colors"
-                      title="Export as JSON"
-                    >
-                      <FileJson size={14} />
-                    </button>
-                    <button
-                      onClick={() => handleExport('csv')}
-                      className="flex items-center gap-1.5 px-3 py-1.5 text-xs font-medium bg-white dark:bg-slate-700 border border-slate-200 dark:border-slate-600 rounded-md hover:bg-slate-100 dark:hover:bg-slate-600 transition-colors"
-                      title="Export as CSV"
-                    >
-                      <Table size={14} />
-                    </button>
-                    <button
-                      onClick={() => handleExport('txt')}
-                      className="flex items-center gap-1.5 px-3 py-1.5 text-xs font-medium bg-white dark:bg-slate-700 border border-slate-200 dark:border-slate-600 rounded-md hover:bg-slate-100 dark:hover:bg-slate-600 transition-colors"
-                      title="Export as TXT"
-                    >
-                      <Download size={14} />
-                    </button>
+                    
+                    {/* Export Dropdown */}
+                    <div className="relative">
+                      <button
+                        onClick={() => setShowExportMenu(!showExportMenu)}
+                        className="flex items-center gap-1.5 px-3 py-1.5 text-xs font-medium bg-white dark:bg-slate-700 border border-slate-200 dark:border-slate-600 rounded-md hover:bg-slate-100 dark:hover:bg-slate-600 transition-colors"
+                      >
+                        <Download size={14} />
+                        Export
+                      </button>
+                      
+                      {showExportMenu && (
+                        <div className="absolute top-full right-0 mt-1 w-32 bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-lg shadow-lg overflow-hidden z-20">
+                          <button
+                            onClick={() => handleExport('txt')}
+                            className="w-full flex items-center gap-2 px-3 py-2 hover:bg-slate-100 dark:hover:bg-slate-700 text-left text-sm"
+                          >
+                            TXT
+                          </button>
+                          <button
+                            onClick={() => handleExport('json')}
+                            className="w-full flex items-center gap-2 px-3 py-2 hover:bg-slate-100 dark:hover:bg-slate-700 text-left text-sm"
+                          >
+                            JSON
+                          </button>
+                          <button
+                            onClick={() => handleExport('csv')}
+                            className="w-full flex items-center gap-2 px-3 py-2 hover:bg-slate-100 dark:hover:bg-slate-700 text-left text-sm"
+                          >
+                            CSV
+                          </button>
+                        </div>
+                      )}
+                    </div>
                   </div>
                 </div>
                 
                 <div className="divide-y divide-slate-100 dark:divide-slate-800">
                   {results.map((result, index) => (
-                    <div key={result.algorithm} className="p-4 flex items-center gap-4 hover:bg-slate-50 dark:hover:bg-slate-800/50 transition-colors">
-                      <div className="flex items-center gap-2 w-24 shrink-0">
+                    <div key={result.algorithm} className="p-3 sm:p-4 flex items-start sm:items-center gap-2 sm:gap-4 hover:bg-slate-50 dark:hover:bg-slate-800/50 transition-colors flex-col sm:flex-row">
+                      <div className="flex items-center gap-2 shrink-0">
                         {getSecurityIcon(result.security)}
-                        <span className="font-bold text-sm text-slate-700 dark:text-slate-200">{result.algorithm}</span>
+                        <span className="font-bold text-sm text-slate-700 dark:text-slate-200 w-16">{result.algorithm}</span>
+                        <div className="sm:hidden">
+                          {getSecurityBadge(result.security)}
+                        </div>
                       </div>
                       <div className="hidden sm:block shrink-0">
                         {getSecurityBadge(result.security)}
                       </div>
-                      <code className="flex-1 font-mono text-xs sm:text-sm text-slate-600 dark:text-slate-400 break-all select-all">
+                      <code className="flex-1 font-mono text-xs text-slate-600 dark:text-slate-400 break-all select-all bg-slate-100 dark:bg-slate-800 px-2 py-1 rounded w-full sm:w-auto">
                         {result.hash}
                       </code>
                       <button
                         onClick={() => handleCopy(result.hash, index)}
-                        className="shrink-0 p-2 hover:bg-slate-100 dark:hover:bg-slate-700 rounded-md transition-colors"
+                        className="shrink-0 p-2 hover:bg-slate-100 dark:hover:bg-slate-700 rounded-md transition-colors self-end sm:self-auto"
                         title="Copy"
                       >
                         {copiedIndex === index ? (
@@ -436,10 +452,10 @@ export default function HashGeneratorClient() {
 
           {/* Educational Content */}
           <section className="w-full max-w-[1920px] mx-auto px-4 sm:px-6 lg:px-8 pt-12 pb-12 bg-white/50 dark:bg-slate-900/50">
-            <div className="max-w-5xl mx-auto space-y-8">
+            <div className="max-w-[1920px] mx-auto space-y-8">
               <div>
                 <h2 className="text-2xl font-bold text-slate-900 dark:text-white mb-4">Understanding Hash Algorithms</h2>
-                <div className="grid md:grid-cols-2 gap-4">
+                <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-4">
                   <div className="p-4 bg-white dark:bg-slate-900 rounded-xl border border-slate-200 dark:border-slate-800">
                     <div className="flex items-center gap-2 mb-2">
                       <ShieldAlert size={20} className="text-red-500" />
@@ -478,34 +494,57 @@ export default function HashGeneratorClient() {
                   </div>
                 </div>
               </div>
+
+              <div>
+                <h2 className="text-2xl font-bold text-slate-900 dark:text-white mb-4">Common Use Cases</h2>
+                <div className="grid md:grid-cols-3 gap-4">
+                  <div className="p-4 bg-white dark:bg-slate-900 rounded-xl border border-slate-200 dark:border-slate-800">
+                    <h3 className="font-bold text-slate-900 dark:text-white mb-2">File Integrity</h3>
+                    <p className="text-sm text-slate-600 dark:text-slate-400">
+                      Verify downloaded files haven&apos;t been corrupted or tampered with by comparing hashes.
+                    </p>
+                  </div>
+                  <div className="p-4 bg-white dark:bg-slate-900 rounded-xl border border-slate-200 dark:border-slate-800">
+                    <h3 className="font-bold text-slate-900 dark:text-white mb-2">Data Deduplication</h3>
+                    <p className="text-sm text-slate-600 dark:text-slate-400">
+                      Quickly identify duplicate files by comparing their hash values instead of content.
+                    </p>
+                  </div>
+                  <div className="p-4 bg-white dark:bg-slate-900 rounded-xl border border-slate-200 dark:border-slate-800">
+                    <h3 className="font-bold text-slate-900 dark:text-white mb-2">Digital Signatures</h3>
+                    <p className="text-sm text-slate-600 dark:text-slate-400">
+                      Create unique fingerprints for documents to ensure authenticity and detect modifications.
+                    </p>
+                  </div>
+                </div>
+              </div>
             </div>
           </section>
 
           {/* FAQ Section */}
           <section className="w-full max-w-[1920px] mx-auto px-4 sm:px-6 lg:px-8 pb-16">
-            <div className="max-w-5xl mx-auto">
-              <h2 className="text-2xl font-bold text-center text-slate-900 dark:text-white mb-8">
-                Frequently Asked Questions
-              </h2>
-              <div className="space-y-4 w-full">
-                {[
-                  { q: "What is a hash?", a: "A hash is a fixed-size string generated from input data using a mathematical algorithm. The same input always produces the same hash, but you cannot reverse a hash back to the original data." },
-                  { q: "Is my data secure?", a: "Yes! All hashing happens 100% in your browser using JavaScript. Your data never leaves your device - we don't send anything to our servers." },
-                  { q: "What's the difference between MD5 and SHA-256?", a: "MD5 is faster but cryptographically broken (vulnerable to collisions). SHA-256 is the industry standard for security. Use SHA-256 for anything security-related." },
-                  { q: "Can I use hashes for passwords?", a: "Not directly. For password storage, use specialized algorithms like bcrypt, scrypt, or Argon2 that include salting and key stretching. Plain hashes are too fast and vulnerable to rainbow tables." },
-                  { q: "What is the Verify mode for?", a: "Verify mode lets you check if a file or text produces an expected hash. This is useful for verifying downloaded files match the hash provided by the source." }
-                ].map((faq, i) => (
-                  <details key={i} className="w-full group bg-white/80 dark:bg-slate-900/80 backdrop-blur-sm border border-slate-200 dark:border-slate-800 rounded-xl overflow-hidden">
-                    <summary className="flex items-center justify-between p-5 font-semibold cursor-pointer text-slate-800 dark:text-white hover:bg-slate-50 dark:hover:bg-slate-800/50 transition-colors">
-                      {faq.q}
-                      <span className="text-slate-400 group-open:rotate-180 transition-transform">▼</span>
-                    </summary>
-                    <div className="px-5 pb-5 text-slate-600 dark:text-slate-300 text-sm leading-relaxed border-t border-slate-100 dark:border-slate-800 pt-4">
-                      {faq.a}
-                    </div>
-                  </details>
-                ))}
-              </div>
+            <h2 className="text-2xl font-bold text-center text-slate-900 dark:text-white mb-8">
+              Frequently Asked Questions
+            </h2>
+            <div className="space-y-4 w-full">
+              {[
+                { q: "What is a hash?", a: "A hash is a fixed-size string generated from input data using a mathematical algorithm. The same input always produces the same hash, but you cannot reverse a hash back to the original data." },
+                { q: "Is my data secure?", a: "Yes! All hashing happens 100% in your browser using JavaScript. Your data never leaves your device - we don't send anything to our servers." },
+                { q: "What's the difference between MD5 and SHA-256?", a: "MD5 is faster but cryptographically broken (vulnerable to collisions). SHA-256 is the industry standard for security. Use SHA-256 for anything security-related." },
+                { q: "Can I use hashes for passwords?", a: "Not directly. For password storage, use specialized algorithms like bcrypt, scrypt, or Argon2 that include salting and key stretching. Plain hashes are too fast and vulnerable to rainbow tables." },
+                { q: "What is the Verify mode for?", a: "Verify mode lets you check if a file or text produces an expected hash. This is useful for verifying downloaded files match the hash provided by the source." },
+                { q: "Why do I see 'Insecure' and 'Weak' badges?", a: "These badges indicate the security level of each algorithm. MD5 and SHA-1 have known vulnerabilities and should only be used for non-security purposes like checksums." }
+              ].map((faq, i) => (
+                <details key={i} className="w-full group bg-white/80 dark:bg-slate-900/80 backdrop-blur-sm border border-slate-200 dark:border-slate-800 rounded-xl overflow-hidden">
+                  <summary className="flex items-center justify-between p-5 font-semibold cursor-pointer text-slate-800 dark:text-white hover:bg-slate-50 dark:hover:bg-slate-800/50 transition-colors">
+                    {faq.q}
+                    <span className="text-slate-400 group-open:rotate-180 transition-transform">▼</span>
+                  </summary>
+                  <div className="px-5 pb-5 text-slate-600 dark:text-slate-300 text-sm leading-relaxed border-t border-slate-100 dark:border-slate-800 pt-4">
+                    {faq.a}
+                  </div>
+                </details>
+              ))}
             </div>
           </section>
         </main>
