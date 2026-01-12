@@ -1,27 +1,25 @@
 import { NextResponse } from 'next/server';
 import { submitToIndexNow, INDEXNOW_HOST } from '@/lib/indexnow';
+import sitemap from '@/app/sitemap';
 
 export const dynamic = 'force-dynamic'; // Prevent static caching
 
 export async function GET() {
-  // Define all your important pages here
-  // Ideally this should match your sitemap
-  const pages = [
-    `https://${INDEXNOW_HOST}/`,
-    `https://${INDEXNOW_HOST}/cron-job-generator`,
-    `https://${INDEXNOW_HOST}/image-compressor`,
-    `https://${INDEXNOW_HOST}/json-formatter`,
-    `https://${INDEXNOW_HOST}/yaml-formatter`,
-    `https://${INDEXNOW_HOST}/toml-formatter`,
-    `https://${INDEXNOW_HOST}/json-to-csv`,
-    `https://${INDEXNOW_HOST}/diff-checker`,
-  ];
+  try {
+    // Dynamically fetch all URLs from the sitemap
+    const sitemapEntries = await sitemap();
+    const pages = sitemapEntries.map(entry => entry.url);
 
-  const result = await submitToIndexNow(pages);
+    const result = await submitToIndexNow(pages);
 
-  return NextResponse.json({
-    message: 'IndexNow submission triggered',
-    result,
-    urls: pages.length
-  });
+    return NextResponse.json({
+      message: 'IndexNow submission triggered',
+      result,
+      urls: pages.length,
+      pages // useful for debugging
+    });
+  } catch (error) {
+    console.error('Failed to trigger IndexNow:', error);
+    return NextResponse.json({ error: 'Failed to trigger IndexNow' }, { status: 500 });
+  }
 }
