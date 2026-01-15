@@ -33,7 +33,11 @@ export async function generateMetadata(): Promise<Metadata> {
     manifest: "/manifest.json",
     themeColor: "#4f46e5",
     icons: {
-      icon: "/images/logo/sunflower-logo.webp",
+      icon: [
+        { url: "/favicon.ico", sizes: "any" },
+        { url: "/favicon.png", type: "image/png" },
+        { url: "/images/logo/sunflower-logo.webp", type: "image/webp" },
+      ],
       apple: "/images/logo/sunflower-logo.webp",
     },
     verification: {

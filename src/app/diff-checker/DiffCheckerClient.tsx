@@ -208,44 +208,53 @@ export default function DiffCheckerPage() {
                                 </div>
                             </div>
 
-                            {/* Language Selector */}
-                            <div className="flex items-center gap-2 bg-slate-100 dark:bg-slate-800 p-1 rounded-lg border border-slate-200 dark:border-slate-700">
-                                <span className="text-[10px] font-bold text-slate-400 uppercase tracking-wider px-2 hidden sm:inline-block">Language:</span>
-                                <button
-                                    onClick={() => setLanguage("text")}
-                                    className={`p-2 rounded-md transition-all ${language === "text" ? "bg-white dark:bg-slate-700 shadow-sm text-rose-600 dark:text-rose-400" : "text-slate-500 hover:text-slate-900 dark:text-slate-400 dark:hover:text-slate-200"}`}
-                                    title="Plain Text"
-                                >
-                                    <AlignLeft size={18} />
-                                </button>
-                                <button
-                                    onClick={() => setLanguage("json")}
-                                    className={`p-2 rounded-md transition-all ${language === "json" ? "bg-white dark:bg-slate-700 shadow-sm text-rose-600 dark:text-rose-400" : "text-slate-500 hover:text-slate-900 dark:text-slate-400 dark:hover:text-slate-200"}`}
-                                    title="JSON"
-                                >
-                                    <FileJson size={18} />
-                                </button>
-                                <button
-                                    onClick={() => setLanguage("yaml")}
-                                    className={`p-2 rounded-md transition-all ${language === "yaml" ? "bg-white dark:bg-slate-700 shadow-sm text-rose-600 dark:text-rose-400" : "text-slate-500 hover:text-slate-900 dark:text-slate-400 dark:hover:text-slate-200"}`}
-                                    title="YAML"
-                                >
-                                    <FileType size={18} />
-                                </button>
-                                <button
-                                    onClick={() => setLanguage("toml")}
-                                    className={`p-2 rounded-md transition-all ${language === "toml" ? "bg-white dark:bg-slate-700 shadow-sm text-rose-600 dark:text-rose-400" : "text-slate-500 hover:text-slate-900 dark:text-slate-400 dark:hover:text-slate-200"}`}
-                                    title="TOML"
-                                >
-                                    <FileCode size={18} />
-                                </button>
-                                <button
-                                    onClick={() => setLanguage("csv")}
-                                    className={`p-2 rounded-md transition-all ${language === "csv" ? "bg-white dark:bg-slate-700 shadow-sm text-rose-600 dark:text-rose-400" : "text-slate-500 hover:text-slate-900 dark:text-slate-400 dark:hover:text-slate-200"}`}
-                                    title="CSV"
-                                >
-                                    <Table size={18} />
-                                </button>
+                            {/* Language Selector with Clear Label */}
+                            <div className="flex flex-col gap-1">
+                                <div className="flex items-center gap-2 bg-slate-100 dark:bg-slate-800 p-1 rounded-lg border border-slate-200 dark:border-slate-700">
+                                    <span className="text-[10px] font-bold text-slate-400 uppercase tracking-wider px-2 hidden sm:inline-block">Syntax:</span>
+                                    <button
+                                        onClick={() => setLanguage("text")}
+                                        className={`p-2 rounded-md transition-all ${language === "text" ? "bg-white dark:bg-slate-700 shadow-sm text-rose-600 dark:text-rose-400" : "text-slate-500 hover:text-slate-900 dark:text-slate-400 dark:hover:text-slate-200"}`}
+                                        title="Plain Text - No syntax highlighting"
+                                    >
+                                        <AlignLeft size={18} />
+                                    </button>
+                                    <button
+                                        onClick={() => setLanguage("json")}
+                                        className={`p-2 rounded-md transition-all ${language === "json" ? "bg-white dark:bg-slate-700 shadow-sm text-rose-600 dark:text-rose-400" : "text-slate-500 hover:text-slate-900 dark:text-slate-400 dark:hover:text-slate-200"}`}
+                                        title="JSON - Highlight JSON syntax"
+                                    >
+                                        <FileJson size={18} />
+                                    </button>
+                                    <button
+                                        onClick={() => setLanguage("yaml")}
+                                        className={`p-2 rounded-md transition-all ${language === "yaml" ? "bg-white dark:bg-slate-700 shadow-sm text-rose-600 dark:text-rose-400" : "text-slate-500 hover:text-slate-900 dark:text-slate-400 dark:hover:text-slate-200"}`}
+                                        title="YAML - Highlight YAML syntax"
+                                    >
+                                        <FileType size={18} />
+                                    </button>
+                                    <button
+                                        onClick={() => setLanguage("toml")}
+                                        className={`p-2 rounded-md transition-all ${language === "toml" ? "bg-white dark:bg-slate-700 shadow-sm text-rose-600 dark:text-rose-400" : "text-slate-500 hover:text-slate-900 dark:text-slate-400 dark:hover:text-slate-200"}`}
+                                        title="TOML - Highlight TOML syntax"
+                                    >
+                                        <FileCode size={18} />
+                                    </button>
+                                    <button
+                                        onClick={() => setLanguage("csv")}
+                                        className={`p-2 rounded-md transition-all ${language === "csv" ? "bg-white dark:bg-slate-700 shadow-sm text-rose-600 dark:text-rose-400" : "text-slate-500 hover:text-slate-900 dark:text-slate-400 dark:hover:text-slate-200"}`}
+                                        title="CSV - Highlight CSV syntax"
+                                    >
+                                        <Table size={18} />
+                                    </button>
+                                    {/* Show current selection on mobile */}
+                                    <span className="text-xs font-medium text-rose-600 dark:text-rose-400 uppercase px-2 sm:hidden">
+                                        {language}
+                                    </span>
+                                </div>
+                                <span className="text-[10px] text-slate-400 dark:text-slate-500 text-center">
+                                    Syntax highlighting only (doesn&apos;t affect comparison)
+                                </span>
                             </div>
                         </div>
                     </div>

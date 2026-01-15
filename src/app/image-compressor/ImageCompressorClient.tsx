@@ -83,8 +83,9 @@ export function ImageCompressorClient() {
       <FAQStructuredData />
       <div className="flex flex-col min-h-screen">
         <SmartHeroHeader
-            title="Image Compressor"
+            title="Image Compressor & HEIC Converter"
             theme={theme}
+            description="Reduce image file sizes instantly. Convert iPhone HEIC photos and SVG vectors to compatible JPG/PNG formats for Claude, ChatGPT, and design tools. 100% private, browser-side processing."
         />
         
         <main className="flex-1 w-full max-w-[1920px] mx-auto px-4 sm:px-6 lg:px-8 py-8 space-y-8">

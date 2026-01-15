@@ -61,8 +61,9 @@ export function DynamicAd({
     }
   }, []);
 
-  // Determine if we should show the ad container (loading or filled)
-  const shouldShow = adStatus !== 'unfilled';
+  // CLS Fix: Always reserve space for the ad, regardless of status.
+  // This prevents layout shifts when the ad loads or if it fails to load.
+  const shouldShow = true; 
   
   // Reserve height based on layout to minimize CLS
   const minHeightClass = layout === 'in-article' ? 'min-h-[100px]' : 'min-h-[250px]';
@@ -70,17 +71,9 @@ export function DynamicAd({
   return (
     <div 
         ref={containerRef}
-        className={`w-full flex justify-center transition-all duration-300 ${
-            shouldShow 
-                ? `opacity-100 mb-8 pt-4 pb-4 ${className}` 
-                : "opacity-0 h-0 overflow-hidden m-0 p-0"
-        }`}
+        className={`w-full flex justify-center transition-all duration-300 mb-8 pt-4 pb-4 ${className}`}
     >
-        <div className={`w-full transition-all duration-300 ${
-            shouldShow 
-                ? `bg-slate-50 dark:bg-slate-900/50 rounded-xl overflow-hidden ${minHeightClass} border border-dashed border-slate-200 dark:border-slate-800 flex items-center justify-center p-4 relative`
-                : "h-0 w-0 border-0"
-        }`}>
+        <div className={`w-full transition-all duration-300 bg-slate-50 dark:bg-slate-900/50 rounded-xl overflow-hidden ${minHeightClass} border border-dashed border-slate-200 dark:border-slate-800 flex items-center justify-center p-4 relative`}>
             {/* Label for advertisement */}
             {adStatus === 'filled' && (
                  <span className="absolute top-0 right-2 text-[10px] text-slate-400 uppercase tracking-widest bg-slate-100 dark:bg-slate-800 px-2 py-0.5 rounded-b-md">

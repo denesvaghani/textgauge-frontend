@@ -6,10 +6,11 @@ interface SmartHeroHeaderProps {
     title: string;
     theme: FlowerTheme;
     adSlot?: string;
+    description?: string;
     className?: string;
 }
 
-export function SmartHeroHeader({ title, theme, adSlot, className = "" }: SmartHeroHeaderProps) {
+export function SmartHeroHeader({ title, theme, adSlot, description, className = "" }: SmartHeroHeaderProps) {
     return (
         <div className={`flex flex-col items-center justify-center pt-8 pb-6 px-4 sm:px-6 lg:px-8 space-y-5 shrink-0 animate-in fade-in zoom-in duration-500 ${className}`}>
             {/* Logo & Title Stack */}
@@ -30,16 +31,23 @@ export function SmartHeroHeader({ title, theme, adSlot, className = "" }: SmartH
                     </div>
                 </div>
 
-                {/* Title */}
-                <h1 className="text-4xl md:text-5xl font-black tracking-tight text-center bg-clip-text text-transparent bg-gradient-to-br from-slate-900 via-slate-700 to-slate-800 dark:from-white dark:via-slate-200 dark:to-slate-400 drop-shadow-sm pb-1 max-w-4xl leading-tight">
+                {/* Title - Responsive sizing to prevent truncation on mobile */}
+                <h1 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-black tracking-tight text-center bg-clip-text text-transparent bg-gradient-to-br from-slate-900 via-slate-700 to-slate-800 dark:from-white dark:via-slate-200 dark:to-slate-400 drop-shadow-sm pb-1 max-w-4xl leading-tight px-2">
                     {title}
                 </h1>
             </div>
 
             {/* Significance (Personal Line) - Hero Subtitle */}
-            <p className="text-center text-slate-600 dark:text-slate-500 text-sm md:text-base italic font-medium tracking-wide max-w-lg">
+            <p className="text-center text-slate-600 dark:text-slate-500 text-sm md:text-base italic font-medium tracking-wide max-w-lg leading-relaxed">
                 {theme.significance}
             </p>
+
+            {/* Optional Description - More detailed info */}
+            {description && (
+                <p className="text-center text-slate-500 dark:text-slate-400 text-sm md:text-base max-w-2xl leading-relaxed">
+                    {description}
+                </p>
+            )}
 
             {/* Optional Ad Slot - Integrated into layout but unobtrusive */}
             {adSlot && (

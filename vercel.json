@@ -1,4 +1,10 @@
 {
+  "crons": [
+    {
+      "path": "/api/cron/indexnow",
+      "schedule": "0 10 * * *"
+    }
+  ],
   "redirects": [
     {
       "source": "/:path*",
@@ -19,6 +25,17 @@
         {
           "type": "host",
           "value": "www.countcharacters.in"
+        }
+      ]
+    },
+    {
+      "source": "/:path*",
+      "destination": "https://www.countcharacters.org/:path*",
+      "permanent": true,
+      "has": [
+        {
+          "type": "host",
+          "value": "countcharacters.org"
         }
       ]
     }

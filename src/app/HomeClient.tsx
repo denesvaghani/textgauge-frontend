@@ -78,6 +78,15 @@ const categories = {
       hoverShadow: "hover:shadow-blue-500/20",
       hoverText: "group-hover:text-blue-600 dark:group-hover:text-blue-400",
     },
+    {
+      href: "/image-merger",
+      theme: flowerThemes.sunflower,
+      title: "Image Merger",
+      description: "Combine multiple images into one. Stitch photos vertically for scrolling screenshots or horizontally for comparisons.",
+      hoverBorder: "hover:border-yellow-400/60 dark:hover:border-yellow-400/40",
+      hoverShadow: "hover:shadow-yellow-500/20",
+      hoverText: "group-hover:text-yellow-600 dark:group-hover:text-yellow-400",
+    },
   ],
   "Comparison": [
     {
@@ -101,6 +110,15 @@ const categories = {
       hoverText: "group-hover:text-yellow-600 dark:group-hover:text-yellow-400",
     },
     {
+      href: "/hash-generator",
+      theme: flowerThemes.magnolia,
+      title: "Hash Generator",
+      description: "Generate MD5, SHA-1, SHA-256, and SHA-512 hashes instantly. Verify file integrity with checksums.",
+      hoverBorder: "hover:border-emerald-400/60 dark:hover:border-emerald-400/40",
+      hoverShadow: "hover:shadow-emerald-500/20",
+      hoverText: "group-hover:text-emerald-600 dark:group-hover:text-emerald-400",
+    },
+    {
       href: "/cron-job-generator",
       theme: flowerThemes.morningGlory,
       title: "Cron Generator",
@@ -117,6 +135,15 @@ const categories = {
       hoverBorder: "hover:border-violet-400/60 dark:hover:border-violet-400/40",
       hoverShadow: "hover:shadow-violet-500/20",
       hoverText: "group-hover:text-violet-600 dark:group-hover:text-violet-400",
+    },
+    {
+      href: "/url-encoder",
+      theme: flowerThemes.jasmine,
+      title: "URL Encoder",
+      description: "Encode and decode URLs, parse query parameters, and build URLs visually. Full UTF-8 support.",
+      hoverBorder: "hover:border-yellow-400/60 dark:hover:border-yellow-400/40",
+      hoverShadow: "hover:shadow-yellow-500/20",
+      hoverText: "group-hover:text-yellow-600 dark:group-hover:text-yellow-400",
     },
   ],
 };

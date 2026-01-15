@@ -26,14 +26,17 @@ const navCategories = {
     ],
     "Media Tools": [
         { href: "/image-compressor", label: "Image Compressor", image: flowerThemes.hydrangea.image },
+        { href: "/image-merger", label: "Image Merger", image: flowerThemes.sunflower.image },
     ],
     "Comparison": [
         { href: "/diff-checker", label: "Diff Checker", image: flowerThemes.redRose.image },
     ],
     "Generators": [
         { href: "/uuid-generator", label: "UUID Generator", image: flowerThemes.dahlia.image },
+        { href: "/hash-generator", label: "Hash Generator", image: flowerThemes.magnolia.image },
         { href: "/cron-job-generator", label: "Cron Generator", image: flowerThemes.morningGlory.image },
         { href: "/base64-encoder", label: "Base64 Tool", image: flowerThemes.blueIris.image },
+        { href: "/url-encoder", label: "URL Encoder", image: flowerThemes.jasmine.image },
     ],
 };
 
