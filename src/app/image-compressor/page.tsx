@@ -6,7 +6,7 @@ export const metadata: Metadata = {
   description:
     "Free online image compressor. Compress JPG, PNG, and WebP images while maintaining quality. Resize, convert formats, and download optimized images client-side.",
   alternates: {
-    canonical: "/image-compressor",
+    canonical: "https://www.countcharacters.org/image-compressor",
   },
   openGraph: {
     title: "Image Compressor - Compress JPG, PNG, WebP Online | TextGauge",
