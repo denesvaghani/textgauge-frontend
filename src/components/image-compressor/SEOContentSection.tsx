@@ -40,10 +40,10 @@ export function SEOContentSection() {
           <div>
             <h3 className="font-bold text-base mb-2 text-slate-900 dark:text-white flex items-center gap-2">
               <span className="w-1.5 h-1.5 rounded-full bg-blue-500"></span>
-              Optimized ZIP Delivery
+              HEIC for AI (Claude & ChatGPT)
             </h3>
             <p className="leading-relaxed">
-              For developers and content managers, we support <strong>parallel processing</strong>. Drop an entire folder of assets, optimize them with global settings, and download the entire set in a structured ZIP, ready for immediate deployment to your CDN.
+              Newer iPhones save photos in <strong>HEIC/HEIF</strong> format, which many AI models like <strong>Claude 3.5 Sonnet</strong> or legacy web apps cannot process. Our tool automatically detects HEIC files and converts them to high-compatibility <strong>JPG</strong>, allowing you to seamlessly use iPhone photos in your AI workflows.
             </p>
           </div>
         </div>
