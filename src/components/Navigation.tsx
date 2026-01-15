@@ -26,6 +26,7 @@ const navCategories = {
     ],
     "Media Tools": [
         { href: "/image-compressor", label: "Image Compressor", image: flowerThemes.hydrangea.image },
+        { href: "/image-merger", label: "Image Merger", image: flowerThemes.sunflower.image },
     ],
     "Comparison": [
         { href: "/diff-checker", label: "Diff Checker", image: flowerThemes.redRose.image },

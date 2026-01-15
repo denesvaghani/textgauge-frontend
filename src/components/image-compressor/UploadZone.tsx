@@ -23,6 +23,9 @@ export function UploadZone({ onFilesSelected, isProcessing }: UploadZoneProps) {
       "image/jpeg": [],
       "image/png": [],
       "image/webp": [],
+      "image/heic": [".heic"],
+      "image/heif": [".heif"],
+      "image/svg+xml": [".svg"],
     },
     disabled: isProcessing,
   });
@@ -48,7 +51,7 @@ export function UploadZone({ onFilesSelected, isProcessing }: UploadZoneProps) {
             {isDragActive ? "Drop images here" : "Drag & Drop images here"}
           </h3>
           <p className="text-slate-500 dark:text-slate-400 max-w-sm mx-auto">
-            or click to browse from your computer. Supports JPG, PNG, and WebP.
+            or click to browse from your computer. Supports HEIC, JPG, PNG, WebP, and SVG.
           </p>
         </div>
 

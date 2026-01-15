@@ -78,6 +78,15 @@ const categories = {
       hoverShadow: "hover:shadow-blue-500/20",
       hoverText: "group-hover:text-blue-600 dark:group-hover:text-blue-400",
     },
+    {
+      href: "/image-merger",
+      theme: flowerThemes.sunflower,
+      title: "Image Merger",
+      description: "Combine multiple images into one. Stitch photos vertically for scrolling screenshots or horizontally for comparisons.",
+      hoverBorder: "hover:border-yellow-400/60 dark:hover:border-yellow-400/40",
+      hoverShadow: "hover:shadow-yellow-500/20",
+      hoverText: "group-hover:text-yellow-600 dark:group-hover:text-yellow-400",
+    },
   ],
   "Comparison": [
     {
