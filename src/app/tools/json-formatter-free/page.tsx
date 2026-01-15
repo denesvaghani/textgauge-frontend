@@ -6,6 +6,10 @@ export const metadata: Metadata = {
   title: "Free JSON Formatter & Validator Online | TextGauge",
   description:
     "Format, validate, and beautify JSON instantly. Free online JSON formatter with syntax highlighting, error detection, and copy-paste simplicity. No sign-up required.",
+  robots: {
+    index: false,
+    follow: false,
+  },
   openGraph: {
     title: "Free JSON Formatter & Validator Online",
     description:

@@ -102,56 +102,56 @@ export default function YamlFormatterPage() {
                 {/* FAQ Section */}
                 <section className="w-full max-w-[1920px] mx-auto px-4 sm:px-6 lg:px-8 pb-16">
                     <h2 className="text-2xl font-bold text-center text-slate-900 dark:text-white mb-8">
-                        Frequently Asked Questions
+                        Expert FAQ: YAML for DevOps & Security
                     </h2>
                     <div className="space-y-4 w-full">
                         <details className="w-full group bg-white/80 dark:bg-slate-900/80 backdrop-blur-sm border border-emerald-200/50 dark:border-emerald-800/30 rounded-xl overflow-hidden transition-all duration-200 hover:shadow-md">
                             <summary className="flex items-center justify-between p-5 font-semibold cursor-pointer text-slate-800 dark:text-white hover:bg-emerald-50/50 dark:hover:bg-emerald-900/20 transition-colors">
-                                How do I validate YAML?
+                                Is client-side YAML validation safe for K8s secrets?
                                 <span className="text-slate-400 group-open:rotate-180 transition-transform">▼</span>
                             </summary>
                             <div className="px-5 pb-5 text-slate-600 dark:text-slate-300 text-sm leading-relaxed border-t border-emerald-100/50 dark:border-emerald-800/30 pt-4">
-                                <strong>Paste your YAML</strong> into the editor. The tool <strong>automatically validates</strong> syntax and structure, displaying errors with <strong>line numbers</strong> and descriptions. Common issues like indentation errors and missing colons are detected instantly.
+                                <strong>Yes.</strong> Unlike many online formatters that send data to a backend, <strong>TextGauge</strong> parses YAML <strong>100% locally</strong>. Your Docker credentials, Kubernetes secrets, or AWS environment variables never touch our servers or the network.
                             </div>
                         </details>
 
                         <details className="w-full group bg-white/80 dark:bg-slate-900/80 backdrop-blur-sm border border-emerald-200/50 dark:border-emerald-800/30 rounded-xl overflow-hidden transition-all duration-200 hover:shadow-md">
                             <summary className="flex items-center justify-between p-5 font-semibold cursor-pointer text-slate-800 dark:text-white hover:bg-emerald-50/50 dark:hover:bg-emerald-900/20 transition-colors">
-                                Is my YAML data secure?
+                                Does this support YAML 1.2 Standards?
                                 <span className="text-slate-400 group-open:rotate-180 transition-transform">▼</span>
                             </summary>
                             <div className="px-5 pb-5 text-slate-600 dark:text-slate-300 text-sm leading-relaxed border-t border-emerald-100/50 dark:border-emerald-800/30 pt-4">
-                                <strong>100% private.</strong> All parsing, validation, and formatting happens <strong>entirely in your browser</strong>. Your configuration files are <strong>never uploaded</strong> to any server. This is especially important for YAML files containing sensitive infrastructure configs.
+                                Our tool uses the <strong>js-yaml</strong> library, supporting the latest <strong>YAML 1.2 schemas</strong>. This ensures compatibility with modern CI/CD pipelines like <strong>GitHub Actions, GitLab CI, and CircleCI</strong>.
                             </div>
                         </details>
 
                         <details className="w-full group bg-white/80 dark:bg-slate-900/80 backdrop-blur-sm border border-emerald-200/50 dark:border-emerald-800/30 rounded-xl overflow-hidden transition-all duration-200 hover:shadow-md">
                             <summary className="flex items-center justify-between p-5 font-semibold cursor-pointer text-slate-800 dark:text-white hover:bg-emerald-50/50 dark:hover:bg-emerald-900/20 transition-colors">
-                                What is YAML used for?
+                                Can I convert JSON to YAML losslessly?
                                 <span className="text-slate-400 group-open:rotate-180 transition-transform">▼</span>
                             </summary>
                             <div className="px-5 pb-5 text-slate-600 dark:text-slate-300 text-sm leading-relaxed border-t border-emerald-100/50 dark:border-emerald-800/30 pt-4">
-                                YAML is used for <strong>configuration files</strong> in tools like <strong>Docker, Kubernetes, GitHub Actions, Ansible</strong>, and CI/CD pipelines. It&apos;s preferred over JSON for configs because it&apos;s more readable and supports comments.
+                                <strong>Absolutely.</strong> Paste any valid JSON into the input editor. The tool will automatically detect the JSON structure and beautify it into a clean, human-readable YAML file—perfect for converting API responses into configuration manifests.
                             </div>
                         </details>
 
                         <details className="w-full group bg-white/80 dark:bg-slate-900/80 backdrop-blur-sm border border-emerald-200/50 dark:border-emerald-800/30 rounded-xl overflow-hidden transition-all duration-200 hover:shadow-md">
                             <summary className="flex items-center justify-between p-5 font-semibold cursor-pointer text-slate-800 dark:text-white hover:bg-emerald-50/50 dark:hover:bg-emerald-900/20 transition-colors">
-                                Can I convert JSON to YAML?
+                                Why is 'Indentation' so critical in YAML?
                                 <span className="text-slate-400 group-open:rotate-180 transition-transform">▼</span>
                             </summary>
                             <div className="px-5 pb-5 text-slate-600 dark:text-slate-300 text-sm leading-relaxed border-t border-emerald-100/50 dark:border-emerald-800/30 pt-4">
-                                Yes! Simply <strong>paste JSON</strong> into the input — the formatter will <strong>automatically convert</strong> it to properly formatted YAML. This is useful for converting API responses into config files.
+                                Unlike JSON, YAML uses <strong>whitespace/indentation</strong> for its structural logic. A single missing space in a <strong>Kubernetes Deployment</strong> file can cause an entire cluster update to fail. Our validator catches these invisible errors and highlights the exact line for repair.
                             </div>
                         </details>
 
                         <details className="w-full group bg-white/80 dark:bg-slate-900/80 backdrop-blur-sm border border-emerald-200/50 dark:border-emerald-800/30 rounded-xl overflow-hidden transition-all duration-200 hover:shadow-md">
                             <summary className="flex items-center justify-between p-5 font-semibold cursor-pointer text-slate-800 dark:text-white hover:bg-emerald-50/50 dark:hover:bg-emerald-900/20 transition-colors">
-                                What YAML versions are supported?
+                                Does this tool support YAML Anchors and Aliases?
                                 <span className="text-slate-400 group-open:rotate-180 transition-transform">▼</span>
                             </summary>
                             <div className="px-5 pb-5 text-slate-600 dark:text-slate-300 text-sm leading-relaxed border-t border-emerald-100/50 dark:border-emerald-800/30 pt-4">
-                                This tool supports <strong>YAML 1.2</strong>, the latest standard. It&apos;s compatible with <strong>Docker Compose, Kubernetes manifests, GitHub Actions workflows</strong>, and all modern DevOps tools.
+                                Yes. The beautifier correctly handles and preserves <strong>Anchors (&)</strong> and <strong>Aliases (*)</strong>, which are essential for DRY (Don't Repeat Yourself) YAML configurations in complex infrastructure-as-code projects.
                             </div>
                         </details>
                     </div>
@@ -171,17 +171,17 @@ export default function YamlFormatterPage() {
 
                 {/* Educational Content Sections */}
                 <section className="w-full max-w-[1920px] mx-auto px-4 sm:px-6 lg:px-8 pb-16 space-y-16">
-                    {/* What is YAML file? */}
+                    {/* Why YAML in DevSecOps */}
                     <div id="what-is-yaml" className="border-t border-emerald-200/50 dark:border-emerald-800/30 pt-12">
                         <h2 className="text-2xl font-bold text-slate-900 dark:text-white mb-6">
-                            What is YAML file?
+                            Beyond Basics: YAML&apos;s Role in Modern DevSecOps
                         </h2>
                         <div className="prose prose-slate dark:prose-invert max-w-none">
                             <p className="text-slate-600 dark:text-slate-300 leading-relaxed text-base">
-                                YAML (YAML Ain't Markup Language) is a human-readable data serialization standard that can be used in conjunction with all programming languages and is often used to write configuration files.
+                                In 2026, YAML has transcended simple configuration. It is the backbone of <strong>Infrastructure as Code (IaC)</strong>. Whether you are defining a <strong>Kubernetes Cluster</strong>, a complex <strong>GitHub Actions</strong> workflow, or an <strong>Ansible</strong> playbook, your YAML must be perfectly formatted to avoid catastrophic deployment failures.
                             </p>
                             <p className="text-slate-600 dark:text-slate-300 leading-relaxed text-base mt-4">
-                                It caters to people using data rather than just computers processing it. YAML is often used for configuration files and in applications where data is being stored or transmitted.
+                                Our YAML Validator goes beyond simple syntax checking. It ensures that your data structure is logically sound. By using a <strong>client-side beautifier</strong>, you maintain a "Zero Trust" security posture—ensuring that your sensitive production configurations never leave your local machine while you prepare them for commit.
                             </p>
                         </div>
                     </div>
@@ -189,22 +189,34 @@ export default function YamlFormatterPage() {
                     {/* YAML Examples */}
                     <div id="yaml-examples" className="border-t border-emerald-200/50 dark:border-emerald-800/30 pt-12">
                         <h2 className="text-2xl font-bold text-slate-900 dark:text-white mb-6">
-                            YAML Examples
+                            Clean YAML vs. Common Errors
                         </h2>
-                        <p className="text-slate-600 dark:text-slate-300 leading-relaxed mb-4 text-base">
-                            Here is a simple example of YAML data representing a server config:
-                        </p>
-                        <div className="bg-slate-100 dark:bg-slate-950 p-6 rounded-xl font-mono text-sm overflow-x-auto border border-emerald-200/50 dark:border-emerald-800/30">
-                            <pre className="text-slate-800 dark:text-slate-200">{`name: Production Server
-version: 1.0.0
-dependencies:
-  - name: nginx
-    version: 1.18.0
-  - name: postgresql
-    version: 13.2
-settings:
-  debug: false
-  max_connections: 100`}</pre>
+                        <div className="grid md:grid-cols-2 gap-6">
+                            <div className="space-y-4">
+                                <h4 className="font-semibold text-slate-700 dark:text-slate-300 uppercase tracking-wider text-xs">✅ Valid Kubernetes Spec</h4>
+                                <div className="bg-emerald-50 dark:bg-emerald-950/20 p-4 rounded-xl font-mono text-sm border border-emerald-200/50 dark:border-emerald-800/30">
+                                    <pre className="text-emerald-800 dark:text-emerald-400">{`apiVersion: v1
+kind: Service
+metadata:
+  name: textgauge-api
+spec:
+  ports:
+    - port: 80
+      targetPort: 9376`}</pre>
+                                </div>
+                            </div>
+                            <div className="space-y-4">
+                                <h4 className="font-semibold text-slate-700 dark:text-slate-300 uppercase tracking-wider text-xs">❌ Common Indentation Error</h4>
+                                <div className="bg-rose-50 dark:bg-rose-950/20 p-4 rounded-xl font-mono text-sm border border-rose-200/50 dark:border-rose-800/30">
+                                    <pre className="text-rose-800 dark:text-rose-400">{`apiVersion: v1
+kind: Service
+metadata:
+name: textgauge-api # Error: Missing indent
+spec:
+  ports:
+  - port: 80 # Error: Tab used instead of spaces`}</pre>
+                                </div>
+                            </div>
                         </div>
                     </div>
 

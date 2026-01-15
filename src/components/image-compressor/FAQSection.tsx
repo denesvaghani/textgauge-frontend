@@ -1,27 +1,27 @@
 const FAQ_DATA = [
   {
-    question: "How do I compress an image to 100KB?",
-    answer: "Click the '≤100KB' preset button, upload your image, and download. Our tool automatically adjusts quality and dimensions to meet the 100KB target."
+    question: "How do I compress images to exactly 100KB or 50KB?",
+    answer: "Select the '≤100KB' or '≤50KB' preset and upload. Our intelligent algorithm iteratively adjusts the <strong>MozJPEG/WebP quality factor</strong> and dimensions to bring the file size as close as possible to the target without sacrificing critical visual detail."
   },
   {
-    question: "Is my data safe? Do you upload my images?",
-    answer: "100% safe. All compression happens directly in your browser. Your images never leave your device - we don't upload or store anything on our servers."
+    question: "Is browser-side compression secure for enterprise use?",
+    answer: "<strong>Yes.</strong> This tool uses the <strong>WebAssembly (Wasm)</strong> and <strong>Canvas API</strong> to process images entirely in your local RAM. Images are never transmitted over the network, making it compliant with strict data privacy policies and secure for proprietary corporate assets."
   },
   {
-    question: "What image formats are supported?",
-    answer: "We support JPG, PNG, and WebP for both input and output. You can also convert between formats (e.g., PNG to WebP for better compression)."
+    question: "MozJPEG vs. WebP: Which should I choose?",
+    answer: "<strong>WebP</strong> is superior for web performance, offering 25-35% better compression than standard JPEG. However, <strong>MozJPEG</strong> (our default JPEG engine) is excellent for maintaining maximum compatibility across older browsers and social media previews."
   },
   {
-    question: "Can I compress multiple images at once?",
-    answer: "Yes! Upload as many images as you need. Process them all with the same settings, then download individually or as a ZIP file."
+    question: "How does batch compression affect performance?",
+    answer: "Our engine uses <strong>asynchronous processing</strong> to handle dozens of images simultaneously. While large batches (50+ images) may utilize significant system memory, the UI remains responsive, and you can download all results in a single <strong>optimized ZIP archive</strong>."
   },
   {
-    question: "What's the best format for web images?",
-    answer: "WebP offers the best compression-to-quality ratio for web. It's 25-35% smaller than JPG at the same quality. Use our 'Web' preset for optimal results."
+    question: "Does this tool strip Exif/Metadata?",
+    answer: "By default, our compression process strips unnecessary metadata (GPS tags, camera settings) to further reduce file size and protect your privacy. If you need to preserve color profiles, we recommend using the 'High Quality' setting."
   },
   {
-    question: "How much can I reduce file size?",
-    answer: "Typical reductions are 50-80% for photos. A 5MB image can often compress to under 500KB with no visible quality loss using WebP format."
+    question: "Why use this over server-side compressors?",
+    answer: "Speed and Privacy. Server-side tools require time-consuming uploads/downloads and pose a privacy risk. <strong>TextGauge</strong> provides <strong>instant, zero-latency feedback</strong> and ensures your data remains under your absolute control at all times."
   }
 ];
 

@@ -6,6 +6,10 @@ export const metadata: Metadata = {
   title: "Free Image Compressor - Compress JPG, PNG, WebP Online | TextGauge",
   description:
     "Compress images without losing quality. Reduce JPG, PNG, and WebP file sizes instantly. Free online tool with batch processing and preset targets.",
+  robots: {
+    index: false,
+    follow: false,
+  },
   openGraph: {
     title: "Free Image Compressor - Compress JPG, PNG, WebP Online",
     description:
