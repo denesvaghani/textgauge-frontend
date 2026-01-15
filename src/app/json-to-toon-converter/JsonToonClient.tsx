@@ -291,48 +291,32 @@ Jane Smith, jane@example.com, Designer, 88`;
                     <div className="border-t border-violet-200/50 dark:border-violet-800/30 pt-12">
                         <h2 className="text-2xl font-bold text-slate-900 dark:text-white mb-8 flex items-center gap-3">
                             <Sparkles className="text-violet-500" size={28} />
-                            TOON and AI: The Perfect Match
+                            Model-Specific Optimization (2026 Edition)
                         </h2>
                         
                         <div className="prose prose-slate dark:prose-invert max-w-none">
                             <p className="text-slate-600 dark:text-slate-300 leading-relaxed text-base mb-6">
-                                TOON (Token-Oriented Object Notation) was created specifically to address the challenges of using structured data with Large Language Models. Here&apos;s why it matters:
+                                TOON is engineered to align with the <strong>attention mechanisms</strong> of modern transformer models. By stripping boilerplate syntax, you allow the model to focus its internal compute on your actual data values.
                             </p>
                             
-                            <div className="grid md:grid-cols-3 gap-6 mb-8">
-                                <div className="bg-gradient-to-br from-violet-50 to-purple-50 dark:from-violet-950/30 dark:to-purple-950/30 rounded-xl p-6 border border-violet-200 dark:border-violet-800">
-                                    <div className="w-12 h-12 bg-violet-100 dark:bg-violet-900 rounded-lg flex items-center justify-center mb-4">
-                                        <TrendingDown className="text-violet-600 dark:text-violet-400" size={24} />
-                                    </div>
-                                    <h3 className="font-bold text-slate-900 dark:text-white mb-2">Lower API Costs</h3>
+                            <div className="grid md:grid-cols-2 gap-8 mb-8">
+                                <div className="bg-white dark:bg-slate-900 rounded-xl p-6 border border-violet-200 dark:border-violet-800">
+                                    <h3 className="font-bold text-slate-900 dark:text-white mb-2 underline decoration-violet-500">For GPT-4o & o1-Series</h3>
                                     <p className="text-sm text-slate-600 dark:text-slate-300">
-                                        Every token costs money. TOON reduces your ChatGPT and Claude API bills by 30-60% on data-heavy prompts.
+                                        OpenAI models charge significantly for long contexts. TOON&apos;s <strong>tabular headers</strong> eliminate the repeat keys found in JSON arrays, effectively doubling the amount of data you can provide in a single prompt without hitting context caps.
                                     </p>
                                 </div>
                                 
-                                <div className="bg-gradient-to-br from-purple-50 to-pink-50 dark:from-purple-950/30 dark:to-pink-950/30 rounded-xl p-6 border border-purple-200 dark:border-purple-800">
-                                    <div className="w-12 h-12 bg-purple-100 dark:bg-purple-900 rounded-lg flex items-center justify-center mb-4">
-                                        <Brain className="text-purple-600 dark:text-purple-400" size={24} />
-                                    </div>
-                                    <h3 className="font-bold text-slate-900 dark:text-white mb-2">Better Accuracy</h3>
+                                <div className="bg-white dark:bg-slate-900 rounded-xl p-6 border border-violet-200 dark:border-violet-800">
+                                    <h3 className="font-bold text-slate-900 dark:text-white mb-2 underline decoration-violet-500">For Claude 3.5 Sonnet</h3>
                                     <p className="text-sm text-slate-600 dark:text-slate-300">
-                                        TOON&apos;s explicit structure (array lengths, field headers) reduces parsing errors and improves model responses.
-                                    </p>
-                                </div>
-                                
-                                <div className="bg-gradient-to-br from-violet-50 to-indigo-50 dark:from-violet-950/30 dark:to-indigo-950/30 rounded-xl p-6 border border-violet-200 dark:border-violet-800">
-                                    <div className="w-12 h-12 bg-violet-100 dark:bg-violet-900 rounded-lg flex items-center justify-center mb-4">
-                                        <Shield className="text-violet-600 dark:text-violet-400" size={24} />
-                                    </div>
-                                    <h3 className="font-bold text-slate-900 dark:text-white mb-2">Lossless Conversion</h3>
-                                    <p className="text-sm text-slate-600 dark:text-slate-300">
-                                        TOON preserves the complete JSON data model. Convert back and forth without losing any information.
+                                        Anthropic models excel at reasoning over <strong>clean, structural data</strong>. TOON provides a "YAML-Lite" semantic structure that matches Claude&apos;s internal training on documentation, leading to higher accuracy in data extraction and summarization tasks.
                                     </p>
                                 </div>
                             </div>
 
                             <p className="text-slate-600 dark:text-slate-300 leading-relaxed text-base">
-                                <strong>When to use TOON:</strong> Use TOON whenever you&apos;re sending structured data to AI models – whether it&apos;s user profiles, product catalogs, or any tabular data. The token savings compound quickly with larger datasets and frequent API calls.
+                                <strong>Pro Tip:</strong> When using TOON with large datasets (100+ rows), include a short instruction: <em>"The following data is in TOON format (CSV-style with headers)."</em> This ensures the model immediately switches to its most efficient parsing mode.
                             </p>
                         </div>
                     </div>

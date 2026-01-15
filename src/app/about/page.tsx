@@ -9,28 +9,28 @@ export const metadata: Metadata = {
 
 export default function AboutPage() {
     return (
-        <LegalLayout title="About TextGauge">
+        <LegalLayout title="About countcharacters.org (Powered by TextGauge)">
             <p className="lead">
-                Free, secure, and efficient developer tools suite for the modern web.
+                The ultimate character counting and developer tool suite, built for speed, privacy, and precision.
             </p>
 
             <h2>Our Mission</h2>
             <p>
-                TextGauge was built with a simple mission: to provide developers, writers, and data analysts with
-                fast, reliable, and privacy-focused tools. We believe that simple tasks like counting characters,
-                formatting JSON, or analyzing text shouldn't require sending your sensitive data to a remote server.
+                <strong>countcharacters.org</strong> was founded with a clear primary mission: to provide the fastest, most reliable character counter on the web. As the site evolved, we integrated the <strong>TextGauge</strong> developer suite to offer a comprehensive set of tools for writers, developers, and data analysts.
+            </p>
+            <p>
+                We believe that simple tasks like counting characters, formatting JSON, or comparing code shouldn't require sending your sensitive data to a remote server. Everything we build runs 100% on your device.
             </p>
 
-            <h2>Why TextGauge?</h2>
+            <h2>Why Choose This Platform?</h2>
 
             <div className="not-prose grid gap-6 my-8">
                 <div className="flex items-start gap-4">
                     <Shield className="w-8 h-8 text-indigo-600 dark:text-indigo-400 mt-1 flex-shrink-0" />
                     <div>
-                        <h3 className="font-semibold text-lg mb-2">Privacy First</h3>
+                        <h3 className="font-semibold text-lg mb-2">Privacy & Security</h3>
                         <p className="text-slate-600 dark:text-slate-400">
-                            All processing happens in your browser. Your data never leaves your device. We don't
-                            collect, store, or transmit the content you process through our tools.
+                            Security is our priority. All processing happens locally in your browser. Your data—whether it's an essay, a password, or proprietary JSON—never leaves your device.
                         </p>
                     </div>
                 </div>
@@ -38,10 +38,9 @@ export default function AboutPage() {
                 <div className="flex items-start gap-4">
                     <Zap className="w-8 h-8 text-indigo-600 dark:text-indigo-400 mt-1 flex-shrink-0" />
                     <div>
-                        <h3 className="font-semibold text-lg mb-2">Lightning Fast</h3>
+                        <h3 className="font-semibold text-lg mb-2">Edge Performance</h3>
                         <p className="text-slate-600 dark:text-slate-400">
-                            Client-side processing means instant results. No waiting for server responses or dealing
-                            with network latency. Your work flows smoothly and efficiently.
+                            By leveraging modern web technology (like Web Workers for diff checking), we provide instant results without server latency. It's the speed of a local app on the web.
                         </p>
                     </div>
                 </div>
@@ -49,48 +48,32 @@ export default function AboutPage() {
                 <div className="flex items-start gap-4">
                     <CircleDollarSign className="w-8 h-8 text-indigo-600 dark:text-indigo-400 mt-1 flex-shrink-0" />
                     <div>
-                        <h3 className="font-semibold text-lg mb-2">Completely Free</h3>
+                        <h3 className="font-semibold text-lg mb-2">Ad-Supported, User-Focused</h3>
                         <p className="text-slate-600 dark:text-slate-400">
-                            No subscriptions, no hidden fees, no paywalls. All features are free to use, forever.
-                            We're supported by non-intrusive advertising.
+                            We keep our tools free through non-intrusive advertising. We prioritize a clean UX over "ad-heavy" layouts found on legacy tool sites.
                         </p>
                     </div>
                 </div>
             </div>
 
-            <h2>Our Tools</h2>
-            <p>TextGauge offers a growing suite of text analysis and formatting tools:</p>
+            <h2>The TextGauge Engine</h2>
+            <p>Our platform is powered by the TextGauge engine, offering:</p>
             <ul>
-                <li><strong>Developer Utilities:</strong> Format, validate, and minify JSON, TOML, and YAML with advanced editors.</li>
-                <li><strong>Data Converters:</strong> Instantly convert between JSON, CSV, XML, and YAML formats.</li>
-                <li><strong>Diff Tools:</strong> Compare text and code side-by-side to spot differences immediately.</li>
-                <li><strong>Text Analysis:</strong> Count characters, words, and analyze text density for SEO.</li>
+                <li><strong>Advanced Character Analysis:</strong> Real-time counts for characters, words, sentences, and SEO density.</li>
+                <li><strong>Modern Formatters:</strong> Professional editors for JSON, TOML, and YAML with real-time validation.</li>
+                <li><strong>AI-Ready Converters:</strong> Unique formats like <strong>JSON to TOON</strong> designed to save tokens in LLM prompts.</li>
+                <li><strong>Image Optimization:</strong> 100% client-side compression that maintains quality without risking your privacy.</li>
             </ul>
 
-            <h2>Built for Everyone</h2>
+            <h2>Trust & Transparency</h2>
             <p>
-                Whether you're a developer debugging API responses, a writer tracking word counts, or a student
-                analyzing essays, TextGauge has tools designed to make your work easier and more efficient.
-            </p>
-
-            <h2>Open Source & Community</h2>
-            <p>
-                We believe in transparency and community-driven development. While TextGauge is currently a closed-source
-                project, we're committed to listening to user feedback and continuously improving our tools based on
-                your needs.
+                TextGauge is developed by a dedicated team of software engineers focused on "AI-Accelerated Development". We use the latest technologies to ensure our tools are ahead of the curve, providing features like CSV flattening and Monaco-based editing that most free tools lack.
             </p>
 
             <h2>Contact & Support</h2>
             <p>
                 We value your feedback! If you have suggestions for new tools or improvements, please feel free
-                to reach out through our <a href="/contact">contact page</a>. We're constantly working to make
-                TextGauge better for everyone.
-            </p>
-
-            <h2>The Team</h2>
-            <p>
-                TextGauge is developed and maintained by a passionate team of developers who care about creating
-                useful, privacy-respecting tools for the web.
+                to reach out through our <a href="/contact">contact page</a>.
             </p>
         </LegalLayout>
     );

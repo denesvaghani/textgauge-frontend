@@ -6,6 +6,10 @@ export const metadata: Metadata = {
   title: "Free JSON to CSV Converter Online | TextGauge",
   description:
     "Convert JSON to CSV instantly. Free online tool with nested object flattening, custom delimiters, and instant download. No sign-up required.",
+  robots: {
+    index: false,
+    follow: false,
+  },
   openGraph: {
     title: "Free JSON to CSV Converter Online",
     description:

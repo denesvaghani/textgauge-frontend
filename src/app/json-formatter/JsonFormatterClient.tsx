@@ -7,7 +7,7 @@ import { FlowerBackground } from "@/components/FlowerBackground";
 import { RelatedTools } from "@/components/RelatedTools";
 import { flowerThemes } from "@/config/flowerThemes";
 import Link from "next/link";
-import { FileSpreadsheet, GitCompare } from "lucide-react";
+import { FileSpreadsheet, GitCompare, Zap } from "lucide-react";
 
 const theme = flowerThemes.cherryBlossom;
 
@@ -121,66 +121,56 @@ export default function JsonFormatterPage() {
                 {/* FAQ Section */}
                 <section className="w-full max-w-[1920px] mx-auto px-4 sm:px-6 lg:px-8 pb-16">
                     <h2 className="text-2xl font-bold text-center text-slate-900 dark:text-white mb-8">
-                        Frequently Asked Questions
+                        Expert FAQ: JSON Formatting & Security
                     </h2>
                     <div className="space-y-4 w-full">
                         <details className="w-full group bg-white/80 dark:bg-slate-900/80 backdrop-blur-sm border border-pink-200/50 dark:border-pink-800/30 rounded-xl overflow-hidden transition-all duration-200 hover:shadow-md">
                             <summary className="flex items-center justify-between p-5 font-semibold cursor-pointer text-slate-800 dark:text-white hover:bg-pink-50/50 dark:hover:bg-pink-900/20 transition-colors">
-                                How do I format JSON?
+                                Why is client-side JSON formatting safer?
                                 <span className="text-slate-400 group-open:rotate-180 transition-transform">▼</span>
                             </summary>
                             <div className="px-5 pb-5 text-slate-600 dark:text-slate-300 text-sm leading-relaxed border-t border-pink-100/50 dark:border-pink-800/30 pt-4">
-                                <strong>Paste your JSON</strong> into the editor and click <strong>Beautify</strong>. The tool automatically adds <strong>proper indentation</strong>, line breaks, and structure. You can also choose between <strong>2-space or 4-space</strong> indentation using the tab size option.
+                                Most online formatters upload your JSON to a server for processing. If your JSON contains <strong>API keys, PII, or internal config</strong>, it is at risk. <strong>TextGauge</strong> processes data <strong>100% locally</strong> in your browser using JavaScript. We never see your data, and it never touches a network.
                             </div>
                         </details>
 
                         <details className="w-full group bg-white/80 dark:bg-slate-900/80 backdrop-blur-sm border border-pink-200/50 dark:border-pink-800/30 rounded-xl overflow-hidden transition-all duration-200 hover:shadow-md">
                             <summary className="flex items-center justify-between p-5 font-semibold cursor-pointer text-slate-800 dark:text-white hover:bg-pink-50/50 dark:hover:bg-pink-900/20 transition-colors">
-                                Can I minify JSON to reduce file size?
+                                How does the validator handle Large JSON files?
                                 <span className="text-slate-400 group-open:rotate-180 transition-transform">▼</span>
                             </summary>
                             <div className="px-5 pb-5 text-slate-600 dark:text-slate-300 text-sm leading-relaxed border-t border-pink-100/50 dark:border-pink-800/30 pt-4">
-                                Yes! Click the <strong>Minify</strong> button to remove <strong>all whitespace and line breaks</strong>. This is ideal for <strong>API responses</strong>, configuration files, or anywhere you need to reduce file size without changing the data.
+                                Our tool uses a highly optimized parser that can handle JSON files up to <strong>10MB</strong> without freezing the UI. For massive datasets, we recommend using our specialized converters to reduce memory overhead.
                             </div>
                         </details>
 
                         <details className="w-full group bg-white/80 dark:bg-slate-900/80 backdrop-blur-sm border border-pink-200/50 dark:border-pink-800/30 rounded-xl overflow-hidden transition-all duration-200 hover:shadow-md">
                             <summary className="flex items-center justify-between p-5 font-semibold cursor-pointer text-slate-800 dark:text-white hover:bg-pink-50/50 dark:hover:bg-pink-900/20 transition-colors">
-                                Is my JSON data private and secure?
+                                What is the "JSON to TOON" feature?
                                 <span className="text-slate-400 group-open:rotate-180 transition-transform">▼</span>
                             </summary>
                             <div className="px-5 pb-5 text-slate-600 dark:text-slate-300 text-sm leading-relaxed border-t border-pink-100/50 dark:border-pink-800/30 pt-4">
-                                <strong>100% private.</strong> All formatting and validation happens <strong>entirely in your browser</strong> using JavaScript. Your data is <strong>never uploaded</strong> to any server. We cannot see, store, or access your JSON — it never leaves your device.
+                                <strong>Exclusive to TextGauge:</strong> TOON is an LLM-optimized data format. When you convert JSON to TOON, you can reduce <strong>token usage by up to 40%</strong> in ChatGPT, Claude, and Gemini prompts, saving you money and increasing prompt performance.
                             </div>
                         </details>
 
                         <details className="w-full group bg-white/80 dark:bg-slate-900/80 backdrop-blur-sm border border-pink-200/50 dark:border-pink-800/30 rounded-xl overflow-hidden transition-all duration-200 hover:shadow-md">
                             <summary className="flex items-center justify-between p-5 font-semibold cursor-pointer text-slate-800 dark:text-white hover:bg-pink-50/50 dark:hover:bg-pink-900/20 transition-colors">
-                                What JSON errors does this tool detect?
+                                Does this support JSONC or JSONL?
                                 <span className="text-slate-400 group-open:rotate-180 transition-transform">▼</span>
                             </summary>
                             <div className="px-5 pb-5 text-slate-600 dark:text-slate-300 text-sm leading-relaxed border-t border-pink-100/50 dark:border-pink-800/30 pt-4">
-                                The tool detects <strong>syntax errors</strong> (missing commas, brackets, quotes), <strong>invalid structure</strong>, trailing commas, and <strong>data type issues</strong>. Error messages include <strong>line numbers</strong> to help you locate and fix problems quickly.
+                                Currently, we focus on standard <strong>ECMA-404 JSON</strong> validation. Support for <strong>JSON with Comments (JSONC)</strong> and <strong>JSON Lines (JSONL)</strong> is planned for our Q2 2026 roadmap.
                             </div>
                         </details>
 
                         <details className="w-full group bg-white/80 dark:bg-slate-900/80 backdrop-blur-sm border border-pink-200/50 dark:border-pink-800/30 rounded-xl overflow-hidden transition-all duration-200 hover:shadow-md">
                             <summary className="flex items-center justify-between p-5 font-semibold cursor-pointer text-slate-800 dark:text-white hover:bg-pink-50/50 dark:hover:bg-pink-900/20 transition-colors">
-                                What is JSON used for?
+                                Can I use this for API debugging?
                                 <span className="text-slate-400 group-open:rotate-180 transition-transform">▼</span>
                             </summary>
                             <div className="px-5 pb-5 text-slate-600 dark:text-slate-300 text-sm leading-relaxed border-t border-pink-100/50 dark:border-pink-800/30 pt-4">
-                                JSON (JavaScript Object Notation) is used for <strong>data exchange</strong> between servers and web applications, <strong>API responses</strong>, <strong>configuration files</strong>, and <strong>storing structured data</strong>. It&apos;s lightweight, human-readable, and supported by virtually all programming languages.
-                            </div>
-                        </details>
-
-                        <details className="w-full group bg-white/80 dark:bg-slate-900/80 backdrop-blur-sm border border-pink-200/50 dark:border-pink-800/30 rounded-xl overflow-hidden transition-all duration-200 hover:shadow-md">
-                            <summary className="flex items-center justify-between p-5 font-semibold cursor-pointer text-slate-800 dark:text-white hover:bg-pink-50/50 dark:hover:bg-pink-900/20 transition-colors">
-                                Can I convert JSON to other formats?
-                                <span className="text-slate-400 group-open:rotate-180 transition-transform">▼</span>
-                            </summary>
-                            <div className="px-5 pb-5 text-slate-600 dark:text-slate-300 text-sm leading-relaxed border-t border-pink-100/50 dark:border-pink-800/30 pt-4">
-                                Yes! Use our <strong>JSON to CSV</strong> converter for spreadsheet data, <strong>JSON to YAML</strong> for configuration files, or <strong>JSON to TOON</strong> to reduce token usage for AI applications. Each converter is designed for specific use cases.
+                                Yes. The editor provides <strong>syntax highlighting</strong> and <strong>real-time error detection</strong>. If your API returns a mess of text, paste it here to immediately see the structure and identify missing fields or malformed arrays.
                             </div>
                         </details>
                     </div>
@@ -199,40 +189,58 @@ export default function JsonFormatterPage() {
 
                 {/* Educational Content Sections */}
                 <section className="w-full max-w-[1920px] mx-auto px-4 sm:px-6 lg:px-8 pb-16 space-y-16">
-                    {/* What is JSON file? */}
+                    {/* Why JSON Standard matters */}
                     <div id="what-is-json" className="border-t border-pink-200/50 dark:border-pink-800/30 pt-12">
                         <h2 className="text-2xl font-bold text-slate-900 dark:text-white mb-6">
-                            What is JSON file?
+                            Beyond Basics: Why JSON Structure Matters in 2026
                         </h2>
                         <div className="prose prose-slate dark:prose-invert max-w-none">
                             <p className="text-slate-600 dark:text-slate-300 leading-relaxed text-base">
-                                JSON (JavaScript Object Notation) is a lightweight data-interchange format. It is easy for humans to read and write. It is easy for machines to parse and generate. It is based on a subset of the JavaScript Programming Language Standard ECMA-262 3rd Edition - December 1999.
+                                While JSON remains the <strong>lingua franca</strong> of the web, the way we use it has evolved. With the rise of <strong>LLMs (Large Language Models)</strong> and complex microservices, malformed JSON doesn't just crash an app—it wastes expensive tokens and causes "hallucinations" in AI responses.
                             </p>
                             <p className="text-slate-600 dark:text-slate-300 leading-relaxed text-base mt-4">
-                                JSON is a text format that is completely language independent but uses conventions that are familiar to programmers of the C-family of languages, including C, C++, C#, Java, JavaScript, Perl, Python, and many others. These properties make JSON an ideal data-interchange language.
+                                Using a <strong>JSON Formatter</strong> isn't just about readability; it's about <strong>structural integrity</strong>. Our validator ensures that your data follows strict ECMA-404 standards, preventing silent errors in data pipelines and ensuring your AI agents receive perfectly parsed context every time.
                             </p>
                         </div>
+                    </div>
+
+                    {/* Pro Tip: TOON Format */}
+                    <div className="bg-gradient-to-br from-pink-50 to-rose-50 dark:from-pink-950/20 dark:to-rose-950/20 p-8 rounded-2xl border border-pink-200/50 dark:border-pink-800/30">
+                        <h3 className="text-xl font-bold text-pink-700 dark:text-pink-400 mb-4 flex items-center gap-2">
+                             <Zap size={20} /> Pro Tip: Optimize for AI with TOON
+                        </h3>
+                        <p className="text-slate-700 dark:text-slate-300 leading-relaxed">
+                            If you are sending status updates or configuration to an LLM like <strong>GPT-4o or Claude 3.5</strong>, standard JSON carries a lot of "metadata overhead" (quotes, braces, commas) that consumes tokens. 
+                            Use our <Link href="/json-to-toon-converter" className="font-bold underline text-pink-600 dark:text-pink-400">JSON to TOON converter</Link> to strip this overhead while keeping the data perfectly readable for AI, extending your context window and reducing cost.
+                        </p>
                     </div>
 
                     {/* JSON Examples */}
                     <div id="json-examples" className="border-t border-pink-200/50 dark:border-pink-800/30 pt-12">
                         <h2 className="text-2xl font-bold text-slate-900 dark:text-white mb-6">
-                            JSON Examples
+                            Clean vs. Malformed JSON
                         </h2>
-                        <p className="text-slate-600 dark:text-slate-300 leading-relaxed mb-4 text-base">
-                            Here is a simple example of JSON data representing a user:
-                        </p>
-                        <div className="bg-slate-100 dark:bg-slate-950 p-6 rounded-xl font-mono text-sm overflow-x-auto border border-pink-200/50 dark:border-pink-800/30">
-                            <pre className="text-slate-800 dark:text-slate-200">{`{
-  "name": "John Doe",
-  "age": 30,
-  "isStudent": false,
-  "courses": ["Math", "Science"],
-  "address": {
-    "city": "New York",
-    "zip": "10001"
-  }
+                        <div className="grid md:grid-cols-2 gap-6">
+                            <div className="space-y-4">
+                                <h4 className="font-semibold text-slate-700 dark:text-slate-300 uppercase tracking-wider text-xs">✅ Valid JSON</h4>
+                                <div className="bg-emerald-50 dark:bg-emerald-950/20 p-4 rounded-xl font-mono text-sm border border-emerald-200/50 dark:border-emerald-800/30">
+                                    <pre className="text-emerald-800 dark:text-emerald-400">{`{
+  "user": "antigravity",
+  "status": "online",
+  "tags": ["fast", "secure"]
 }`}</pre>
+                                </div>
+                            </div>
+                            <div className="space-y-4">
+                                <h4 className="font-semibold text-slate-700 dark:text-slate-300 uppercase tracking-wider text-xs">❌ Common Malformed Error</h4>
+                                <div className="bg-rose-50 dark:bg-rose-950/20 p-4 rounded-xl font-mono text-sm border border-rose-200/50 dark:border-rose-800/30">
+                                    <pre className="text-rose-800 dark:text-rose-400">{`{
+  'user': "antigravity", // Single quotes invalid
+  "status": "online",
+  "tags": ["fast", "secure",] // Trailing comma
+}`}</pre>
+                                </div>
+                            </div>
                         </div>
                     </div>
 
