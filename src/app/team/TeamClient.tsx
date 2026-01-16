@@ -19,7 +19,7 @@ export function TeamClient() {
         medium: "https://medium.com/@denes_vaghani",
         profileImage: "/images/team/denes-vaghani.jpg",
         summary: "Senior Product Engineer who wears more than just a dev hat — Architect by mindset, debugger by instinct, and mentor when the team needs clarity. With TextGauge, I'm building privacy-first developer tools that run entirely in your browser, using AI-accelerated development to solve real technical workflows without compromising data security.",
-        skills: ["React/Next.js", "AI Engineering", "Privacy-First Tools", "Spring Boot", "Full-Stack Dev", "Technical Leadership"]
+        skills: ["AI Engineering", "Privacy-First Tools", "Full-Stack Development", "Technical Leadership", "Product Engineering"]
     };
 
     const projectSocials = [
@@ -51,7 +51,7 @@ export function TeamClient() {
                                             src={founderData.profileImage}
                                             alt={founderData.name}
                                             fill
-                                            className="object-cover object-top"
+                                            className="object-cover scale-150 object-[center_20%]"
                                             priority
                                         />
                                     </div>
@@ -168,10 +168,6 @@ export function TeamClient() {
                         </div>
                     </section>
                 </main>
-
-                <section className="w-full max-w-[1200px] mx-auto px-4 sm:px-6 lg:px-8 pb-16">
-                    <TrustPanel />
-                </section>
             </div>
         </FlowerBackground>
     );

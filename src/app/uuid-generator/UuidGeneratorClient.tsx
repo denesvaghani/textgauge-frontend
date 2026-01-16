@@ -9,7 +9,7 @@ import { Copy, Download, RefreshCw, ChevronDown, FileJson, FileText, Table, Data
 import { useEffect, useState, useCallback } from "react";
 
 export default function UuidGeneratorClient() {
-  const theme = flowerThemes.dahlia;
+  const theme = flowerThemes.gerbera;
   const [idType, setIdType] = useState<IdType>('uuidv4');
   const [count, setCount] = useState(10);
   const [hyphens, setHyphens] = useState(true);
