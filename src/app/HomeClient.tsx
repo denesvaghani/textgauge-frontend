@@ -40,7 +40,7 @@ const categories = {
   "Converters": [
     {
       href: "/json-to-csv-converter",
-      theme: flowerThemes.gerbera,
+      theme: flowerThemes.lilac,
       title: "JSON to CSV",
       description: "Convert JSON data to CSV format instantly. Reduces file size by 50-60% for easy spreadsheet use.",
       hoverBorder: "hover:border-orange-400/60 dark:hover:border-orange-400/40",
@@ -120,7 +120,7 @@ const categories = {
   "Generators": [
     {
       href: "/uuid-generator",
-      theme: flowerThemes.dahlia,
+      theme: flowerThemes.peony,
       title: "UUID Generator",
       description: "Generate random UUIDs (v4) in bulk. Fast, free, and secure generation for developers.",
       hoverBorder: "hover:border-yellow-400/60 dark:hover:border-yellow-400/40",

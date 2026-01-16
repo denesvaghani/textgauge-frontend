@@ -10,7 +10,7 @@ import { useState } from "react";
 import { FileSpreadsheet } from "lucide-react";
 import { RelatedTools } from "@/components/RelatedTools";
 
-const theme = flowerThemes.sunflower;
+const theme = flowerThemes.lilac;
 
 export default function JsonCsvClient() {
     const [flatten, setFlatten] = useState(true);

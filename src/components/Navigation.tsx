@@ -41,9 +41,9 @@ const navCategories = {
         { href: "/url-encoder", label: "URL Encoder", image: flowerThemes.jasmine.image },
     ],
     "Company": [
-        { href: "/about", label: "About Us", image: flowerThemes.sunflower.image },
-        { href: "/team", label: "Team", image: flowerThemes.gardenia.image },
-        { href: "/contact", label: "Contact", image: flowerThemes.jasmine.image },
+        { href: "/about", label: "About Us" },
+        { href: "/team", label: "Team" },
+        { href: "/contact", label: "Contact" },
     ],
 };
 
@@ -149,16 +149,18 @@ export function Navigation() {
                                                         : "text-slate-700 dark:text-slate-300 hover:bg-slate-50 dark:hover:bg-slate-700/50"
                                                 }`}
                                             >
-                                                <div className="w-8 h-8 rounded-full overflow-hidden shrink-0 border border-slate-100 dark:border-slate-700 shadow-sm relative">
-                                                    <Image 
-                                                        src={link.image} 
-                                                        alt="" 
-                                                        fill
-                                                        sizes="32px"
-                                                        className="object-cover"
-                                                        priority
-                                                    />
-                                                </div>
+                                                {'image' in link && link.image && (
+                                                    <div className="w-8 h-8 rounded-full overflow-hidden shrink-0 border border-slate-100 dark:border-slate-700 shadow-sm relative">
+                                                        <Image 
+                                                            src={link.image} 
+                                                            alt="" 
+                                                            fill
+                                                            sizes="32px"
+                                                            className="object-cover"
+                                                            priority
+                                                        />
+                                                    </div>
+                                                )}
                                                 <span className="font-medium">{link.label}</span>
                                             </Link>
                                         ))}
