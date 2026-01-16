@@ -2,7 +2,7 @@
 
 import { useState, useCallback } from "react";
 import { TrustPanel } from "@/components/TrustPanel";
-import { flowerThemes } from "@/config/flowerThemes";
+import { animalThemes } from "@/config/animalThemes";
 import { FlowerBackground } from "@/components/FlowerBackground";
 import { SmartHeroHeader } from "@/components/SmartHeroHeader";
 import { DynamicAd } from "@/components/DynamicAd";
@@ -37,7 +37,7 @@ interface ConvertableImage {
 }
 
 export function ImageConverterClient() {
-  const theme = flowerThemes.orchid;
+  const theme = animalThemes.lion;
   const [images, setImages] = useState<ConvertableImage[]>([]);
   const [targetFormat, setTargetFormat] = useState<ImageFormat>("image/webp");
   const [isProcessing, setIsProcessing] = useState(false);

@@ -2,7 +2,7 @@
 
 import { useState, useRef, useCallback, useEffect } from "react";
 import { TrustPanel } from "@/components/TrustPanel";
-import { flowerThemes } from "@/config/flowerThemes";
+import { animalThemes } from "@/config/animalThemes";
 import { FlowerBackground } from "@/components/FlowerBackground";
 import { SmartHeroHeader } from "@/components/SmartHeroHeader";
 import { UploadZone } from "@/components/image-compressor/UploadZone";
@@ -18,7 +18,7 @@ interface MergeableImage {
 }
 
 export function ImageMergerClient() {
-    const theme = flowerThemes.protea;
+    const theme = animalThemes.wolf;
     const [images, setImages] = useState<MergeableImage[]>([]);
     const [direction, setDirection] = useState<"vertical" | "horizontal">("vertical");
     const [gap, setGap] = useState(0);

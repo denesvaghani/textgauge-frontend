@@ -2,7 +2,7 @@
 
 import { useState, useCallback, useRef, useEffect } from "react";
 import { TrustPanel } from "@/components/TrustPanel";
-import { flowerThemes } from "@/config/flowerThemes";
+import { animalThemes } from "@/config/animalThemes";
 import { FlowerBackground } from "@/components/FlowerBackground";
 import { SmartHeroHeader } from "@/components/SmartHeroHeader";
 import { DynamicAd } from "@/components/DynamicAd";
@@ -44,7 +44,7 @@ interface ResizableImage {
 }
 
 export function ImageResizerClient() {
-  const theme = flowerThemes.dahlia;
+  const theme = animalThemes.giraffe;
   const [images, setImages] = useState<ResizableImage[]>([]);
   const [targetWidth, setTargetWidth] = useState<number>(800);
   const [targetHeight, setTargetHeight] = useState<number>(600);

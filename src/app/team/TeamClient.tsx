@@ -34,6 +34,7 @@ export function TeamClient() {
                     title="The Team Behind TextGauge"
                     theme={theme}
                     description="Meet the developer building the next generation of privacy-focused, AI-accelerated developer tools."
+                    showIcon={false}
                 />
 
                 <main className="flex-1 w-full max-w-[1200px] mx-auto px-4 sm:px-6 lg:px-8 py-12 space-y-16">
