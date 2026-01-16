@@ -49,16 +49,87 @@ export async function generateMetadata(): Promise<Metadata> {
   };
 }
 
-const structuredData = {
-  "@context": "https://schema.org",
-  "@type": "WebApplication",
-  name: "TextGauge - Developer Tools Suite",
-  url: "https://www.countcharacters.org",
-  applicationCategory: "UtilityApplication",
-  operatingSystem: "All",
-  description:
-    "Free, secure, and privacy-focused developer tools suite. Instantly count characters, format JSON/YAML/TOML, convert data formats, and analyze text - all in your browser.",
-};
+// Schema markup for Google Sitelinks and rich results
+const structuredData = [
+  // WebSite schema - enables SearchAction (search box in Google)
+  {
+    "@context": "https://schema.org",
+    "@type": "WebSite",
+    "@id": "https://www.countcharacters.org/#website",
+    name: "TextGauge",
+    alternateName: "CountCharacters",
+    url: "https://www.countcharacters.org",
+    description: "Free, secure, and privacy-focused developer tools suite. Instantly count characters, format JSON/YAML/TOML, convert data formats, and analyze text - all in your browser.",
+    potentialAction: {
+      "@type": "SearchAction",
+      target: {
+        "@type": "EntryPoint",
+        urlTemplate: "https://www.countcharacters.org/?q={search_term_string}"
+      },
+      "query-input": "required name=search_term_string"
+    },
+    inLanguage: "en-US"
+  },
+  // Organization schema - establishes brand identity
+  {
+    "@context": "https://schema.org",
+    "@type": "Organization",
+    "@id": "https://www.countcharacters.org/#organization",
+    name: "TextGauge",
+    url: "https://www.countcharacters.org",
+    logo: {
+      "@type": "ImageObject",
+      url: "https://www.countcharacters.org/images/logo/sunflower-logo.webp",
+      width: 512,
+      height: 512
+    },
+    sameAs: [
+      "https://www.linkedin.com/in/denesvaghani/"
+    ],
+    founder: {
+      "@type": "Person",
+      name: "Denes Vaghani",
+      url: "https://www.countcharacters.org/team"
+    }
+  },
+  // WebApplication schema
+  {
+    "@context": "https://schema.org",
+    "@type": "WebApplication",
+    "@id": "https://www.countcharacters.org/#application",
+    name: "TextGauge - Developer Tools Suite",
+    url: "https://www.countcharacters.org",
+    applicationCategory: "DeveloperApplication",
+    operatingSystem: "All",
+    browserRequirements: "Requires JavaScript",
+    description: "Free, secure, and privacy-focused developer tools suite. Instantly count characters, format JSON/YAML/TOML, convert data formats, and analyze text - all in your browser.",
+    offers: {
+      "@type": "Offer",
+      price: "0",
+      priceCurrency: "USD"
+    },
+    publisher: {
+      "@id": "https://www.countcharacters.org/#organization"
+    }
+  },
+  // SiteNavigationElement - helps Google understand main navigation
+  {
+    "@context": "https://schema.org",
+    "@type": "ItemList",
+    "@id": "https://www.countcharacters.org/#navigation",
+    name: "Main Navigation",
+    itemListElement: [
+      { "@type": "SiteNavigationElement", position: 1, name: "Character Counter", url: "https://www.countcharacters.org/" },
+      { "@type": "SiteNavigationElement", position: 2, name: "JSON Formatter", url: "https://www.countcharacters.org/json-formatter" },
+      { "@type": "SiteNavigationElement", position: 3, name: "Diff Checker", url: "https://www.countcharacters.org/diff-checker" },
+      { "@type": "SiteNavigationElement", position: 4, name: "Image Compressor", url: "https://www.countcharacters.org/image-compressor" },
+      { "@type": "SiteNavigationElement", position: 5, name: "JSON to CSV", url: "https://www.countcharacters.org/json-to-csv" },
+      { "@type": "SiteNavigationElement", position: 6, name: "UUID Generator", url: "https://www.countcharacters.org/uuid-generator" },
+      { "@type": "SiteNavigationElement", position: 7, name: "About Us", url: "https://www.countcharacters.org/about" },
+      { "@type": "SiteNavigationElement", position: 8, name: "Team", url: "https://www.countcharacters.org/team" }
+    ]
+  }
+];
 
 import { Navigation } from "@/components/Navigation";
 import { Footer } from "@/components/Footer";
