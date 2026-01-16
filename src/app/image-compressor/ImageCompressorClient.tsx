@@ -2,7 +2,7 @@
 
 
 import { TrustPanel } from "@/components/TrustPanel";
-import { flowerThemes } from "@/config/flowerThemes";
+import { animalThemes } from "@/config/animalThemes";
 import { FlowerBackground } from "@/components/FlowerBackground";
 import { SmartHeroHeader } from "@/components/SmartHeroHeader";
 import { DynamicAd } from "@/components/DynamicAd";
@@ -19,7 +19,7 @@ import { useState } from "react";
 import { AnimatePresence, motion } from "framer-motion";
 
 export function ImageCompressorClient() {
-  const theme = flowerThemes.hydrangea;
+  const theme = animalThemes.gorilla;
   const { 
     images, 
     addFiles, 

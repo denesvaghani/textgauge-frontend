@@ -18,30 +18,32 @@ const navCategories = {
         { href: "/toml-formatter", label: "TOML Formatter", image: flowerThemes.frangipani.image },
     ],
     "Converters": [
-        { href: "/json-to-csv-converter", label: "JSON to CSV", image: flowerThemes.sunflower.image },
+        { href: "/json-to-csv-converter", label: "JSON to CSV", image: flowerThemes.lilac.image },
         { href: "/json-to-toon-converter", label: "JSON to TOON", image: flowerThemes.lavender.image },
     ],
     "Design Tools": [
         { href: "/palette-forge", label: "PaletteForge", image: flowerThemes.orchid.image },
     ],
     "Media Tools": [
-        { href: "/image-compressor", label: "Image Compressor", image: flowerThemes.hydrangea.image },
-        { href: "/image-merger", label: "Image Merger", image: flowerThemes.sunflower.image },
+        { href: "/image-compressor", label: "Image Compressor", image: "/images/animals/gorilla.jpg" },
+        { href: "/image-converter", label: "Image Converter", image: "/images/animals/lion.jpg" },
+        { href: "/image-resizer", label: "Image Resizer", image: "/images/animals/giraffe.jpg" },
+        { href: "/image-merger", label: "Image Merger", image: "/images/animals/wolf.jpg" },
     ],
     "Comparison": [
         { href: "/diff-checker", label: "Diff Checker", image: flowerThemes.redRose.image },
     ],
     "Generators": [
-        { href: "/uuid-generator", label: "UUID Generator", image: flowerThemes.dahlia.image },
+        { href: "/uuid-generator", label: "UUID Generator", image: flowerThemes.peony.image },
         { href: "/hash-generator", label: "Hash Generator", image: flowerThemes.magnolia.image },
         { href: "/cron-job-generator", label: "Cron Generator", image: flowerThemes.morningGlory.image },
         { href: "/base64-encoder", label: "Base64 Tool", image: flowerThemes.blueIris.image },
         { href: "/url-encoder", label: "URL Encoder", image: flowerThemes.jasmine.image },
     ],
     "Company": [
-        { href: "/about", label: "About Us", image: flowerThemes.sunflower.image },
-        { href: "/team", label: "Team", image: flowerThemes.sunflower.image },
-        { href: "/contact", label: "Contact", image: flowerThemes.sunflower.image },
+        { href: "/about", label: "About Us" },
+        { href: "/team", label: "Team" },
+        { href: "/contact", label: "Contact" },
     ],
 };
 
@@ -147,16 +149,18 @@ export function Navigation() {
                                                         : "text-slate-700 dark:text-slate-300 hover:bg-slate-50 dark:hover:bg-slate-700/50"
                                                 }`}
                                             >
-                                                <div className="w-8 h-8 rounded-full overflow-hidden shrink-0 border border-slate-100 dark:border-slate-700 shadow-sm relative">
-                                                    <Image 
-                                                        src={link.image} 
-                                                        alt="" 
-                                                        fill
-                                                        sizes="32px"
-                                                        className="object-cover"
-                                                        priority
-                                                    />
-                                                </div>
+                                                {'image' in link && link.image && (
+                                                    <div className="w-8 h-8 rounded-full overflow-hidden shrink-0 border border-slate-100 dark:border-slate-700 shadow-sm relative">
+                                                        <Image 
+                                                            src={link.image} 
+                                                            alt="" 
+                                                            fill
+                                                            sizes="32px"
+                                                            className="object-cover"
+                                                            priority
+                                                        />
+                                                    </div>
+                                                )}
                                                 <span className="font-medium">{link.label}</span>
                                             </Link>
                                         ))}

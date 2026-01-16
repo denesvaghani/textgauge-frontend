@@ -22,6 +22,9 @@ export function Footer() {
         { name: 'URL Encoder', href: '/url-encoder' },
         { name: 'PaletteForge', href: '/palette-forge' },
         { name: 'Image Compressor', href: '/image-compressor' },
+        { name: 'Image Converter', href: '/image-converter' },
+        { name: 'Image Resizer', href: '/image-resizer' },
+        { name: 'Image Merger', href: '/image-merger' },
     ];
 
     const legalLinks = [

@@ -2,7 +2,7 @@
 
 import { useState, useCallback, useRef, useEffect } from "react";
 import { TrustPanel } from "@/components/TrustPanel";
-import { flowerThemes } from "@/config/flowerThemes";
+import { animalThemes } from "@/config/animalThemes";
 import { FlowerBackground } from "@/components/FlowerBackground";
 import { SmartHeroHeader } from "@/components/SmartHeroHeader";
 import { DynamicAd } from "@/components/DynamicAd";
@@ -44,7 +44,7 @@ interface ResizableImage {
 }
 
 export function ImageResizerClient() {
-  const theme = flowerThemes.dahlia;
+  const theme = animalThemes.giraffe;
   const [images, setImages] = useState<ResizableImage[]>([]);
   const [targetWidth, setTargetWidth] = useState<number>(800);
   const [targetHeight, setTargetHeight] = useState<number>(600);
@@ -476,6 +476,91 @@ export function ImageResizerClient() {
             />
           </div>
         )}
+
+        {/* SEO Educational Content */}
+        <section className="w-full max-w-[1920px] mx-auto px-4 sm:px-6 lg:px-8 pb-8">
+          <div className="bg-white dark:bg-slate-900 rounded-2xl border border-slate-200 dark:border-slate-800 p-8 space-y-8">
+            <h2 className="text-2xl font-bold text-slate-900 dark:text-white">
+              Complete Guide to Image Resizing
+            </h2>
+            
+            <div className="prose prose-slate dark:prose-invert max-w-none">
+              <p>
+                Resizing images correctly is essential for web performance, social media engagement, 
+                and print quality. Our free online image resizer supports <strong>exact dimensions, 
+                percentage scaling, and fit-within-bounds</strong> modes to handle any resizing scenario.
+              </p>
+
+              <h3>Social Media Image Size Guide (2024)</h3>
+              
+              <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-4 not-prose mt-4">
+                <div className="p-4 rounded-lg bg-gradient-to-br from-pink-50 to-purple-50 dark:from-pink-900/20 dark:to-purple-900/20 border border-pink-200 dark:border-pink-800">
+                  <h4 className="font-bold text-pink-700 dark:text-pink-400">Instagram</h4>
+                  <p className="text-sm text-slate-600 dark:text-slate-400 mt-2">
+                    <strong>Post:</strong> 1080×1080 (square)<br/>
+                    <strong>Story:</strong> 1080×1920 (9:16)<br/>
+                    <strong>Reel Cover:</strong> 1080×1920
+                  </p>
+                </div>
+                <div className="p-4 rounded-lg bg-gradient-to-br from-blue-50 to-cyan-50 dark:from-blue-900/20 dark:to-cyan-900/20 border border-blue-200 dark:border-blue-800">
+                  <h4 className="font-bold text-blue-700 dark:text-blue-400">Twitter/X</h4>
+                  <p className="text-sm text-slate-600 dark:text-slate-400 mt-2">
+                    <strong>Post:</strong> 1200×675 (16:9)<br/>
+                    <strong>Profile:</strong> 400×400<br/>
+                    <strong>Header:</strong> 1500×500
+                  </p>
+                </div>
+                <div className="p-4 rounded-lg bg-gradient-to-br from-blue-50 to-indigo-50 dark:from-blue-900/20 dark:to-indigo-900/20 border border-blue-200 dark:border-blue-800">
+                  <h4 className="font-bold text-blue-700 dark:text-blue-400">LinkedIn</h4>
+                  <p className="text-sm text-slate-600 dark:text-slate-400 mt-2">
+                    <strong>Post:</strong> 1200×627<br/>
+                    <strong>Profile:</strong> 400×400<br/>
+                    <strong>Banner:</strong> 1584×396
+                  </p>
+                </div>
+                <div className="p-4 rounded-lg bg-gradient-to-br from-red-50 to-orange-50 dark:from-red-900/20 dark:to-orange-900/20 border border-red-200 dark:border-red-800">
+                  <h4 className="font-bold text-red-700 dark:text-red-400">YouTube</h4>
+                  <p className="text-sm text-slate-600 dark:text-slate-400 mt-2">
+                    <strong>Thumbnail:</strong> 1280×720<br/>
+                    <strong>Channel Art:</strong> 2560×1440<br/>
+                    <strong>Profile:</strong> 800×800
+                  </p>
+                </div>
+                <div className="p-4 rounded-lg bg-gradient-to-br from-blue-50 to-indigo-50 dark:from-blue-900/20 dark:to-indigo-900/20 border border-blue-200 dark:border-blue-800">
+                  <h4 className="font-bold text-blue-700 dark:text-blue-400">Facebook</h4>
+                  <p className="text-sm text-slate-600 dark:text-slate-400 mt-2">
+                    <strong>Post:</strong> 1200×630<br/>
+                    <strong>Profile:</strong> 180×180<br/>
+                    <strong>Cover:</strong> 820×312
+                  </p>
+                </div>
+                <div className="p-4 rounded-lg bg-gradient-to-br from-green-50 to-teal-50 dark:from-green-900/20 dark:to-teal-900/20 border border-green-200 dark:border-green-800">
+                  <h4 className="font-bold text-green-700 dark:text-green-400">Web Standards</h4>
+                  <p className="text-sm text-slate-600 dark:text-slate-400 mt-2">
+                    <strong>HD:</strong> 1920×1080<br/>
+                    <strong>4K:</strong> 3840×2160<br/>
+                    <strong>Retina:</strong> 2× regular size
+                  </p>
+                </div>
+              </div>
+
+              <h3 className="mt-8">Understanding Resize Modes</h3>
+              <ul>
+                <li><strong>Exact:</strong> Resize to specific pixel dimensions. Use aspect ratio lock to prevent distortion.</li>
+                <li><strong>Percentage:</strong> Scale proportionally by a percentage (10% to 200%). Great for quick resizing.</li>
+                <li><strong>Fit:</strong> Resize to fit within maximum bounds while maintaining aspect ratio. Perfect for thumbnails.</li>
+              </ul>
+
+              <h3>Best Practices for Image Resizing</h3>
+              <ul>
+                <li><strong>Always resize down:</strong> Upscaling causes quality loss and pixelation</li>
+                <li><strong>Lock aspect ratio:</strong> Prevent distortion by maintaining original proportions</li>
+                <li><strong>Use retina sizes:</strong> For high-DPI displays, create images at 2× the display size</li>
+                <li><strong>Batch process:</strong> Resize multiple images at once to save time</li>
+              </ul>
+            </div>
+          </div>
+        </section>
 
         <section className="w-full max-w-[1920px] mx-auto px-4 sm:px-6 lg:px-8 pb-16">
           <TrustPanel />
