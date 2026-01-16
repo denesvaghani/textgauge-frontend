@@ -18,7 +18,7 @@ const navCategories = {
         { href: "/toml-formatter", label: "TOML Formatter", image: flowerThemes.frangipani.image },
     ],
     "Converters": [
-        { href: "/json-to-csv-converter", label: "JSON to CSV", image: flowerThemes.sunflower.image },
+        { href: "/json-to-csv-converter", label: "JSON to CSV", image: flowerThemes.lilac.image },
         { href: "/json-to-toon-converter", label: "JSON to TOON", image: flowerThemes.lavender.image },
     ],
     "Design Tools": [
@@ -26,7 +26,7 @@ const navCategories = {
     ],
     "Media Tools": [
         { href: "/image-compressor", label: "Image Compressor", image: flowerThemes.hydrangea.image },
-        { href: "/image-converter", label: "Image Converter", image: flowerThemes.orchid.image },
+        { href: "/image-converter", label: "Image Converter", image: flowerThemes.gerbera.image },
         { href: "/image-resizer", label: "Image Resizer", image: flowerThemes.dahlia.image },
         { href: "/image-merger", label: "Image Merger", image: flowerThemes.protea.image },
     ],
@@ -34,16 +34,16 @@ const navCategories = {
         { href: "/diff-checker", label: "Diff Checker", image: flowerThemes.redRose.image },
     ],
     "Generators": [
-        { href: "/uuid-generator", label: "UUID Generator", image: flowerThemes.gerbera.image },
+        { href: "/uuid-generator", label: "UUID Generator", image: flowerThemes.peony.image },
         { href: "/hash-generator", label: "Hash Generator", image: flowerThemes.magnolia.image },
         { href: "/cron-job-generator", label: "Cron Generator", image: flowerThemes.morningGlory.image },
         { href: "/base64-encoder", label: "Base64 Tool", image: flowerThemes.blueIris.image },
         { href: "/url-encoder", label: "URL Encoder", image: flowerThemes.jasmine.image },
     ],
     "Company": [
-        { href: "/about", label: "About Us", image: flowerThemes.lilac.image },
-        { href: "/team", label: "Team", image: flowerThemes.peony.image },
-        { href: "/contact", label: "Contact", image: flowerThemes.gardenia.image },
+        { href: "/about", label: "About Us", image: flowerThemes.sunflower.image },
+        { href: "/team", label: "Team", image: flowerThemes.gardenia.image },
+        { href: "/contact", label: "Contact", image: flowerThemes.jasmine.image },
     ],
 };
 

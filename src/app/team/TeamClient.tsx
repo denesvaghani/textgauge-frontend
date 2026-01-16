@@ -65,6 +65,11 @@ export function TeamClient() {
                         </div>
 
                         <div className="md:col-span-7 space-y-6">
+                            {/* Founder Label */}
+                            <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-gradient-to-r from-amber-100 to-yellow-100 dark:from-amber-900/30 dark:to-yellow-900/30 border border-amber-200 dark:border-amber-800">
+                                <span className="text-amber-600 dark:text-amber-400 text-sm font-bold">👋 Meet the Founder</span>
+                            </div>
+
                             <div className="space-y-2">
                                 <h2 className="text-4xl font-black text-slate-900 dark:text-white leading-tight">
                                     {founderData.name}
@@ -78,12 +83,26 @@ export function TeamClient() {
                                 {founderData.summary}
                             </p>
 
-                            <div className="flex flex-wrap gap-2">
-                                {founderData.skills.map(skill => (
-                                    <span key={skill} className="px-3 py-1 rounded-full bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-300 text-xs font-semibold">
-                                        {skill}
+                            {/* Enhanced Expertise Tags */}
+                            <div className="space-y-3">
+                                <p className="text-xs font-bold uppercase tracking-wider text-slate-500 dark:text-slate-400">Core Expertise</p>
+                                <div className="flex flex-wrap gap-2">
+                                    <span className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-gradient-to-r from-purple-100 to-violet-100 dark:from-purple-900/30 dark:to-violet-900/30 text-purple-700 dark:text-purple-300 text-sm font-semibold border border-purple-200 dark:border-purple-800">
+                                        🤖 AI Engineering
                                     </span>
-                                ))}
+                                    <span className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-gradient-to-r from-emerald-100 to-teal-100 dark:from-emerald-900/30 dark:to-teal-900/30 text-emerald-700 dark:text-emerald-300 text-sm font-semibold border border-emerald-200 dark:border-emerald-800">
+                                        🔒 Privacy-First Tools
+                                    </span>
+                                    <span className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-gradient-to-r from-blue-100 to-cyan-100 dark:from-blue-900/30 dark:to-cyan-900/30 text-blue-700 dark:text-blue-300 text-sm font-semibold border border-blue-200 dark:border-blue-800">
+                                        💻 Full-Stack Development
+                                    </span>
+                                    <span className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-gradient-to-r from-orange-100 to-amber-100 dark:from-orange-900/30 dark:to-amber-900/30 text-orange-700 dark:text-orange-300 text-sm font-semibold border border-orange-200 dark:border-orange-800">
+                                        👥 Technical Leadership
+                                    </span>
+                                    <span className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-gradient-to-r from-rose-100 to-pink-100 dark:from-rose-900/30 dark:to-pink-900/30 text-rose-700 dark:text-rose-300 text-sm font-semibold border border-rose-200 dark:border-rose-800">
+                                        📦 Product Engineering
+                                    </span>
+                                </div>
                             </div>
 
                             <div className="flex gap-4 pt-4">
