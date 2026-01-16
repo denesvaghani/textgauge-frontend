@@ -25,10 +25,10 @@ const navCategories = {
         { href: "/palette-forge", label: "PaletteForge", image: flowerThemes.orchid.image },
     ],
     "Media Tools": [
-        { href: "/image-compressor", label: "Image Compressor", image: flowerThemes.hydrangea.image },
-        { href: "/image-converter", label: "Image Converter", image: flowerThemes.gerbera.image },
-        { href: "/image-resizer", label: "Image Resizer", image: flowerThemes.dahlia.image },
-        { href: "/image-merger", label: "Image Merger", image: flowerThemes.protea.image },
+        { href: "/image-compressor", label: "Image Compressor", image: "/images/animals/gorilla.jpg" },
+        { href: "/image-converter", label: "Image Converter", image: "/images/animals/lion.jpg" },
+        { href: "/image-resizer", label: "Image Resizer", image: "/images/animals/giraffe.jpg" },
+        { href: "/image-merger", label: "Image Merger", image: "/images/animals/wolf.jpg" },
     ],
     "Comparison": [
         { href: "/diff-checker", label: "Diff Checker", image: flowerThemes.redRose.image },
