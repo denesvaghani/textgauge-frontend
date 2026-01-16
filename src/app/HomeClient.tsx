@@ -40,12 +40,12 @@ const categories = {
   "Converters": [
     {
       href: "/json-to-csv-converter",
-      theme: flowerThemes.sunflower,
+      theme: flowerThemes.gerbera,
       title: "JSON to CSV",
       description: "Convert JSON data to CSV format instantly. Reduces file size by 50-60% for easy spreadsheet use.",
-      hoverBorder: "hover:border-yellow-400/60 dark:hover:border-yellow-400/40",
-      hoverShadow: "hover:shadow-yellow-500/20",
-      hoverText: "group-hover:text-yellow-600 dark:group-hover:text-yellow-400",
+      hoverBorder: "hover:border-orange-400/60 dark:hover:border-orange-400/40",
+      hoverShadow: "hover:shadow-orange-500/20",
+      hoverText: "group-hover:text-orange-600 dark:group-hover:text-orange-400",
     },
     {
       href: "/json-to-toon-converter",
@@ -80,12 +80,12 @@ const categories = {
     },
     {
       href: "/image-merger",
-      theme: flowerThemes.sunflower,
+      theme: flowerThemes.protea,
       title: "Image Merger",
       description: "Combine multiple images into one. Stitch photos vertically for scrolling screenshots or horizontally for comparisons.",
-      hoverBorder: "hover:border-yellow-400/60 dark:hover:border-yellow-400/40",
-      hoverShadow: "hover:shadow-yellow-500/20",
-      hoverText: "group-hover:text-yellow-600 dark:group-hover:text-yellow-400",
+      hoverBorder: "hover:border-pink-400/60 dark:hover:border-pink-400/40",
+      hoverShadow: "hover:shadow-pink-500/20",
+      hoverText: "group-hover:text-pink-600 dark:group-hover:text-pink-400",
     },
   ],
   "Comparison": [

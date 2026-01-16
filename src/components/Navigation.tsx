@@ -38,6 +38,11 @@ const navCategories = {
         { href: "/base64-encoder", label: "Base64 Tool", image: flowerThemes.blueIris.image },
         { href: "/url-encoder", label: "URL Encoder", image: flowerThemes.jasmine.image },
     ],
+    "Company": [
+        { href: "/about", label: "About Us", image: flowerThemes.sunflower.image },
+        { href: "/team", label: "Team", image: flowerThemes.sunflower.image },
+        { href: "/contact", label: "Contact", image: flowerThemes.sunflower.image },
+    ],
 };
 
 export function Navigation() {

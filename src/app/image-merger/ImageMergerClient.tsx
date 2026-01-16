@@ -18,7 +18,7 @@ interface MergeableImage {
 }
 
 export function ImageMergerClient() {
-    const theme = flowerThemes.sunflower;
+    const theme = flowerThemes.protea;
     const [images, setImages] = useState<MergeableImage[]>([]);
     const [direction, setDirection] = useState<"vertical" | "horizontal">("vertical");
     const [gap, setGap] = useState(0);

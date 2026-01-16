@@ -353,6 +353,72 @@ export const flowerThemes = {
       dark: "dark:bg-gradient-to-br dark:from-yellow-950/30 dark:via-lime-950/20 dark:to-slate-950",
     },
   },
+  protea: {
+    name: "Protea",
+    slug: "protea",
+    image: "/images/flowers/protea.png",
+    significance: "Symbolizes diversity and transformation — the art of combining distinct elements into a beautiful whole.",
+    colors: {
+      primary: "#db2777",
+      secondary: "#ec4899",
+      accent: "#fdf2f8",
+      glow: "rgba(219, 39, 119, 0.25)",
+      text: "text-pink-700",
+      textDark: "dark:text-pink-400",
+    },
+    gradient: {
+      light: "from-pink-600 to-rose-600",
+      dark: "from-pink-700 to-rose-700",
+    },
+    bgGradient: {
+      light: "bg-gradient-to-br from-pink-50 via-rose-50/50 to-white",
+      dark: "dark:bg-gradient-to-br dark:from-pink-950/30 dark:via-rose-950/20 dark:to-slate-950",
+    },
+  },
+  peony: {
+    name: "Peony",
+    slug: "peony",
+    image: "/images/flowers/peony.png",
+    significance: "Represents leadership and prosperity — mirroring the flourishing collaboration of expert minds.",
+    colors: {
+      primary: "#991b1b",
+      secondary: "#dc2626",
+      accent: "#fef2f2",
+      glow: "rgba(153, 27, 27, 0.25)",
+      text: "text-red-800",
+      textDark: "dark:text-red-400",
+    },
+    gradient: {
+      light: "from-red-700 to-rose-700",
+      dark: "from-red-800 to-rose-800",
+    },
+    bgGradient: {
+      light: "bg-gradient-to-br from-red-50 via-rose-50/50 to-white",
+      dark: "dark:bg-gradient-to-br dark:from-red-950/30 dark:via-rose-950/20 dark:to-slate-950",
+    },
+  },
+  gerbera: {
+    name: "Gerbera",
+    slug: "gerbera",
+    image: "/images/flowers/gerbera.png",
+    significance: "Embodies energy and cheerfulness — reflecting the vibrant transition of data into organized structures.",
+    colors: {
+      primary: "#ea580c",
+      secondary: "#f97316",
+      accent: "#fff7ed",
+      glow: "rgba(234, 88, 12, 0.25)",
+      text: "text-orange-700",
+      textDark: "dark:text-orange-400",
+    },
+    gradient: {
+      light: "from-orange-600 to-amber-600",
+      dark: "from-orange-700 to-amber-700",
+    },
+    bgGradient: {
+      light: "bg-gradient-to-br from-orange-50 via-amber-50/50 to-white",
+      dark: "dark:bg-gradient-to-br dark:from-orange-950/30 dark:via-amber-950/20 dark:to-slate-950",
+    },
+  },
 } as const;
 
 export type FlowerThemeKey = keyof typeof flowerThemes;

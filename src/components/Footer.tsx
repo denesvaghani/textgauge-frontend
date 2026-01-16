@@ -32,6 +32,7 @@ export function Footer() {
 
     const companyLinks = [
         { name: 'About Us', href: '/about' },
+        { name: 'Team', href: '/team' },
         { name: 'Contact', href: '/contact' },
     ];
 
