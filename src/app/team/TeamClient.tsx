@@ -1,10 +1,8 @@
 "use client";
 
-import { flowerThemes } from "@/config/flowerThemes";
 import { FlowerBackground } from "@/components/FlowerBackground";
-import { SmartHeroHeader } from "@/components/SmartHeroHeader";
-import { TrustPanel } from "@/components/TrustPanel";
-import { Linkedin, Mail, Twitter, ExternalLink, Code2, ShieldCheck, Heart, User } from "lucide-react";
+import { flowerThemes } from "@/config/flowerThemes";
+import { Code2, ShieldCheck, Heart, Mail } from "lucide-react";
 import { motion } from "framer-motion";
 import Image from "next/image";
 
@@ -16,26 +14,23 @@ export function TeamClient() {
         role: "Founder & Lead Developer",
         email: "denesdvaghani9200@gmail.com",
         linkedin: "https://www.linkedin.com/in/denesvaghani/",
-        medium: "https://medium.com/@denes_vaghani",
         profileImage: "/images/team/denes-vaghani.jpg",
-        summary: "Senior Product Engineer who wears more than just a dev hat — Architect by mindset, debugger by instinct, and mentor when the team needs clarity. With TextGauge, I'm building privacy-first developer tools that run entirely in your browser, using AI-accelerated development to solve real technical workflows without compromising data security.",
-        skills: ["AI Engineering", "Privacy-First Tools", "Full-Stack Development", "Technical Leadership", "Product Engineering"]
+        summary: "I started TextGauge to solve a problem I kept running into — powerful developer tools that treat your code like their data. As a product engineer with a background in AI integration and full-stack development, I'm building the toolkit I wish existed: enterprise-grade utilities that process everything locally, respect your privacy, and just work.",
+        skills: ["AI & LLM Integration", "Privacy-First Architecture", "Full-Stack Development", "Technical Leadership", "Product Strategy"]
     };
-
-    const projectSocials = [
-        { name: "Twitter", icon: <Twitter size={20} />, href: "#", label: "@TextGauge" },
-        { name: "LinkedIn", icon: <Linkedin size={20} />, href: "#", label: "TextGauge" },
-    ];
 
     return (
         <FlowerBackground theme={theme}>
             <div className="flex flex-col min-h-screen">
-                <SmartHeroHeader
-                    title="The Team Behind TextGauge"
-                    theme={theme}
-                    description="Meet the developer building the next generation of privacy-focused, AI-accelerated developer tools."
-                    showIcon={false}
-                />
+                {/* Custom Header - No Flower Icon */}
+                <div className="flex flex-col items-center justify-center pt-12 pb-8 px-4 sm:px-6 lg:px-8 space-y-4 shrink-0 animate-in fade-in zoom-in duration-500">
+                    <h1 className="text-3xl sm:text-4xl md:text-5xl font-black tracking-tight text-center bg-clip-text text-transparent bg-gradient-to-br from-slate-900 via-slate-700 to-slate-800 dark:from-white dark:via-slate-200 dark:to-slate-400 drop-shadow-sm pb-1 max-w-4xl leading-tight">
+                        The Team Behind TextGauge
+                    </h1>
+                    <p className="text-center text-slate-500 dark:text-slate-400 text-sm md:text-base max-w-2xl leading-relaxed">
+                        Meet the founder building the next generation of privacy-focused developer tools.
+                    </p>
+                </div>
 
                 <main className="flex-1 w-full max-w-[1200px] mx-auto px-4 sm:px-6 lg:px-8 py-12 space-y-16">
                     {/* Founder Section */}
@@ -46,7 +41,7 @@ export function TeamClient() {
                                 animate={{ opacity: 1, scale: 1 }}
                                 className="relative"
                             >
-                                <div className="w-64 h-64 rounded-3xl bg-gradient-to-br from-yellow-400 to-amber-600 p-1 shadow-2xl rotate-3 overflow-hidden">
+                                <div className="w-64 h-64 rounded-3xl bg-gradient-to-br from-slate-700 to-slate-900 p-1 shadow-2xl rotate-3 overflow-hidden">
                                     <div className="w-full h-full rounded-[20px] overflow-hidden -rotate-3 relative">
                                         <Image 
                                             src={founderData.profileImage}
@@ -57,7 +52,7 @@ export function TeamClient() {
                                         />
                                     </div>
                                 </div>
-                                {/* Decorative Badges */}
+                                {/* Decorative Badge */}
                                 <div className="absolute -bottom-4 -right-4 bg-white dark:bg-slate-800 p-3 rounded-2xl shadow-xl border border-slate-100 dark:border-slate-700 flex items-center gap-2">
                                     <ShieldCheck className="text-emerald-500" size={20} />
                                     <span className="text-xs font-bold text-slate-700 dark:text-slate-200">Verified Developer</span>
@@ -67,15 +62,15 @@ export function TeamClient() {
 
                         <div className="md:col-span-7 space-y-6">
                             {/* Founder Label */}
-                            <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-gradient-to-r from-amber-100 to-yellow-100 dark:from-amber-900/30 dark:to-yellow-900/30 border border-amber-200 dark:border-amber-800">
-                                <span className="text-amber-600 dark:text-amber-400 text-sm font-bold">👋 Meet the Founder</span>
+                            <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-slate-100 dark:bg-slate-800 border border-slate-200 dark:border-slate-700">
+                                <span className="text-slate-600 dark:text-slate-400 text-sm font-semibold">Meet the Founder</span>
                             </div>
 
                             <div className="space-y-2">
                                 <h2 className="text-4xl font-black text-slate-900 dark:text-white leading-tight">
                                     {founderData.name}
                                 </h2>
-                                <p className="text-xl font-medium text-yellow-600 dark:text-yellow-400">
+                                <p className="text-xl font-medium text-slate-600 dark:text-slate-400">
                                     {founderData.role}
                                 </p>
                             </div>
@@ -84,28 +79,22 @@ export function TeamClient() {
                                 {founderData.summary}
                             </p>
 
-                            {/* Enhanced Expertise Tags */}
+                            {/* Expertise Tags - Clean, Professional Design */}
                             <div className="space-y-3">
-                                <p className="text-xs font-bold uppercase tracking-wider text-slate-500 dark:text-slate-400">Core Expertise</p>
+                                <p className="text-xs font-bold uppercase tracking-wider text-slate-400">Core Expertise</p>
                                 <div className="flex flex-wrap gap-2">
-                                    <span className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-gradient-to-r from-purple-100 to-violet-100 dark:from-purple-900/30 dark:to-violet-900/30 text-purple-700 dark:text-purple-300 text-sm font-semibold border border-purple-200 dark:border-purple-800">
-                                        🤖 AI Engineering
-                                    </span>
-                                    <span className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-gradient-to-r from-emerald-100 to-teal-100 dark:from-emerald-900/30 dark:to-teal-900/30 text-emerald-700 dark:text-emerald-300 text-sm font-semibold border border-emerald-200 dark:border-emerald-800">
-                                        🔒 Privacy-First Tools
-                                    </span>
-                                    <span className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-gradient-to-r from-blue-100 to-cyan-100 dark:from-blue-900/30 dark:to-cyan-900/30 text-blue-700 dark:text-blue-300 text-sm font-semibold border border-blue-200 dark:border-blue-800">
-                                        💻 Full-Stack Development
-                                    </span>
-                                    <span className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-gradient-to-r from-orange-100 to-amber-100 dark:from-orange-900/30 dark:to-amber-900/30 text-orange-700 dark:text-orange-300 text-sm font-semibold border border-orange-200 dark:border-orange-800">
-                                        👥 Technical Leadership
-                                    </span>
-                                    <span className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-gradient-to-r from-rose-100 to-pink-100 dark:from-rose-900/30 dark:to-pink-900/30 text-rose-700 dark:text-rose-300 text-sm font-semibold border border-rose-200 dark:border-rose-800">
-                                        📦 Product Engineering
-                                    </span>
+                                    {founderData.skills.map((skill) => (
+                                        <span 
+                                            key={skill}
+                                            className="px-4 py-2 rounded-full bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-300 text-sm font-medium border border-slate-200 dark:border-slate-700 hover:border-slate-300 dark:hover:border-slate-600 transition-colors"
+                                        >
+                                            {skill}
+                                        </span>
+                                    ))}
                                 </div>
                             </div>
 
+                            {/* Contact Buttons - LinkedIn + Email only */}
                             <div className="flex gap-4 pt-4">
                                 <a 
                                     href={founderData.linkedin} 
@@ -123,13 +112,7 @@ export function TeamClient() {
                                     href={`mailto:${founderData.email}`}
                                     className="flex items-center gap-2.5 px-6 py-3 rounded-xl bg-white dark:bg-slate-800 text-slate-700 dark:text-slate-200 font-bold hover:bg-slate-50 dark:hover:bg-slate-700 transition-colors border border-slate-200 dark:border-slate-700 shadow-sm"
                                 >
-                                    {/* Official Gmail Logo */}
-                                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24">
-                                        <path fill="#EA4335" d="M24 5.457v13.909c0 .904-.732 1.636-1.636 1.636h-3.819V11.73L12 16.64l-6.545-4.91v9.273H1.636A1.636 1.636 0 0 1 0 19.366V5.457c0-2.023 2.309-3.178 3.927-1.964L5.455 4.64 12 9.548l6.545-4.91 1.528-1.145C21.69 2.28 24 3.434 24 5.457z"/>
-                                        <path fill="#34A853" d="M24 5.457v.274L12 14.182 0 5.73v-.273c0-2.023 2.309-3.178 3.927-1.964L5.455 4.64 12 9.548l6.545-4.91 1.528-1.145C21.69 2.28 24 3.434 24 5.457z"/>
-                                        <path fill="#4285F4" d="M24 5.457v.274L12 14.182 0 5.73v-.273c0-.452.092-.88.255-1.271L12 11.73l11.745-7.544c.163.39.255.819.255 1.271z"/>
-                                        <path fill="#FBBC05" d="M0 5.457c0-.452.092-.88.255-1.271l.99.745L12 11.73 0 5.73v-.273z"/>
-                                    </svg>
+                                    <Mail size={20} />
                                     Email
                                 </a>
                             </div>
@@ -139,7 +122,7 @@ export function TeamClient() {
                     {/* Vision Section */}
                     <section className="grid sm:grid-cols-3 gap-8 pt-8">
                         <div className="p-8 rounded-3xl bg-white dark:bg-slate-900 border border-slate-100 dark:border-slate-800 shadow-sm space-y-4">
-                            <div className="w-12 h-12 rounded-2xl bg-yellow-100 dark:bg-yellow-900/30 flex items-center justify-center text-yellow-600 dark:text-yellow-400">
+                            <div className="w-12 h-12 rounded-2xl bg-slate-100 dark:bg-slate-800 flex items-center justify-center text-slate-600 dark:text-slate-400">
                                 <Code2 size={24} />
                             </div>
                             <h3 className="text-xl font-bold text-slate-900 dark:text-white">Privacy First</h3>
@@ -149,7 +132,7 @@ export function TeamClient() {
                         </div>
 
                         <div className="p-8 rounded-3xl bg-white dark:bg-slate-900 border border-slate-100 dark:border-slate-800 shadow-sm space-y-4">
-                            <div className="w-12 h-12 rounded-2xl bg-emerald-100 dark:bg-emerald-900/30 flex items-center justify-center text-emerald-600 dark:text-emerald-400">
+                            <div className="w-12 h-12 rounded-2xl bg-slate-100 dark:bg-slate-800 flex items-center justify-center text-slate-600 dark:text-slate-400">
                                 <ShieldCheck size={24} />
                             </div>
                             <h3 className="text-xl font-bold text-slate-900 dark:text-white">Professional Grade</h3>
@@ -159,32 +142,13 @@ export function TeamClient() {
                         </div>
 
                         <div className="p-8 rounded-3xl bg-white dark:bg-slate-900 border border-slate-100 dark:border-slate-800 shadow-sm space-y-4">
-                            <div className="w-12 h-12 rounded-2xl bg-rose-100 dark:bg-rose-900/30 flex items-center justify-center text-rose-600 dark:text-rose-400">
+                            <div className="w-12 h-12 rounded-2xl bg-slate-100 dark:bg-slate-800 flex items-center justify-center text-slate-600 dark:text-slate-400">
                                 <Heart size={24} />
                             </div>
                             <h3 className="text-xl font-bold text-slate-900 dark:text-white">User Centric</h3>
                             <p className="text-sm text-slate-600 dark:text-slate-400 leading-relaxed">
                                 No intrusive pop-ups or data gates. We keep TextGauge clean and fast for a superior developer experience.
                             </p>
-                        </div>
-                    </section>
-
-                    {/* Project Socials */}
-                    <section className="text-center space-y-8 py-8 border-t border-slate-200 dark:border-slate-800">
-                        <h3 className="text-2xl font-bold text-slate-900 dark:text-white">Follow the Journey</h3>
-                        <div className="flex justify-center gap-6">
-                            {projectSocials.map(social => (
-                                <a 
-                                    key={social.name}
-                                    href={social.href}
-                                    className="group flex flex-col items-center gap-3 transition-transform hover:-translate-y-1"
-                                >
-                                    <div className="w-16 h-16 rounded-full bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 flex items-center justify-center text-slate-400 group-hover:text-yellow-600 dark:group-hover:text-yellow-400 group-hover:border-yellow-200 dark:group-hover:border-yellow-900 shadow-sm transition-colors">
-                                        {social.icon}
-                                    </div>
-                                    <span className="text-sm font-medium text-slate-600 dark:text-slate-400">{social.label}</span>
-                                </a>
-                            ))}
                         </div>
                     </section>
                 </main>
