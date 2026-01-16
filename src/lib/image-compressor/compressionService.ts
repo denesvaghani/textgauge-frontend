@@ -1,6 +1,6 @@
 import imageCompression from "browser-image-compression";
 
-export type ImageFormat = "image/jpeg" | "image/png" | "image/webp";
+export type ImageFormat = "image/jpeg" | "image/png" | "image/webp" | "image/avif";
 
 export interface CompressionSettings {
   maxSizeMB: number;
@@ -17,6 +17,29 @@ export interface CompressionResult {
   compressionRatio: number;
   dimensions: { width: number; height: number };
 }
+
+// Utility to get all supported formats
+export const SUPPORTED_FORMATS = {
+  input: ["image/jpeg", "image/png", "image/webp", "image/heic", "image/heif", "image/svg+xml"],
+  output: ["image/jpeg", "image/png", "image/webp", "image/avif"] as ImageFormat[],
+};
+
+export const FORMAT_LABELS: Record<string, string> = {
+  "image/jpeg": "JPG",
+  "image/png": "PNG", 
+  "image/webp": "WebP",
+  "image/avif": "AVIF",
+  "image/heic": "HEIC",
+  "image/heif": "HEIF",
+  "image/svg+xml": "SVG",
+};
+
+export const FORMAT_EXTENSIONS: Record<string, string> = {
+  "image/jpeg": "jpg",
+  "image/png": "png",
+  "image/webp": "webp",
+  "image/avif": "avif",
+};
 
 export const defaultSettings: CompressionSettings = {
   maxSizeMB: 1,
