@@ -6,6 +6,7 @@ import { SmartHeroHeader } from "@/components/SmartHeroHeader";
 import { TrustPanel } from "@/components/TrustPanel";
 import { Linkedin, Mail, Twitter, ExternalLink, Code2, ShieldCheck, Heart, User } from "lucide-react";
 import { motion } from "framer-motion";
+import Image from "next/image";
 
 export function TeamClient() {
     const theme = flowerThemes.peony;
@@ -14,9 +15,11 @@ export function TeamClient() {
         name: "Denes Vaghani",
         role: "Founder & Lead Developer",
         email: "denesdvaghani9200@gmail.com",
-        linkedin: "https://www.linkedin.com/in/denesvaghani/", // Placeholder or real
-        summary: "A Senior Product Engineer passionate about building secure, privacy-first developer tools. Denes specializes in AI-accelerated development (Vibe Coding) and local-first browser applications. With TextGauge, he aims to simplify technical workflows while ensuring user data never leaves their device.",
-        skills: ["React/Next.js", "AI Engineering", "Data Privacy", "Full-Stack Dev"]
+        linkedin: "https://www.linkedin.com/in/denesvaghani/",
+        medium: "https://medium.com/@denes_vaghani",
+        profileImage: "/images/team/denes-vaghani.jpg",
+        summary: "Senior Product Engineer who wears more than just a dev hat — Architect by mindset, debugger by instinct, and mentor when the team needs clarity. With TextGauge, I'm building privacy-first developer tools that run entirely in your browser, using AI-accelerated development to solve real technical workflows without compromising data security.",
+        skills: ["React/Next.js", "AI Engineering", "Privacy-First Tools", "Spring Boot", "Full-Stack Dev", "Technical Leadership"]
     };
 
     const projectSocials = [
@@ -43,11 +46,14 @@ export function TeamClient() {
                                 className="relative"
                             >
                                 <div className="w-64 h-64 rounded-3xl bg-gradient-to-br from-yellow-400 to-amber-600 p-1 shadow-2xl rotate-3 overflow-hidden">
-                                    <div className="w-full h-full rounded-[20px] bg-slate-900 flex items-center justify-center -rotate-3 overflow-hidden">
-                                        <User className="text-yellow-500 w-32 h-32 opacity-20" />
-                                        <div className="absolute inset-0 flex items-center justify-center">
-                                             <span className="text-4xl font-bold text-white/40">DV</span>
-                                        </div>
+                                    <div className="w-full h-full rounded-[20px] overflow-hidden -rotate-3 relative">
+                                        <Image 
+                                            src={founderData.profileImage}
+                                            alt={founderData.name}
+                                            fill
+                                            className="object-cover object-top"
+                                            priority
+                                        />
                                     </div>
                                 </div>
                                 {/* Decorative Badges */}

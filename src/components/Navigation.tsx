@@ -41,9 +41,9 @@ const navCategories = {
         { href: "/url-encoder", label: "URL Encoder", image: flowerThemes.jasmine.image },
     ],
     "Company": [
-        { href: "/about", label: "About Us", image: flowerThemes.sunflower.image },
-        { href: "/team", label: "Team", image: flowerThemes.sunflower.image },
-        { href: "/contact", label: "Contact", image: flowerThemes.sunflower.image },
+        { href: "/about", label: "About Us", image: flowerThemes.lilac.image },
+        { href: "/team", label: "Team", image: flowerThemes.peony.image },
+        { href: "/contact", label: "Contact", image: flowerThemes.jasmine.image },
     ],
 };
 
