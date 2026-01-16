@@ -372,6 +372,72 @@ export function ImageConverterClient() {
           </div>
         )}
 
+        {/* SEO Educational Content */}
+        <section className="w-full max-w-[1920px] mx-auto px-4 sm:px-6 lg:px-8 pb-8">
+          <div className="bg-white dark:bg-slate-900 rounded-2xl border border-slate-200 dark:border-slate-800 p-8 space-y-8">
+            <h2 className="text-2xl font-bold text-slate-900 dark:text-white">
+              Complete Guide to Image Format Conversion
+            </h2>
+            
+            <div className="prose prose-slate dark:prose-invert max-w-none">
+              <p>
+                Converting images between formats is essential for optimizing web performance, ensuring compatibility, 
+                and reducing file sizes. Our free online image converter supports all major formats including 
+                <strong> JPG, PNG, WebP, and AVIF</strong>, plus special input support for <strong>HEIC</strong> (iPhone photos) 
+                and <strong>SVG</strong> vector graphics.
+              </p>
+
+              <h3>When to Use Each Format</h3>
+              
+              <div className="grid md:grid-cols-2 gap-4 not-prose mt-4">
+                <div className="p-4 rounded-lg bg-blue-50 dark:bg-blue-900/20 border border-blue-200 dark:border-blue-800">
+                  <h4 className="font-bold text-blue-700 dark:text-blue-400">WebP — Best for Web</h4>
+                  <p className="text-sm text-slate-600 dark:text-slate-400 mt-2">
+                    25-35% smaller than JPEG at equivalent quality. Supports transparency. 
+                    Ideal for websites, blogs, and web applications.
+                  </p>
+                </div>
+                <div className="p-4 rounded-lg bg-purple-50 dark:bg-purple-900/20 border border-purple-200 dark:border-purple-800">
+                  <h4 className="font-bold text-purple-700 dark:text-purple-400">AVIF — Next-Gen Compression</h4>
+                  <p className="text-sm text-slate-600 dark:text-slate-400 mt-2">
+                    50% smaller than JPEG with excellent quality. Growing browser support. 
+                    Perfect for performance-critical applications.
+                  </p>
+                </div>
+                <div className="p-4 rounded-lg bg-green-50 dark:bg-green-900/20 border border-green-200 dark:border-green-800">
+                  <h4 className="font-bold text-green-700 dark:text-green-400">PNG — Lossless Quality</h4>
+                  <p className="text-sm text-slate-600 dark:text-slate-400 mt-2">
+                    No quality loss during compression. Full transparency support. 
+                    Best for logos, icons, screenshots, and graphics with text.
+                  </p>
+                </div>
+                <div className="p-4 rounded-lg bg-orange-50 dark:bg-orange-900/20 border border-orange-200 dark:border-orange-800">
+                  <h4 className="font-bold text-orange-700 dark:text-orange-400">JPG — Universal Compatibility</h4>
+                  <p className="text-sm text-slate-600 dark:text-slate-400 mt-2">
+                    Supported everywhere. Excellent for photographs. 
+                    Use when maximum compatibility is required across all platforms.
+                  </p>
+                </div>
+              </div>
+
+              <h3 className="mt-8">Convert HEIC to JPG or PNG</h3>
+              <p>
+                HEIC (High Efficiency Image Container) is Apple&apos;s default photo format on iPhones and iPads. 
+                While it offers excellent compression, many websites and applications don&apos;t support it. 
+                Use our converter to instantly convert HEIC photos to universally compatible JPG or PNG format.
+              </p>
+
+              <h3>Why Convert Images Online?</h3>
+              <ul>
+                <li><strong>Privacy First:</strong> All conversion happens in your browser — no uploads to servers</li>
+                <li><strong>Batch Processing:</strong> Convert multiple images at once with ZIP download</li>
+                <li><strong>No Installation:</strong> Works on any device with a modern browser</li>
+                <li><strong>Free & Unlimited:</strong> No file size limits, no watermarks, no sign-up required</li>
+              </ul>
+            </div>
+          </div>
+        </section>
+
         <section className="w-full max-w-[1920px] mx-auto px-4 sm:px-6 lg:px-8 pb-16">
           <TrustPanel />
         </section>

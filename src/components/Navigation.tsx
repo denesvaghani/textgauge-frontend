@@ -26,7 +26,9 @@ const navCategories = {
     ],
     "Media Tools": [
         { href: "/image-compressor", label: "Image Compressor", image: flowerThemes.hydrangea.image },
-        { href: "/image-merger", label: "Image Merger", image: flowerThemes.sunflower.image },
+        { href: "/image-converter", label: "Image Converter", image: flowerThemes.gerbera.image },
+        { href: "/image-resizer", label: "Image Resizer", image: flowerThemes.gardenia.image },
+        { href: "/image-merger", label: "Image Merger", image: flowerThemes.protea.image },
     ],
     "Comparison": [
         { href: "/diff-checker", label: "Diff Checker", image: flowerThemes.redRose.image },
