@@ -135,7 +135,7 @@ export function ImageMergerClient() {
                                 </h3>
 
                                 <div className="space-y-6">
-                                    {/* Direction */}
+                                {/* Direction */}
                                     <div className="space-y-3">
                                         <label className="text-sm font-semibold text-slate-700 dark:text-slate-300">Stitch Direction</label>
                                         <div className="grid grid-cols-2 gap-3">
@@ -159,6 +159,34 @@ export function ImageMergerClient() {
                                             >
                                                 <ArrowRight size={18} /> Horizontal
                                             </button>
+                                        </div>
+                                    </div>
+
+                                    {/* Background Color */}
+                                    <div className="space-y-3">
+                                        <label className="text-sm font-semibold text-slate-700 dark:text-slate-300">Background Color</label>
+                                        <div className="flex gap-2">
+                                            <div className="relative flex-1">
+                                                <input
+                                                    type="color"
+                                                    value={backgroundColor}
+                                                    onChange={(e) => setBackgroundColor(e.target.value)}
+                                                    className="w-full h-10 rounded-lg cursor-pointer border border-slate-200 dark:border-slate-700"
+                                                />
+                                            </div>
+                                            <div className="flex gap-1">
+                                                {["#ffffff", "#000000", "#f3f4f6", "transparent"].map((color) => (
+                                                    <button
+                                                        key={color}
+                                                        onClick={() => setBackgroundColor(color)}
+                                                        className={`w-10 h-10 rounded-lg border-2 transition-all ${
+                                                            backgroundColor === color ? "border-blue-500 scale-105" : "border-slate-200 dark:border-slate-700"
+                                                        } ${color === "transparent" ? "bg-[url('/images/transparent-bg.png')] bg-repeat" : ""}`}
+                                                        style={{ backgroundColor: color === "transparent" ? undefined : color }}
+                                                        title={color === "transparent" ? "Transparent" : color}
+                                                    />
+                                                ))}
+                                            </div>
                                         </div>
                                     </div>
 

@@ -40,6 +40,36 @@ const PRESETS = [
   },
 ];
 
+// Persona-based presets for different user types
+import { Code, Palette, Megaphone } from "lucide-react";
+
+const PERSONA_PRESETS = [
+  {
+    id: "developer",
+    label: "Developer",
+    icon: Code,
+    color: "blue",
+    settings: { maxSizeMB: 0.5, maxWidthOrHeight: 1920, initialQuality: 0.8, fileType: "image/webp" as ImageFormat },
+    description: "WebP @ 80% quality, max 500KB - Perfect for web apps, APIs, and build pipelines"
+  },
+  {
+    id: "designer", 
+    label: "Designer",
+    icon: Palette,
+    color: "purple",
+    settings: { maxSizeMB: 5, maxWidthOrHeight: 4000, initialQuality: 0.95, fileType: "image/png" as ImageFormat },
+    description: "PNG @ 95% quality, up to 5MB - High-fidelity exports for portfolios and clients"
+  },
+  {
+    id: "marketer",
+    label: "Marketer",
+    icon: Megaphone,
+    color: "orange",
+    settings: { maxSizeMB: 0.2, maxWidthOrHeight: 1200, initialQuality: 0.75, fileType: "image/jpeg" as ImageFormat },
+    description: "JPG @ 75% quality, max 200KB - Optimized for email campaigns and social media"
+  },
+];
+
 interface CompressionControlsProps {
   settings: CompressionSettings;
   onSettingsChange: (newSettings: Partial<CompressionSettings>) => void;
@@ -53,6 +83,42 @@ export function CompressionControls({ settings, onSettingsChange, disabled }: Co
         <span className="w-1 h-6 bg-blue-500 rounded-full"></span>
         Compression Settings
       </h3>
+
+      {/* Persona-Based Presets - Our USP */}
+      <div className="space-y-3">
+        <label className="text-sm font-medium text-slate-700 dark:text-slate-300 flex items-center gap-2">
+          I am a...
+          <span className="text-[10px] px-1.5 py-0.5 rounded bg-gradient-to-r from-blue-500 to-purple-500 text-white font-bold">NEW</span>
+        </label>
+        <div className="grid grid-cols-3 gap-2">
+          {PERSONA_PRESETS.map((persona) => (
+            <button
+              key={persona.id}
+              onClick={() => onSettingsChange(persona.settings)}
+              disabled={disabled}
+              title={persona.description}
+              className={`flex flex-col items-center gap-2 p-3 rounded-xl border-2 transition-all hover:scale-[1.02] disabled:opacity-50 ${
+                persona.color === "blue" 
+                  ? "border-blue-200 dark:border-blue-800 hover:border-blue-500 hover:bg-blue-50 dark:hover:bg-blue-900/20 text-blue-600 dark:text-blue-400"
+                  : persona.color === "purple"
+                  ? "border-purple-200 dark:border-purple-800 hover:border-purple-500 hover:bg-purple-50 dark:hover:bg-purple-900/20 text-purple-600 dark:text-purple-400"
+                  : "border-orange-200 dark:border-orange-800 hover:border-orange-500 hover:bg-orange-50 dark:hover:bg-orange-900/20 text-orange-600 dark:text-orange-400"
+              }`}
+            >
+              <persona.icon size={20} />
+              <span className="text-xs font-bold">{persona.label}</span>
+            </button>
+          ))}
+        </div>
+        <p className="text-[10px] text-slate-400 text-center">Click a persona to auto-configure optimal settings</p>
+      </div>
+
+      {/* Divider */}
+      <div className="flex items-center gap-3">
+        <div className="flex-1 h-px bg-slate-200 dark:bg-slate-700"></div>
+        <span className="text-[10px] text-slate-400 uppercase tracking-wider">or customize</span>
+        <div className="flex-1 h-px bg-slate-200 dark:bg-slate-700"></div>
+      </div>
 
       {/* Quick Presets */}
       <div className="space-y-3">
