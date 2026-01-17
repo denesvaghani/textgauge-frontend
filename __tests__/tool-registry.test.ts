@@ -73,6 +73,22 @@ describe('Tool Registry', () => {
       const uniqueKeys = new Set(keys);
       expect(uniqueKeys.size).toBe(keys.length);
     });
+
+    // CRITICAL: This test prevents deployment if the same logo is used for multiple tools
+    it('has no duplicate logos - each tool must have a unique image', () => {
+      const tools = getAllTools();
+      const images = tools.map(t => t.theme.image);
+      const uniqueImages = new Set(images);
+      
+      if (uniqueImages.size !== images.length) {
+        // Find the duplicates for a helpful error message
+        const duplicates = images.filter((img, idx) => images.indexOf(img) !== idx);
+        const duplicateTools = tools.filter(t => duplicates.includes(t.theme.image));
+        console.error('DUPLICATE LOGOS DETECTED:', duplicateTools.map(t => `${t.title}: ${t.theme.image}`));
+      }
+      
+      expect(uniqueImages.size).toBe(images.length);
+    });
   });
 
   // ==================== Category Tests ====================
