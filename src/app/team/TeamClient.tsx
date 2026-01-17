@@ -50,19 +50,19 @@ export function TeamClient() {
         bio: "Product engineer with expertise in AI integration and privacy-first architecture. Previously worked on enterprise AI solutions at leading tech companies. Founded TextGauge to make professional developer tools accessible to everyone — without compromising on privacy or quality.",
     };
 
-    // Business-focused metrics (more impressive for AdSense)
+    // Business-focused metrics (only real, verifiable data)
     const stats = [
         { value: 17, suffix: "+", label: "Professional Tools", icon: Award, color: "indigo" },
-        { value: 100, suffix: "%", label: "Privacy Guaranteed", icon: ShieldCheck, color: "emerald" },
-        { value: 50, suffix: "+", label: "Countries Served", icon: Globe, color: "blue" },
-        { value: 10, suffix: "K+", label: "Monthly Users", icon: Users, color: "violet" },
+        { value: 100, suffix: "%", label: "Client-Side Processing", icon: ShieldCheck, color: "emerald" },
+        { value: 0, suffix: "", label: "Data Sent to Servers", icon: Globe, color: "blue" },
+        { value: 247, suffix: "+", label: "Quality Tests", icon: Zap, color: "violet" },
     ];
 
-    // Business-focused milestones
+    // Business-focused milestones (factual)
     const milestones = [
         { icon: Sparkles, title: "Founded", value: "Nov 2025", description: "TextGauge launched with a mission to provide free, privacy-first developer tools." },
         { icon: Rocket, title: "Rapid Growth", value: "17+ Tools", description: "Expanded from text utilities to image processing, code formatters, and generators." },
-        { icon: TrendingUp, title: "Global Reach", value: "50+ Countries", description: "Developers and teams worldwide trust TextGauge for daily productivity." },
+        { icon: TrendingUp, title: "The Mission", value: "Privacy First", description: "Every tool processes locally in your browser. No data ever leaves your device." },
     ];
 
     return (
