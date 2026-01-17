@@ -10,8 +10,6 @@ interface ApiKeyStats {
   cooldownMs: number;
 }
 
-console.log("GEMINI_API_KEYS raw:", process.env.GEMINI_API_KEYS);
-
 
 class ApiKeyManager {
   private keys: string[];
