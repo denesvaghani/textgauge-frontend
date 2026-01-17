@@ -124,7 +124,7 @@ export function ImageMergerClient() {
                     description="Combine multiple images into a single professional shot. Perfectly stitch scrolling screenshots or create horizontal comparisons in seconds."
                 />
 
-                <main className="flex-1 w-full max-w-[1200px] mx-auto px-4 sm:px-6 lg:px-8 py-8 space-y-8">
+                <main className="flex-1 w-full max-w-[1920px] mx-auto px-4 sm:px-6 lg:px-8 py-8 space-y-8">
                     <div className="grid lg:grid-cols-3 gap-8">
                         {/* Settings Panel */}
                         <div className="lg:col-span-1 space-y-6">
@@ -296,7 +296,7 @@ export function ImageMergerClient() {
                     </div>
                 </main>
 
-                <section className="w-full max-w-[1200px] mx-auto px-4 sm:px-6 lg:px-8 pb-16">
+                <section className="w-full max-w-[1920px] mx-auto px-4 sm:px-6 lg:px-8 pb-16">
                     <TrustPanel />
                 </section>
 

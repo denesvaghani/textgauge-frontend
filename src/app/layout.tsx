@@ -16,7 +16,7 @@ export async function generateMetadata(): Promise<Metadata> {
       template: "%s | TextGauge",
     },
     description:
-      "Free, secure, and privacy-focused developer tools suite. Instantly count characters, format JSON/YAML/TOML, convert data formats, and analyze text - all in your browser.",
+      "Free developer tools: compress images, format JSON/YAML, generate UUIDs & hashes, compare text, and more. 100% browser-based, no server uploads.",
     metadataBase: new URL(baseUrl),
     alternates: {
       canonical: baseUrl,
@@ -24,7 +24,7 @@ export async function generateMetadata(): Promise<Metadata> {
     openGraph: {
       title: "TextGauge - Free Developer Tools Suite",
       description:
-        "Free, secure, and privacy-focused developer tools suite. Instantly count characters, format JSON/YAML/TOML, convert data formats, and analyze text.",
+        "Free developer tools: compress images, format JSON/YAML, generate UUIDs & hashes, compare text, and more. 100% browser-based, no uploads.",
       url: baseUrl,
       siteName: "TextGauge",
       type: "website",
@@ -59,7 +59,7 @@ const structuredData = [
     name: "TextGauge",
     alternateName: "CountCharacters",
     url: "https://www.countcharacters.org",
-    description: "Free, secure, and privacy-focused developer tools suite. Instantly count characters, format JSON/YAML/TOML, convert data formats, and analyze text - all in your browser.",
+    description: "Free developer tools: compress images, format JSON/YAML, generate UUIDs & hashes, compare text, and more. 100% browser-based, no uploads.",
     potentialAction: {
       "@type": "SearchAction",
       target: {
@@ -102,7 +102,7 @@ const structuredData = [
     applicationCategory: "DeveloperApplication",
     operatingSystem: "All",
     browserRequirements: "Requires JavaScript",
-    description: "Free, secure, and privacy-focused developer tools suite. Instantly count characters, format JSON/YAML/TOML, convert data formats, and analyze text - all in your browser.",
+    description: "Free developer tools: compress images, format JSON/YAML, generate UUIDs & hashes, compare text, and more. 100% browser-based, no uploads.",
     offers: {
       "@type": "Offer",
       price: "0",
