@@ -47,7 +47,7 @@ export function TeamClient() {
         linkedin: "https://www.linkedin.com/in/denesvaghani/",
         github: "https://github.com/denesvaghani",
         profileImage: "/images/team/denes-vaghani.jpg",
-        bio: "Product engineer with expertise in AI integration and privacy-first architecture. Previously worked on enterprise AI solutions at leading tech companies. Founded TextGauge to make professional developer tools accessible to everyone — without compromising on privacy or quality.",
+        bio: "Senior Product Engineer specializing in AI integration and privacy-first architecture. Currently building enterprise AI solutions while running TextGauge — making professional developer tools accessible to everyone without compromising on privacy or quality.",
     };
 
     // Business-focused metrics (only real, verifiable data)
@@ -55,7 +55,6 @@ export function TeamClient() {
         { value: 17, suffix: "+", label: "Professional Tools", icon: Award, color: "indigo" },
         { value: 100, suffix: "%", label: "Client-Side Processing", icon: ShieldCheck, color: "emerald" },
         { value: 0, suffix: "", label: "Data Sent to Servers", icon: Globe, color: "blue" },
-        { value: 247, suffix: "+", label: "Quality Tests", icon: Zap, color: "violet" },
     ];
 
     // Business-focused milestones (factual)
@@ -81,36 +80,34 @@ export function TeamClient() {
                 <main className="flex-1 w-full max-w-[1200px] mx-auto px-4 sm:px-6 lg:px-8 py-8 space-y-16">
                     
                     {/* ==================== FOUNDER SECTION ==================== */}
-                    <section className="grid md:grid-cols-5 gap-12 items-center">
-                        {/* Profile Photo - Prominent */}
-                        <div className="md:col-span-2 flex justify-center">
-                            <motion.div 
-                                initial={{ opacity: 0, scale: 0.9 }}
-                                animate={{ opacity: 1, scale: 1 }}
-                                className="relative"
-                            >
-                                <div className="w-72 h-72 rounded-3xl bg-gradient-to-br from-indigo-500 via-violet-500 to-purple-500 p-1.5 shadow-2xl">
-                                    <div className="w-full h-full rounded-[20px] overflow-hidden bg-white dark:bg-slate-900 relative">
-                                        <Image 
-                                            src={founderData.profileImage}
-                                            alt={founderData.name}
-                                            fill
-                                            className="object-cover object-top"
-                                            priority
-                                            sizes="288px"
-                                        />
-                                    </div>
+                    <section className="flex flex-col items-center text-center space-y-8">
+                        {/* Profile Photo - Centered & Prominent */}
+                        <motion.div 
+                            initial={{ opacity: 0, scale: 0.9 }}
+                            animate={{ opacity: 1, scale: 1 }}
+                            className="relative"
+                        >
+                            <div className="w-56 h-56 md:w-64 md:h-64 rounded-full bg-gradient-to-br from-slate-200 to-slate-300 dark:from-slate-700 dark:to-slate-800 p-1 shadow-2xl">
+                                <div className="w-full h-full rounded-full overflow-hidden bg-white dark:bg-slate-900 relative">
+                                    <Image 
+                                        src={founderData.profileImage}
+                                        alt={founderData.name}
+                                        fill
+                                        className="object-cover object-top"
+                                        priority
+                                        sizes="256px"
+                                    />
                                 </div>
-                                {/* Verified Badge */}
-                                <div className="absolute -bottom-3 -right-3 bg-white dark:bg-slate-800 px-4 py-2 rounded-xl shadow-lg border border-slate-100 dark:border-slate-700 flex items-center gap-2">
-                                    <ShieldCheck className="text-emerald-500" size={18} />
-                                    <span className="text-sm font-bold text-slate-700 dark:text-slate-200">Verified</span>
-                                </div>
-                            </motion.div>
-                        </div>
+                            </div>
+                            {/* Verified Badge */}
+                            <div className="absolute -bottom-2 left-1/2 -translate-x-1/2 bg-white dark:bg-slate-800 px-4 py-2 rounded-full shadow-lg border border-slate-100 dark:border-slate-700 flex items-center gap-2">
+                                <ShieldCheck className="text-emerald-500" size={16} />
+                                <span className="text-sm font-bold text-slate-700 dark:text-slate-200">Verified</span>
+                            </div>
+                        </motion.div>
 
-                        {/* Founder Info */}
-                        <div className="md:col-span-3 space-y-5">
+                        {/* Founder Info - Centered */}
+                        <div className="space-y-5 max-w-2xl">
                             <div className="space-y-2">
                                 <h2 className="text-3xl md:text-4xl font-black text-slate-900 dark:text-white leading-tight">
                                     {founderData.name}
@@ -125,7 +122,7 @@ export function TeamClient() {
                             </p>
 
                             {/* Contact Buttons */}
-                            <div className="flex flex-wrap gap-3 pt-2">
+                            <div className="flex flex-wrap justify-center gap-3 pt-2">
                                 <a 
                                     href={founderData.linkedin} 
                                     target="_blank" 
