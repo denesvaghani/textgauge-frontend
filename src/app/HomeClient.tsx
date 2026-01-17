@@ -2,185 +2,33 @@
 
 import { Editor } from "@/components/Editor";
 import Image from "next/image";
-import { flowerThemes } from "@/config/flowerThemes";
 import { useState } from "react";
 import { FlowerBackground } from "@/components/FlowerBackground";
 import { SmartHeroHeader, HeroDescription } from "@/components/SmartHeroHeader";
+import { 
+  getToolsByCategory, 
+  getCategoryIcon, 
+  type ToolCategory,
+  type ToolDefinition,
+  TOOL_REGISTRY
+} from "@/config/toolRegistry";
+import { flowerThemes } from "@/config/flowerThemes";
 
-const categories = {
-  "Formatters": [
-    {
-      href: "/json-formatter",
-      theme: flowerThemes.cherryBlossom,
-      title: "JSON Formatter",
-      description: "Validate, beautify, and minify JSON data with our advanced Monaco-based editor.",
-      hoverBorder: "hover:border-pink-400/60 dark:hover:border-pink-400/40",
-      hoverShadow: "hover:shadow-pink-500/20",
-      hoverText: "group-hover:text-pink-600 dark:group-hover:text-pink-400",
-    },
-    {
-      href: "/yaml-formatter",
-      theme: flowerThemes.whiteLily,
-      title: "YAML Formatter",
-      description: "Convert, validate, and format YAML files with syntax highlighting and error detection.",
-      hoverBorder: "hover:border-emerald-400/60 dark:hover:border-emerald-400/40",
-      hoverShadow: "hover:shadow-emerald-500/20",
-      hoverText: "group-hover:text-emerald-600 dark:group-hover:text-emerald-400",
-    },
-    {
-      href: "/toml-formatter",
-      theme: flowerThemes.frangipani,
-      title: "TOML Formatter",
-      description: "Validate, format, and beautify TOML configuration files (Cargo.toml, pyproject.toml) instantly.",
-      hoverBorder: "hover:border-orange-400/60 dark:hover:border-orange-400/40",
-      hoverShadow: "hover:shadow-orange-500/20",
-      hoverText: "group-hover:text-orange-600 dark:group-hover:text-orange-400",
-    },
-  ],
-  "Converters": [
-    {
-      href: "/json-to-csv-converter",
-      theme: flowerThemes.lilac,
-      title: "JSON to CSV",
-      description: "Convert JSON data to CSV format instantly. Reduces file size by 50-60% for easy spreadsheet use.",
-      hoverBorder: "hover:border-orange-400/60 dark:hover:border-orange-400/40",
-      hoverShadow: "hover:shadow-orange-500/20",
-      hoverText: "group-hover:text-orange-600 dark:group-hover:text-orange-400",
-    },
-    {
-      href: "/json-to-toon-converter",
-      theme: flowerThemes.lavender,
-      title: "JSON to TOON",
-      description: "AI-optimized format. Reduce token usage by 30-60% for ChatGPT, Claude, and other LLMs.",
-      hoverBorder: "hover:border-violet-400/60 dark:hover:border-violet-400/40",
-      hoverShadow: "hover:shadow-violet-500/20",
-      hoverText: "group-hover:text-violet-600 dark:group-hover:text-violet-400",
-    },
-  ],
-  "Design Tools": [
-    {
-      href: "/palette-forge",
-      theme: flowerThemes.orchid,
-      title: "PaletteForge",
-      description: "Extract colors from images and generate design tokens. Export to CSS, Tailwind, SCSS, Figma, and more.",
-      hoverBorder: "hover:border-stone-400/60 dark:hover:border-stone-400/40",
-      hoverShadow: "hover:shadow-stone-500/20",
-      hoverText: "group-hover:text-stone-600 dark:group-hover:text-stone-400",
-    },
-  ],
-  "Media Tools": [
-    {
-      href: "/image-compressor",
-      theme: { name: "Gorilla", image: "/images/animals/gorilla.jpg", colors: { primary: "#374151", secondary: "#4B5563", accent: "#E5E7EB", glow: "rgba(75, 85, 99, 0.3)" } },
-      title: "Image Compressor",
-      description: "Compress JPG, PNG, WebP images to any size. Client-side processing - your images never leave your browser.",
-      hoverBorder: "hover:border-slate-400/60 dark:hover:border-slate-400/40",
-      hoverShadow: "hover:shadow-slate-500/20",
-      hoverText: "group-hover:text-slate-600 dark:group-hover:text-slate-400",
-    },
-    {
-      href: "/image-converter",
-      theme: { name: "Lion", image: "/images/animals/lion.jpg", colors: { primary: "#B45309", secondary: "#D97706", accent: "#FEF3C7", glow: "rgba(217, 119, 6, 0.3)" } },
-      title: "Image Converter",
-      description: "Convert images between JPG, PNG, WebP, and AVIF formats. Batch conversion with ZIP download.",
-      hoverBorder: "hover:border-amber-400/60 dark:hover:border-amber-400/40",
-      hoverShadow: "hover:shadow-amber-500/20",
-      hoverText: "group-hover:text-amber-600 dark:group-hover:text-amber-400",
-    },
-    {
-      href: "/image-resizer",
-      theme: { name: "Giraffe", image: "/images/animals/giraffe.jpg", colors: { primary: "#92400E", secondary: "#B45309", accent: "#FEF3C7", glow: "rgba(146, 64, 14, 0.3)" } },
-      title: "Image Resizer",
-      description: "Resize images to exact dimensions or percentages. Social media presets for Instagram, Twitter, and more.",
-      hoverBorder: "hover:border-orange-400/60 dark:hover:border-orange-400/40",
-      hoverShadow: "hover:shadow-orange-500/20",
-      hoverText: "group-hover:text-orange-600 dark:group-hover:text-orange-400",
-    },
-    {
-      href: "/image-merger",
-      theme: { name: "Wolf", image: "/images/animals/wolf.jpg", colors: { primary: "#475569", secondary: "#64748B", accent: "#E2E8F0", glow: "rgba(100, 116, 139, 0.3)" } },
-      title: "Image Merger",
-      description: "Combine multiple images into one. Stitch photos vertically for scrolling screenshots or horizontally for comparisons.",
-      hoverBorder: "hover:border-slate-400/60 dark:hover:border-slate-400/40",
-      hoverShadow: "hover:shadow-slate-500/20",
-      hoverText: "group-hover:text-slate-600 dark:group-hover:text-slate-400",
-    },
-  ],
-  "Comparison": [
-    {
-      href: "/diff-checker",
-      theme: flowerThemes.redRose,
-      title: "Diff Checker",
-      description: "Compare two texts and see differences instantly. Perfect for code reviews and config comparisons.",
-      hoverBorder: "hover:border-rose-400/60 dark:hover:border-rose-400/40",
-      hoverShadow: "hover:shadow-rose-500/20",
-      hoverText: "group-hover:text-rose-600 dark:group-hover:text-rose-400",
-    },
-  ],
-  "Generators": [
-    {
-      href: "/uuid-generator",
-      theme: flowerThemes.peony,
-      title: "UUID Generator",
-      description: "Generate random UUIDs (v4) in bulk. Fast, free, and secure generation for developers.",
-      hoverBorder: "hover:border-yellow-400/60 dark:hover:border-yellow-400/40",
-      hoverShadow: "hover:shadow-yellow-500/20",
-      hoverText: "group-hover:text-yellow-600 dark:group-hover:text-yellow-400",
-    },
-    {
-      href: "/hash-generator",
-      theme: flowerThemes.magnolia,
-      title: "Hash Generator",
-      description: "Generate MD5, SHA-1, SHA-256, and SHA-512 hashes instantly. Verify file integrity with checksums.",
-      hoverBorder: "hover:border-emerald-400/60 dark:hover:border-emerald-400/40",
-      hoverShadow: "hover:shadow-emerald-500/20",
-      hoverText: "group-hover:text-emerald-600 dark:group-hover:text-emerald-400",
-    },
-    {
-      href: "/cron-job-generator",
-      theme: flowerThemes.morningGlory,
-      title: "Cron Generator",
-      description: "Build cron schedules visually. Translate complex cron expressions into human-readable text.",
-      hoverBorder: "hover:border-pink-400/60 dark:hover:border-pink-400/40",
-      hoverShadow: "hover:shadow-pink-500/20",
-      hoverText: "group-hover:text-pink-600 dark:group-hover:text-pink-400",
-    },
-    {
-      href: "/base64-encoder",
-      theme: flowerThemes.blueIris,
-      title: "Base64 Tool",
-      description: "Encode and decode Base64 strings and files. Supports Unicode and emoji handling.",
-      hoverBorder: "hover:border-violet-400/60 dark:hover:border-violet-400/40",
-      hoverShadow: "hover:shadow-violet-500/20",
-      hoverText: "group-hover:text-violet-600 dark:group-hover:text-violet-400",
-    },
-    {
-      href: "/url-encoder",
-      theme: flowerThemes.jasmine,
-      title: "URL Encoder",
-      description: "Encode and decode URLs, parse query parameters, and build URLs visually. Full UTF-8 support.",
-      hoverBorder: "hover:border-yellow-400/60 dark:hover:border-yellow-400/40",
-      hoverShadow: "hover:shadow-yellow-500/20",
-      hoverText: "group-hover:text-yellow-600 dark:group-hover:text-yellow-400",
-    },
-  ],
-};
+// Category order for display
+const CATEGORY_ORDER: ToolCategory[] = [
+  "Formatters",
+  "Converters",
+  "Design Tools",
+  "Media Tools",
+  "Comparison",
+  "Generators",
+];
 
-const categoryLabels: Record<string, { image: string; color: string }> = {
-  "Formatters": { image: flowerThemes.cherryBlossom.image, color: "violet" },
-  "Converters": { image: flowerThemes.sunflower.image, color: "yellow" },
-  "Design Tools": { image: flowerThemes.orchid.image, color: "stone" },
-  "Media Tools": { image: "/images/animals/gorilla.jpg", color: "slate" },
-  "Comparison": { image: flowerThemes.redRose.image, color: "rose" },
-  "Generators": { image: flowerThemes.dahlia.image, color: "slate" },
-};
-
-type CategoryKey = keyof typeof categories;
+type CategoryKey = typeof CATEGORY_ORDER[number];
 
 function ToolsSection() {
   const [activeCategory, setActiveCategory] = useState<CategoryKey>("Formatters");
-  const categoryKeys = Object.keys(categories) as CategoryKey[];
-  const tools = categories[activeCategory];
+  const tools = getToolsByCategory(activeCategory);
 
   return (
     <section className="w-full max-w-[1920px] mx-auto px-4 sm:px-6 lg:px-8 py-16">
@@ -192,7 +40,7 @@ function ToolsSection() {
         
         {/* Category Tabs */}
         <div className="flex flex-wrap justify-center gap-2">
-          {categoryKeys.map((category) => (
+          {CATEGORY_ORDER.map((category) => (
             <button
               key={category}
               onClick={() => setActiveCategory(category)}
@@ -204,7 +52,7 @@ function ToolsSection() {
             >
               <div className="w-5 h-5 sm:w-6 sm:h-6 rounded-full overflow-hidden shrink-0 border border-current opacity-90 relative">
                 <Image 
-                    src={categoryLabels[category]?.image} 
+                    src={getCategoryIcon(category)} 
                     alt="" 
                     fill
                     sizes="24px"
@@ -214,7 +62,7 @@ function ToolsSection() {
               </div>
               <span>{category}</span>
               <span className="ml-1 px-2 py-0.5 rounded-full text-xs bg-slate-200/50 dark:bg-slate-700/50">
-                {categories[category].length}
+                {getToolsByCategory(category).length}
               </span>
             </button>
           ))}
@@ -226,7 +74,7 @@ function ToolsSection() {
           <a
             key={tool.href}
             href={tool.href}
-            className={`group relative p-6 rounded-2xl bg-white dark:bg-slate-900 border-2 border-slate-200 dark:border-slate-800 ${tool.hoverBorder} hover:shadow-2xl ${tool.hoverShadow} transition-all duration-300 overflow-hidden`}
+            className={`group relative p-6 rounded-2xl bg-white dark:bg-slate-900 border-2 border-slate-200 dark:border-slate-800 ${tool.hoverStyles.border} hover:shadow-2xl ${tool.hoverStyles.shadow} transition-all duration-300 overflow-hidden`}
           >
             {/* Gradient overlay on hover */}
             <div 
@@ -250,7 +98,7 @@ function ToolsSection() {
                 </div>
                 <span className="text-slate-300 dark:text-slate-600 group-hover:translate-x-1 transition-transform text-2xl">→</span>
               </div>
-              <h3 className={`text-xl font-bold text-slate-900 dark:text-white mb-2 ${tool.hoverText} transition-colors`}>
+              <h3 className={`text-xl font-bold text-slate-900 dark:text-white mb-2 ${tool.hoverStyles.text} transition-colors`}>
                 {tool.title}
               </h3>
               <p className="text-slate-600 dark:text-slate-400 text-sm leading-relaxed">

@@ -6,46 +6,35 @@ import { usePathname } from "next/navigation";
 import { useState, useEffect, useRef } from "react";
 import { Menu, X, Moon, Sun, ChevronDown } from "lucide-react";
 import { useTheme } from "@/contexts/ThemeContext";
-import { flowerThemes } from "@/config/flowerThemes";
+import { getNavCategories, COMPANY_PAGES } from "@/config/toolRegistry";
 
-const navCategories = {
-    "Text Tools": [
-        { href: "/", label: "Character Counter", image: flowerThemes.sunflower.image },
-    ],
-    "Formatters": [
-        { href: "/json-formatter", label: "JSON Formatter", image: flowerThemes.cherryBlossom.image },
-        { href: "/yaml-formatter", label: "YAML Formatter", image: flowerThemes.whiteLily.image },
-        { href: "/toml-formatter", label: "TOML Formatter", image: flowerThemes.frangipani.image },
-    ],
-    "Converters": [
-        { href: "/json-to-csv-converter", label: "JSON to CSV", image: flowerThemes.lilac.image },
-        { href: "/json-to-toon-converter", label: "JSON to TOON", image: flowerThemes.lavender.image },
-    ],
-    "Design Tools": [
-        { href: "/palette-forge", label: "PaletteForge", image: flowerThemes.orchid.image },
-    ],
-    "Media Tools": [
-        { href: "/image-compressor", label: "Image Compressor", image: "/images/animals/gorilla.jpg" },
-        { href: "/image-converter", label: "Image Converter", image: "/images/animals/lion.jpg" },
-        { href: "/image-resizer", label: "Image Resizer", image: "/images/animals/giraffe.jpg" },
-        { href: "/image-merger", label: "Image Merger", image: "/images/animals/wolf.jpg" },
-    ],
-    "Comparison": [
-        { href: "/diff-checker", label: "Diff Checker", image: flowerThemes.redRose.image },
-    ],
-    "Generators": [
-        { href: "/uuid-generator", label: "UUID Generator", image: flowerThemes.peony.image },
-        { href: "/hash-generator", label: "Hash Generator", image: flowerThemes.magnolia.image },
-        { href: "/cron-job-generator", label: "Cron Generator", image: flowerThemes.morningGlory.image },
-        { href: "/base64-encoder", label: "Base64 Tool", image: flowerThemes.blueIris.image },
-        { href: "/url-encoder", label: "URL Encoder", image: flowerThemes.jasmine.image },
-    ],
-    "Company": [
-        { href: "/about", label: "About Us" },
-        { href: "/team", label: "Team" },
-        { href: "/contact", label: "Contact" },
-    ],
-};
+// Build navigation categories from the central registry
+const navCategories = (() => {
+    const categories = getNavCategories();
+    
+    // Reorder categories for navigation display
+    const orderedCategories: Record<string, Array<{ href: string; label: string; image?: string }>> = {};
+    
+    // Define the order
+    const categoryOrder = [
+        'Text Tools',
+        'Formatters',
+        'Converters',
+        'Design Tools',
+        'Media Tools',
+        'Comparison',
+        'Generators',
+        'Company'
+    ];
+    
+    categoryOrder.forEach(cat => {
+        if (categories[cat]) {
+            orderedCategories[cat] = categories[cat];
+        }
+    });
+    
+    return orderedCategories;
+})();
 
 export function Navigation() {
     const pathname = usePathname();
@@ -149,7 +138,7 @@ export function Navigation() {
                                                         : "text-slate-700 dark:text-slate-300 hover:bg-slate-50 dark:hover:bg-slate-700/50"
                                                 }`}
                                             >
-                                                {'image' in link && link.image && (
+                                                {link.image && (
                                                     <div className="w-8 h-8 rounded-full overflow-hidden shrink-0 border border-slate-100 dark:border-slate-700 shadow-sm relative">
                                                         <Image 
                                                             src={link.image} 
