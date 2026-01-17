@@ -93,7 +93,7 @@ export function TeamClient() {
                                         src={founderData.profileImage}
                                         alt={founderData.name}
                                         fill
-                                        className="object-cover object-top"
+                                        className="object-cover object-[center_30%] scale-125"
                                         priority
                                         sizes="256px"
                                     />
@@ -121,25 +121,25 @@ export function TeamClient() {
                                 {founderData.bio}
                             </p>
 
-                            {/* Contact Buttons */}
-                            <div className="flex flex-wrap justify-center gap-3 pt-2">
+                            {/* Social Links - Just Icons */}
+                            <div className="flex justify-center gap-3 pt-2">
                                 <a 
                                     href={founderData.linkedin} 
                                     target="_blank" 
                                     rel="noopener noreferrer"
-                                    className="flex items-center gap-2 px-5 py-2.5 rounded-xl bg-[#0A66C2] text-white font-bold hover:bg-[#004182] transition-colors shadow-lg shadow-blue-500/20"
+                                    className="w-11 h-11 rounded-full bg-[#0A66C2] text-white flex items-center justify-center hover:bg-[#004182] transition-colors shadow-lg"
+                                    aria-label="LinkedIn"
                                 >
-                                    <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="currentColor">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
                                         <path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/>
                                     </svg>
-                                    Connect on LinkedIn
                                 </a>
                                 <a 
                                     href={`mailto:${founderData.email}`}
-                                    className="flex items-center gap-2 px-5 py-2.5 rounded-xl bg-white dark:bg-slate-800 text-slate-700 dark:text-slate-200 font-bold hover:bg-slate-50 dark:hover:bg-slate-700 transition-colors border border-slate-200 dark:border-slate-700"
+                                    className="w-11 h-11 rounded-full bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-300 flex items-center justify-center hover:bg-slate-200 dark:hover:bg-slate-700 transition-colors border border-slate-200 dark:border-slate-700"
+                                    aria-label="Email"
                                 >
-                                    <Mail size={18} />
-                                    Email
+                                    <Mail size={20} />
                                 </a>
                             </div>
                         </div>
