@@ -140,9 +140,7 @@ export default function HomeClient() {
                     <Editor />
                 </div>
 
-                {/* SEO Description - Moved Below Editor */}
-                <HeroDescription text="Free developer tools to format code, compress images, generate UUIDs, compare text, and more — all browser-based." />
-            </div>
+                </div>
 
             {/* Tools Grid with Categories */}
             <ToolsSection />

@@ -1,11 +1,16 @@
 import "./globals.css";
-import type { Metadata } from "next";
+import type { Metadata, Viewport } from "next";
 import Script from "next/script";
 import { ThemeProvider } from "@/contexts/ThemeContext";
 import { ThemeToggle } from "@/components/ThemeToggle";
 import { GoogleAnalytics } from "@/components/GoogleAnalytics";
 
-
+// Viewport configuration (Next.js 16+)
+export const viewport: Viewport = {
+  themeColor: "#4f46e5",
+  width: "device-width",
+  initialScale: 1,
+};
 
 export async function generateMetadata(): Promise<Metadata> {
   const baseUrl = "https://www.countcharacters.org";
@@ -31,7 +36,6 @@ export async function generateMetadata(): Promise<Metadata> {
       locale: "en_US",
     },
     manifest: "/manifest.json",
-    themeColor: "#4f46e5",
     icons: {
       icon: [
         { url: "/favicon.ico", sizes: "any" },
