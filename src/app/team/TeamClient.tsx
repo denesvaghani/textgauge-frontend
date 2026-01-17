@@ -154,7 +154,7 @@ export function TeamClient() {
                             <p className="text-slate-500 dark:text-slate-400">Trusted by developers and teams worldwide</p>
                         </div>
                         
-                        <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+                        <div className="flex flex-wrap justify-center gap-4">
                             {stats.map((stat, i) => (
                                 <motion.div
                                     key={stat.label}
@@ -162,7 +162,7 @@ export function TeamClient() {
                                     whileInView={{ opacity: 1, y: 0 }}
                                     transition={{ duration: 0.4, delay: 0.1 * i }}
                                     viewport={{ once: true }}
-                                    className="bg-white dark:bg-slate-900 rounded-2xl p-6 border border-slate-100 dark:border-slate-800 text-center hover:shadow-lg transition-shadow"
+                                    className="w-full sm:w-[200px] bg-white dark:bg-slate-900 rounded-2xl p-6 border border-slate-100 dark:border-slate-800 text-center hover:shadow-lg transition-shadow"
                                 >
                                     <stat.icon size={28} className={`text-${stat.color}-500 mx-auto mb-3`} />
                                     <p className="text-3xl md:text-4xl font-black text-slate-900 dark:text-white mb-1">
