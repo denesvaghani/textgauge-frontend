@@ -4,7 +4,7 @@ import { Shield, Zap, CircleDollarSign } from 'lucide-react';
 
 export const metadata: Metadata = {
     title: 'About TextGauge | Developer Tools Suite',
-    description: 'Learn about TextGauge - The free, privacy-focused developer tools suite. JSON Formatter, YAML Validator, Diff Checker, Converters, and more.',
+    description: 'Learn about TextGauge - Free developer tools for image compression, JSON formatting, text comparison, UUID generation, and more. 100% browser-based.',
 };
 
 export default function AboutPage() {

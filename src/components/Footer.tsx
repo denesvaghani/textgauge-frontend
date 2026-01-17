@@ -58,7 +58,7 @@ export function Footer() {
                             </span>
                         </Link>
                         <p className="mt-4 text-sm text-slate-600 dark:text-slate-400">
-                            Free, secure, and privacy-focused developer tools suite. JSON Formatter, Diff Checker, Converters, and more - all in your browser.
+                            Free, privacy-first developer tools. Format JSON/YAML, compress images, generate UUIDs \u0026 hashes, compare text, and more — 100% browser-based, no uploads.
                         </p>
                     </div>
 

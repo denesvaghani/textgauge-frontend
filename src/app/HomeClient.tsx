@@ -141,7 +141,7 @@ export default function HomeClient() {
                 </div>
 
                 {/* SEO Description - Moved Below Editor */}
-                <HeroDescription text="Free developer tools suite to count characters, format JSON & YAML, and analyze text." />
+                <HeroDescription text="Free developer tools to format code, compress images, generate UUIDs, compare text, and more — all browser-based." />
             </div>
 
             {/* Tools Grid with Categories */}
