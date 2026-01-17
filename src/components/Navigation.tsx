@@ -97,6 +97,8 @@ export function Navigation() {
                             width={36}
                             height={36}
                             className="rounded-full"
+                            priority
+                            sizes="36px"
                         />
                         <span className="font-bold text-lg text-slate-800 dark:text-white hidden sm:block">
                             TextGauge
@@ -144,7 +146,7 @@ export function Navigation() {
                                                             src={link.image} 
                                                             alt="" 
                                                             fill
-                                                            sizes="32px"
+                                                            sizes="48px"
                                                             className="object-cover"
                                                             priority
                                                         />

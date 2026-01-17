@@ -27,6 +27,7 @@ export function SmartHeroHeader({ title, theme, adSlot, description, className =
                                 src={theme.image}
                                 alt={title}
                                 fill
+                                sizes="80px"
                                 className="object-cover"
                                 priority
                             />
