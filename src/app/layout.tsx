@@ -35,15 +35,7 @@ export async function generateMetadata(): Promise<Metadata> {
       type: "website",
       locale: "en_US",
     },
-    manifest: "/manifest.json",
-    icons: {
-      icon: [
-        { url: "/favicon.ico", sizes: "any" },
-        { url: "/favicon.png", type: "image/png" },
-        { url: "/images/logo/sunflower-logo.webp", type: "image/webp" },
-      ],
-      apple: "/images/logo/sunflower-logo.webp",
-    },
+    // Icons are automatically handled by file-based API (icon.png, apple-icon.png in src/app)
     verification: {
       google: process.env.NEXT_PUBLIC_GOOGLE_SITE_VERIFICATION_ORG,
       other: {
