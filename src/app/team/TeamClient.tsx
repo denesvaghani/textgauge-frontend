@@ -95,8 +95,8 @@ export function TeamClient() {
                                         fill
                                         className="object-cover object-[center_30%] scale-125"
                                         priority
-                                        sizes="(max-width: 768px) 224px, 256px"
-                                        quality={90}
+                                        unoptimized={true} 
+                                        sizes="100vw"
                                     />
                                 </div>
                             </div>
