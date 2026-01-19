@@ -1,205 +1,232 @@
 import { MetadataRoute } from "next";
-import { headers } from "next/headers";
 
-export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
+// Last major update dates for each section
+const LAST_UPDATED = {
+  core: '2026-01-19',        // Today's SEO audit
+  tools: '2026-01-19',       // Image optimization update
+  converters: '2026-01-15',  // Converter updates
+  company: '2026-01-19',     // About page expansion
+  legal: '2025-12-01',       // Initial legal pages
+  benchmarks: '2025-12-20',  // Benchmark pages created
+  adLanding: '2026-01-19',   // Noindex removed
+};
+
+export default function sitemap(): MetadataRoute.Sitemap {
   const baseUrl = "https://www.countcharacters.org";
 
   return [
+    // Homepage - highest priority
     {
       url: baseUrl,
-      lastModified: new Date(),
-      changeFrequency: "monthly",
+      lastModified: LAST_UPDATED.core,
+      changeFrequency: "weekly",
       priority: 1,
     },
+    // Core Tools - high priority
     {
       url: `${baseUrl}/json-formatter`,
-      lastModified: new Date(),
-      changeFrequency: "weekly",
+      lastModified: LAST_UPDATED.tools,
+      changeFrequency: "monthly",
       priority: 0.9,
     },
     {
       url: `${baseUrl}/yaml-formatter`,
-      lastModified: new Date(),
-      changeFrequency: "weekly",
+      lastModified: LAST_UPDATED.tools,
+      changeFrequency: "monthly",
       priority: 0.9,
     },
     {
       url: `${baseUrl}/json-to-toon-converter`,
-      lastModified: new Date(),
-      changeFrequency: "weekly",
+      lastModified: LAST_UPDATED.converters,
+      changeFrequency: "monthly",
       priority: 0.9,
     },
     {
       url: `${baseUrl}/palette-forge`,
-      lastModified: new Date(),
-      changeFrequency: "weekly",
+      lastModified: LAST_UPDATED.tools,
+      changeFrequency: "monthly",
       priority: 0.9,
     },
     {
       url: `${baseUrl}/image-compressor`,
-      lastModified: new Date(),
-      changeFrequency: "weekly",
+      lastModified: LAST_UPDATED.tools,
+      changeFrequency: "monthly",
       priority: 0.9,
     },
     {
       url: `${baseUrl}/image-merger`,
-      lastModified: new Date(),
-      changeFrequency: "weekly",
+      lastModified: LAST_UPDATED.tools,
+      changeFrequency: "monthly",
       priority: 0.9,
     },
     {
       url: `${baseUrl}/image-compressor/compress-to-100kb`,
-      lastModified: new Date(),
-      changeFrequency: "weekly",
+      lastModified: LAST_UPDATED.tools,
+      changeFrequency: "monthly",
       priority: 0.8,
     },
     {
       url: `${baseUrl}/image-compressor/compress-to-50kb`,
-      lastModified: new Date(),
-      changeFrequency: "weekly",
+      lastModified: LAST_UPDATED.tools,
+      changeFrequency: "monthly",
       priority: 0.8,
     },
     {
       url: `${baseUrl}/diff-checker`,
-      lastModified: new Date(),
-      changeFrequency: "weekly",
+      lastModified: LAST_UPDATED.tools,
+      changeFrequency: "monthly",
       priority: 0.9,
     },
     {
       url: `${baseUrl}/toml-formatter`,
-      lastModified: new Date(),
-      changeFrequency: "weekly",
+      lastModified: LAST_UPDATED.tools,
+      changeFrequency: "monthly",
       priority: 0.9,
     },
     {
       url: `${baseUrl}/json-to-csv-converter`,
-      lastModified: new Date(),
-      changeFrequency: "weekly",
+      lastModified: LAST_UPDATED.converters,
+      changeFrequency: "monthly",
       priority: 0.9,
     },
-    // Dynamic Converter Routes - High Value
+    // Dynamic Converter Routes
     {
       url: `${baseUrl}/converter/json-to-yaml`,
-      lastModified: new Date(),
-      changeFrequency: "weekly",
+      lastModified: LAST_UPDATED.converters,
+      changeFrequency: "monthly",
       priority: 0.8,
     },
     {
       url: `${baseUrl}/converter/yaml-to-json`,
-      lastModified: new Date(),
-      changeFrequency: "weekly",
+      lastModified: LAST_UPDATED.converters,
+      changeFrequency: "monthly",
       priority: 0.8,
     },
     // Core Utilities
     {
       url: `${baseUrl}/uuid-generator`,
-      lastModified: new Date(),
-      changeFrequency: "weekly",
+      lastModified: LAST_UPDATED.tools,
+      changeFrequency: "monthly",
       priority: 0.9,
     },
      {
       url: `${baseUrl}/base64-encoder`,
-      lastModified: new Date(),
-      changeFrequency: "weekly",
+      lastModified: LAST_UPDATED.tools,
+      changeFrequency: "monthly",
       priority: 0.9,
     },
      {
       url: `${baseUrl}/cron-job-generator`,
-      lastModified: new Date(),
-      changeFrequency: "weekly",
+      lastModified: LAST_UPDATED.tools,
+      changeFrequency: "monthly",
       priority: 0.9,
     },
     {
       url: `${baseUrl}/hash-generator`,
-      lastModified: new Date(),
-      changeFrequency: "weekly",
+      lastModified: LAST_UPDATED.tools,
+      changeFrequency: "monthly",
       priority: 0.9,
     },
     {
       url: `${baseUrl}/url-encoder`,
-      lastModified: new Date(),
-      changeFrequency: "weekly",
+      lastModified: LAST_UPDATED.tools,
+      changeFrequency: "monthly",
       priority: 0.9,
     },
+    // Company Pages
     {
       url: `${baseUrl}/about`,
-      lastModified: new Date(),
-      changeFrequency: "yearly",
-      priority: 0.5,
+      lastModified: LAST_UPDATED.company,
+      changeFrequency: "monthly",
+      priority: 0.6,
     },
     {
       url: `${baseUrl}/team`,
-      lastModified: new Date(),
-      changeFrequency: "yearly",
-      priority: 0.5,
+      lastModified: LAST_UPDATED.company,
+      changeFrequency: "monthly",
+      priority: 0.6,
     },
     {
       url: `${baseUrl}/contact`,
-      lastModified: new Date(),
+      lastModified: LAST_UPDATED.company,
       changeFrequency: "yearly",
       priority: 0.5,
     },
+    // Legal Pages
     {
       url: `${baseUrl}/privacy`,
-      lastModified: new Date(),
+      lastModified: LAST_UPDATED.legal,
       changeFrequency: "yearly",
       priority: 0.3,
     },
     {
       url: `${baseUrl}/terms`,
-      lastModified: new Date(),
+      lastModified: LAST_UPDATED.legal,
       changeFrequency: "yearly",
       priority: 0.3,
     },
     {
       url: `${baseUrl}/cookie-policy`,
-      lastModified: new Date(),
+      lastModified: LAST_UPDATED.legal,
       changeFrequency: "yearly",
       priority: 0.3,
     },
-    // Ad Landing Pages
+    // Ad Landing Pages (now indexed)
     {
       url: `${baseUrl}/tools/json-formatter-free`,
-      lastModified: new Date(),
+      lastModified: LAST_UPDATED.adLanding,
       changeFrequency: "monthly",
       priority: 0.7,
     },
     {
       url: `${baseUrl}/tools/diff-checker-free`,
-      lastModified: new Date(),
+      lastModified: LAST_UPDATED.adLanding,
       changeFrequency: "monthly",
       priority: 0.7,
     },
     {
       url: `${baseUrl}/tools/image-compressor-free`,
-      lastModified: new Date(),
+      lastModified: LAST_UPDATED.adLanding,
       changeFrequency: "monthly",
       priority: 0.7,
     },
     // Benchmark Pages (Linkable Assets)
     {
       url: `${baseUrl}/benchmarks/json-vs-toon`,
-      lastModified: new Date(),
+      lastModified: LAST_UPDATED.benchmarks,
       changeFrequency: "monthly",
       priority: 0.8,
     },
     {
       url: `${baseUrl}/benchmarks/image-compression`,
-      lastModified: new Date(),
+      lastModified: LAST_UPDATED.benchmarks,
       changeFrequency: "monthly",
       priority: 0.8,
     },
     {
       url: `${baseUrl}/tools/json-to-csv-free`,
-      lastModified: new Date(),
+      lastModified: LAST_UPDATED.adLanding,
       changeFrequency: "monthly",
       priority: 0.7,
     },
     {
       url: `${baseUrl}/benchmarks/json-vs-csv`,
-      lastModified: new Date(),
+      lastModified: LAST_UPDATED.benchmarks,
       changeFrequency: "monthly",
       priority: 0.8,
+    },
+    // Image Tools
+    {
+      url: `${baseUrl}/image-converter`,
+      lastModified: LAST_UPDATED.tools,
+      changeFrequency: "monthly",
+      priority: 0.9,
+    },
+    {
+      url: `${baseUrl}/image-resizer`,
+      lastModified: LAST_UPDATED.tools,
+      changeFrequency: "monthly",
+      priority: 0.9,
     },
   ];
 }

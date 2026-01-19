@@ -40,7 +40,7 @@ const animalThemes = {
   gorilla: {
     name: "Gorilla",
     slug: "gorilla",
-    image: "/images/animals/gorilla.jpg",
+    image: "/images/animals/gorilla.webp",
     significance: "Represents raw power and compression strength.",
     colors: {
       primary: "#374151",
@@ -62,7 +62,7 @@ const animalThemes = {
   lion: {
     name: "Lion",
     slug: "lion",
-    image: "/images/animals/lion.jpg",
+    image: "/images/animals/lion.webp",
     significance: "Represents bold transformation and format mastery.",
     colors: {
       primary: "#B45309",
@@ -84,7 +84,7 @@ const animalThemes = {
   giraffe: {
     name: "Giraffe",
     slug: "giraffe",
-    image: "/images/animals/giraffe.jpg",
+    image: "/images/animals/giraffe.webp",
     significance: "Represents reaching new heights through precise resizing.",
     colors: {
       primary: "#92400E",
@@ -106,7 +106,7 @@ const animalThemes = {
   wolf: {
     name: "Wolf",
     slug: "wolf",
-    image: "/images/animals/wolf.jpg",
+    image: "/images/animals/wolf.webp",
     significance: "Represents pack unity and seamless merging.",
     colors: {
       primary: "#475569",
