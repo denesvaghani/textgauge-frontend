@@ -144,11 +144,11 @@ export function Navigation() {
                                                     <div className="w-8 h-8 rounded-full overflow-hidden shrink-0 border border-slate-100 dark:border-slate-700 shadow-sm relative">
                                                         <Image 
                                                             src={link.image} 
-                                                            alt="" 
+                                                            alt={`${link.label} tool icon`} 
                                                             fill
-                                                            sizes="48px"
+                                                            sizes="32px"
                                                             className="object-cover"
-                                                            priority
+                                                            loading="lazy"
                                                         />
                                                     </div>
                                                 )}
