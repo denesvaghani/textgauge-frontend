@@ -146,9 +146,9 @@ export function Navigation() {
                                                             src={link.image} 
                                                             alt={`${link.label} tool icon`} 
                                                             fill
-                                                            sizes="48px"
+                                                            sizes="32px"
                                                             className="object-cover"
-                                                            priority
+                                                            loading="lazy"
                                                         />
                                                     </div>
                                                 )}
