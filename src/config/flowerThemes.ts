@@ -158,7 +158,7 @@ export const flowerThemes = {
   orchid: {
     name: "Rhinoceros",
     slug: "rhinoceros",
-    image: "/images/tools/palette-forge.jpg",
+    image: "/images/tools/palette-forge.webp",
     significance: "Represents strength, stability, and solid foundations — essential for building robust design systems.",
     colors: {
       primary: "#6B7280",
@@ -268,7 +268,7 @@ export const flowerThemes = {
   magnolia: {
     name: "Magnolia",
     slug: "magnolia",
-    image: "/images/flowers/magnolia.jpg",
+    image: "/images/flowers/magnolia.webp",
     significance: "Represents endurance, nobility, and perseverance — robust and reliable for the long haul.",
     colors: {
       primary: "#059669",
@@ -290,7 +290,7 @@ export const flowerThemes = {
   gardenia: {
     name: "Gardenia",
     slug: "gardenia",
-    image: "/images/flowers/gardenia.jpg",
+    image: "/images/flowers/gardenia.webp",
     significance: "Embodies purity, refinement, and clarity — producing crystal clear results without clutter.",
     colors: {
       primary: "#0d9488",
@@ -312,7 +312,7 @@ export const flowerThemes = {
   lilac: {
     name: "Lilac",
     slug: "lilac",
-    image: "/images/flowers/lilac.jpg",
+    image: "/images/flowers/lilac.webp",
     significance: "Symbolizes renewal, confidence, and fresh innovation — perfect for modernizing workflows.",
     colors: {
       primary: "#7c3aed",
@@ -334,7 +334,7 @@ export const flowerThemes = {
   jasmine: {
     name: "Jasmine",
     slug: "jasmine",
-    image: "/images/flowers/jasmine.jpg",
+    image: "/images/flowers/jasmine.webp",
     significance: "Represents love, beauty, and amiability — friendly, inviting, and pleasant to use.",
     colors: {
       primary: "#ca8a04",
@@ -356,7 +356,7 @@ export const flowerThemes = {
   protea: {
     name: "Protea",
     slug: "protea",
-    image: "/images/flowers/protea.png",
+    image: "/images/flowers/protea.webp",
     significance: "Symbolizes diversity and transformation — the art of combining distinct elements into a beautiful whole.",
     colors: {
       primary: "#db2777",
@@ -378,7 +378,7 @@ export const flowerThemes = {
   peony: {
     name: "Peony",
     slug: "peony",
-    image: "/images/flowers/peony.png",
+    image: "/images/flowers/peony.webp",
     significance: "Represents leadership and prosperity — mirroring the flourishing collaboration of expert minds.",
     colors: {
       primary: "#991b1b",
@@ -400,7 +400,7 @@ export const flowerThemes = {
   gerbera: {
     name: "Gerbera",
     slug: "gerbera",
-    image: "/images/flowers/gerbera.png",
+    image: "/images/flowers/gerbera.webp",
     significance: "Embodies energy and cheerfulness — reflecting the vibrant transition of data into organized structures.",
     colors: {
       primary: "#ea580c",

@@ -53,7 +53,7 @@ function ToolsSection() {
               <div className="w-5 h-5 sm:w-6 sm:h-6 rounded-full overflow-hidden shrink-0 border border-current opacity-90 relative">
                 <Image 
                     src={getCategoryIcon(category)} 
-                    alt="" 
+                    alt={`${category} category icon`} 
                     fill
                     sizes="24px"
                     className="object-cover"

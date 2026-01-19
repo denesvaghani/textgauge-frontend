@@ -5,6 +5,9 @@ import { Shield, Zap, CircleDollarSign } from 'lucide-react';
 export const metadata: Metadata = {
     title: 'About TextGauge | Developer Tools Suite',
     description: 'Learn about TextGauge - Free developer tools for image compression, JSON formatting, text comparison, UUID generation, and more. 100% browser-based.',
+    alternates: {
+        canonical: 'https://www.countcharacters.org/about',
+    },
 };
 
 export default function AboutPage() {
