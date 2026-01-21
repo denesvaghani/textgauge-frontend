@@ -11,7 +11,7 @@ export const metadata: Metadata = {
     title: "Text Diff Checker Online | Compare Two Files & Texts",
     description: "Free online Diff Checker tool. Compare two text files, code snippets, or JSON/YAML/XML files. Find differences instantly.",
     url: "https://www.countcharacters.org/diff-checker",
-    siteName: "countcharacters.org",
+    siteName: "TextGauge",
     type: "website",
   },
 };

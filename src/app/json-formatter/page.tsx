@@ -11,7 +11,7 @@ export const metadata: Metadata = {
     title: "JSON Formatter & Validator | Beautify, Minify & Fix JSON Online",
     description: "Free online JSON Formatter, Validator, and Beautifier. Fix JSON errors, format with 2-space or 4-space indentation, and minify JSON files instantly.",
     url: "https://www.countcharacters.org/json-formatter",
-    siteName: "countcharacters.org",
+    siteName: "TextGauge",
     type: "website",
   },
   twitter: {
