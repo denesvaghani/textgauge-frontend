@@ -4,6 +4,9 @@ import { Metadata } from 'next';
 export const metadata: Metadata = {
     title: 'Privacy Policy | TextGauge',
     description: 'Privacy policy for TextGauge - Learn how we protect your data and respect your privacy.',
+    alternates: {
+        canonical: 'https://www.countcharacters.org/privacy',
+    },
 };
 
 export default function PrivacyPage() {

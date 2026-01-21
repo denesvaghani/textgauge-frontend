@@ -6,6 +6,9 @@ export const metadata: Metadata = {
   description:
     "Compress images to under 50KB for ultra-fast loading. Ideal for thumbnails, avatars, and mobile-optimized websites. Free, private, browser-based compression.",
   keywords: ["compress image to 50kb", "reduce image size to 50kb", "tiny image compressor", "ultra compress photo"],
+  alternates: {
+    canonical: "https://www.countcharacters.org/image-compressor/compress-to-50kb",
+  },
   openGraph: {
     title: "Compress Image to 50KB - Ultra-Compressed Photos",
     description:

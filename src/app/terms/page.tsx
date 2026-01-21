@@ -4,6 +4,9 @@ import { Metadata } from 'next';
 export const metadata: Metadata = {
     title: 'Terms of Service | TextGauge',
     description: 'Terms of Service for TextGauge - Read our terms and conditions for using our developer tools suite.',
+    alternates: {
+        canonical: 'https://www.countcharacters.org/terms',
+    },
 };
 
 export default function TermsPage() {

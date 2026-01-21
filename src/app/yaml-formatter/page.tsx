@@ -11,7 +11,7 @@ export const metadata: Metadata = {
     title: "YAML Formatter & Validator | Convert JSON to YAML Online",
     description: "Free online YAML Formatter and Validator. Validate syntax, fix indentation errors, and Convert JSON to YAML instantly.",
     url: "https://www.countcharacters.org/yaml-formatter",
-    siteName: "countcharacters.org",
+    siteName: "TextGauge",
     type: "website",
   },
 };

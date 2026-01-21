@@ -129,10 +129,10 @@ export function ImageMergerClient() {
                         {/* Settings Panel */}
                         <div className="lg:col-span-1 space-y-6">
                             <div className="bg-white dark:bg-slate-900 rounded-2xl p-6 border border-slate-200 dark:border-slate-800 shadow-sm">
-                                <h3 className="text-lg font-bold text-slate-900 dark:text-white mb-6 flex items-center gap-2">
+                                <h2 className="text-lg font-bold text-slate-900 dark:text-white mb-6 flex items-center gap-2">
                                     <Layout size={20} className="text-blue-500" />
                                     Merger Settings
-                                </h3>
+                                </h2>
 
                                 <div className="space-y-6">
                                 {/* Direction */}

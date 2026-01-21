@@ -6,6 +6,9 @@ export const metadata: Metadata = {
   title: "Image Compression Quality Benchmark: JPEG, PNG, WebP Compared | TextGauge",
   description:
     "Comprehensive image compression benchmark comparing quality vs file size for JPEG, PNG, and WebP formats. Find the optimal compression settings for your images.",
+  alternates: {
+    canonical: "https://www.countcharacters.org/benchmarks/image-compression",
+  },
   openGraph: {
     title: "Image Compression Quality Benchmark: JPEG, PNG, WebP Compared",
     description:
@@ -17,6 +20,7 @@ export const metadata: Metadata = {
     title: "Image Compression Quality Benchmark",
     description:
       "Find the optimal compression settings for your images with our comprehensive benchmark.",
+    images: ["https://www.countcharacters.org/images/og-image.png"],
   },
 };
 

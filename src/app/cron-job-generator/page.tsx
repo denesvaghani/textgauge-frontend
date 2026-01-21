@@ -18,7 +18,7 @@ export const metadata: Metadata = {
     card: 'summary_large_image',
     title: 'Cron Job Generator - Visual Builder',
     description: 'Build standard crontab schedules visually with human-readable explanations.',
-    creator: '@textgauge', // Update if there is a handle
+    images: ['https://www.countcharacters.org/images/og-image.png'],
   },
 };
 

@@ -6,6 +6,9 @@ export const metadata: Metadata = {
   description:
     "Compress any JPG, PNG, or WebP image to under 100KB for free. Perfect for email attachments, form uploads, and ID photos. Client-side processing - your images stay private.",
   keywords: ["compress image to 100kb", "reduce image size to 100kb", "image compressor 100kb", "photo under 100kb"],
+  alternates: {
+    canonical: "https://www.countcharacters.org/image-compressor/compress-to-100kb",
+  },
   openGraph: {
     title: "Compress Image to 100KB - Free Online Tool",
     description:
