@@ -25,6 +25,7 @@ export const metadata: Metadata = {
         card: "summary_large_image",
         title: "JSON to TOON Converter – AI Token Optimization",
         description: "Reduce AI API costs by 30-60% with TOON format. Free online converter.",
+        images: ["https://www.countcharacters.org/images/og-image.png"],
     },
     alternates: {
         canonical: "https://www.countcharacters.org/json-to-toon-converter",

@@ -8,11 +8,28 @@ export const metadata: Metadata = {
   alternates: {
     canonical: 'https://www.countcharacters.org',
   },
+  openGraph: {
+    title: 'TextGauge: Character Counter & Developer Tools',
+    description: 'Free, secure developer tools: character counter, JSON/YAML formatters, and AI converters. 100% client-side and privacy-focused.',
+    url: 'https://www.countcharacters.org',
+    siteName: 'TextGauge',
+    type: 'website',
+    locale: 'en_US',
+    images: [
+      {
+        url: 'https://www.countcharacters.org/images/og-image.png',
+        width: 1200,
+        height: 630,
+        alt: 'TextGauge - Free Developer Tools Suite',
+      },
+    ],
+  },
   twitter: {
     card: 'summary_large_image',
     title: 'TextGauge: Free Developer Tools by countcharacters.org',
     description: 'Privacy-focused developer tools: Format JSON, Convert YAML, Compress Images, and AI Token Optimization. 100% Secure.',
-  }
+    images: ['https://www.countcharacters.org/images/og-image.png'],
+  },
 };
 
 // WebSite schema for search action

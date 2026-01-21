@@ -60,6 +60,10 @@ export default async function ConverterPage({ params }: Props) {
                 theme={flowerThemes.lavender}
                 adSlot={process.env.NEXT_PUBLIC_AD_SLOT_HEADER}
             />
+
+            <section className="max-w-5xl mx-auto px-4 py-4">
+                <h2 className="sr-only">Convert {parsed.from.toUpperCase()} to {parsed.to.toUpperCase()} Online</h2>
+            </section>
             
             <ConverterLayout defaultFrom={parsed.from} defaultTo={parsed.to} />
 

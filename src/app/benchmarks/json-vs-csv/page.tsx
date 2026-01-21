@@ -6,6 +6,9 @@ export const metadata: Metadata = {
   title: "JSON vs CSV Format Comparison: When to Use Which | TextGauge",
   description:
     "Comprehensive comparison of JSON and CSV formats. Learn when to use each format, size differences, parsing performance, and compatibility with tools.",
+  alternates: {
+    canonical: "https://www.countcharacters.org/benchmarks/json-vs-csv",
+  },
   openGraph: {
     title: "JSON vs CSV Format Comparison: When to Use Which",
     description:
@@ -17,6 +20,7 @@ export const metadata: Metadata = {
     title: "JSON vs CSV Format Comparison",
     description:
       "Comprehensive guide on when to use JSON vs CSV formats.",
+    images: ["https://www.countcharacters.org/images/og-image.png"],
   },
 };
 
