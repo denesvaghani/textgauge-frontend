@@ -276,7 +276,7 @@ export function Formatter({
 
             {/* Editor Area - Fixed height for 70 lines */}
             {/* Editor Area - Fixed height for 70 lines */}
-            <div className="h-[800px] lg:h-[1400px] relative min-h-0 bg-slate-50/30 dark:bg-black/20" >
+            <div className="flex-1 relative min-h-0 bg-slate-50/30 dark:bg-black/20 overflow-hidden" >
               <SimpleCodeEditor
                 value={inputCode}
                 onChange={(val) => {
@@ -425,7 +425,7 @@ export function Formatter({
 
             {/* Editor/Error Area - Fixed height for 70 lines */}
             {/* Editor/Error Area - Fixed height for 70 lines */}
-            < div className="h-[800px] lg:h-[1400px] relative min-h-0 bg-slate-50/30 dark:bg-black/20" >
+            <div className="flex-1 relative min-h-0 bg-slate-50/30 dark:bg-black/20 overflow-hidden">
               {
                 error ? (
                   <div className="absolute inset-0 p-6 z-10 overflow-auto bg-white/95 dark:bg-slate-900/95 backdrop-blur-sm" >
