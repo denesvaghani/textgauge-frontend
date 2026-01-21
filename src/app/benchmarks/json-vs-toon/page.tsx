@@ -6,6 +6,9 @@ export const metadata: Metadata = {
   title: "JSON vs TOON Token Benchmark: 60% Fewer AI Tokens | TextGauge",
   description:
     "Real benchmark data showing how TOON format reduces AI token usage by 60% compared to JSON. Save money on OpenAI, Anthropic, and Gemini API calls.",
+  alternates: {
+    canonical: "https://www.countcharacters.org/benchmarks/json-vs-toon",
+  },
   openGraph: {
     title: "JSON vs TOON Token Benchmark: 60% Fewer AI Tokens",
     description:
@@ -17,6 +20,7 @@ export const metadata: Metadata = {
     title: "JSON vs TOON Token Benchmark: 60% Fewer AI Tokens",
     description:
       "Real benchmark data showing how TOON format reduces AI token usage by 60% compared to JSON.",
+    images: ["https://www.countcharacters.org/images/og-image.png"],
   },
 };
 

@@ -34,6 +34,21 @@ export async function generateMetadata(): Promise<Metadata> {
       siteName: "TextGauge",
       type: "website",
       locale: "en_US",
+      images: [
+        {
+          url: `${baseUrl}/images/og-image.png`,
+          width: 1200,
+          height: 630,
+          alt: "TextGauge - Free Developer Tools Suite",
+        },
+      ],
+    },
+    twitter: {
+      card: "summary_large_image",
+      title: "TextGauge - Free Developer Tools Suite",
+      description:
+        "Free developer tools: compress images, format JSON/YAML, generate UUIDs & hashes. 100% browser-based, no uploads.",
+      images: [`${baseUrl}/images/og-image.png`],
     },
     // Icons are automatically handled by file-based API (icon.png, apple-icon.png in src/app)
     verification: {

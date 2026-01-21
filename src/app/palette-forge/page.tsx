@@ -21,6 +21,9 @@ export const metadata: Metadata = {
     'wcag contrast',
     'color scale generator',
   ],
+  alternates: {
+    canonical: 'https://www.countcharacters.org/palette-forge',
+  },
   openGraph: {
     title: 'PaletteForge - Design to Tokens in Seconds',
     description:

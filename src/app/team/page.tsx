@@ -36,6 +36,7 @@ export const metadata: Metadata = {
     card: "summary",
     title: "Meet the Team Behind TextGauge",
     description: "Building privacy-first developer tools. 17+ tools, 100% browser-based.",
+    images: ["https://www.countcharacters.org/images/team/denes-vaghani.jpg"],
   },
   authors: [{ name: "Denes Vaghani", url: "https://www.linkedin.com/in/denesvaghani/" }],
 };

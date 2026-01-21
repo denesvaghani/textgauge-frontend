@@ -5,6 +5,9 @@ import { Mail, MessageSquare, Github } from 'lucide-react';
 export const metadata: Metadata = {
     title: 'Contact Us | TextGauge',
     description: 'Get in touch with the TextGauge team. We\'d love to hear from you!',
+    alternates: {
+        canonical: 'https://www.countcharacters.org/contact',
+    },
 };
 
 export default function ContactPage() {

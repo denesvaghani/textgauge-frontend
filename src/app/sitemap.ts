@@ -171,25 +171,6 @@ export default function sitemap(): MetadataRoute.Sitemap {
       changeFrequency: "yearly",
       priority: 0.3,
     },
-    // Ad Landing Pages (now indexed)
-    {
-      url: `${baseUrl}/tools/json-formatter-free`,
-      lastModified: LAST_UPDATED.adLanding,
-      changeFrequency: "monthly",
-      priority: 0.7,
-    },
-    {
-      url: `${baseUrl}/tools/diff-checker-free`,
-      lastModified: LAST_UPDATED.adLanding,
-      changeFrequency: "monthly",
-      priority: 0.7,
-    },
-    {
-      url: `${baseUrl}/tools/image-compressor-free`,
-      lastModified: LAST_UPDATED.adLanding,
-      changeFrequency: "monthly",
-      priority: 0.7,
-    },
     // Benchmark Pages (Linkable Assets)
     {
       url: `${baseUrl}/benchmarks/json-vs-toon`,
@@ -202,12 +183,6 @@ export default function sitemap(): MetadataRoute.Sitemap {
       lastModified: LAST_UPDATED.benchmarks,
       changeFrequency: "monthly",
       priority: 0.8,
-    },
-    {
-      url: `${baseUrl}/tools/json-to-csv-free`,
-      lastModified: LAST_UPDATED.adLanding,
-      changeFrequency: "monthly",
-      priority: 0.7,
     },
     {
       url: `${baseUrl}/benchmarks/json-vs-csv`,

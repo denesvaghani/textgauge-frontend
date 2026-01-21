@@ -18,6 +18,7 @@ export const metadata: Metadata = {
     card: "summary_large_image",
     title: "JSON Formatter & Validator",
     description: "Free online JSON Formatter, Validator, and Beautifier. Fix JSON errors instantly.",
+    images: ["https://www.countcharacters.org/images/og-image.png"],
   },
 };
 

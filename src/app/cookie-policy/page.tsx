@@ -4,6 +4,9 @@ import { Metadata } from 'next';
 export const metadata: Metadata = {
     title: 'Cookie Policy | TextGauge',
     description: 'Learn about how TextGauge uses cookies and similar technologies.',
+    alternates: {
+        canonical: 'https://www.countcharacters.org/cookie-policy',
+    },
 };
 
 export default function CookiePolicyPage() {
