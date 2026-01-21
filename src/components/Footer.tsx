@@ -14,6 +14,8 @@ export function Footer() {
         { name: 'TOML Formatter', href: '/toml-formatter' },
         { name: 'JSON to CSV', href: '/json-to-csv-converter' },
         { name: 'JSON to TOON', href: '/json-to-toon-converter' },
+        { name: 'JSON to YAML', href: '/converter/json-to-yaml' },
+        { name: 'YAML to JSON', href: '/converter/yaml-to-json' },
         { name: 'Diff Checker', href: '/diff-checker' },
         { name: 'UUID Generator', href: '/uuid-generator' },
         { name: 'Hash Generator', href: '/hash-generator' },
@@ -25,6 +27,12 @@ export function Footer() {
         { name: 'Image Converter', href: '/image-converter' },
         { name: 'Image Resizer', href: '/image-resizer' },
         { name: 'Image Merger', href: '/image-merger' },
+    ];
+
+    const benchmarkLinks = [
+        { name: 'JSON vs TOON Benchmark', href: '/benchmarks/json-vs-toon' },
+        { name: 'JSON vs CSV Comparison', href: '/benchmarks/json-vs-csv' },
+        { name: 'Image Compression Guide', href: '/benchmarks/image-compression' },
     ];
 
     const legalLinks = [
@@ -42,7 +50,7 @@ export function Footer() {
     return (
         <footer className="border-t border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 mt-auto">
             <div className="max-w-[1920px] mx-auto px-4 sm:px-6 lg:px-8 py-12">
-                <div className="grid grid-cols-1 md:grid-cols-5 gap-8">
+                <div className="grid grid-cols-1 md:grid-cols-6 gap-8">
                     {/* Brand Section */}
                     <div>
                         <Link href="/" className="flex items-center gap-2">
@@ -93,6 +101,39 @@ export function Footer() {
                                     </Link>
                                 </li>
                             ))}
+                        </ul>
+                    </div>
+
+                    {/* Resources & Benchmarks */}
+                    <div>
+                        <h3 className="font-semibold text-slate-900 dark:text-slate-100 mb-4">Resources</h3>
+                        <ul className="space-y-2">
+                            {benchmarkLinks.map((link) => (
+                                <li key={link.href}>
+                                    <Link
+                                        href={link.href}
+                                        className="text-sm text-slate-600 dark:text-slate-400 hover:text-indigo-600 dark:hover:text-indigo-400 transition-colors"
+                                    >
+                                        {link.name}
+                                    </Link>
+                                </li>
+                            ))}
+                            <li>
+                                <Link
+                                    href="/image-compressor/compress-to-100kb"
+                                    className="text-sm text-slate-600 dark:text-slate-400 hover:text-indigo-600 dark:hover:text-indigo-400 transition-colors"
+                                >
+                                    Compress to 100KB
+                                </Link>
+                            </li>
+                            <li>
+                                <Link
+                                    href="/image-compressor/compress-to-50kb"
+                                    className="text-sm text-slate-600 dark:text-slate-400 hover:text-indigo-600 dark:hover:text-indigo-400 transition-colors"
+                                >
+                                    Compress to 50KB
+                                </Link>
+                            </li>
                         </ul>
                     </div>
 
