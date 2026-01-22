@@ -199,6 +199,7 @@ export function Formatter({
       <SmartHeroHeader 
         title={title} 
         theme={flowerTheme} 
+        description={description}
         adSlot={process.env.NEXT_PUBLIC_AD_SLOT_HEADER}
       />
 
@@ -471,12 +472,11 @@ export function Formatter({
         </div >
 
         {/* Trust Panel (Item 6) */}
-        <div className="mt-8 mb-4">
+        <div className="mt-8 mb-12">
              <TrustPanel />
         </div>
         
-        {/* SEO Description - Moved to bottom */}
-        <HeroDescription text={description} />
+
       </main >
 
       <UrlLoader

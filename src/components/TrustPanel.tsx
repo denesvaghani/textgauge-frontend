@@ -4,7 +4,7 @@ import { ShieldCheck, Lock, EyeOff } from "lucide-react";
 
 export function TrustPanel() {
   return (
-    <div className="w-full max-w-4xl mx-auto my-12 px-4">
+    <div className="w-full max-w-4xl mx-auto px-4">
       <div className="bg-slate-50 dark:bg-slate-900/50 rounded-2xl p-6 border border-slate-200 dark:border-slate-800">
         <div className="flex flex-col md:flex-row items-center justify-between gap-6">
           
