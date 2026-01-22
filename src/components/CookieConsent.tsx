@@ -59,7 +59,7 @@ export function CookieConsent() {
 
     if (settingsOpen) {
         return (
-            <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/50 p-4">
+            <div className="fixed inset-0 z-[100] flex items-center justify-center bg-black/50 p-4">
                 <div className="bg-white dark:bg-slate-900 rounded-xl shadow-2xl max-w-lg w-full p-6 border border-slate-200 dark:border-slate-800">
                     <h3 className="text-xl font-bold mb-4">Cookie Preferences</h3>
                     <div className="space-y-4">
@@ -105,7 +105,7 @@ export function CookieConsent() {
     }
 
     return (
-        <div className="fixed bottom-0 left-0 right-0 z-50 bg-white dark:bg-slate-900 border-t border-slate-200 dark:border-slate-800 shadow-[0_-4px_6px_-1px_rgba(0,0,0,0.1)] p-4 md:p-6">
+        <div className="fixed bottom-0 left-0 right-0 z-[100] bg-white dark:bg-slate-900 border-t border-slate-200 dark:border-slate-800 shadow-[0_-4px_6px_-1px_rgba(0,0,0,0.1)] p-4 md:p-6">
             <div className="max-w-6xl mx-auto flex flex-col md:flex-row items-center justify-between gap-6">
                 <div className="flex-1">
                     <h3 className="text-lg font-semibold mb-2">We value your privacy</h3>
