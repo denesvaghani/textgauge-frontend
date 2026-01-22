@@ -70,7 +70,7 @@ export class CompressionService {
     if (isHeic) {
       try {
         // Dynamic import heic2any only when needed (client-side) to fix SSR build errors
-        // @ts-ignore - heic2any might not have types in some environments or need special handling
+
         const heic2any = (await import("heic2any")).default;
 
         const convertedBlob = await heic2any({

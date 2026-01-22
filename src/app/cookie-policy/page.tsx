@@ -13,7 +13,7 @@ export default function CookiePolicyPage() {
     return (
         <LegalLayout title="Cookie Policy">
             <p className="lead">
-                Last updated: {new Date().toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' })}
+                Last updated: January 22, 2026
             </p>
 
             <h2>What Are Cookies</h2>

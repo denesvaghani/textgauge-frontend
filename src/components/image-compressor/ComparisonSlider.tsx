@@ -63,6 +63,25 @@ export function ComparisonSlider({
     };
   }, []);
 
+  const [containerWidth, setContainerWidth] = useState(0);
+
+  useEffect(() => {
+    if (!containerRef.current) return;
+    
+    const updateWidth = () => {
+      if (containerRef.current) {
+        setContainerWidth(containerRef.current.offsetWidth);
+      }
+    };
+
+    updateWidth();
+    
+    const observer = new ResizeObserver(updateWidth);
+    observer.observe(containerRef.current);
+
+    return () => observer.disconnect();
+  }, []);
+
   return (
     <div
       ref={containerRef}
@@ -92,7 +111,7 @@ export function ComparisonSlider({
           alt="Compressed"
           className="absolute inset-0 w-full h-full object-contain"
           style={{ 
-            width: containerRef.current ? `${containerRef.current.offsetWidth}px` : "100%",
+            width: containerWidth ? `${containerWidth}px` : "100%",
             maxWidth: "none"
           }}
           draggable={false}

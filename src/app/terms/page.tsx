@@ -13,7 +13,7 @@ export default function TermsPage() {
     return (
         <LegalLayout title="Terms of Service">
             <p className="lead">
-                Last updated: {new Date().toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' })}
+                Last updated: January 22, 2026
             </p>
 
             <h2>Agreement to Terms</h2>
