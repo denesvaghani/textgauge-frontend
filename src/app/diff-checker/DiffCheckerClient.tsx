@@ -155,6 +155,7 @@ export default function DiffCheckerPage() {
                     title="Diff Checker"
                     theme={theme}
                     adSlot={process.env.NEXT_PUBLIC_AD_SLOT_HEADER}
+                    description="Professional-grade text comparison. Uses Myers Diff Algorithm for precise line-by-line analysis."
                 />
 
                 {/* Main Content */}
@@ -416,7 +417,7 @@ export default function DiffCheckerPage() {
                     )}
                 </section>
                 
-                <HeroDescription text="Professional-grade text comparison. Uses Myers Diff Algorithm for precise line-by-line analysis." />
+
 
                 {/* Technical Features Section */}
                 <section className="w-full max-w-[1920px] mx-auto px-4 sm:px-6 lg:px-8 pb-16">
