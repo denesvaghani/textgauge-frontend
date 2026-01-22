@@ -291,7 +291,7 @@ export function Formatter({
             </div >
 
             {/* Status Bar */}
-            < div className="shrink-0 px-3 py-1.5 border-t border-slate-100 dark:border-slate-800 flex justify-between items-center text-[10px] text-slate-400 dark:text-slate-500 font-medium font-mono bg-white dark:bg-slate-900" >
+            < div className="shrink-0 px-3 py-1.5 border-t border-b border-slate-200 dark:border-slate-700 flex justify-between items-center text-[10px] text-slate-400 dark:text-slate-500 font-medium font-mono bg-white dark:bg-slate-900" >
               <div className="flex gap-3">
                 <span>{getStats(inputCode).lines} LN</span>
                 <span>{getStats(inputCode).chars} CH</span>
@@ -454,7 +454,7 @@ export function Formatter({
             </div >
 
             {/* Status Bar */}
-            < div className="shrink-0 px-3 py-1.5 border-t border-slate-100 dark:border-slate-800 flex justify-between items-center text-[10px] text-slate-400 dark:text-slate-500 font-medium font-mono bg-white dark:bg-slate-900" >
+            < div className="shrink-0 px-3 py-1.5 border-t border-b border-slate-200 dark:border-slate-700 flex justify-between items-center text-[10px] text-slate-400 dark:text-slate-500 font-medium font-mono bg-white dark:bg-slate-900" >
               <div className="flex gap-3">
                 <span>{getStats(outputCode).lines} LN</span>
                 <span>{getStats(outputCode).chars} CH</span>
