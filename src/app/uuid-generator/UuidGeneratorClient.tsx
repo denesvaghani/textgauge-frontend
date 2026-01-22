@@ -199,11 +199,14 @@ export default function UuidGeneratorClient() {
             </div>
 
             {/* Output Area */}
-            <div className="relative">
+            {/* Output Area */}
+            <div className="relative bg-white dark:bg-slate-950 border border-slate-200 dark:border-slate-800 rounded-xl shadow-inner flex flex-col group focus-within:ring-2 focus-within:ring-blue-500/20 transition-shadow">
+              
+              {/* Toolbar */}
               <div className="absolute top-4 right-4 flex gap-2 z-10">
                 <button
                   onClick={handleCopy}
-                  className="flex items-center gap-2 px-3 py-1.5 bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-md text-sm font-medium hover:bg-slate-50 dark:hover:bg-slate-700 transition-colors shadow-sm"
+                  className="flex items-center gap-2 px-3 py-1.5 bg-white/90 dark:bg-slate-800/90 backdrop-blur-sm border border-slate-200 dark:border-slate-700 rounded-md text-sm font-medium hover:bg-slate-50 dark:hover:bg-slate-700 transition-colors shadow-sm"
                 >
                   {copied ? (
                     <>
@@ -222,7 +225,7 @@ export default function UuidGeneratorClient() {
                 <div className="relative">
                   <button
                     onClick={() => setShowExportMenu(!showExportMenu)}
-                    className="flex items-center gap-2 px-3 py-1.5 bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-md text-sm font-medium hover:bg-slate-50 dark:hover:bg-slate-700 transition-colors shadow-sm"
+                    className="flex items-center gap-2 px-3 py-1.5 bg-white/90 dark:bg-slate-800/90 backdrop-blur-sm border border-slate-200 dark:border-slate-700 rounded-md text-sm font-medium hover:bg-slate-50 dark:hover:bg-slate-700 transition-colors shadow-sm"
                   >
                     <Download size={16} />
                     Export
@@ -267,11 +270,11 @@ export default function UuidGeneratorClient() {
               <textarea
                 value={generatedIds.join('\n')}
                 readOnly
-                className="w-full h-96 p-6 pt-14 font-mono tracking-wider text-sm bg-white dark:bg-slate-950 border border-slate-200 dark:border-slate-800 rounded-xl shadow-inner resize-y focus:outline-none focus:ring-2 focus:ring-blue-500/20"
+                className="w-full h-96 p-6 pt-14 font-mono tracking-wider text-sm bg-transparent border-none resize-y focus:outline-none focus:ring-0 rounded-t-xl"
               />
               
-              {/* Stats bar */}
-              <div className="flex justify-between items-center px-4 py-2 text-xs text-slate-400 bg-slate-50 dark:bg-slate-900 rounded-b-lg border-t border-slate-200 dark:border-slate-700">
+              {/* Stats bar - Attached to bottom */}
+              <div className="flex justify-between items-center px-4 py-2 text-xs text-slate-400 bg-slate-50 dark:bg-slate-900 border-t border-slate-200 dark:border-slate-800 rounded-b-xl shrink-0">
                 <span>{generatedIds.length} IDs generated</span>
                 <span>{idType.toUpperCase()}</span>
               </div>
