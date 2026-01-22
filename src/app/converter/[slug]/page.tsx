@@ -59,6 +59,7 @@ export default async function ConverterPage({ params }: Props) {
                 title={`${parsed.from.toUpperCase()} to ${parsed.to.toUpperCase()} Converter`}
                 theme={flowerThemes.lavender}
                 adSlot={process.env.NEXT_PUBLIC_AD_SLOT_HEADER}
+                description={`Professional developer tool to convert ${parsed.from.toUpperCase()} data to ${parsed.to.toUpperCase()} format safely in your browser.`}
             />
 
             <section className="max-w-5xl mx-auto px-4 py-4">
@@ -67,7 +68,7 @@ export default async function ConverterPage({ params }: Props) {
             
             <ConverterLayout defaultFrom={parsed.from} defaultTo={parsed.to} />
 
-             <HeroDescription text={`Professional developer tool to convert ${parsed.from.toUpperCase()} data to ${parsed.to.toUpperCase()} format safely in your browser.`} />
+
         </div>
     );
 }

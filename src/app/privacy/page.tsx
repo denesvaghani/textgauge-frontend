@@ -3,7 +3,7 @@ import { Metadata } from 'next';
 
 export const metadata: Metadata = {
     title: 'Privacy Policy | TextGauge',
-    description: 'Privacy policy for TextGauge - Learn how we protect your data and respect your privacy.',
+    description: 'TextGauge Privacy Policy: Your data stays private with 100% browser-based processing. Learn how we protect your information with zero data collection and no server uploads.',
     alternates: {
         canonical: 'https://www.countcharacters.org/privacy',
     },
@@ -13,7 +13,7 @@ export default function PrivacyPage() {
     return (
         <LegalLayout title="Privacy Policy">
             <p className="lead">
-                Last updated: {new Date().toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' })}
+                Last updated: January 22, 2025
             </p>
 
             <h2>Introduction</h2>

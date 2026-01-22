@@ -1,4 +1,5 @@
 import { MetadataRoute } from "next";
+import { LEARN_ARTICLES } from "@/config/learnArticles";
 
 // Last major update dates for each section
 const LAST_UPDATED = {
@@ -9,6 +10,7 @@ const LAST_UPDATED = {
   legal: '2025-12-01',       // Initial legal pages
   benchmarks: '2025-12-20',  // Benchmark pages created
   adLanding: '2026-01-19',   // Noindex removed
+  learn: '2026-01-22',       // Learn section created
 };
 
 export default function sitemap(): MetadataRoute.Sitemap {
@@ -203,5 +205,19 @@ export default function sitemap(): MetadataRoute.Sitemap {
       changeFrequency: "monthly",
       priority: 0.9,
     },
+    // Learn Section - Educational Articles
+    {
+      url: `${baseUrl}/learn`,
+      lastModified: LAST_UPDATED.learn,
+      changeFrequency: "weekly",
+      priority: 0.8,
+    },
+    // Dynamic Learn Articles
+    ...LEARN_ARTICLES.map((article) => ({
+      url: `${baseUrl}/learn/${article.slug}`,
+      lastModified: article.updatedDate || article.publishDate,
+      changeFrequency: "monthly" as const,
+      priority: 0.7,
+    })),
   ];
 }

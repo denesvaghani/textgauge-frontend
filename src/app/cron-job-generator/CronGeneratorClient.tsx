@@ -5,11 +5,13 @@ import { DynamicAd } from "@/components/DynamicAd";
 import { SchemaMarkup } from "@/components/SchemaMarkup";
 import { SmartHeroHeader } from "@/components/SmartHeroHeader";
 import { flowerThemes } from "@/config/flowerThemes";
-import { CRON_Presets, describeCron, isValidPart } from "@/lib/cron-utils";
+import { describeCron } from "@/lib/cron-utils";
 import { TrustPanel } from "@/components/TrustPanel";
 import { RelatedTools } from "@/components/RelatedTools";
-import { Clock, Copy, Info } from "lucide-react";
+import { Copy } from "lucide-react";
 import { useEffect, useState } from "react";
+import { CronBuilder } from "./CronBuilder";
+
 
 export default function CronGeneratorClient() {
   const theme = flowerThemes.morningGlory;
@@ -28,12 +30,18 @@ export default function CronGeneratorClient() {
     setDescription(describeCron(cronExpression));
   }, [cronExpression]);
 
-  const updateField = (field: keyof typeof fields, value: string) => {
-    const newFields = { ...fields, [field]: value };
-    setFields(newFields);
-    setCronExpression(
-      `${newFields.minute} ${newFields.hour} ${newFields.dayMonth} ${newFields.month} ${newFields.dayWeek}`
-    );
+  const updateAll = (newCron: string) => {
+    setCronExpression(newCron);
+    const parts = newCron.split(" ");
+    if (parts.length === 5) {
+        setFields({
+            minute: parts[0],
+            hour: parts[1],
+            dayMonth: parts[2],
+            month: parts[3],
+            dayWeek: parts[4],
+        });
+    }
   };
 
   const handleCopy = () => {
@@ -51,16 +59,14 @@ export default function CronGeneratorClient() {
         <SmartHeroHeader
           title="Cron Generator"
           theme={theme}
+          description="Create and understand cron schedules for your scripts and jobs."
         />
 
         <main className="flex-grow w-full">
-            <div className="container mx-auto px-4 pt-8 pb-0 max-w-[1920px]">
-                <div className="text-center text-slate-500 mb-8 max-w-2xl mx-auto">
-                    Create and understand cron schedules for your scripts and jobs.
-                </div>
+            <div className="w-full max-w-[1920px] mx-auto px-4 sm:px-6 lg:px-8 pt-8 pb-0">
 
                 {/* Display & Copy */}
-                <div className="bg-white dark:bg-slate-900 rounded-2xl shadow-lg border border-slate-200 dark:border-slate-800 p-8 mb-8 text-center transition-all hover:shadow-xl">
+                <div className="bg-white dark:bg-slate-900 rounded-2xl shadow-lg border border-slate-200 dark:border-slate-800 p-8 mb-8 text-center transition-all hover:shadow-xl sticky top-4 z-10">
                     <div className="text-4xl md:text-5xl font-mono font-bold text-slate-800 dark:text-white mb-4 tracking-wider">
                     {cronExpression}
                     </div>
@@ -80,59 +86,14 @@ export default function CronGeneratorClient() {
                     </button>
                 </div>
 
-                {/* Field Editors */}
-                <div className="grid grid-cols-1 md:grid-cols-5 gap-4 mb-4">
-                    {['minute', 'hour', 'dayMonth', 'month', 'dayWeek'].map((field) => {
-                        // Validation Logic
-                        const val = fields[field as keyof typeof fields];
-                        let isValid = true;
-                        if (field === 'minute') isValid = isValidPart(val, 0, 59);
-                        if (field === 'hour') isValid = isValidPart(val, 0, 23);
-                        if (field === 'dayMonth') isValid = isValidPart(val, 1, 31);
-                        if (field === 'month') isValid = isValidPart(val, 1, 12);
-                        if (field === 'dayWeek') isValid = isValidPart(val, 0, 6);
+                {/* NEW: Tabbed Builder */}
+                <CronBuilder 
+                   cronExpression={cronExpression} 
+                   onChange={updateAll}
+                   fields={fields}
+                />
 
-                        return (
-                        <div key={field} className={`relative bg-white/80 dark:bg-slate-900/80 backdrop-blur-sm p-4 rounded-xl border ${isValid ? 'border-slate-200 dark:border-slate-800' : 'border-red-500 dark:border-red-500'} flex flex-col items-center transition-colors`}>
-                            <label className={`block text-xs font-bold uppercase mb-2 ${isValid ? 'text-slate-500 dark:text-slate-400' : 'text-red-500'}`}>
-                            {field.replace(/([A-Z])/g, ' $1').trim()}
-                            </label>
-                            <div className="relative w-full">
-                                <input
-                                    type="text"
-                                    value={fields[field as keyof typeof fields]}
-                                    onChange={(e) => {
-                                        let newVal = e.target.value;
-                                        // Smart Input: If current val is "*" and user types a number, clear the "*"
-                                        // Exception: If user types "/" (for steps), keep it.
-                                        if (fields[field as keyof typeof fields] === "*" && /^\d$/.test(newVal.slice(-1)) && newVal.length > 1) {
-                                            newVal = newVal.slice(-1);
-                                        }
-                                        updateField(field as keyof typeof fields, newVal);
-                                    }}
-                                    onBlur={() => {
-                                        // Auto-Fill: If empty, revert to "*"
-                                        if (fields[field as keyof typeof fields].trim() === "") {
-                                            updateField(field as keyof typeof fields, "*");
-                                        }
-                                    }}
-                                    className={`w-full text-center font-mono text-lg bg-transparent border-b-2 ${isValid ? 'border-slate-200 dark:border-slate-700 focus:border-blue-500' : 'border-red-500 focus:border-red-500'} outline-none py-1 transition-colors text-slate-900 dark:text-white pr-8`}
-                                />
-                                {/* Inline Range Indicator */}
-                                <span className={`absolute right-0 top-1/2 -translate-y-1/2 text-[10px] pointer-events-none select-none ${isValid ? 'text-slate-400' : 'text-red-400'}`}>
-                                    {field === 'minute' && '0-59'}
-                                    {field === 'hour' && '0-23'}
-                                    {field === 'dayMonth' && '1-31'}
-                                    {field === 'month' && '1-12'}
-                                    {field === 'dayWeek' && '0-6'}
-                                </span>
-                            </div>
-                        </div>
-                        );
-                    })}
-                </div>
-
-                <div className="mt-2 mb-0">
+                <div className="mt-8 mb-0">
                     <DynamicAd 
                         adSlot={process.env.NEXT_PUBLIC_AD_SLOT_IN_ARTICLE || ""} 
                         layout="in-article"
@@ -141,42 +102,8 @@ export default function CronGeneratorClient() {
                 </div>
             </div>
 
-            {/* Quick Reference / Cheat Sheet */}
-            <section className="w-full max-w-[1920px] mx-auto px-4 sm:px-6 lg:px-8 pt-8 pb-4">
-                <h2 className="text-xl font-bold text-center text-slate-800 dark:text-white mb-6">
-                    Quick Reference / Cheat Sheet
-                </h2>
-                <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
-                    {CRON_Presets.map((preset) => (
-                        <button
-                            key={preset.name}
-                            onClick={() => {
-                                setCronExpression(preset.value);
-                                // Also update fields to match
-                                const parts = preset.value.split(" ");
-                                setFields({
-                                    minute: parts[0],
-                                    hour: parts[1],
-                                    dayMonth: parts[2],
-                                    month: parts[3],
-                                    dayWeek: parts[4]
-                                });
-                            }}
-                            className="bg-white dark:bg-slate-800 p-4 rounded-xl border border-slate-200 dark:border-slate-700 hover:border-blue-500 dark:hover:border-blue-400 hover:shadow-md transition-all text-left group"
-                        >
-                            <div className="font-semibold text-slate-700 dark:text-slate-200 mb-1 group-hover:text-blue-600 dark:group-hover:text-blue-400">
-                                {preset.name}
-                            </div>
-                            <code className="text-xs bg-slate-100 dark:bg-slate-900 px-2 py-1 rounded text-slate-500 font-mono">
-                                {preset.value}
-                            </code>
-                        </button>
-                    ))}
-                </div>
-            </section>
-
-           {/* Educational Content */}
-           <section className="w-full max-w-[1920px] mx-auto px-4 sm:px-6 lg:px-8 pt-0 pb-12 bg-white/50 dark:bg-slate-900/50">
+            {/* Educational Content */}
+           <section className="w-full max-w-[1920px] mx-auto px-4 sm:px-6 lg:px-8 pt-8 pb-12">
             <div className="max-w-[1920px] mx-auto space-y-8">
               <div>
                 <h2 className="text-2xl font-bold text-slate-900 dark:text-white mb-4">Understanding Cron Expressions</h2>
@@ -247,3 +174,4 @@ export default function CronGeneratorClient() {
     </FlowerBackground>
   );
 }
+

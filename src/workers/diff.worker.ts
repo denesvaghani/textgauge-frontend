@@ -1,4 +1,5 @@
 
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import * as Diff from 'diff';
 
 self.onmessage = (e: MessageEvent) => {

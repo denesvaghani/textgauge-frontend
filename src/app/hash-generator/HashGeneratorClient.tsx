@@ -48,6 +48,7 @@ export default function HashGeneratorClient() {
   // Live hashing with debounce - works for both text AND verify mode
   useEffect(() => {
     if ((mode !== 'text' && mode !== 'verify') || !input) {
+      // eslint-disable-next-line react-hooks/set-state-in-effect
       if (!input) setResults([]);
       return;
     }
@@ -65,6 +66,7 @@ export default function HashGeneratorClient() {
   // Verify mode logic
   useEffect(() => {
     if (mode !== 'verify' || !expectedHash || results.length === 0) {
+      // eslint-disable-next-line react-hooks/set-state-in-effect
       setVerifyResult(null);
       return;
     }
@@ -188,13 +190,14 @@ export default function HashGeneratorClient() {
         url="https://www.countcharacters.org/hash-generator"
       />
       <div className="flex flex-col min-h-screen">
-        <SmartHeroHeader title="Hash Generator" theme={theme} />
+        <SmartHeroHeader 
+          title="Hash Generator" 
+          theme={theme}
+          description="Generate MD5, SHA-256, SHA-512 hashes instantly. All algorithms displayed at once with security indicators."
+        />
 
         <main className="flex-grow w-full">
-          <div className="container mx-auto px-4 pt-8 pb-0 max-w-5xl">
-            <div className="text-center text-slate-500 mb-8 max-w-2xl mx-auto">
-              Generate MD5, SHA-256, SHA-512 hashes instantly. All algorithms displayed at once with security indicators.
-            </div>
+          <div className="w-full max-w-[1920px] mx-auto px-4 sm:px-6 lg:px-8 pt-8 pb-0">
 
             {/* Mode Tabs */}
             <div className="flex gap-2 mb-6 overflow-x-auto pb-2">

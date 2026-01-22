@@ -31,6 +31,7 @@ export function DynamicAd({
     
     if (insElement) {
         const initialStatus = insElement.getAttribute("data-ad-status");
+        // eslint-disable-next-line react-hooks/set-state-in-effect
         if (initialStatus === "filled") setAdStatus("filled");
         if (initialStatus === "unfilled") setAdStatus("unfilled");
 

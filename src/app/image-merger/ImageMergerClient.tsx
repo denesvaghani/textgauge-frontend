@@ -63,11 +63,11 @@ export function ImageMergerClient() {
         if (!ctx) return;
 
         // Calculate total dimensions
-        let totalWidth = direction === "horizontal" 
+        const totalWidth = direction === "horizontal" 
             ? images.reduce((sum, img) => sum + img.width, 0) + (images.length - 1) * gap + padding * 2
             : Math.max(...images.map(img => img.width)) + padding * 2;
             
-        let totalHeight = direction === "vertical"
+        const totalHeight = direction === "vertical"
             ? images.reduce((sum, img) => sum + img.height, 0) + (images.length - 1) * gap + padding * 2
             : Math.max(...images.map(img => img.height)) + padding * 2;
 

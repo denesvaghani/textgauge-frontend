@@ -178,9 +178,10 @@ export function PaletteForgeClient() {
           title="PaletteForge"
           theme={theme}
           adSlot={process.env.NEXT_PUBLIC_AD_SLOT_HEADER}
+          description="Upload any design mockup. Get production-ready color tokens for Tailwind, CSS, SCSS, or Figma."
       />
       
-      <HeroDescription text="Upload any design mockup. Get production-ready color tokens for Tailwind, CSS, SCSS, or Figma." />
+
 
       <main className="flex-1">
         {/* Upload Section */}

@@ -3,7 +3,7 @@ import { Metadata } from 'next';
 
 export const metadata: Metadata = {
     title: 'Terms of Service | TextGauge',
-    description: 'Terms of Service for TextGauge - Read our terms and conditions for using our developer tools suite.',
+    description: 'TextGauge Terms of Service: Free developer tools with no hidden fees. Read our fair use policies for JSON formatters, image compressors, and AI converters. Updated January 2025.',
     alternates: {
         canonical: 'https://www.countcharacters.org/terms',
     },
@@ -13,7 +13,7 @@ export default function TermsPage() {
     return (
         <LegalLayout title="Terms of Service">
             <p className="lead">
-                Last updated: {new Date().toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' })}
+                Last updated: January 22, 2025
             </p>
 
             <h2>Agreement to Terms</h2>
@@ -99,7 +99,7 @@ export default function TermsPage() {
             </p>
 
             <p className="text-sm text-slate-500 mt-8">
-                Version 1.1 • Effective: January 10, 2026
+                Version 1.1 • Effective: January 10, 2025
             </p>
         </LegalLayout>
     );

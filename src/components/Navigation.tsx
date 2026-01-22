@@ -4,9 +4,10 @@ import Link from "next/link";
 import Image from "next/image";
 import { usePathname } from "next/navigation";
 import { useState, useEffect, useRef } from "react";
-import { Menu, X, Moon, Sun, ChevronDown } from "lucide-react";
+import { Menu, X, Moon, Sun, ChevronDown, BookOpen } from "lucide-react";
 import { useTheme } from "@/contexts/ThemeContext";
 import { getNavCategories, COMPANY_PAGES } from "@/config/toolRegistry";
+import { LEARN_ARTICLES } from "@/config/learnArticles";
 
 // Build navigation categories from the central registry
 const navCategories = (() => {
@@ -24,8 +25,23 @@ const navCategories = (() => {
         'Media Tools',
         'Comparison',
         'Generators',
+        'Learn',
         'Company'
     ];
+    
+    // Add Learn category from learn articles (Newest 5)
+    categories['Learn'] = [...LEARN_ARTICLES].reverse().slice(0, 5).map(article => ({
+        href: `/learn/${article.slug}`,
+        label: article.title.split(':')[0].split('?')[0].trim(),
+        image: '',
+    }));
+    
+    // Add "View All" link
+    categories['Learn'].push({
+        href: '/learn',
+        label: 'View All Articles →',
+        image: '',
+    });
     
     categoryOrder.forEach(cat => {
         if (categories[cat]) {
@@ -45,6 +61,7 @@ export function Navigation() {
 
     // Close menu when route changes
     useEffect(() => {
+        // eslint-disable-next-line react-hooks/set-state-in-effect
         setIsMenuOpen(false);
         setOpenDropdown(null);
     }, [pathname]);

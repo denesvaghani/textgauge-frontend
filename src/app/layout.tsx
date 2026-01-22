@@ -145,6 +145,7 @@ const structuredData = [
 import { Navigation } from "@/components/Navigation";
 import { Footer } from "@/components/Footer";
 import { CookieConsent } from "@/components/CookieConsent";
+import { TimedAdPopup } from "@/components/TimedAdPopup";
 
 export default function RootLayout({
   children,
@@ -205,6 +206,7 @@ export default function RootLayout({
           {/* Google Analytics 4 */}
           {gaId && <GoogleAnalytics measurementId={gaId} />}
           <CookieConsent />
+          <TimedAdPopup />
         </ThemeProvider>
       </body>
     </html>

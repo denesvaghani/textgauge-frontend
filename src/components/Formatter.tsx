@@ -193,12 +193,13 @@ export function Formatter({
   };
 
   return (
-    <div className="h-screen supports-[height:100dvh]:h-[100dvh] flex flex-col text-slate-900 dark:text-slate-50 transition-colors duration-200 overflow-hidden font-sans">
+    <div className="min-h-screen flex flex-col text-slate-900 dark:text-slate-50 transition-colors duration-200 font-sans">
 
       {/* Smart V3 Hero Header */}
       <SmartHeroHeader 
         title={title} 
         theme={flowerTheme} 
+        description={description}
         adSlot={process.env.NEXT_PUBLIC_AD_SLOT_HEADER}
       />
 
@@ -471,12 +472,11 @@ export function Formatter({
         </div >
 
         {/* Trust Panel (Item 6) */}
-        <div className="mt-8 mb-4">
+        <div className="mt-8 mb-12">
              <TrustPanel />
         </div>
         
-        {/* SEO Description - Moved to bottom */}
-        <HeroDescription text={description} />
+
       </main >
 
       <UrlLoader
