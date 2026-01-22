@@ -976,6 +976,243 @@ const backToJson = toonToJson(toonData);
     ctaLink: '/json-to-toon-converter',
     ctaLabel: 'Try the Converter',
     relatedArticles: ['what-is-toon', 'what-is-json']
+  },
+  
+  // ============================================================
+  // ARTICLE 6: Mastering Cron Expressions
+  // ============================================================
+  {
+    slug: 'mastering-cron-expressions',
+    title: 'Mastering Cron Expressions: A Complete Guide for Developers',
+    description: 'Understand cron syntax once and for all. Learn standard formatting, special characters, common schedules, and how to debug cron jobs.',
+    keywords: ['cron expressions', 'cron syntax', 'cron job generator', 'crontab examples', 'schedule cron job'],
+    category: 'Guides',
+    icon: 'Clock',
+    readTime: '8 min read',
+    publishDate: '2026-01-22',
+    
+    intro: `<p><strong>Cron expressions</strong> are the standard way to schedule tasks in Unix-like systems. Whether you're running nightly backups, sending weekly emails, or clearing cache, you need cron.</p>
+<p>This guide breaks down the cryptic standard syntax into simple, understandable parts.</p>`,
+    
+    sections: [
+      {
+        id: 'cron-basics',
+        heading: 'Cron Syntax Basics',
+        content: `<p>A standard cron expression consists of <strong>five fields</strong> separated by spaces:</p>
+<pre class="bg-slate-100 dark:bg-slate-800 p-4 rounded-lg font-mono text-sm my-4">
+┌───────────── minute (0 - 59)
+│ ┌───────────── hour (0 - 23)
+│ │ ┌───────────── day of the month (1 - 31)
+│ │ │ ┌───────────── month (1 - 12)
+│ │ │ │ ┌───────────── day of the week (0 - 6) (Sunday to Saturday)
+│ │ │ │ │
+* * * * *
+</pre>
+<p>Each asterisk represents a field. An asterisk means "every" (e.g., every minute, every hour).</p>`,
+      },
+      {
+        id: 'special-characters',
+        heading: 'Special Characters',
+        content: `<p>Beyond numbers, cron uses special characters to define patterns:</p>
+<ul>
+  <li><code>*</code> (Asterisk): Every value (e.g., every minute)</li>
+  <li><code>,</code> (Comma): Value list separator (e.g., <code>1,15,30</code>)</li>
+  <li><code>-</code> (Hyphen): Range of values (e.g., <code>1-5</code> for Mon-Fri)</li>
+  <li><code>/</code> (Slash): Step values (e.g., <code>*/15</code> for every 15 mins)</li>
+</ul>`,
+        code: {
+            language: 'text',
+            content: `*/15 * * * *   # Run every 15 minutes
+0 9-17 * * *   # Run hourly between 9 AM and 5 PM
+0 0 1,15 * *   # Run at midnight on 1st and 15th of month`
+        }
+      },
+      {
+        id: 'common-examples',
+        heading: 'Common Schedules',
+        content: `<p>Here are the schedules you'll use 90% of the time:</p>`,
+        table: {
+            headers: ['Schedule', 'Expression', 'Description'],
+            rows: [
+                ['Every Minute', '* * * * *', 'Runs once every minute'],
+                ['Hourly', '0 * * * *', 'Runs at minute 0 of every hour'],
+                ['Daily (Midnight)', '0 0 * * *', 'Runs once a day at 00:00'],
+                ['Weekly (Sunday)', '0 0 * * 0', 'Runs once a week on Sunday'],
+                ['Monthly (1st)', '0 0 1 * *', 'Runs on the 1st of every month'],
+                ['Yearly', '0 0 1 1 *', 'Runs once a year on Jan 1st']
+            ]
+        }
+      },
+      {
+        id: 'best-practices',
+        heading: 'Best Practices',
+        content: `<ol>
+  <li><strong>Use Comments</strong> — Always comment your crontab usage</li>
+  <li><strong>Check Timezone</strong> — Verify server time (UTC vs Local)</li>
+  <li><strong>Log Output</strong> — Redirect output to a log file: <code>>> /var/log/cron.log 2>&1</code></li>
+  <li><strong>Avoid "Every Minute"</strong> — Unless necessary, it adds system load</li>
+  <li><strong>Use a Generator</strong> — Syntax is tricky; use a tool to verify</li>
+</ol>`
+      }
+    ],
+    ctaTitle: 'Generate Cron Expressions Instantly',
+    ctaDescription: 'Stop guessing syntax. specific syntax. Use our visual Cron Generator to build and verify your schedules in plain English.',
+    ctaLink: '/cron-job-generator',
+    ctaLabel: 'Open Cron Generator',
+    relatedArticles: ['what-is-json']
+  },
+
+  // ============================================================
+  // ARTICLE 7: Image Optimization Guide
+  // ============================================================
+  {
+    slug: 'image-optimization-guide',
+    title: 'Image Optimization for Web Vitals: Best Practices 2026',
+    description: 'Improve LCP and SEO by mastering image optimization. Learn about WebP/AVIF, compression levels, and responsive sizing.',
+    keywords: ['image optimization', 'reduce image size', 'webp vs avif', 'improve lcp', 'web vitals', 'seo images'],
+    category: 'Guides',
+    icon: 'Image',
+    readTime: '7 min read',
+    publishDate: '2026-01-22',
+    
+    intro: `<p>Images account for <strong>75% of page weight</strong> on most websites. Unoptimized images are the #1 cause of slow load times and poor Core Web Vitals scores.</p>
+<p>This guide explains how to reduce image size without sacrificing quality, helping you boost SEO rankings and user engagement.</p>`,
+    
+    sections: [
+        {
+          id: 'why-optimize',
+          heading: 'Why Optimization Matters',
+          content: `<p>Google's <strong>Core Web Vitals</strong> metrics heavily penalize slow visual loading. Large images hurt your <strong>Largest Contentful Paint (LCP)</strong> score directly.</p>
+<ul>
+  <li><strong>Faster Load Times</strong> — Better UX, lower bounce rates</li>
+  <li><strong>Better SEO</strong> — Page speed is a confirmed ranking factor</li>
+  <li><strong>Reduced Bandwidth</strong> — Save on hosting/CDN costs</li>
+  <li><strong>Mobile Friendly</strong> — Essential for users on 4G/5G networks</li>
+</ul>`
+        },
+        {
+          id: 'formats',
+          heading: 'Next-Gen Formats: WebP & AVIF',
+          content: `<p>Stop using JPEG and PNG for everything. Modern formats offer superior compression:</p>`,
+          table: {
+            headers: ['Format', 'Best For', 'Compression', 'Browser Support'],
+            rows: [
+                ['JPEG', 'Photos (Legacy)', 'Lossy', '100%'],
+                ['PNG', 'Transparent Logos', 'Lossless', '100%'],
+                ['WebP', 'Photos & Graphics', 'Superior Lossy/Lossless', '97%+'],
+                ['AVIF', 'High Quality Photos', 'Best (20% < WebP)', '93%+']
+            ]
+          }
+        },
+        {
+          id: 'compression-levels',
+          heading: 'Choosing Compression Levels',
+          content: `<p>Compression is a tradeoff between quality and size. For web use:</p>
+<ul>
+  <li><strong>Quality 80-85%</strong>: Perceptually lossless (best for hero images)</li>
+  <li><strong>Quality 60-70%</strong>: Standard web usage (thumbnails, blogs)</li>
+  <li><strong>Quality < 50%</strong>: Noticeable artifacts (avoid unless necessary)</li>
+</ul>
+<p>Our benchmarks show that <strong>WebP at 75% quality</strong> is often 50% smaller than a JPEG at comparable visual quality.</p>`
+        },
+        {
+            id: 'responsive-images',
+            heading: 'Responsive Sizing',
+            content: `<p>Never serve a 4000px image to a mobile phone. use the <code>srcset</code> attribute to serve appropriate sizes:</p>`,
+            code: {
+                language: 'text',
+                content: `<img src="photo-800.jpg"
+     srcset="photo-400.jpg 400w, photo-800.jpg 800w, photo-1200.jpg 1200w"
+     sizes="(max-width: 600px) 400px, 800px"
+     alt="Optimized photo" />`
+            }
+        }
+    ],
+    ctaTitle: 'Free Image Compressor',
+    ctaDescription: 'Compress unlimited images to optimum WebP/JPEG levels locally in your browser. No upload limits, no server logs.',
+    ctaLink: '/image-compressor',
+    ctaLabel: 'Compress Images Now',
+    relatedArticles: ['base64-encoding-explained']
+  },
+
+  // ============================================================
+  // ARTICLE 8: YAML vs JSON Guide
+  // ============================================================
+  {
+    slug: 'yaml-vs-json-guide',
+    title: 'YAML vs JSON: Which Config Format Should You Use?',
+    description: 'A detailed comparison of YAML and JSON for configuration files. We analyze syntax, readability, features, and use cases.',
+    keywords: ['yaml vs json', 'json vs yaml', 'yaml syntax', 'configuration formats', 'devops config'],
+    category: 'Comparisons',
+    icon: 'FileCode',
+    readTime: '6 min read',
+    publishDate: '2026-01-22',
+    
+    intro: `<p><strong>YAML (YAML Ain't Markup Language)</strong> and <strong>JSON</strong> are the two titans of configuration formats. While JSON rules the web API world, YAML dominates in DevOps (Kubernetes, Ansible, GitHub Actions).</p>
+<p>But when should you choose one over the other? This guide compares them head-to-head.</p>`,
+    
+    sections: [
+        {
+          id: 'syntax-comparison',
+          heading: 'Syntax Comparison',
+          content: `<p>The most obvious difference is syntax. JSON uses braces and quotes; YAML uses indentation.</p>`,
+          code: {
+              language: 'text',
+              filename: 'comparison.txt',
+              content: `JSON:
+{
+  "name": "Server",
+  "ports": [80, 443],
+  "enabled": true
+}
+
+YAML:
+name: Server
+ports:
+  - 80
+  - 443
+enabled: true`
+          }
+        },
+        {
+            id: 'pros-cons',
+            heading: 'Pros & Cons',
+            content: '<p>A quick comparison of strengths and weaknesses:</p>',
+            table: {
+                headers: ['Feature', 'JSON', 'YAML'],
+                rows: [
+                    ['Readability', 'Good (but noisy syntax)', 'Excellent (clean visual structure)'],
+                    ['Comments', 'Not supported natively', 'Supported (# comment)'],
+                    ['Parsing Speed', 'Extremely Fast', 'Slower (complex parser)'],
+                    ['Data Types', 'Basic (String, Number, Bool)', 'Rich (Dates, Sets, Binary)'],
+                    ['Risk', 'Low (Strict syntax)', 'Medium (Indentation errors)']
+                ]
+            }
+        },
+        {
+            id: 'recommendation',
+            heading: 'Which One to Choose?',
+            content: `<p><strong>Choose JSON if:</strong></p>
+<ul>
+  <li>You are building web APIs</li>
+  <li>Data is generated/parsed by machines primarily</li>
+  <li>Speed is critical</li>
+  <li>You need strict validation</li>
+</ul>
+<p><strong>Choose YAML if:</strong></p>
+<ul>
+  <li>It is a configuration file edited by humans (CI/CD, K8s)</li>
+  <li>You need comments to explain settings</li>
+  <li>Readability is the top priority</li>
+  <li>You need advanced features like anchors/aliases</li>
+</ul>`
+        }
+    ],
+    ctaTitle: 'Convert Format Instantly',
+    ctaDescription: 'Need to switch formats? Use our converter (coming soon) or validate your JSON now.',
+    ctaLink: '/json-formatter',
+    ctaLabel: 'Validate JSON',
+    relatedArticles: ['what-is-json', 'what-is-toon']
   }
 ];
 
