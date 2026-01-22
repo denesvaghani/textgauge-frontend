@@ -35,6 +35,14 @@ export function Footer() {
         { name: 'Image Compression Guide', href: '/benchmarks/image-compression' },
     ];
 
+    const learnLinks = [
+        { name: 'What is JSON?', href: '/learn/what-is-json' },
+        { name: 'What is CSV?', href: '/learn/what-is-csv' },
+        { name: 'What is TOON?', href: '/learn/what-is-toon' },
+        { name: 'JSON to CSV Guide', href: '/learn/json-to-csv-guide' },
+        { name: 'JSON to TOON Guide', href: '/learn/json-to-toon-guide' },
+    ];
+
     const legalLinks = [
         { name: 'Privacy Policy', href: '/privacy' },
         { name: 'Terms of Service', href: '/terms' },
@@ -92,6 +100,23 @@ export function Footer() {
                         <h3 className="font-semibold text-slate-900 dark:text-slate-100 mb-4">Generators & Utilities</h3>
                         <ul className="space-y-2">
                             {toolLinks.slice(6).map((link) => (
+                                <li key={link.href}>
+                                    <Link
+                                        href={link.href}
+                                        className="text-sm text-slate-600 dark:text-slate-400 hover:text-indigo-600 dark:hover:text-indigo-400 transition-colors"
+                                    >
+                                        {link.name}
+                                    </Link>
+                                </li>
+                            ))}
+                        </ul>
+                    </div>
+
+                    {/* Learn Articles */}
+                    <div>
+                        <h3 className="font-semibold text-slate-900 dark:text-slate-100 mb-4">Learn</h3>
+                        <ul className="space-y-2">
+                            {learnLinks.map((link) => (
                                 <li key={link.href}>
                                     <Link
                                         href={link.href}

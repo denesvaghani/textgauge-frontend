@@ -4,9 +4,10 @@ import Link from "next/link";
 import Image from "next/image";
 import { usePathname } from "next/navigation";
 import { useState, useEffect, useRef } from "react";
-import { Menu, X, Moon, Sun, ChevronDown } from "lucide-react";
+import { Menu, X, Moon, Sun, ChevronDown, BookOpen } from "lucide-react";
 import { useTheme } from "@/contexts/ThemeContext";
 import { getNavCategories, COMPANY_PAGES } from "@/config/toolRegistry";
+import { LEARN_ARTICLES } from "@/config/learnArticles";
 
 // Build navigation categories from the central registry
 const navCategories = (() => {
@@ -24,8 +25,16 @@ const navCategories = (() => {
         'Media Tools',
         'Comparison',
         'Generators',
+        'Learn',
         'Company'
     ];
+    
+    // Add Learn category from learn articles
+    categories['Learn'] = LEARN_ARTICLES.slice(0, 5).map(article => ({
+        href: `/learn/${article.slug}`,
+        label: article.title.split(':')[0].split('?')[0].trim(),
+        image: '',
+    }));
     
     categoryOrder.forEach(cat => {
         if (categories[cat]) {

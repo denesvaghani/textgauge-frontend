@@ -72,8 +72,8 @@ export function SmartHeroHeader({ title, theme, adSlot, description, className =
 export function HeroDescription({ text }: { text: string }) {
     if (!text) return null;
     return (
-        <p className="text-center text-slate-400 dark:text-slate-500 text-xs md:text-sm max-w-2xl mx-auto opacity-70 hover:opacity-100 transition-opacity pt-8 pb-4">
-            <strong className="text-slate-600 dark:text-slate-300 font-semibold">{text.split('.')[0]}.</strong> {text.substring(text.indexOf('.') + 1)}
+        <p className="text-center text-slate-500 dark:text-slate-400 text-xs md:text-sm max-w-2xl mx-auto pt-8 pb-4">
+            {text}
         </p>
     );
 }

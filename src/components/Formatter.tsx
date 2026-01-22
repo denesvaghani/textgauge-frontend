@@ -193,7 +193,7 @@ export function Formatter({
   };
 
   return (
-    <div className="h-screen supports-[height:100dvh]:h-[100dvh] flex flex-col text-slate-900 dark:text-slate-50 transition-colors duration-200 overflow-hidden font-sans">
+    <div className="min-h-screen flex flex-col text-slate-900 dark:text-slate-50 transition-colors duration-200 font-sans">
 
       {/* Smart V3 Hero Header */}
       <SmartHeroHeader 
