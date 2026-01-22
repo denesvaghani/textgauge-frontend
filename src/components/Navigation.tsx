@@ -29,12 +29,19 @@ const navCategories = (() => {
         'Company'
     ];
     
-    // Add Learn category from learn articles
-    categories['Learn'] = LEARN_ARTICLES.slice(0, 5).map(article => ({
+    // Add Learn category from learn articles (Newest 5)
+    categories['Learn'] = [...LEARN_ARTICLES].reverse().slice(0, 5).map(article => ({
         href: `/learn/${article.slug}`,
         label: article.title.split(':')[0].split('?')[0].trim(),
         image: '',
     }));
+    
+    // Add "View All" link
+    categories['Learn'].push({
+        href: '/learn',
+        label: 'View All Articles →',
+        image: '',
+    });
     
     categoryOrder.forEach(cat => {
         if (categories[cat]) {

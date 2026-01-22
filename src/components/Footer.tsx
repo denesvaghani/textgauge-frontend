@@ -34,10 +34,11 @@ export function Footer() {
     ];
 
     // 4. Resources (Learn & Benchmarks)
+    // 4. Resources (Learn) - Latest 5
     const resourceLinks = [
-        { name: 'What is JSON?', href: '/learn/what-is-json' },
-        { name: 'What is CSV?', href: '/learn/what-is-csv' },
-        { name: 'What is TOON?', href: '/learn/what-is-toon' },
+        { name: 'Cron Expressions Guide', href: '/learn/mastering-cron-expressions' },
+        { name: 'Image Optimization', href: '/learn/image-optimization-guide' },
+        { name: 'YAML vs JSON', href: '/learn/yaml-vs-json-guide' },
         { name: 'JSON vs TOON', href: '/benchmarks/json-vs-toon' },
         { name: 'JSON vs CSV', href: '/benchmarks/json-vs-csv' },
     ];
@@ -136,19 +137,30 @@ export function Footer() {
                         </div>
 
                         {/* Column 5: Learn & Company (Merged) */}
+                        {/* Column 5: Learn */}
                         <div>
-                            <h3 className="font-semibold text-slate-900 dark:text-white mb-5">Learn & Company</h3>
+                            <h3 className="font-semibold text-slate-900 dark:text-white mb-5">Learn</h3>
                             <ul className="space-y-3">
-                                {resourceLinks.slice(0, 3).map((link) => (
+                                {resourceLinks.slice(0, 5).map((link) => (
                                     <li key={link.href}>
                                         <Link href={link.href} className="text-sm text-slate-600 dark:text-slate-400 hover:text-indigo-600 dark:hover:text-indigo-400 transition-colors">
                                             {link.name}
                                         </Link>
                                     </li>
                                 ))}
-                                {/* Divider */}
-                                <li className="h-px bg-slate-100 dark:bg-slate-800 my-2" aria-hidden="true" />
-                                {companyLinks.slice(0, 3).map((link) => (
+                                <li>
+                                    <Link href="/learn" className="text-sm font-medium text-indigo-600 dark:text-indigo-400 hover:text-indigo-700 dark:hover:text-indigo-300 transition-colors flex items-center gap-1">
+                                        View All <span aria-hidden="true">&rarr;</span>
+                                    </Link>
+                                </li>
+                            </ul>
+                        </div>
+
+                        {/* Column 6: Company */}
+                        <div>
+                            <h3 className="font-semibold text-slate-900 dark:text-white mb-5">Company</h3>
+                            <ul className="space-y-3">
+                                {companyLinks.map((link) => (
                                     <li key={link.href}>
                                         <Link href={link.href} className="text-sm text-slate-600 dark:text-slate-400 hover:text-indigo-600 dark:hover:text-indigo-400 transition-colors">
                                             {link.name}
