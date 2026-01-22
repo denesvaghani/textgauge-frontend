@@ -10,6 +10,52 @@ export const CRON_Presets = [
 ];
 
 // Validation Helper
+export type CronOption = {
+  label: string;
+  value: string;
+};
+
+export const CRON_OPTS = {
+  minute: [
+    { label: "Every Minute (*)", value: "*" },
+    { label: "Even Minutes (0, 2, ...)", value: "*/2" },
+    { label: "Odd Minutes (1, 3, ...)", value: "1-59/2" },
+    { label: "Every 5 Minutes", value: "*/5" },
+    { label: "Every 15 Minutes", value: "*/15" },
+    { label: "Every 30 Minutes", value: "*/30" },
+  ],
+  hour: [
+    { label: "Every Hour (*)", value: "*" },
+    { label: "Even Hours (0, 2, ...)", value: "*/2" },
+    { label: "Odd Hours (1, 3, ...)", value: "1-23/2" },
+    { label: "Every 3 Hours", value: "*/3" },
+    { label: "Every 4 Hours", value: "*/4" },
+    { label: "Every 6 Hours", value: "*/6" },
+    { label: "Every 12 Hours", value: "*/12" },
+  ],
+  dayMonth: [
+    { label: "Every Day (*)", value: "*" },
+    { label: "Every Other Day (*/2)", value: "*/2" },
+    { label: "Start of Month (1)", value: "1" },
+    { label: "Middle of Month (15)", value: "15" },
+    { label: "End of Month (28)", value: "28" },
+  ],
+  month: [
+    { label: "Every Month (*)", value: "*" },
+    { label: "Every Other Month (*/2)", value: "*/2" },
+    { label: "Quarterly (*/3)", value: "*/3" },
+    { label: "Every 6 Months (*/6)", value: "*/6" },
+    { label: "In January only", value: "1" },
+  ],
+  dayWeek: [
+    { label: "Every Day (*)", value: "*" },
+    { label: "Weekdays (Mon-Fri)", value: "1-5" },
+    { label: "Weekends (Sat, Sun)", value: "0,6" },
+    { label: "Mondays", value: "1" },
+    { label: "Fridays", value: "5" },
+  ],
+};
+
 // Validation Helper
 export const isValidPart = (part: string, minVal: number, maxVal: number): boolean => {
     // 1. Basic Character Check: 0-9, *, /, -, ,
