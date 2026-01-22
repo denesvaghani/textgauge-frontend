@@ -5,6 +5,7 @@ import { useState, useMemo } from 'react';
 import { BookOpen, Clock, ChevronRight, Search, ArrowRight, Filter, Sparkles, Tag } from 'lucide-react';
 import * as LucideIcons from 'lucide-react';
 import { LEARN_ARTICLES, type ArticleCategory } from '@/config/learnArticles';
+import { DynamicAd } from '@/components/DynamicAd';
 
 // Dynamic icon component
 function DynamicIcon({ name, className }: { name: string; className?: string }) {
@@ -81,8 +82,24 @@ export default function LearnPage() {
         </div>
       </header>
 
-      <div className="max-w-7xl mx-auto px-4 py-8">
-        <div className="flex flex-col lg:flex-row gap-8 items-start">
+      <div className="w-full max-w-[1920px] mx-auto px-4 py-8 flex justify-center gap-6 2xl:gap-8">
+        
+        {/* LEFT AD COLUMN (Desktop XL+) */}
+        {process.env.NEXT_PUBLIC_AD_SLOT_SKYSCRAPER_LEFT && (
+            <div className="hidden 2xl:block w-[160px] shrink-0">
+                <div className="sticky top-36 h-fit min-h-[600px] flex items-start justify-center">
+                    <DynamicAd
+                    adSlot={process.env.NEXT_PUBLIC_AD_SLOT_SKYSCRAPER_LEFT}
+                    adFormat="vertical"
+                    style={{ width: '160px', height: '600px', display: 'block' }}
+                    />
+                </div>
+            </div>
+        )}
+
+        {/* CENTER CONTENT */}
+        <div className="w-full max-w-7xl">
+            <div className="flex flex-col lg:flex-row gap-8 items-start">
             
             {/* Sidebar: Categories */}
             <aside className="w-full lg:w-64 shrink-0 lg:sticky lg:top-36 space-y-2">
@@ -225,6 +242,21 @@ export default function LearnPage() {
                 )}
             </main>
         </div>
+        </div>
+
+        {/* RIGHT AD COLUMN (Desktop XL+) */}
+        {process.env.NEXT_PUBLIC_AD_SLOT_SKYSCRAPER_RIGHT && (
+            <div className="hidden 2xl:block w-[160px] shrink-0">
+                <div className="sticky top-36 h-fit min-h-[600px] flex items-start justify-center">
+                    <DynamicAd
+                    adSlot={process.env.NEXT_PUBLIC_AD_SLOT_SKYSCRAPER_RIGHT}
+                    adFormat="vertical"
+                    style={{ width: '160px', height: '600px', display: 'block' }}
+                    />
+                </div>
+            </div>
+        )}
+
       </div>
     </div>
   );
