@@ -72,7 +72,7 @@ temp_targets = { cpu = 79.5, case = 72.0 }
                     )}
 
                     {/* CENTER CONTENT */}
-                    <div className="w-full max-w-7xl min-w-0">
+                    <div className="flex-1 min-w-0">
                         <Formatter
                             title="TOML Formatter"
                             description="Format and validate TOML data."

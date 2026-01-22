@@ -50,7 +50,7 @@ export default function YamlFormatterPage() {
                     )}
 
                     {/* CENTER CONTENT */}
-                    <div className="w-full max-w-7xl min-w-0">
+                    <div className="flex-1 min-w-0">
                         <Formatter
                             id="yaml-formatter"
                             title="YAML Formatter, Validator & Beautifier"
