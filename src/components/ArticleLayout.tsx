@@ -272,8 +272,24 @@ export function ArticleLayout({ article }: ArticleLayoutProps) {
       </section>
 
       {/* Main Content Area */}
-      <div className="max-w-7xl mx-auto px-4 py-12">
-        <div className="flex flex-col lg:flex-row gap-12 xl:gap-20">
+      <div className="relative w-full max-w-[1920px] mx-auto px-4 py-12 flex justify-center gap-6 2xl:gap-8">
+        
+        {/* LEFT AD COLUMN (Desktop XL+) */}
+        {process.env.NEXT_PUBLIC_AD_SLOT_SKYSCRAPER_LEFT && (
+           <div className="hidden 2xl:block w-[160px] shrink-0">
+              <div className="sticky top-24 h-fit min-h-[600px] flex items-start justify-center">
+                 <DynamicAd
+                   adSlot={process.env.NEXT_PUBLIC_AD_SLOT_SKYSCRAPER_LEFT}
+                   adFormat="vertical"
+                   style={{ width: '160px', height: '600px', display: 'block' }}
+                 />
+              </div>
+           </div>
+        )}
+
+        {/* CENTER CONTENT */}
+        <div className="w-full max-w-7xl">
+          <div className="flex flex-col lg:flex-row gap-12 xl:gap-20">
           
           {/* LEFT: Article Content */}
           <article className="flex-1 min-w-0">
@@ -349,6 +365,21 @@ export function ArticleLayout({ article }: ArticleLayoutProps) {
           <TableOfContents sections={article.sections} />
           
         </div>
+        </div>
+
+        {/* RIGHT AD COLUMN (Desktop XL+) */}
+        {process.env.NEXT_PUBLIC_AD_SLOT_SKYSCRAPER_RIGHT && (
+           <div className="hidden 2xl:block w-[160px] shrink-0">
+              <div className="sticky top-24 h-fit min-h-[600px] flex items-start justify-center">
+                 <DynamicAd
+                   adSlot={process.env.NEXT_PUBLIC_AD_SLOT_SKYSCRAPER_RIGHT}
+                   adFormat="vertical"
+                   style={{ width: '160px', height: '600px', display: 'block' }}
+                 />
+              </div>
+           </div>
+        )}
+
       </div>
     </div>
   );
