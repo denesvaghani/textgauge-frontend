@@ -13,15 +13,6 @@ export function CookieConsent() {
     const [analyticsConsent, setAnalyticsConsent] = useState<boolean>(true);
     const [adsConsent, setAdsConsent] = useState<boolean>(true);
 
-    useEffect(() => {
-        const savedConsent = localStorage.getItem('cookie-consent');
-        if (!savedConsent) {
-            setShowBanner(true);
-            // Set default denied in GTM if not already set (usually handled in layout script)
-            updateGtmConsent('denied', 'denied');
-        }
-    }, []);
-
     const updateGtmConsent = (analytics: ConsentState, ads: ConsentState) => {
         if (typeof window !== 'undefined' && (window as any).gtag) {
             (window as any).gtag('consent', 'update', {
@@ -32,6 +23,16 @@ export function CookieConsent() {
             });
         }
     };
+
+    useEffect(() => {
+        const savedConsent = localStorage.getItem('cookie-consent');
+        if (!savedConsent) {
+            // eslint-disable-next-line react-hooks/set-state-in-effect
+            setShowBanner(true);
+            // Set default denied in GTM if not already set (usually handled in layout script)
+            updateGtmConsent('denied', 'denied');
+        }
+    }, []);
 
     const handleAcceptAll = () => {
         localStorage.setItem('cookie-consent', 'all');

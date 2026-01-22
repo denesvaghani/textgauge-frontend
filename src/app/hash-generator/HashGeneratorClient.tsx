@@ -48,6 +48,7 @@ export default function HashGeneratorClient() {
   // Live hashing with debounce - works for both text AND verify mode
   useEffect(() => {
     if ((mode !== 'text' && mode !== 'verify') || !input) {
+      // eslint-disable-next-line react-hooks/set-state-in-effect
       if (!input) setResults([]);
       return;
     }
@@ -65,6 +66,7 @@ export default function HashGeneratorClient() {
   // Verify mode logic
   useEffect(() => {
     if (mode !== 'verify' || !expectedHash || results.length === 0) {
+      // eslint-disable-next-line react-hooks/set-state-in-effect
       setVerifyResult(null);
       return;
     }

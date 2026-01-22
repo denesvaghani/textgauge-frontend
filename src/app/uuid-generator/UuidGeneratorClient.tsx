@@ -32,6 +32,7 @@ export default function UuidGeneratorClient() {
   }, [idType, count, hyphens, uppercase, prefix]);
 
   useEffect(() => {
+    // eslint-disable-next-line react-hooks/set-state-in-effect
     handleGenerate();
   }, []); // Initial load
 

@@ -89,7 +89,7 @@ export function Footer() {
                                 and compare data formats. 100% browser-based, no server uploads.
                             </p>
                             <div className="text-sm text-slate-400">
-                                © 2025 - {new Date().getFullYear()} TextGauge. All rights reserved.
+                                © 2025 TextGauge. All rights reserved.
                             </div>
                         </div>
 

@@ -19,6 +19,7 @@ export default function Base64Client() {
   const [error, setError] = useState<string | null>(null); // Re-introducing error state for file upload
 
   useEffect(() => {
+    // eslint-disable-next-line react-hooks/set-state-in-effect
     setError(null); // Clear error on input/mode/urlsafe change
     if (!input) {
       setOutput('');

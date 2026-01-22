@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import Papa from 'papaparse';
 import yaml from 'js-yaml';
 import * as toml from 'smol-toml';

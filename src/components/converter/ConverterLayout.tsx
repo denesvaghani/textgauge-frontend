@@ -27,6 +27,7 @@ export function ConverterLayout({ defaultFrom = 'json', defaultTo = 'yaml' }: Co
 
     // Sync props to state if they change (e.g. navigation)
     useEffect(() => {
+        // eslint-disable-next-line react-hooks/set-state-in-effect
         setFromFormat(defaultFrom);
         setToFormat(defaultTo);
     }, [defaultFrom, defaultTo]);

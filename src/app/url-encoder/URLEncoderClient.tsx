@@ -35,6 +35,7 @@ export default function URLEncoderClient() {
 
   // Process input whenever it changes
   useEffect(() => {
+    // eslint-disable-next-line react-hooks/set-state-in-effect
     setError(null);
     if (!input.trim()) {
       setOutput('');

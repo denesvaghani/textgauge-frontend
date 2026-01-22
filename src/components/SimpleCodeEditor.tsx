@@ -137,6 +137,7 @@ export function SimpleCodeEditor({
     useEffect(() => {
         const regex = getSearchRegex();
         if (!regex || !findText) {
+            // eslint-disable-next-line react-hooks/set-state-in-effect
             setMatchCount(0);
             setCurrentMatchIndex(-1);
             setMatchPositions([]);

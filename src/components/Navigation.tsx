@@ -54,6 +54,7 @@ export function Navigation() {
 
     // Close menu when route changes
     useEffect(() => {
+        // eslint-disable-next-line react-hooks/set-state-in-effect
         setIsMenuOpen(false);
         setOpenDropdown(null);
     }, [pathname]);
