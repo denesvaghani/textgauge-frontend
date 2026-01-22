@@ -3,7 +3,7 @@ import { Metadata } from 'next';
 
 export const metadata: Metadata = {
     title: 'Terms of Service | TextGauge',
-    description: 'Terms of Service for TextGauge - Read our terms and conditions for using our developer tools suite.',
+    description: 'TextGauge Terms of Service: Free developer tools with no hidden fees. Read our fair use policies for JSON formatters, image compressors, and AI converters. Updated January 2026.',
     alternates: {
         canonical: 'https://www.countcharacters.org/terms',
     },
