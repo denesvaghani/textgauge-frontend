@@ -11,7 +11,7 @@ import { RelatedTools } from "@/components/RelatedTools";
 import { Copy } from "lucide-react";
 import { useEffect, useState } from "react";
 import { CronBuilder } from "./CronBuilder";
-import { ManualCronBuilder } from "./ManualCronBuilder"; // We'll extract old logic here later if needed, but for now we inline or remove it. Actually let's keep manual inputs but de-emphasized.
+
 
 export default function CronGeneratorClient() {
   const theme = flowerThemes.morningGlory;

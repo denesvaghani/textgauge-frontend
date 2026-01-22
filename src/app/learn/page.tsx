@@ -19,7 +19,8 @@ export const metadata: Metadata = {
 
 // Dynamic icon component
 function DynamicIcon({ name, className }: { name: string; className?: string }) {
-  const Icon = (LucideIcons as Record<string, React.ComponentType<{ className?: string }>>)[name];
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  const Icon = (LucideIcons as any)[name];
   if (!Icon) return <BookOpen className={className} />;
   return <Icon className={className} />;
 }
