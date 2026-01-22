@@ -76,14 +76,12 @@ export default function UuidGeneratorClient() {
         <SmartHeroHeader
           title="UUID & ID Generator"
           theme={theme}
+          description="Generate UUIDs, ULIDs, and NanoIDs in bulk. Perfect for databases, APIs, and distributed systems."
         />
 
         <main className="flex-grow w-full">
           
-          <div className="container mx-auto px-4 pt-8 pb-0 max-w-5xl">
-            <div className="text-center text-slate-500 mb-8 max-w-2xl mx-auto">
-              Generate UUIDs, ULIDs, and NanoIDs in bulk. Perfect for databases, APIs, and distributed systems.
-            </div>
+          <div className="w-full max-w-[1920px] mx-auto px-4 sm:px-6 lg:px-8 pt-8 pb-0">
 
             {/* ID Type Selector */}
             <div className="bg-white/80 dark:bg-slate-900/80 backdrop-blur-sm rounded-xl border border-slate-200 dark:border-slate-800 shadow-sm p-4 mb-4">

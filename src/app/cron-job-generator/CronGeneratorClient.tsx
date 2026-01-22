@@ -59,13 +59,11 @@ export default function CronGeneratorClient() {
         <SmartHeroHeader
           title="Cron Generator"
           theme={theme}
+          description="Create and understand cron schedules for your scripts and jobs."
         />
 
         <main className="flex-grow w-full">
-            <div className="container mx-auto px-4 pt-8 pb-0 max-w-[1920px]">
-                <div className="text-center text-slate-500 mb-8 max-w-2xl mx-auto">
-                    Create and understand cron schedules for your scripts and jobs.
-                </div>
+            <div className="w-full max-w-[1920px] mx-auto px-4 sm:px-6 lg:px-8 pt-8 pb-0">
 
                 {/* Display & Copy */}
                 <div className="bg-white dark:bg-slate-900 rounded-2xl shadow-lg border border-slate-200 dark:border-slate-800 p-8 mb-8 text-center transition-all hover:shadow-xl sticky top-4 z-10">
