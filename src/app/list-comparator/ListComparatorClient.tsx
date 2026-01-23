@@ -189,6 +189,12 @@ https://example.com/api/v1/checkout`;
       const canvas = await html2canvas(resultsRef.current, {
         backgroundColor: '#ffffff',
         scale: 2, // Higher quality
+        useCORS: true, // Handle cross-origin images
+        allowTaint: true, // Allow tainted canvas
+        logging: false, // Disable logging
+        imageTimeout: 0, // No timeout for images
+        removeContainer: true, // Clean up after capture
+        foreignObjectRendering: false, // Disable foreign object rendering (can cause issues)
       });
       
       const link = document.createElement('a');
@@ -197,7 +203,22 @@ https://example.com/api/v1/checkout`;
       link.click();
     } catch (error) {
       console.error('Screenshot failed:', error);
-      alert('Failed to capture screenshot. Please try again.');
+      // Fallback: Try with simpler options
+      try {
+        const canvas = await html2canvas(resultsRef.current, {
+          backgroundColor: '#ffffff',
+          scale: 1,
+          useCORS: true,
+          logging: false,
+        });
+        const link = document.createElement('a');
+        link.download = 'list-comparison-results.png';
+        link.href = canvas.toDataURL('image/png');
+        link.click();
+      } catch (fallbackError) {
+        console.error('Screenshot fallback failed:', fallbackError);
+        alert('Screenshot capture failed. This may be due to browser security restrictions.');
+      }
     }
   };
 
