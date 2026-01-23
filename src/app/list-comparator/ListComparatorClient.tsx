@@ -14,7 +14,8 @@ export default function ListComparatorClient() {
   // State
   const [inputA, setInputA] = useState("");
   const [inputB, setInputB] = useState("");
-  const [delimiter, setDelimiter] = useState<"auto" | "newline" | "comma">("auto");
+  const [delimiter, setDelimiter] = useState<"auto" | "newline" | "comma" | "semicolon" | "pipe" | "tab" | "custom">("auto");
+  const [customDelimiter, setCustomDelimiter] = useState("");
   const [caseSensitive, setCaseSensitive] = useState(false);
   const [showInputB, setShowInputB] = useState(false); // Toggle for simple vs comparison mode
 
@@ -36,6 +37,16 @@ export default function ListComparatorClient() {
         items = text.split(/\n+/);
       } else if (delimiter === "comma") {
         items = text.split(/,/);
+      } else if (delimiter === "semicolon") {
+        items = text.split(/;/);
+      } else if (delimiter === "pipe") {
+        items = text.split(/\|/);
+      } else if (delimiter === "tab") {
+        items = text.split(/\t+/);
+      } else if (delimiter === "custom" && customDelimiter) {
+        // Escape special regex characters in custom delimiter
+        const escaped = customDelimiter.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+        items = text.split(new RegExp(escaped));
       } else {
         // Auto: split by comma or newline (but preserve spaces for URLs)
         items = text.split(/[,\n]+/);
@@ -81,7 +92,7 @@ export default function ListComparatorClient() {
         setMissingInA([]);
     }
 
-  }, [inputA, inputB, delimiter, caseSensitive, showInputB]);
+  }, [inputA, inputB, delimiter, customDelimiter, caseSensitive, showInputB]);
 
   // Auto-process on input change (debounced could differ, but instant is fine for text)
   useEffect(() => {
@@ -228,12 +239,12 @@ https://example.com/api/v1/checkout`;
           <div className={`grid gap-6 ${showInputB ? "md:grid-cols-3" : "grid-cols-1"}`}>
               
               {/* Card 1: Unique A */}
-              <div className="bg-white dark:bg-slate-900 rounded-xl border border-slate-200 dark:border-slate-800 overflow-hidden flex flex-col h-96">
+              <div className="bg-white dark:bg-slate-900 rounded-xl border border-slate-200 dark:border-slate-800 ring-1 ring-slate-200/50 dark:ring-slate-700/50 shadow-md overflow-hidden flex flex-col h-96">
                   <div className="p-4 border-b border-slate-100 dark:border-slate-800 bg-slate-50 dark:bg-slate-900/50 flex justify-between items-center">
                       <div className="flex flex-col gap-1">
                           <h3 className="font-bold text-slate-700 dark:text-slate-200">Unique List A</h3>
                           {totalCountA > 0 && totalCountA !== uniqueA.length && (
-                              <span className="text-xs text-slate-500 dark:text-slate-400">
+                              <span className="text-xs text-slate-600 dark:text-slate-300 font-medium">
                                   {((1 - uniqueA.length / totalCountA) * 100).toFixed(1)}% duplicates removed
                               </span>
                           )}
@@ -261,14 +272,14 @@ https://example.com/api/v1/checkout`;
               {showInputB && (
                   <>
                     {/* Card 2: Only in A (Missing in B) */}
-                    <div className="bg-white dark:bg-slate-900 rounded-xl border border-amber-200 dark:border-amber-900/30 overflow-hidden flex flex-col h-96">
+                    <div className="bg-white dark:bg-slate-900 rounded-xl border border-amber-200 dark:border-amber-900/30 ring-1 ring-amber-200/50 dark:ring-amber-900/50 shadow-md overflow-hidden flex flex-col h-96">
                         <div className="p-4 border-b border-amber-100 dark:border-amber-900/30 bg-amber-50 dark:bg-amber-900/10 flex justify-between items-center">
                             <div className="flex flex-col gap-1">
                                 <h3 className="font-bold text-amber-900 dark:text-amber-100 flex items-center gap-2">
                                     <ArrowRight size={16} /> In A Only
                                 </h3>
                                 {totalCountA > 0 && missingInB.length > 0 && (
-                                    <span className="text-xs text-amber-700 dark:text-amber-300">
+                                    <span className="text-xs text-amber-700 dark:text-amber-200 font-medium">
                                         {((missingInB.length / totalCountA) * 100).toFixed(1)}% of A missing in B
                                     </span>
                                 )}
@@ -291,14 +302,14 @@ https://example.com/api/v1/checkout`;
                     </div>
 
                     {/* Card 3: Only in B (Missing in A) */}
-                     <div className="bg-white dark:bg-slate-900 rounded-xl border border-blue-200 dark:border-blue-900/30 overflow-hidden flex flex-col h-96">
+                     <div className="bg-white dark:bg-slate-900 rounded-xl border border-blue-200 dark:border-blue-900/30 ring-1 ring-blue-200/50 dark:ring-blue-900/50 shadow-md overflow-hidden flex flex-col h-96">
                         <div className="p-4 border-b border-blue-100 dark:border-blue-900/30 bg-blue-50 dark:bg-blue-900/10 flex justify-between items-center">
                             <div className="flex flex-col gap-1">
                                 <h3 className="font-bold text-blue-900 dark:text-blue-100 flex items-center gap-2">
                                     <ArrowLeft size={16} /> In B Only
                                 </h3>
                                 {totalCountB > 0 && missingInA.length > 0 && (
-                                    <span className="text-xs text-blue-700 dark:text-blue-300">
+                                    <span className="text-xs text-blue-700 dark:text-blue-200 font-medium">
                                         {((missingInA.length / totalCountB) * 100).toFixed(1)}% of B missing in A
                                     </span>
                                 )}
