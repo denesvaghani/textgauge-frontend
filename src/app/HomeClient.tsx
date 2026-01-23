@@ -150,46 +150,93 @@ export default function HomeClient() {
       <section className="w-full relative max-w-[1920px] mx-auto px-4 sm:px-6 lg:px-8 pb-16 z-10">
         <div className="bg-white/80 dark:bg-slate-900/80 backdrop-blur-sm rounded-2xl shadow-sm border border-yellow-200/50 dark:border-yellow-800/30 p-8 transition-colors duration-200">
           <h2 className="text-2xl font-bold text-slate-900 dark:text-white mb-6">
-            Everything you need to analyze text
+            The Ultimate Privacy-Focused Developer Toolkit
           </h2>
-          <div className="grid md:grid-cols-2 gap-x-12 gap-y-8 text-sm text-slate-600 dark:text-slate-300">
-            <div>
-              <h3 className="font-bold text-base mb-2 text-slate-900 dark:text-white flex items-center gap-2">
-                <span className="w-1.5 h-1.5 rounded-full bg-yellow-500"></span> Character & Word Count
-              </h3>
-              <p className="leading-relaxed">
-                Instantly <strong>count characters</strong> and <strong>count words</strong> as you type.
-                Perfect for Twitter posts (280 chars), meta descriptions (155-160 chars), essays, and articles.
-                We also track sentences, paragraphs, and reading time.
-              </p>
+          
+          <div className="space-y-12 text-slate-600 dark:text-slate-300 leading-relaxed">
+            
+            <div className="grid md:grid-cols-2 gap-12">
+                <div>
+                    <h3 className="text-lg font-bold text-slate-900 dark:text-white mb-3 flex items-center gap-2">
+                        <span className="w-2 h-2 rounded-full bg-yellow-500"></span> 
+                        Why TextGauge is Different
+                    </h3>
+                    <p className="mb-4">
+                        In a web filled with ad-heavy, slow, and data-hungry tools, <strong>TextGauge</strong> stands out by prioritizing <strong>speed, privacy, and simplicity</strong>. We believe that simple tasks like counting characters, formatting JSON, or converting images shouldn't require uploading your sensitive data to a remote server.
+                    </p>
+                    <p>
+                        Our architecture is strictly <strong>Client-Side First</strong>. This means when you paste your API keys into our JSON Formatter or your private documents into our Character Counter, that data <em>never</em> leaves your device. The processing happens locally in your browser using modern WebAssembly and JavaScript technologies.
+                    </p>
+                </div>
+                <div>
+                    <h3 className="text-lg font-bold text-slate-900 dark:text-white mb-3 flex items-center gap-2">
+                        <span className="w-2 h-2 rounded-full bg-yellow-500"></span> 
+                        Optimized for Modern Development
+                    </h3>
+                    <p className="mb-4">
+                        We understand the workflow of modern full-stack developers. You need tools that open instantly and work reliably. TextGauge is built as a Progressive Web App (PWA), meaning it loads fast, works offline, and feels like a native application on your desktop or mobile device.
+                    </p>
+                    <p>
+                        Whether you are debugging a Kubernetes configuration with our <strong>YAML Validator</strong>, optimizing assets with our <strong>Image Compressor</strong>, or checking the diff between two code snippets, we provide a clean, distraction-free environment to get the job done.
+                    </p>
+                </div>
             </div>
+
+            <hr className="border-yellow-100 dark:border-yellow-900/50" />
+
             <div>
-              <h3 className="font-bold text-base mb-2 text-slate-900 dark:text-white flex items-center gap-2">
-                <span className="w-1.5 h-1.5 rounded-full bg-yellow-500"></span> Case Converter
-              </h3>
-              <p className="leading-relaxed">
-                Transform text to Title Case, lowercase, UPPERCASE, or snake_case instantly.
-                Format your content quickly without retyping.
-              </p>
+                <h3 className="text-lg font-bold text-slate-900 dark:text-white mb-6 text-center">
+                    Comprehensive Tool Suite Analysis
+                </h3>
+                <div className="grid md:grid-cols-3 gap-8">
+                    <div>
+                        <h4 className="font-bold text-slate-900 dark:text-white mb-2">Character & Word Counting</h4>
+                        <p className="text-sm">
+                            More than just a simple counter. Our tool breaks down your text into characters (with and without spaces), words, sentences, paragraphs, and reading time. Essential for social media managers optimizing specifically for Twitter/X (280 chars), LinkedIn posts, or Google Ad headlines. Copywriters rely on our density analysis to avoid keyword stuffing.
+                        </p>
+                    </div>
+                    <div>
+                        <h4 className="font-bold text-slate-900 dark:text-white mb-2">Data Formatting (JSON/YAML/TOML)</h4>
+                        <p className="text-sm">
+                            Malformed configuration files can bring down production environments. Our strict validators for JSON, YAML, and TOML ensure your syntax is perfect before you commit. Features include automatic indentation repair, minification for payload optimization, and tree-view visualization for navigating complex nested objects.
+                        </p>
+                    </div>
+                    <div>
+                        <h4 className="font-bold text-slate-900 dark:text-white mb-2">Image Optimization</h4>
+                        <p className="text-sm">
+                            Web performance matters (Core Web Vitals). Our client-side Image Compressor reduces file sizes (JPG, PNG, WebP) by up to 80% without visible quality loss, helping you improve LCP scores and SEO rankings. We also offer specialized resizing and conversion tools to prepare assets for responsive web design.
+                        </p>
+                    </div>
+                    <div>
+                        <h4 className="font-bold text-slate-900 dark:text-white mb-2">Dev Utilities</h4>
+                        <p className="text-sm">
+                            From generating secure v4 UUIDs for database primary keys to creating stronger passwords or calculating cryptographic hashes (MD5, SHA-256), our cryptographic tools are industry-standard. We also provide URL encoding/decoding and Base64 utilities for debugging API payloads.
+                        </p>
+                    </div>
+                    <div>
+                        <h4 className="font-bold text-slate-900 dark:text-white mb-2">Text Transformation</h4>
+                        <p className="text-sm">
+                            Clean up messy inputs instantly. Convert text case (UPPERCASE, lowercase, Title Case, camelCase, snake_case) for variable naming conventions. Our "Repeats Finder" helps editors polish their prose by highlighting redundant phrases, ensuring your writing is concise and impactful.
+                        </p>
+                    </div>
+                    <div>
+                        <h4 className="font-bold text-slate-900 dark:text-white mb-2">Diff Checking</h4>
+                        <p className="text-sm">
+                            Compare text or code side-by-side to spot changes instantly. Our Diff Checker highlights additions and removals in a clear, color-coded format, making it easier to review code snippets, configuration versions, or document revisions without needing a full IDE.
+                        </p>
+                    </div>
+                </div>
             </div>
-            <div>
-              <h3 className="font-bold text-base mb-2 text-slate-900 dark:text-white flex items-center gap-2">
-                <span className="w-1.5 h-1.5 rounded-full bg-yellow-500"></span> Repeats Finder
-              </h3>
-              <p className="leading-relaxed">
-                Detect repeated phrases automatically. Our tool identifies redundant 3-word phrases
-                to help you improve readability and style.
-              </p>
+
+            <div className="bg-yellow-50 dark:bg-yellow-900/10 p-6 rounded-xl border border-yellow-100 dark:border-yellow-900/30">
+                <h3 className="text-lg font-bold text-slate-900 dark:text-white mb-2">
+                    Our Privacy Promise
+                </h3>
+                <p className="text-sm">
+                    <strong>Zero-Knowledge Architecture:</strong> We do not store, record, or transmit your input data. All computations—whether it's hashing a password or compressing an image—occur strictly within your browser's memory sandbox. You can verify this by inspecting the network traffic in your browser's developer tools; you will see zero requests sending your payload to our backend.
+                </p>
             </div>
-            <div>
-              <h3 className="font-bold text-base mb-2 text-slate-900 dark:text-white flex items-center gap-2">
-                <span className="w-1.5 h-1.5 rounded-full bg-yellow-500"></span> SEO Analysis
-              </h3>
-              <p className="leading-relaxed">
-                Analyze keyword density and structure. Essential for content writers looking to optimize
-                articles for search engines.
-              </p>
-            </div>
+
           </div>
         </div>
       </section>
