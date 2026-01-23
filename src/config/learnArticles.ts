@@ -1574,6 +1574,272 @@ N = Variant (layout)`
     ctaLink: '/uuid-generator',
     ctaLabel: 'Open UUID Generator',
     relatedArticles: ['what-is-json']
+  },
+
+  // ============================================================
+  // ARTICLE 8: Base64 Explained
+  // ============================================================
+  {
+    slug: 'base64-encoding-explained',
+    title: 'Base64 Encoding Explained: How It Works & When To Use It',
+    description: 'Learn how Base64 encoding works, why we use it for images and email, and the difference between encoding and encryption.',
+    keywords: ['base64 encode', 'what is base64', 'base64 vs text', 'encode image directly', 'data uri scheme', 'binary to text'],
+    category: 'Fundamentals',
+    icon: 'Binary',
+    readTime: '7 min read',
+    publishDate: '2026-01-23',
+    
+    intro: `<p>You see it in email headers, data URLs, and API tokens. <strong>Base64</strong> is one of the most common encoding schemes on the web, but it is often misunderstood.</p>
+<p>Is it encryption? (No.) Does it save space? (Also no.) This guide explains exactly how Base64 works and why it remains essential for modern web development.</p>`,
+    
+    sections: [
+      {
+        id: 'what-is-base64',
+        heading: 'What is Base64?',
+        content: `<p><strong>Base64</strong> is a way to represent <strong>binary data</strong> (like images, PDFs, or compiled code) using only <strong>ASCII text characters</strong>.</p>
+<p>Computers communicate in binary (0s and 1s), but many older protocols (like Email/SMTP) were designed to only handle text. If you try to send a raw JPEG image through a text-only channel, the system will interpret the storage bytes as random characters, likely breaking the transfer.</p>
+<p>Base64 solves this by translating that binary data into a safe alphabet of 64 characters: <code>A-Z</code>, <code>a-z</code>, <code>0-9</code>, <code>+</code>, and <code>/</code>.</p>`
+      },
+      {
+        id: 'how-it-works',
+        heading: 'How It Works (The Math)',
+        content: `<p>The process is simple but clever:</p>
+<ol>
+  <li>Take <strong>3 bytes</strong> of binary data (24 bits total).</li>
+  <li>Split those 24 bits into <strong>4 groups</strong> of 6 bits each.</li>
+  <li>Map each 6-bit value (0-63) to a character in the Base64 alphabet.</li>
+</ol>
+<p>Because you are turning 3 bytes into 4 characters, <strong>Base64 increases file size by roughly 33%</strong>.</p>`,
+        code: {
+            language: 'text',
+            filename: 'encoding-example.txt',
+            content: `Input:  "Man" (ASCII)
+Binary: 01001101 01100001 01101110 (3 bytes)
+Joined: 010011010110000101101110 (24 bits)
+Split:  010011 010110 000101 101110 (4 x 6 bits)
+Value:  19     22     5      46
+Char:   T      W      F      u
+Result: "TWFu"`
+        }
+      },
+      {
+        id: 'common-uses',
+        heading: 'Common Use Cases',
+        content: `<p><strong>1. Data URLs (Images in HTML):</strong><br>You can embed small images directly into HTML/CSS to save an HTTP request.</p>
+<p><strong>2. Email Attachments:</strong><br>Email systems use MIME (Multipurpose Internet Mail Extensions) which relies on Base64 to attach photos and documents to text emails.</p>
+<p><strong>3. API Keys & Basic Auth:</strong><br>The <code>Authorization: Basic</code> header typically contains <code>username:password</code> encoded in Base64.</p>`
+      },
+      {
+        id: 'not-encryption',
+        heading: 'Warning: It Is NOT Encryption',
+        content: `<p>Developers often confuse encoding with encryption. <strong>Base64 is NOT secure.</strong></p>
+<ul>
+    <li><strong>Encoding</strong> (Base64) is for <strong>compatibility</strong>. It can be reversed by anyone.</li>
+    <li><strong>Encryption</strong> (AES, RSA) is for <strong>security</strong>. It requires a key to reverse.</li>
+    <li><strong>Hashing</strong> (MD5, SHA) is for <strong>integrity</strong>. It cannot be reversed.</li>
+</ul>
+<p>Never store passwords in Base64. Use proper hashing like bcrypt or Argon2.</p>`
+      }
+    ],
+    
+    faqs: [
+      {
+        question: 'Does Base64 compress data?',
+        answer: 'No! It actually expands data by roughly 33%. 3 bytes of input become 4 bytes of output.'
+      },
+      {
+        question: 'Why does my Base64 string end with "="?',
+        answer: 'The "=" sign is padding. If the input data length is not divisible by 3, Base64 adds padding characters to complete the final block.'
+      },
+      {
+        question: 'Is Base64 URL safe?',
+        answer: 'Standard Base64 uses "+" and "/", which can break URLs. A variant called "Base64URL" uses "-" and "_" instead.'
+      }
+    ],
+    
+    ctaTitle: 'Encode or Decode Base64',
+    ctaDescription: 'Need to decode a mysterious string or encode an image for CSS? Use our instant browser-based tool.',
+    ctaLink: '/base64-encoder',
+    ctaLabel: 'Open Base64 Tool',
+    relatedArticles: ['yaml-vs-json-vs-xml', 'hashing-algorithms-explained']
+  },
+
+  // ============================================================
+  // ARTICLE 9: Hashing Algorithms Explained
+  // ============================================================
+  {
+    slug: 'hashing-algorithms-explained',
+    title: 'MD5 vs SHA-256: Hashing Algorithms Explained for Developers',
+    description: 'Understand the difference between MD5, SHA-1, and SHA-256. Learn when to use each hashing algorithm for data integrity vs security.',
+    keywords: ['md5 vs sha256', 'what is hashing', 'hashing vs encryption', 'check file integrity', 'generate hash online', 'password hashing'],
+    category: 'Fundamentals',
+    icon: 'ShieldCheck',
+    readTime: '8 min read',
+    publishDate: '2026-01-23',
+    
+    intro: `<p>Hashing is the backbone of modern digital security. It's used for everything from storing passwords and verifying file downloads to proving that a blockchain transaction is valid.</p>
+<p>But with so many algorithms—<strong>MD5, SHA-1, SHA-256, SHA-512</strong>—which one should you use? This guide breaks down the strengths and weaknesses of each.</p>`,
+    
+    sections: [
+      {
+        id: 'what-is-hashing',
+        heading: 'What is a Hash Function?',
+        content: `<p>A hash function takes an input of <strong>any size</strong> (a password, a file, a hard drive image) and produces a fixed-size string of characters, called a <strong>hash</strong> or <strong>digest</strong>.</p>
+<p><strong>Key Properties:</strong></p>
+<ol>
+  <li><strong>Deterministic:</strong> The same input always produces the same hash.</li>
+  <li><strong>One-Way:</strong> You cannot "decrypt" a hash back to the original input.</li>
+  <li><strong>Avalanche Effect:</strong> Changing just 1 bit of input drastically changes the output.</li>
+  <li><strong>Collision Resistant:</strong> It should be impossible to find two inputs that produce the same hash.</li>
+</ol>`
+      },
+      {
+        id: 'algorithm-comparison',
+        heading: 'The Algorithms: MD5 vs SHA',
+        content: `<p><strong>1. MD5 (Message Digest 5) - The "Broken" One</strong></p>
+<p>MD5 is fast and produces a 128-bit hash. However, it is <strong>cryptographically broken</strong>. Researchers can generate collisions (two files with the same hash) in seconds.</p>
+<p><em>Use for:</em> Non-critical file integrity checks (checksums), caching keys.<br><em>Never use for:</em> Passwords, digital signatures.</p>
+
+<p><strong>2. SHA-1 (Secure Hash Algorithm 1) - The "Retired" One</strong></p>
+<p>SHA-1 was the standard for SSL certificates for years until Google shattered it in 2017. Like MD5, it is no longer considered secure against well-funded attackers.</p>
+<p><em>Use for:</em> Legacy git repositories (Git still uses SHA-1 internally).<br><em>Never use for:</em> New security systems.</p>
+
+<p><strong>3. SHA-256 (Secure Hash Algorithm 2) - The Standard</strong></p>
+<p>SHA-256 is the gold standard for security today. It powers Bitcoin, SSL certificates, and most secure apps. It produces a 256-bit hash that is computationally impossible to reverse or collide.</p>
+<p><em>Use for:</em> Everything requiring real security.</p>`,
+      },
+      {
+        id: 'examples',
+        heading: 'Output Examples',
+        content: `<p>See how the output length differs for the input "hello":</p>`,
+        code: {
+            language: 'text',
+            filename: 'hash-examples.txt',
+            content: `Input: "hello"
+
+MD5 (32 chars):
+5d41402abc4b2a76b9719d911017c592
+
+SHA-1 (40 chars):
+aaf4c61ddcc5e8a2dabede0f3b482cd9aea9434d
+
+SHA-256 (64 chars):
+2cf24dba5fb0a30e26e83b2ac5b9e29e1b161e5c1fa7425e73043362938b9824`
+        }
+      },
+      {
+        id: 'hashing-passwords',
+        heading: 'A Note on Passwords',
+        content: `<p><strong>Do not use simple hashes for passwords.</strong></p>
+<p>Even SHA-256 is too fast for password storage, making it vulnerable to brute-force attacks. For user passwords, always use slow algorithms specifically designed for the purpose, like <strong>bcrypt</strong>, <strong>Argon2</strong>, or <strong>PBKDF2</strong>.</p>`
+      }
+    ],
+    
+    faqs: [
+      {
+        question: 'Can I decrypt an MD5 hash?',
+        answer: 'No, hashing is one-way. However, you can use "Rainbow Tables" to look up common hashes. This is why you should never hash passwords without a "salt".'
+      },
+      {
+        question: 'What is a "file checksum"?',
+        answer: 'A checksum is a hash used to verify a file wasn\'t corrupted during download. If the hash of your downloaded file matches the hash on the website, the file is perfect.'
+      },
+      {
+        question: 'Is SHA-256 encryption?',
+        answer: 'No. Encryption is two-way (you can decrypt it with a key). SHA-256 is one-way (you can never recover the original data from the hash).'
+      }
+    ],
+    
+    ctaTitle: 'Generate SHA & MD5 Hashes',
+    ctaDescription: 'Generate secure hashes for passwords, check file integrity, or verify API signatures instantly in your browser.',
+    ctaLink: '/hash-generator',
+    ctaLabel: 'Open Hash Generator',
+    relatedArticles: ['base64-encoding-explained', 'uuid-vs-guid']
+  },
+
+  // ============================================================
+  // ARTICLE 10: Git Diff Guide
+  // ============================================================
+  {
+    slug: 'git-diff-guide',
+    title: 'How to Read a Diff: The Developer\'s Guide to Comparing Code',
+    description: 'Master the art of reading diffs. Learn what the + and - symbols mean, how Unified Diff format works, and how to spot bugs during code reviews.',
+    keywords: ['read git diff', 'diff checker online', 'compare two text files', 'unified diff format', 'code review tips', 'merge conflict help'],
+    category: 'Guides',
+    icon: 'GitCompare',
+    readTime: '6 min read',
+    publishDate: '2026-01-23',
+    
+    intro: `<p>Whether you are resolving a merge conflict or reviewing a pull request, reading a <strong>diff</strong> is a daily task for developers. But staring at a wall of red and green text can be confusing.</p>
+<p>This guide explains how diff algorithms identify changes and how to read the standard "Unified Diff" format used by Git and Linux.</p>`,
+    
+    sections: [
+      {
+        id: 'what-is-diff',
+        heading: 'What is a Diff?',
+        content: `<p>A "diff" (difference) tool creates a step-by-step recipe to transform <strong>File A</strong> into <strong>File B</strong>. It identifies:</p>
+<ul>
+  <li><strong>Additions:</strong> Lines that exist in File B but not File A.</li>
+  <li><strong>Deletions:</strong> Lines that exist in File A but not File B.</li>
+  <li><strong>Modifications:</strong> Often represented as a deletion followed by an addition.</li>
+</ul>`
+      },
+      {
+        id: 'unified-diff',
+        heading: 'Understanding Unified Format',
+        content: `<p>The raw output of \`git diff\` usually looks like this:</p>`,
+        code: {
+            language: 'text',
+            filename: 'git-diff-example.diff',
+            content: `@@ -1,4 +1,4 @@
+ function calculateTotal(price, tax) {
+-  return price + tax;
++  return price * (1 + tax);
+ }`
+        }
+      },
+      {
+        id: 'reading-symbols',
+        heading: 'Decoding the Symbols',
+        content: `<p><strong>The Header (@@ -1,4 +1,4 @@)</strong><br>
+This confusing metadata tells you exactly where the changes occurred.
+<code>-1,4</code> means "Starting at line 1 of the original file, show 4 lines".
+<code>+1,4</code> means the same for the new file.</p>
+<p><strong>The Lines:</strong></p>
+<ul>
+    <li>Space ( ): Context line. Unchanged. Helps you see where you are.</li>
+    <li>Minus (<code>-</code>): <strong>Deleted line</strong>. This code was removed.</li>
+    <li>Plus (<code>+</code>): <strong>Added line</strong>. This code was added.</li>
+</ul>`
+      },
+      {
+        id: 'algorithms',
+        heading: 'How It Works (Myers Algorithm)',
+        content: `<p>Most diff tools (including Git) use the <strong>Myers Diff Algorithm</strong>. It finds the "shortest edit script" (SES) to turn one text into another.</p>
+<p>It views the problem as a graph search, trying to reach the end of the file by making the fewest possible "moves" (insertions or deletions). This is why sometimes diffs look weird—the algorithm found a mathematically short path, even if it doesn't match how a human would explain the change.</p>`
+      }
+    ],
+    
+    faqs: [
+      {
+        question: 'Why do diffs sometimes show the wrong changes?',
+        answer: 'Diff algorithms are mathematical, not semantic. They don\'t "understand" code. If you reformatted a file (changed indentation), the diff might show the entire file as changed.'
+      },
+      {
+        question: 'What is a "split diff" vs "unified diff"?',
+        answer: 'Unified diff mixes changes in one column (standard for CLI). Split diff (side-by-side) shows files next to each other, which is often easier for humans to read.'
+      },
+      {
+        question: 'Can I compare two text files without Git?',
+        answer: 'Yes! You can use our online Diff Checker tool to compare any two blocks of text or code instantly in your browser.'
+      }
+    ],
+    
+    ctaTitle: 'Compare Text Side-by-Side',
+    ctaDescription: 'Paste two snippets of text or code and instantly see the differences. Perfect for code reviews, document drafts, and config files.',
+    ctaLink: '/diff-checker',
+    ctaLabel: 'Try Diff Checker',
+    relatedArticles: ['yaml-vs-json-vs-xml', 'base64-encoding-explained']
   }
 ];
 
