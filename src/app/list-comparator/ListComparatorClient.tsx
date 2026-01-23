@@ -35,8 +35,8 @@ export default function ListComparatorClient() {
       } else if (delimiter === "comma") {
         items = text.split(/,/);
       } else {
-        // Auto: split by any whitespace, comma, or newline sequence
-        items = text.split(/[,\s\n]+/);
+        // Auto: split by comma or newline (but preserve spaces for URLs)
+        items = text.split(/[,\n]+/);
       }
       
       return items
