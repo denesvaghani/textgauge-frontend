@@ -5,11 +5,20 @@ import { SchemaMarkup } from "@/components/SchemaMarkup";
 import { SmartHeroHeader } from "@/components/SmartHeroHeader";
 import { flowerThemes } from "@/config/flowerThemes";
 import { DynamicAd } from "@/components/DynamicAd";
-import { Copy, Download, Trash2, ArrowRightLeft, ArrowRight, ArrowLeft } from "lucide-react";
-import { useState, useCallback, useEffect } from "react";
+import { Copy, Download, Trash2, ArrowRightLeft, ArrowRight, ArrowLeft, Upload, Camera } from "lucide-react";
+import { useState, useCallback, useEffect, useRef } from "react";
+import html2canvas from "html2canvas";
 
 export default function ListComparatorClient() {
   const theme = flowerThemes.protea; // distinct theme
+  
+  // Refs
+  const fileInputARef = useRef<HTMLInputElement>(null);
+  const fileInputBRef = useRef<HTMLInputElement>(null);
+  const resultsRef = useRef<HTMLDivElement>(null);
+  
+  // Constants
+  const MAX_FILE_SIZE = 5 * 1024 * 1024; // 5MB
   
   // State
   const [inputA, setInputA] = useState("");
@@ -137,6 +146,61 @@ https://example.com/api/v1/checkout`;
     setShowInputB(true);
   };
 
+  // File upload handler
+  const handleFileUpload = (e: React.ChangeEvent<HTMLInputElement>, target: 'A' | 'B') => {
+    const file = e.target.files?.[0];
+    if (!file) return;
+
+    // Check file size (5MB limit)
+    if (file.size > MAX_FILE_SIZE) {
+      alert(`File too large. Maximum size is 5MB.`);
+      return;
+    }
+
+    // Check file type
+    const validTypes = ['.txt', '.csv', '.text'];
+    const ext = file.name.toLowerCase().substring(file.name.lastIndexOf('.'));
+    if (!validTypes.includes(ext)) {
+      alert('Please upload a .txt or .csv file.');
+      return;
+    }
+
+    const reader = new FileReader();
+    reader.onload = (event) => {
+      const content = event.target?.result as string;
+      if (target === 'A') {
+        setInputA(content);
+      } else {
+        setInputB(content);
+        setShowInputB(true);
+      }
+    };
+    reader.readAsText(file);
+    
+    // Reset input so same file can be re-uploaded
+    e.target.value = '';
+  };
+
+  // Screenshot export
+  const handleScreenshot = async () => {
+    if (!resultsRef.current) return;
+    
+    try {
+      const canvas = await html2canvas(resultsRef.current, {
+        backgroundColor: '#ffffff',
+        scale: 2, // Higher quality
+      });
+      
+      const link = document.createElement('a');
+      link.download = 'list-comparison-results.png';
+      link.href = canvas.toDataURL('image/png');
+      link.click();
+    } catch (error) {
+      console.error('Screenshot failed:', error);
+      alert('Failed to capture screenshot. Please try again.');
+    }
+  };
+
   return (
     <FlowerBackground theme={theme} badgeText="List Comparator">
       <SchemaMarkup
@@ -153,6 +217,21 @@ https://example.com/api/v1/checkout`;
 
         <main className="flex-grow w-full max-w-[1920px] mx-auto px-4 sm:px-6 lg:px-8 py-8">
           
+          {/* Hidden file inputs */}
+          <input 
+            type="file" 
+            ref={fileInputARef} 
+            onChange={(e) => handleFileUpload(e, 'A')} 
+            accept=".txt,.csv,.text"
+            className="hidden" 
+          />
+          <input 
+            type="file" 
+            ref={fileInputBRef} 
+            onChange={(e) => handleFileUpload(e, 'B')} 
+            accept=".txt,.csv,.text"
+            className="hidden" 
+          />
           {/* Controls - Modern Design */}
           <div className="relative mb-6">
               {/* Gradient border effect */}
@@ -221,6 +300,12 @@ https://example.com/api/v1/checkout`;
                           >
                               <Trash2 size={14} /> Reset
                           </button>
+                          <button 
+                             onClick={handleScreenshot}
+                             className="text-sm px-3 py-1.5 text-emerald-600 hover:text-emerald-700 dark:text-emerald-400 dark:hover:text-emerald-300 flex items-center gap-1.5 font-medium hover:bg-emerald-50 dark:hover:bg-emerald-900/20 rounded-lg transition-all"
+                          >
+                              <Camera size={14} /> Screenshot
+                          </button>
                       </div>
                   </div>
               </div>
@@ -235,6 +320,13 @@ https://example.com/api/v1/checkout`;
                        <span className="font-bold bg-gradient-to-r from-violet-600 to-indigo-600 dark:from-violet-400 dark:to-indigo-400 bg-clip-text text-transparent">
                            List A
                        </span>
+                       <button
+                           onClick={() => fileInputARef.current?.click()}
+                           className="text-xs px-2 py-1 text-slate-500 hover:text-violet-600 dark:hover:text-violet-400 flex items-center gap-1 hover:bg-slate-100 dark:hover:bg-slate-800 rounded transition-all"
+                           title="Upload file (.txt, .csv) - Max 5MB"
+                       >
+                           <Upload size={12} /> Upload
+                       </button>
                        <span className="ml-auto font-normal text-slate-400 text-sm">
                            {totalCountA > 0 && `${totalCountA} items`}
                        </span>
@@ -255,6 +347,13 @@ https://example.com/api/v1/checkout`;
                           <span className="font-bold bg-gradient-to-r from-indigo-600 to-violet-600 dark:from-indigo-400 dark:to-violet-400 bg-clip-text text-transparent">
                               List B
                           </span>
+                          <button
+                              onClick={() => fileInputBRef.current?.click()}
+                              className="text-xs px-2 py-1 text-slate-500 hover:text-indigo-600 dark:hover:text-indigo-400 flex items-center gap-1 hover:bg-slate-100 dark:hover:bg-slate-800 rounded transition-all"
+                              title="Upload file (.txt, .csv) - Max 5MB"
+                          >
+                              <Upload size={12} /> Upload
+                          </button>
                           <span className="ml-auto font-normal text-slate-400 text-sm">
                               Comparison Target
                           </span>
@@ -270,7 +369,7 @@ https://example.com/api/v1/checkout`;
           </div>
 
           {/* Results Grid */}
-          <div className={`grid gap-6 ${showInputB ? "md:grid-cols-2 lg:grid-cols-4" : "grid-cols-1"}`}>
+          <div ref={resultsRef} className={`grid gap-6 ${showInputB ? "md:grid-cols-2 lg:grid-cols-4" : "grid-cols-1"}`}>
               
               {/* Card 1: Unique A */}
               <div className="bg-white dark:bg-slate-900 rounded-xl border border-slate-200 dark:border-slate-800 ring-1 ring-slate-200/50 dark:ring-slate-700/50 shadow-md overflow-hidden flex flex-col h-96">
