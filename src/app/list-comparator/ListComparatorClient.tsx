@@ -191,7 +191,7 @@ export default function ListComparatorClient() {
           </div>
 
           {/* Results Grid */}
-          <div className="grid md:grid-cols-3 gap-6">
+          <div className={`grid gap-6 ${showInputB ? "md:grid-cols-3" : "grid-cols-1"}`}>
               
               {/* Card 1: Unique A */}
               <div className="bg-white dark:bg-slate-900 rounded-xl border border-slate-200 dark:border-slate-800 overflow-hidden flex flex-col h-96">
