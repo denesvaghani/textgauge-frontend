@@ -166,7 +166,7 @@ export default function ListComparatorClient() {
                   <label className="font-bold text-slate-700 dark:text-slate-200">
                       Input List A 
                       <span className="ml-2 font-normal text-slate-400 text-sm">
-                          (Found: {inputA ? uniqueA.length : 0} unique)
+                          {totalCountA > 0 && `(Total: ${totalCountA})`}
                       </span>
                   </label>
                   <textarea
