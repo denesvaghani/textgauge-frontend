@@ -80,9 +80,9 @@ export function Footer() {
                                     alt="TextGauge Logo"
                                     width={36}
                                     height={36}
-                                    className="rounded-full dark:invert"
+                                    className="rounded-full"
                                 />
-                                <span className="text-xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-indigo-600 to-violet-600 dark:from-indigo-400 dark:to-violet-400">
+                                <span className="text-xl font-bold text-slate-800 dark:text-white">
                                     TextGauge
                                 </span>
                             </Link>

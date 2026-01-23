@@ -113,7 +113,7 @@ export function Navigation() {
                             alt="TextGauge Logo"
                             width={36}
                             height={36}
-                            className="rounded-full dark:invert"
+                            className="rounded-full"
                             priority
                             sizes="36px"
                         />
