@@ -299,6 +299,19 @@ export const TOOL_REGISTRY: Record<string, ToolDefinition> = {
       text: "group-hover:text-rose-600 dark:group-hover:text-rose-400",
     },
   },
+  listDiff: {
+    href: "/list-diff",
+    label: "List Diff Tool",
+    title: "List Diff & Unique Extractor",
+    description: "Clean lists, extract unique IDs, and find differences between two lists. Ideal for data reconciliation.",
+    category: "Comparison",
+    theme: flowerThemes.protea,
+    hoverStyles: {
+      border: "hover:border-pink-400/60 dark:hover:border-pink-400/40",
+      shadow: "hover:shadow-pink-500/20",
+      text: "group-hover:text-pink-600 dark:group-hover:text-pink-400",
+    },
+  },
 
   // ============ GENERATORS ============
   uuidGenerator: {

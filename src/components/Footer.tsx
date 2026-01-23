@@ -12,6 +12,7 @@ export function Footer() {
         { name: 'TOML Formatter', href: '/toml-formatter' },
         { name: 'Character Counter', href: '/' },
         { name: 'Diff Checker', href: '/diff-checker' },
+        { name: 'List Diff Tool', href: '/list-diff' },
     ];
 
     // 2. Converters & Media (Grouped together)

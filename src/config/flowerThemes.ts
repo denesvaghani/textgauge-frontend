@@ -397,6 +397,7 @@ export const flowerThemes = {
       dark: "dark:bg-gradient-to-br dark:from-red-950/30 dark:via-rose-950/20 dark:to-slate-950",
     },
   },
+
   gerbera: {
     name: "Gerbera",
     slug: "gerbera",
