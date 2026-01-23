@@ -39,6 +39,7 @@ interface FormatterProps {
   titleGradient?: string;
   flowerTheme: FlowerTheme;
   showTokenCount?: boolean;
+  isEmbedded?: boolean;
 }
 
 export function Formatter({
@@ -56,6 +57,7 @@ export function Formatter({
   titleGradient = "bg-gradient-to-r from-indigo-600 to-violet-600 dark:from-indigo-400 dark:to-violet-400",
   flowerTheme,
   showTokenCount = false,
+  isEmbedded = false,
 }: FormatterProps) {
   const { theme } = useTheme();
   // SimpleCodeEditor parses theme from class/context, usage here is simplified
@@ -193,18 +195,20 @@ export function Formatter({
   };
 
   return (
-    <div className="min-h-screen flex flex-col text-slate-900 dark:text-slate-50 transition-colors duration-200 font-sans">
+    <div className={`flex flex-col text-slate-900 dark:text-slate-50 transition-colors duration-200 font-sans ${!isEmbedded ? 'min-h-screen' : ''}`}>
 
-      {/* Smart V3 Hero Header */}
-      <SmartHeroHeader 
-        title={title} 
-        theme={flowerTheme} 
-        description={description}
-        adSlot={process.env.NEXT_PUBLIC_AD_SLOT_HEADER}
-      />
+      {/* Smart V3 Hero Header - Only show if NOT embedded */}
+      {!isEmbedded && (
+        <SmartHeroHeader 
+          title={title} 
+          theme={flowerTheme} 
+          description={description}
+          adSlot={process.env.NEXT_PUBLIC_AD_SLOT_HEADER}
+        />
+      )}
 
       {/* Main Content */}
-      <main className="flex-1 flex flex-col min-h-0 w-full max-w-[1920px] mx-auto px-4 sm:px-6 lg:px-8 py-4">
+      <main className={`flex-1 flex flex-col min-h-0 w-full ${isEmbedded ? '' : 'max-w-[1920px] mx-auto px-4 sm:px-6 lg:px-8 py-4'}`}>
 
         {/* Layout Container - Optimized for Maximum Editor Space */}
         <div className="flex flex-col lg:flex-row gap-4 h-full">

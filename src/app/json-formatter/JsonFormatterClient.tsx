@@ -54,6 +54,7 @@ export default function JsonFormatterPage() {
                     {/* CENTER CONTENT */}
                     <div className="flex-1 min-w-0">
                         <Formatter
+                            isEmbedded={true}
                             title="JSON Formatter, Validator & Beautifier"
                             description="Free online tool to format, beautify, minify, and validate JSON. Fix JSON errors, structural issues, and format your code with 2-space, 4-space, or custom tab sizes. Prettier your JSON instantly."
                             inputType="json"

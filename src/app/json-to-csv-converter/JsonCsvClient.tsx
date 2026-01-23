@@ -91,6 +91,7 @@ Jane Smith,jane@example.com,London,SW1A`;
         <FlowerBackground theme={theme} badgeText="Converter Tool">
             <div className="flex flex-col min-h-screen">
                 <Formatter
+                    isEmbedded={true}
                     title="JSON to CSV Converter"
                     description="Convert JSON data to CSV format instantly. Support for nested objects, large files, and bidirectional conversion."
                     inputType={direction === "json-csv" ? "json" : "csv"}

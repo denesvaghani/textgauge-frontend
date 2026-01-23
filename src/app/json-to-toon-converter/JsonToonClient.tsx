@@ -87,6 +87,7 @@ Jane Smith, jane@example.com, Designer, 88`;
         <FlowerBackground theme={theme} badgeText="TOON Converter">
             <div className="flex flex-col min-h-screen">
                 <Formatter
+                    isEmbedded={true}
                     title="JSON to TOON Converter"
                     description="Convert JSON to TOON format – the AI-native data format that reduces token usage by 30-60%."
                     inputType={direction === "json-toon" ? "json" : "toon"}
