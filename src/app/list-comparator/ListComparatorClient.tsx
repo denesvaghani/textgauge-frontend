@@ -103,6 +103,26 @@ export default function ListComparatorClient() {
     URL.revokeObjectURL(url);
   };
 
+  // Load sample data
+  const loadSample = () => {
+    const sampleA = `https://example.com/api/v1/users
+https://example.com/api/v1/products
+https://example.com/api/v1/orders
+https://example.com/api/v1/users
+https://example.com/api/v1/payments
+https://example.com/api/v1/products
+https://example.com/api/v1/analytics`;
+
+    const sampleB = `https://example.com/api/v1/users
+https://example.com/api/v1/products
+https://example.com/api/v1/cart
+https://example.com/api/v1/checkout`;
+
+    setInputA(sampleA);
+    setInputB(sampleB);
+    setShowInputB(true);
+  };
+
   return (
     <FlowerBackground theme={theme} badgeText="List Comparator">
       <SchemaMarkup
