@@ -322,7 +322,7 @@ https://example.com/api/v1/checkout`;
                        </span>
                        <button
                            onClick={() => fileInputARef.current?.click()}
-                           className="text-xs px-2 py-1 text-slate-500 hover:text-violet-600 dark:hover:text-violet-400 flex items-center gap-1 hover:bg-slate-100 dark:hover:bg-slate-800 rounded transition-all"
+                           className="text-xs px-2.5 py-1 text-violet-600 dark:text-violet-400 border border-violet-200 dark:border-violet-800 bg-violet-50 dark:bg-violet-900/30 hover:bg-violet-100 dark:hover:bg-violet-900/50 flex items-center gap-1.5 rounded-md transition-all font-medium"
                            title="Upload file (.txt, .csv) - Max 5MB"
                        >
                            <Upload size={12} /> Upload
@@ -349,13 +349,13 @@ https://example.com/api/v1/checkout`;
                           </span>
                           <button
                               onClick={() => fileInputBRef.current?.click()}
-                              className="text-xs px-2 py-1 text-slate-500 hover:text-indigo-600 dark:hover:text-indigo-400 flex items-center gap-1 hover:bg-slate-100 dark:hover:bg-slate-800 rounded transition-all"
+                              className="text-xs px-2.5 py-1 text-indigo-600 dark:text-indigo-400 border border-indigo-200 dark:border-indigo-800 bg-indigo-50 dark:bg-indigo-900/30 hover:bg-indigo-100 dark:hover:bg-indigo-900/50 flex items-center gap-1.5 rounded-md transition-all font-medium"
                               title="Upload file (.txt, .csv) - Max 5MB"
                           >
                               <Upload size={12} /> Upload
                           </button>
                           <span className="ml-auto font-normal text-slate-400 text-sm">
-                              Comparison Target
+                              {totalCountB > 0 ? `${totalCountB} items` : "Comparison Target"}
                           </span>
                       </label>
                       <textarea
