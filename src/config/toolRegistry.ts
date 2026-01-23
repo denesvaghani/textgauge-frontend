@@ -299,10 +299,10 @@ export const TOOL_REGISTRY: Record<string, ToolDefinition> = {
       text: "group-hover:text-rose-600 dark:group-hover:text-rose-400",
     },
   },
-  listDiff: {
-    href: "/list-diff",
-    label: "List Diff Tool",
-    title: "List Diff & Unique Extractor",
+  listComparator: {
+    href: "/list-comparator",
+    label: "List Comparator",
+    title: "List Comparator & Unique Extractor",
     description: "Clean lists, extract unique IDs, and find differences between two lists. Ideal for data reconciliation.",
     category: "Comparison",
     theme: flowerThemes.protea,

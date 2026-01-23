@@ -80,6 +80,12 @@ export default function sitemap(): MetadataRoute.Sitemap {
       priority: 0.9,
     },
     {
+      url: `${baseUrl}/list-comparator`,
+      lastModified: LAST_UPDATED.tools,
+      changeFrequency: "monthly",
+      priority: 0.9,
+    },
+    {
       url: `${baseUrl}/toml-formatter`,
       lastModified: LAST_UPDATED.tools,
       changeFrequency: "monthly",

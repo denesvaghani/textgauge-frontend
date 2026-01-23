@@ -8,7 +8,7 @@ import { DynamicAd } from "@/components/DynamicAd";
 import { Copy, Download, Trash2, ArrowRightLeft, ArrowRight, ArrowLeft } from "lucide-react";
 import { useState, useCallback, useEffect } from "react";
 
-export default function ListDiffClient() {
+export default function ListComparatorClient() {
   const theme = flowerThemes.protea; // distinct theme
   
   // State
@@ -98,15 +98,15 @@ export default function ListDiffClient() {
   };
 
   return (
-    <FlowerBackground theme={theme} badgeText="List Diff Tool">
+    <FlowerBackground theme={theme} badgeText="List Comparator">
       <SchemaMarkup
-        name="List Diff & Unique Extractor"
-        description="Clean mixed text, extract unique IDs, and compare two lists to find missing items. Free online list comparison tool."
-        url="https://www.countcharacters.org/list-diff"
+        name="List Comparator & Unique Extractor"
+        description="Clean mixed text, extract unique IDs, and compare two lists. Free online checker for data reconciliation."
+        url="https://www.countcharacters.org/list-comparator"
       />
       <div className="flex flex-col min-h-screen">
         <SmartHeroHeader
-          title="List Diff & Unique Extractor"
+          title="List Comparator & Unique Extractor"
           theme={theme}
           description="Extract unique IDs from messy text or compare two lists to find differences."
         />
