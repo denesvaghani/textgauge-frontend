@@ -20,6 +20,7 @@ export default function ListComparatorClient() {
 
   // Results
   const [uniqueA, setUniqueA] = useState<string[]>([]);
+  const [totalCountA, setTotalCountA] = useState(0); // Track original count
   const [missingInB, setMissingInB] = useState<string[]>([]); // A - B
   const [missingInA, setMissingInA] = useState<string[]>([]); // B - A
 
@@ -46,6 +47,9 @@ export default function ListComparatorClient() {
 
     const listA = tokenize(inputA);
     const listB = tokenize(inputB);
+
+    // Track original count
+    setTotalCountA(listA.length);
 
     // 2. Normalize if needed
     const normalize = (s: string) => caseSensitive ? s : s.toLowerCase();
@@ -196,7 +200,14 @@ export default function ListComparatorClient() {
               {/* Card 1: Unique A */}
               <div className="bg-white dark:bg-slate-900 rounded-xl border border-slate-200 dark:border-slate-800 overflow-hidden flex flex-col h-96">
                   <div className="p-4 border-b border-slate-100 dark:border-slate-800 bg-slate-50 dark:bg-slate-900/50 flex justify-between items-center">
-                      <h3 className="font-bold text-slate-700 dark:text-slate-200">Unique List A</h3>
+                      <div className="flex flex-col gap-1">
+                          <h3 className="font-bold text-slate-700 dark:text-slate-200">Unique List A</h3>
+                          {totalCountA > 0 && totalCountA !== uniqueA.length && (
+                              <span className="text-xs text-slate-500 dark:text-slate-400">
+                                  {((1 - uniqueA.length / totalCountA) * 100).toFixed(1)}% duplicates removed
+                              </span>
+                          )}
+                      </div>
                       <span className="text-xs bg-slate-200 dark:bg-slate-800 px-2 py-1 rounded-full">{uniqueA.length}</span>
                   </div>
                   <textarea 
