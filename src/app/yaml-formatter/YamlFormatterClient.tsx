@@ -52,7 +52,6 @@ export default function YamlFormatterPage() {
                     {/* CENTER CONTENT */}
                     <div className="flex-1 min-w-0">
                         <Formatter
-                            isEmbedded={true}
                             id="yaml-formatter"
                             title="YAML Formatter, Validator & Beautifier"
                             description="Free online tool to format, beautify, and validate YAML files. Convert JSON to YAML, fix structural errors, and ensure valid YAML syntax. Prettier your YAML configuration files instantly."
