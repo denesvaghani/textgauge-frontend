@@ -14,7 +14,7 @@
 // ============ TYPE DEFINITIONS ============
 
 export interface CodeBlock {
-  language: 'json' | 'csv' | 'javascript' | 'python' | 'typescript' | 'bash' | 'yaml' | 'text';
+  language: 'json' | 'csv' | 'javascript' | 'python' | 'typescript' | 'bash' | 'yaml' | 'text' | 'xml';
   content: string;
   filename?: string;  // Optional filename to display above code block
 }
@@ -1213,6 +1213,367 @@ enabled: true`
     ctaLink: '/json-formatter',
     ctaLabel: 'Validate JSON',
     relatedArticles: ['what-is-json', 'what-is-toon']
+  },
+
+  // ============================================================
+  // ARTICLE 5: YAML vs JSON vs XML
+  // ============================================================
+  {
+    slug: 'yaml-vs-json-vs-xml',
+    title: 'YAML vs JSON vs XML: Which Data Format Should You Choose?',
+    description: 'A comprehensive comparison of YAML, JSON, and XML. Learn their differences, performance considerations, and best use cases for configuration and APIs.',
+    keywords: ['yaml vs json', 'json vs xml comparison', 'data format guide', 'yaml vs xml', 'config file formats', 'api data formats'],
+    category: 'Comparisons',
+    icon: 'ArrowRightLeft',
+    readTime: '9 min read',
+    publishDate: '2026-01-23',
+    
+    intro: `<p>Choosing the right data serialization format—<strong>YAML, JSON, or XML</strong>—is a fundamental decision for any software project. While they all serve the same basic purpose of structured data exchange, their strengths and weaknesses are vastly different.</p>
+<p>This guide breaks down the differences in syntax, readability, parsing speed, and ecosystem support to help you make the right choice for your API, configuration, or data storage needs.</p>`,
+    
+    sections: [
+      {
+        id: 'snapshot-comparison',
+        heading: 'At a Glance: The Quick Comparison',
+        content: `<p>If you're in a hurry, here's the high-level breakdown:</p>
+<ul>
+  <li><strong>JSON</strong> is the king of <strong>APIs and web data</strong>. It's fast, ubiquitous, and natively supported by JavaScript.</li>
+  <li><strong>YAML</strong> is the standard for <strong>configuration</strong> (Kubernetes, GitHub Actions). It's designed for human readability but can be tricky to parse.</li>
+  <li><strong>XML</strong> is the legacy enterprise choice for <strong>complex documents</strong>. It supports namespaces, comments, and schemas validation (XSD) but is verbose.</li>
+</ul>`,
+        table: {
+            headers: ['Feature', 'JSON', 'YAML', 'XML'],
+            rows: [
+                ['Human Readability', 'High', 'Very High', 'Medium'],
+                ['Parsing Speed', 'Very Fast', 'Slow', 'Slow'],
+                ['Verbosity', 'Low', 'Very Low', 'High'],
+                ['Comments', 'No', 'Yes', 'Yes'],
+                ['Data Types', 'Basic', 'Rich', 'Strings Only'],
+                ['Schema Validation', 'JSON Schema', 'Manual/Schema', 'XSD (Built-in)'],
+            ]
+        }
+      },
+      {
+        id: 'syntax-showdown',
+        heading: 'Syntax Showdown',
+        content: `<p>Let's represent the same user data in all three formats to visualize the difference.</p>
+<p><strong>1. JSON (JavaScript Object Notation)</strong><br>Strict syntax with braces and quotes.</p>`,
+        code: {
+          language: 'json',
+          filename: 'user.json',
+          content: `{
+  "user": {
+    "name": "Alice",
+    "role": "admin",
+    "skills": ["git", "docker"]
+  }
+}`
+        }
+      },
+      {
+        id: 'yaml-syntax',
+        heading: '',
+        content: `<p><strong>2. YAML (YAML Ain't Markup Language)</strong><br>Clean, whitespace-dependent, no brackets.</p>`,
+        code: {
+          language: 'yaml',
+          filename: 'user.yaml',
+          content: `user:
+  name: Alice
+  role: admin
+  skills:
+    - git
+    - docker`
+        }
+      },
+      {
+        id: 'xml-syntax',
+        heading: '',
+        content: `<p><strong>3. XML (Extensible Markup Language)</strong><br>Verbose tags, requires opening and closing elements.</p>`,
+        code: {
+            language: 'xml',
+            filename: 'user.xml',
+            content: `<user>
+  <name>Alice</name>
+  <role>admin</role>
+  <skills>
+    <skill>git</skill>
+    <skill>docker</skill>
+  </skills>
+</user>`
+        }
+      },
+      {
+        id: 'deep-dive-json',
+        heading: 'Deep Dive: JSON',
+        content: `<p><strong>Best For:</strong> Web APIs, Mobile Apps, NoSQL Databases (MongoDB).</p>
+<p>JSON won the web because it maps 1:1 to objects in JavaScript. It is the most strictly specified format (ECMA-404), which means a JSON parser in Python behaves exactly like one in Go.</p>
+<p><strong>Pros:</strong></p>
+<ul>
+    <li>🚀 <strong>Fastest parsing</strong> of the three on almost every platform.</li>
+    <li>🌐 Native to the browser environment.</li>
+    <li>🛠 Massive tooling ecosystem.</li>
+</ul>
+<p><strong>Cons:</strong></p>
+<ul>
+    <li>❌ No comments allowed (this is a major pain for config files).</li>
+    <li>❌ No support for circular references.</li>
+    <li>❌ Syntax is strict (trailing commas break parsers).</li>
+</ul>`
+      },
+      {
+        id: 'deep-dive-yaml',
+        heading: 'Deep Dive: YAML',
+        content: `<p><strong>Best For:</strong> DevOps Configuration (Docker Compose, Kubernetes, CI/CD pipelines).</p>
+<p>YAML focuses on "human friendliness". It minimizes syntax characters like quotes and brackets, relying on indentation. It creates cleaner files that differ visually from code.</p>
+<p><strong>Pros:</strong></p>
+<ul>
+    <li>👀 Most readable format for humans.</li>
+    <li>💬 Supports comments (essential for documenting config options).</li>
+    <li>🔗 Features anchors and aliases to reuse values (DRY principle).</li>
+</ul>
+<p><strong>Cons:</strong></p>
+<ul>
+    <li>⚠️ <strong>Indentation hell</strong>: A single wrong space can break the file implicitly.</li>
+    <li>🐌 Slower parsing (often 10-50x slower than JSON).</li>
+    <li>😵 Complex spec (supports weird features like "The Norway Problem").</li>
+</ul>`
+      },
+      {
+        id: 'deep-dive-xml',
+        heading: 'Deep Dive: XML',
+        content: `<p><strong>Best For:</strong> Enterprise integration (SOAP), document markup (SVG, RSS, Atom), rigorous data validation.</p>
+<p>XML is a document markup language, not just data serialization. It's much older and more "enterprise".</p>
+<p><strong>Pros:</strong></p>
+<ul>
+    <li>🛡 <strong>Schemas (XSD)</strong>: Robust built-in type checking and validation.</li>
+    <li>🏷 Namespaces: Avoid naming collisions in complex documents.</li>
+    <li>📝 Attributes vs Elements: Offers two ways to represent data properties.</li>
+</ul>
+<p><strong>Cons:</strong></p>
+<ul>
+    <li>🐘 Huge file sizes: Start/end tags add significant overhead.</li>
+    <li>💀 Hard to read/write manually without tooling.</li>
+    <li>📉 Fading popularity in modern web development.</li>
+</ul>`
+      },
+      {
+        id: 'performance',
+        heading: 'Performance: Speed & Size',
+        content: `<p>For high-throughput systems, performance matters. We benchmarked parsing speeds standard libraries.</p>
+<ul>
+    <li><strong>JSON</strong> is the clear winner. Browsers parse GBs of JSON in sub-seconds.</li>
+    <li><strong>XML</strong> parsers are highly optimized but suffer from the verbosity of the format.</li>
+    <li><strong>YAML</strong> is significantly slower because the parser handles complex indentation logic and type inference. <strong>Do not use YAML for high-volume API payloads.</strong></li>
+</ul>`
+      },
+      {
+        id: 'verdict',
+        heading: 'The Verdict: Which One?',
+        content: `<p>Here is our definitive recommendation for 2026:</p>
+<ol>
+    <li><strong>Use JSON</strong> for APIs, database storage, and communication between services. It's the standard.</li>
+    <li><strong>Use YAML</strong> for configuration files that humans will edit (CI/CD, settings). The readability and comments are worth the speed trade-off.</li>
+    <li><strong>Use XML</strong> only if you are integrating with legacy enterprise systems or need document-centric features (like SVG images).</li>
+</ol>`
+      }
+    ],
+    
+    faqs: [
+      {
+        question: 'Why does Kubernetes use YAML instead of JSON?',
+        answer: 'Kubernetes chose YAML because it supports comments and is easier for humans to read and edit. However, Kubernetes actually converts YAML to JSON internally before processing it!'
+      },
+      {
+        question: 'Is YAML a superset of JSON?',
+        answer: 'Yes, technically almost all valid JSON is also valid YAML (since YAML 1.2). You can often paste JSON into a YAML parser and it will work.'
+      },
+      {
+        question: 'Which format is smaller in size?',
+        answer: 'For pure data, JSON is usually the smallest. YAML can be smaller if indentation saves more bytes than structural brackets. XML is almost always the largest due to closing tags.'
+      },
+      {
+        question: 'Can I convert between them?',
+        answer: 'Absolutely. Because they all represent hierarchical data (keys, values, lists), you can losslessly convert between them most of the time.'
+      }
+    ],
+    
+    ctaTitle: 'Convert Between Formats Instantly',
+    ctaDescription: 'Need to switch formats? Use our Formatters to convert YAML to JSON or validate your syntax instantly.',
+    ctaLink: '/yaml-formatter',
+    ctaLabel: 'Try YAML Formatter',
+    relatedArticles: ['what-is-json', 'what-is-csv']
+  },
+
+  // ============================================================
+  // ARTICLE 6: Image Optimization Guide
+  // ============================================================
+  {
+    slug: 'image-optimization-web-vitals',
+    title: 'Image Optimization Guide: Boost LCP and Core Web Vitals',
+    description: 'Learn how image compression impacts Core Web Vitals. Improve LCP scores, reduce bounce rates, and boost SEO by optimizing JPG, PNG, and WebP assets.',
+    keywords: ['image optimization', 'core web vitals lcp', 'reduce image size', 'webp vs jpg', 'seo image compression', 'improve page speed'],
+    category: 'Guides',
+    icon: 'Image',
+    readTime: '6 min read',
+    publishDate: '2026-01-23',
+    
+    intro: `<p>Images are responsible for <strong>60-80%</strong> of the average webpage's payload. If your site is loading slowly, unoptimized images are likely the culprit.</p>
+<p>This guide explains how to optimize images to improve your <strong>Largest Contentful Paint (LCP)</strong> score—a critical Google ranking factor—without sacrificing visual quality.</p>`,
+    
+    sections: [
+      {
+        id: 'why-optimize',
+        heading: 'Why Image Size Matters for SEO',
+        content: `<p>Google's Core Web Vitals update made speed a direct ranking factor. The most important metric is:</p>
+<ul>
+  <li><strong>LCP (Largest Contentful Paint)</strong>: How long it takes for the main content (usually a hero image) to load.</li>
+</ul>
+<p><strong>The Benchmark:</strong> Google requires an LCP of <strong>under 2.5 seconds</strong> for a "Good" score. Large, uncompressed images can easily take 3-4 seconds to load on mobile networks, killing your rankings.</p>`
+      },
+      {
+        id: 'formats',
+        heading: 'JPG vs PNG vs WebP: Using the Right Format',
+        content: `<p>Choosing the right file format is the first step in optimization.</p>`,
+        table: {
+            headers: ['Format', 'Best Use Case', 'Pros', 'Cons'],
+            rows: [
+                ['JPG', 'Photos, complex gradients', 'Smallest file size', 'Lossy (artifacts)'],
+                ['PNG', 'Screenshots, transparency', 'Lossless quality', 'Huge file sizes'],
+                ['WebP', 'Modern web standard', 'Mixed pros of JPG/PNG, 30% smaller', 'Legacy browser support (rare)'],
+                ['SVG', 'Icons, logos', 'Infinite scaling, tiny size', 'Vectors only'],
+            ]
+        }
+      },
+      {
+        id: 'compression-techniques',
+        heading: 'Lossy vs Lossless Compression',
+        content: `<p><strong>Lossless Compression</strong> reduces file size by removing metadata (EXIF data) and optimizing encoding. Quality remains 100% identical.</p>
+<p><strong>Lossy Compression</strong> (what we use in our <a href="/image-compressor">Image Compressor</a>) intelligently removes data perceived as "noise" by the human eye. You can typically reduce a file by <strong>70-80%</strong> with zero <em>visible</em> difference.</p>`
+      },
+      {
+        id: 'responsive-images',
+        heading: 'Responsive Sizing',
+        content: `<p>Never serve a 4000px wide image to a mobile phone. Resize your images to the maximum display width needed.</p>
+<ul>
+  <li><strong>Desktop Hero:</strong> Max 1920px width</li>
+  <li><strong>Blog Content:</strong> Max 800-1200px width</li>
+  <li><strong>Thumbnails:</strong> Max 400px width</li>
+</ul>
+<p>Use our <a href="/image-resizer">Image Resizer</a> to generate multiple versions of your assets.</p>`
+      }
+    ],
+    
+    faqs: [
+      {
+        question: 'Does WebP improve SEO?',
+        answer: 'Indirectly, yes. WebP files are smaller than JPGs, loading faster. Faster load times improve your Core Web Vitals score, which typically improves search rankings.'
+      },
+      {
+        question: 'What is the ideal file size for a web image?',
+        answer: 'Aim for under 100KB for large hero images, and under 30KB for smaller content images. Anything over 200KB should be compressed immediately.'
+      },
+      {
+        question: 'Do I need alt text for every image?',
+        answer: 'Yes! Alt text is critical for accessibility (screen readers) and helps search engines understand the content of your images for Google Images search.'
+      }
+    ],
+    
+    ctaTitle: 'Optimize Your Images Now',
+    ctaDescription: 'Reduce file sizes by up to 80% instantly. Secure, client-side compression that never uploads your photos to a server.',
+    ctaLink: '/image-compressor',
+    ctaLabel: 'Compress Images Free',
+    relatedArticles: ['yaml-vs-json-vs-xml', 'uuid-vs-guid']
+  },
+
+  // ============================================================
+  // ARTICLE 7: UUID vs GUID
+  // ============================================================
+  {
+    slug: 'uuid-vs-guid',
+    title: 'UUID vs GUID: What Is The Difference?',
+    description: 'Confusion cleared: The definitive explanation of UUIDs vs GUIDs. Learn about v4 random generation, collision probabilities, and database performance.',
+    keywords: ['uuid vs guid', 'calculate collision', 'uuid v4 vs v7', 'what is a guid', 'database primary keys', 'generate uuid'],
+    category: 'Comparisons',
+    icon: 'Fingerprint',
+    readTime: '5 min read',
+    publishDate: '2026-01-23',
+    
+    intro: `<p>One of the most common questions in software development interviews and database design meetings is: <strong>"What is the difference between a UUID and a GUID?"</strong></p>
+<p>The short answer? <strong>There isn't one.</strong> They are effectively the same thing. But the history, versions (v1, v4, v7), and performance implications for databases are worth understanding.</p>`,
+    
+    sections: [
+      {
+        id: 'the-definition',
+        heading: 'The Definition',
+        content: `<p><strong>UUID</strong> stands for Universally Unique Identifier. It is an industry standard (RFC 4122).</p>
+<p><strong>GUID</strong> stands for Globally Unique Identifier. It is simply Microsoft's implementation term for the UUID standard.</p>
+<p>If you are working in the Microsoft ecosystem (C#, .NET, SQL Server), you will see "GUID". In Java, Python, Rust, or PostgreSQL, you will see "UUID". They are binary-compatible, 128-bit integers displayed as 32 hexadecimal characters.</p>`,
+        code: {
+            language: 'text',
+            filename: 'example-uuid.txt',
+            content: `123e4567-e89b-12d3-a456-426614174000
+xxxxxxxx-xxxx-Mxxx-Nxxx-xxxxxxxxxxxx
+
+M = Variant (version)
+N = Variant (layout)`
+        }
+      },
+      {
+        id: 'versions',
+        heading: 'UUID Versions Explained',
+        content: `<p>While UUID and GUID are the same, the <strong>Version</strong> matters immensely.</p>
+<ul>
+    <li><strong>Version 1 (Time + MAC Address):</strong> Uses the current timestamp and your computer's MAC address. Guaranteed unique, but leaks privacy (your MAC address).</li>
+    <li><strong>Version 4 (Random):</strong> The most common standard. generated using cryptographically strong random numbers. <a href="/uuid-generator">Generate one here</a>.</li>
+    <li><strong>Version 7 (Timestamp + Random):</strong> A newer standard (2024) designed for databases. heavily sortable by time, fixing fragmentation issues in SQL indexes.</li>
+</ul>`
+      },
+      {
+        id: 'collision-math',
+        heading: 'Can UUIDs Collide?',
+        content: `<p>The fear of a "collision" (generating the same UUID twice) is mathematically irrational for v4 UUIDs.</p>
+<p>There are 2<sup>122</sup> possible UUIDs. That is <strong>5.3 undecillions</strong>.</p>
+<p>To have a 50% chance of a single collision, you would need to generate <strong>1 billion UUIDs per second</strong> for <strong>85 years</strong>. You represent a greater risk to your database reliability than a UUID collision does.</p>`
+      },
+      {
+        id: 'database-perf',
+        heading: 'Performance: UUID as Primary Key',
+        content: `<p>Should you use UUIDs as database primary keys? It depends.</p>
+<p><strong>Pros:</strong></p>
+<ul>
+    <li>Obscures total record counts (unlike ID: 1, 2, 3)</li>
+    <li>Allows offline generation (client creates ID before saving)</li>
+    <li>Easy merging of databases/tables</li>
+</ul>
+<p><strong>Cons:</strong></p>
+<ul>
+    <li>Larger storage (16 bytes vs 4 bytes for INT)</li>
+    <li>Slower indexing (fragmentation) compared to sequential INTs</li>
+    <li>Harder to read/debug manually</li>
+</ul>`
+      }
+    ],
+    
+    faqs: [
+      {
+        question: 'Are UUIDs case-sensitive?',
+        answer: 'No. RFC 4122 states that UUIDs are case-insensitive. However, they are canonically displayed in lowercase.'
+      },
+      {
+        question: 'Is a GUID larger than a UUID?',
+        answer: 'No. Both are exactly 128 bits (16 bytes) long.'
+      },
+      {
+        question: 'How do I generate a UUID in JavaScript?',
+        answer: 'Modern browsers support `crypto.randomUUID()` native API. Or use our free online generator.'
+      }
+    ],
+    
+    ctaTitle: 'Generate Secure UUIDs',
+    ctaDescription: 'Need a v4 UUID for your database or testing? Generate up to 500 secure, random UUIDs instantly.',
+    ctaLink: '/uuid-generator',
+    ctaLabel: 'Open UUID Generator',
+    relatedArticles: ['what-is-json']
   }
 ];
 
