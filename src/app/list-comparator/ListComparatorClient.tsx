@@ -266,36 +266,6 @@ https://example.com/api/v1/checkout`;
                       <button onClick={() => handleDownload(uniqueA, "unique_list_a.txt")} className="p-2 hover:bg-slate-100 dark:hover:bg-slate-800 rounded text-slate-500" title="Download">
                           <Download size={16} />
                       </button>
-                    {/* Card 2: In Both (Intersection) */}
-                    <div className="bg-white dark:bg-slate-900 rounded-xl border border-emerald-200 dark:border-emerald-900/30 ring-1 ring-emerald-200/50 dark:ring-emerald-900/50 shadow-md overflow-hidden flex flex-col h-96">
-                        <div className="p-4 border-b border-emerald-100 dark:border-emerald-900/30 bg-emerald-50 dark:bg-emerald-900/10 flex justify-between items-center">
-                            <div className="flex flex-col gap-1">
-                                <h3 className="font-bold text-emerald-900 dark:text-emerald-100 flex items-center gap-2">
-                                    ✓ In Both
-                                </h3>
-                                {totalCountA > 0 && totalCountB > 0 && inBoth.length > 0 && (
-                                    <span className="text-xs text-emerald-700 dark:text-emerald-200 font-medium">
-                                        {(((inBoth.length / Math.max(totalCountA, totalCountB)) * 100).toFixed(1))}% overlap
-                                    </span>
-                                )}
-                            </div>
-                            <span className="text-xs bg-emerald-200 dark:bg-emerald-900/50 text-emerald-900 dark:text-emerald-100 px-2 py-1 rounded-full">{inBoth.length}</span>
-                        </div>
-                        <textarea 
-                            readOnly 
-                            value={inBoth.join("\n")}
-                            className="flex-1 p-4 bg-transparent resize-none text-sm font-mono outline-none text-emerald-900 dark:text-emerald-100"
-                        />
-                         <div className="p-3 border-t border-emerald-100 dark:border-emerald-900/30 flex gap-2 justify-end">
-                            <button onClick={() => handleCopy(inBoth)} className="p-2 hover:bg-emerald-100 dark:hover:bg-emerald-900/30 rounded text-emerald-700" title="Copy">
-                                <Copy size={16} />
-                            </button>
-                            <button onClick={() => handleDownload(inBoth, "in_both.txt")} className="p-2 hover:bg-emerald-100 dark:hover:bg-emerald-900/30 rounded text-emerald-700" title="Download">
-                                <Download size={16} />
-                            </button>
-                        </div>
-                    </div>
-
                   </div>
               </div>
 
