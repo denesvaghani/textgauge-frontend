@@ -356,7 +356,7 @@ https://example.com/api/v1/checkout`;
                       value={inputA}
                       onChange={(e) => setInputA(e.target.value)}
                       placeholder="Paste your text here... (IDs separated by newlines, commas, or paragraphs)"
-                      className="w-full h-64 p-4 font-mono text-sm bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-xl focus:ring-2 focus:ring-violet-500/20 outline-none resize-none"
+                      className="w-full h-64 p-4 font-mono text-sm leading-6 text-slate-800 dark:text-slate-100 bg-white dark:bg-slate-900 border-2 border-slate-200 dark:border-slate-700 rounded-xl focus:ring-2 focus:ring-violet-500/20 focus:border-violet-300 dark:focus:border-violet-600 outline-none resize-none placeholder:text-slate-400"
                   />
               </div>
 
@@ -383,7 +383,7 @@ https://example.com/api/v1/checkout`;
                           value={inputB}
                           onChange={(e) => setInputB(e.target.value)}
                           placeholder="Paste the second list to compare against..."
-                          className="w-full h-64 p-4 font-mono text-sm bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-xl focus:ring-2 focus:ring-violet-500/20 outline-none resize-none"
+                          className="w-full h-64 p-4 font-mono text-sm leading-6 text-slate-800 dark:text-slate-100 bg-white dark:bg-slate-900 border-2 border-slate-200 dark:border-slate-700 rounded-xl focus:ring-2 focus:ring-violet-500/20 focus:border-violet-300 dark:focus:border-violet-600 outline-none resize-none placeholder:text-slate-400"
                       />
                   </div>
               )}
