@@ -21,6 +21,7 @@ export default function ListComparatorClient() {
   // Results
   const [uniqueA, setUniqueA] = useState<string[]>([]);
   const [totalCountA, setTotalCountA] = useState(0); // Track original count
+  const [totalCountB, setTotalCountB] = useState(0); // Track original count for B
   const [missingInB, setMissingInB] = useState<string[]>([]); // A - B
   const [missingInA, setMissingInA] = useState<string[]>([]); // B - A
 
@@ -50,6 +51,7 @@ export default function ListComparatorClient() {
 
     // Track original count
     setTotalCountA(listA.length);
+    setTotalCountB(listB.length);
 
     // 2. Normalize if needed
     const normalize = (s: string) => caseSensitive ? s : s.toLowerCase();
@@ -233,9 +235,16 @@ export default function ListComparatorClient() {
                     {/* Card 2: Only in A (Missing in B) */}
                     <div className="bg-white dark:bg-slate-900 rounded-xl border border-amber-200 dark:border-amber-900/30 overflow-hidden flex flex-col h-96">
                         <div className="p-4 border-b border-amber-100 dark:border-amber-900/30 bg-amber-50 dark:bg-amber-900/10 flex justify-between items-center">
-                            <h3 className="font-bold text-amber-900 dark:text-amber-100 flex items-center gap-2">
-                                <ArrowRight size={16} /> In A Only
-                            </h3>
+                            <div className="flex flex-col gap-1">
+                                <h3 className="font-bold text-amber-900 dark:text-amber-100 flex items-center gap-2">
+                                    <ArrowRight size={16} /> In A Only
+                                </h3>
+                                {totalCountA > 0 && missingInB.length > 0 && (
+                                    <span className="text-xs text-amber-700 dark:text-amber-300">
+                                        {((missingInB.length / totalCountA) * 100).toFixed(1)}% of A missing in B
+                                    </span>
+                                )}
+                            </div>
                             <span className="text-xs bg-amber-200 dark:bg-amber-900/50 text-amber-900 dark:text-amber-100 px-2 py-1 rounded-full">{missingInB.length}</span>
                         </div>
                         <textarea 
@@ -256,9 +265,16 @@ export default function ListComparatorClient() {
                     {/* Card 3: Only in B (Missing in A) */}
                      <div className="bg-white dark:bg-slate-900 rounded-xl border border-blue-200 dark:border-blue-900/30 overflow-hidden flex flex-col h-96">
                         <div className="p-4 border-b border-blue-100 dark:border-blue-900/30 bg-blue-50 dark:bg-blue-900/10 flex justify-between items-center">
-                            <h3 className="font-bold text-blue-900 dark:text-blue-100 flex items-center gap-2">
-                                <ArrowLeft size={16} /> In B Only
-                            </h3>
+                            <div className="flex flex-col gap-1">
+                                <h3 className="font-bold text-blue-900 dark:text-blue-100 flex items-center gap-2">
+                                    <ArrowLeft size={16} /> In B Only
+                                </h3>
+                                {totalCountB > 0 && missingInA.length > 0 && (
+                                    <span className="text-xs text-blue-700 dark:text-blue-300">
+                                        {((missingInA.length / totalCountB) * 100).toFixed(1)}% of B missing in A
+                                    </span>
+                                )}
+                            </div>
                             <span className="text-xs bg-blue-200 dark:bg-blue-900/50 text-blue-900 dark:text-blue-100 px-2 py-1 rounded-full">{missingInA.length}</span>
                         </div>
                         <textarea 
