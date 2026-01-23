@@ -5,9 +5,8 @@ import { SchemaMarkup } from "@/components/SchemaMarkup";
 import { SmartHeroHeader } from "@/components/SmartHeroHeader";
 import { flowerThemes } from "@/config/flowerThemes";
 import { DynamicAd } from "@/components/DynamicAd";
-import { Copy, Download, Trash2, ArrowRightLeft, ArrowRight, ArrowLeft, Upload, Camera } from "lucide-react";
+import { Copy, Download, Trash2, ArrowRightLeft, ArrowRight, ArrowLeft, Upload, Camera, Printer } from "lucide-react";
 import { useState, useCallback, useEffect, useRef } from "react";
-import html2canvas from "html2canvas";
 
 export default function ListComparatorClient() {
   const theme = flowerThemes.protea; // distinct theme
@@ -181,44 +180,39 @@ https://example.com/api/v1/checkout`;
     e.target.value = '';
   };
 
-  // Screenshot export
-  const handleScreenshot = async () => {
+  // Screenshot/Export - using browser print as fallback
+  const handleScreenshot = () => {
+    // Create a printable version of results
     if (!resultsRef.current) return;
     
-    try {
-      const canvas = await html2canvas(resultsRef.current, {
-        backgroundColor: '#ffffff',
-        scale: 2, // Higher quality
-        useCORS: true, // Handle cross-origin images
-        allowTaint: true, // Allow tainted canvas
-        logging: false, // Disable logging
-        imageTimeout: 0, // No timeout for images
-        removeContainer: true, // Clean up after capture
-        foreignObjectRendering: false, // Disable foreign object rendering (can cause issues)
-      });
-      
-      const link = document.createElement('a');
-      link.download = 'list-comparison-results.png';
-      link.href = canvas.toDataURL('image/png');
-      link.click();
-    } catch (error) {
-      console.error('Screenshot failed:', error);
-      // Fallback: Try with simpler options
-      try {
-        const canvas = await html2canvas(resultsRef.current, {
-          backgroundColor: '#ffffff',
-          scale: 1,
-          useCORS: true,
-          logging: false,
-        });
-        const link = document.createElement('a');
-        link.download = 'list-comparison-results.png';
-        link.href = canvas.toDataURL('image/png');
-        link.click();
-      } catch (fallbackError) {
-        console.error('Screenshot fallback failed:', fallbackError);
-        alert('Screenshot capture failed. This may be due to browser security restrictions.');
-      }
+    const printContent = resultsRef.current.innerHTML;
+    const printWindow = window.open('', '_blank');
+    
+    if (printWindow) {
+      printWindow.document.write(`
+        <!DOCTYPE html>
+        <html>
+        <head>
+          <title>List Comparison Results</title>
+          <style>
+            body { font-family: system-ui, -apple-system, sans-serif; padding: 20px; }
+            .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 20px; }
+            textarea { width: 100%; min-height: 200px; font-family: monospace; padding: 10px; border: 1px solid #ccc; border-radius: 8px; }
+            h3 { margin-bottom: 8px; }
+            button { display: none; }
+          </style>
+        </head>
+        <body>
+          <h1>List Comparison Results</h1>
+          <p>Generated on ${new Date().toLocaleString()}</p>
+          <div class="grid">${printContent}</div>
+          <script>window.print(); window.close();</script>
+        </body>
+        </html>
+      `);
+      printWindow.document.close();
+    } else {
+      alert('Please allow popups to print/save the results.');
     }
   };
 
@@ -325,7 +319,7 @@ https://example.com/api/v1/checkout`;
                              onClick={handleScreenshot}
                              className="text-sm px-3 py-1.5 text-emerald-600 hover:text-emerald-700 dark:text-emerald-400 dark:hover:text-emerald-300 flex items-center gap-1.5 font-medium hover:bg-emerald-50 dark:hover:bg-emerald-900/20 rounded-lg transition-all"
                           >
-                              <Camera size={14} /> Screenshot
+                              <Printer size={14} /> Print/Save
                           </button>
                       </div>
                   </div>
