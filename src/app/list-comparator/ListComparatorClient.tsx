@@ -383,11 +383,50 @@ https://example.com/api/v1/checkout`;
               )}
           </div>
 
+          {/* Statistics Summary Bar */}
+          {(totalCountA > 0 || totalCountB > 0) && (
+              <div className="mb-6 p-4 bg-white dark:bg-slate-900 rounded-xl border border-slate-200 dark:border-slate-800 shadow-sm">
+                  <div className="flex flex-wrap items-center gap-4 justify-center">
+                      <div className="flex items-center gap-2">
+                          <span className="text-sm text-slate-600 dark:text-slate-400">List A:</span>
+                          <span className="px-2.5 py-1 bg-violet-100 dark:bg-violet-900/40 text-violet-700 dark:text-violet-300 rounded-full text-sm font-bold">{totalCountA.toLocaleString()}</span>
+                      </div>
+                      <span className="text-slate-300 dark:text-slate-600">→</span>
+                      <div className="flex items-center gap-2">
+                          <span className="text-sm text-slate-600 dark:text-slate-400">Unique:</span>
+                          <span className="px-2.5 py-1 bg-emerald-100 dark:bg-emerald-900/40 text-emerald-700 dark:text-emerald-300 rounded-full text-sm font-bold">{uniqueA.length.toLocaleString()}</span>
+                      </div>
+                      {showInputB && (
+                          <>
+                              <div className="h-6 w-px bg-slate-200 dark:bg-slate-700"></div>
+                              <div className="flex items-center gap-2">
+                                  <span className="text-sm text-slate-600 dark:text-slate-400">List B:</span>
+                                  <span className="px-2.5 py-1 bg-indigo-100 dark:bg-indigo-900/40 text-indigo-700 dark:text-indigo-300 rounded-full text-sm font-bold">{totalCountB.toLocaleString()}</span>
+                              </div>
+                              <div className="h-6 w-px bg-slate-200 dark:bg-slate-700"></div>
+                              <div className="flex items-center gap-2">
+                                  <span className="text-sm text-slate-600 dark:text-slate-400">Only in A:</span>
+                                  <span className="px-2.5 py-1 bg-amber-100 dark:bg-amber-900/40 text-amber-700 dark:text-amber-300 rounded-full text-sm font-bold">{missingInB.length.toLocaleString()}</span>
+                              </div>
+                              <div className="flex items-center gap-2">
+                                  <span className="text-sm text-slate-600 dark:text-slate-400">Only in B:</span>
+                                  <span className="px-2.5 py-1 bg-blue-100 dark:bg-blue-900/40 text-blue-700 dark:text-blue-300 rounded-full text-sm font-bold">{missingInA.length.toLocaleString()}</span>
+                              </div>
+                              <div className="flex items-center gap-2">
+                                  <span className="text-sm text-slate-600 dark:text-slate-400">In Both:</span>
+                                  <span className="px-2.5 py-1 bg-emerald-100 dark:bg-emerald-900/40 text-emerald-700 dark:text-emerald-300 rounded-full text-sm font-bold">{inBoth.length.toLocaleString()}</span>
+                              </div>
+                          </>
+                      )}
+                  </div>
+              </div>
+          )}
+
           {/* Results Grid */}
           <div ref={resultsRef} className={`grid gap-6 ${showInputB ? "md:grid-cols-2 lg:grid-cols-4" : "grid-cols-1"}`}>
               
               {/* Card 1: Unique A */}
-              <div className="bg-white dark:bg-slate-900 rounded-xl border border-slate-200 dark:border-slate-800 ring-1 ring-slate-200/50 dark:ring-slate-700/50 shadow-md overflow-hidden flex flex-col h-96">
+              <div className="bg-white dark:bg-slate-900 rounded-xl border border-slate-200 dark:border-slate-800 ring-1 ring-slate-200/50 dark:ring-slate-700/50 shadow-md overflow-hidden flex flex-col h-[28rem]">
                   <div className="p-4 border-b border-slate-100 dark:border-slate-800 bg-slate-50 dark:bg-slate-900/50 flex justify-between items-center">
                       <div className="flex flex-col gap-1">
                           <h3 className="font-bold text-slate-700 dark:text-slate-200">Unique List A</h3>
@@ -397,18 +436,24 @@ https://example.com/api/v1/checkout`;
                               </span>
                           )}
                       </div>
-                      <span className="text-xs bg-slate-200 dark:bg-slate-800 px-2 py-1 rounded-full">{uniqueA.length}</span>
+                      <span className="text-sm bg-slate-200 dark:bg-slate-800 px-3 py-1 rounded-full font-bold">{uniqueA.length.toLocaleString()}</span>
                   </div>
-                  <textarea 
-                    readOnly 
-                    value={uniqueA.join("\n")}
-                    className="flex-1 p-4 bg-transparent resize-none text-sm font-mono outline-none"
-                  />
+                  {uniqueA.length === 0 ? (
+                      <div className="flex-1 flex items-center justify-center text-slate-400 dark:text-slate-500 text-sm italic">
+                          No items to display
+                      </div>
+                  ) : (
+                      <textarea 
+                        readOnly 
+                        value={uniqueA.join("\n")}
+                        className="flex-1 p-4 bg-transparent resize-none text-sm font-mono outline-none leading-6 text-slate-700 dark:text-slate-200"
+                      />
+                  )}
                   <div className="p-3 border-t border-slate-100 dark:border-slate-800 flex gap-2 justify-end">
-                      <button onClick={() => handleCopy(uniqueA)} className="p-2 hover:bg-slate-100 dark:hover:bg-slate-800 rounded text-slate-500" title="Copy">
+                      <button onClick={() => handleCopy(uniqueA)} className="p-2 hover:bg-slate-100 dark:hover:bg-slate-800 rounded text-slate-500" title="Copy to clipboard">
                           <Copy size={16} />
                       </button>
-                      <button onClick={() => handleDownload(uniqueA, "unique_list_a.txt")} className="p-2 hover:bg-slate-100 dark:hover:bg-slate-800 rounded text-slate-500" title="Download">
+                      <button onClick={() => handleDownload(uniqueA, "unique_list_a.txt")} className="p-2 hover:bg-slate-100 dark:hover:bg-slate-800 rounded text-slate-500" title="Download as TXT">
                           <Download size={16} />
                       </button>
                   </div>
@@ -420,7 +465,7 @@ https://example.com/api/v1/checkout`;
               {showInputB && (
                   <>
                     {/* Card 2: Only in A (Missing in B) */}
-                    <div className="bg-white dark:bg-slate-900 rounded-xl border border-amber-200 dark:border-amber-900/30 ring-1 ring-amber-200/50 dark:ring-amber-900/50 shadow-md overflow-hidden flex flex-col h-96">
+                    <div className="bg-white dark:bg-slate-900 rounded-xl border border-amber-200 dark:border-amber-900/30 ring-1 ring-amber-200/50 dark:ring-amber-900/50 shadow-md overflow-hidden flex flex-col h-[28rem]">
                         <div className="p-4 border-b border-amber-100 dark:border-amber-900/30 bg-amber-50 dark:bg-amber-900/10 flex justify-between items-center">
                             <div className="flex flex-col gap-1">
                                 <h3 className="font-bold text-amber-900 dark:text-amber-100 flex items-center gap-2">
@@ -428,22 +473,28 @@ https://example.com/api/v1/checkout`;
                                 </h3>
                                 {totalCountA > 0 && missingInB.length > 0 && (
                                     <span className="text-xs text-amber-700 dark:text-amber-200 font-medium">
-                                        {((missingInB.length / totalCountA) * 100).toFixed(1)}% of A missing in B
+                                        {((missingInB.length / uniqueA.length) * 100).toFixed(1)}% of unique A
                                     </span>
                                 )}
                             </div>
-                            <span className="text-xs bg-amber-200 dark:bg-amber-900/50 text-amber-900 dark:text-amber-100 px-2 py-1 rounded-full">{missingInB.length}</span>
+                            <span className="text-sm bg-amber-200 dark:bg-amber-900/50 text-amber-900 dark:text-amber-100 px-3 py-1 rounded-full font-bold">{missingInB.length.toLocaleString()}</span>
                         </div>
-                        <textarea 
-                            readOnly 
-                            value={missingInB.join("\n")}
-                            className="flex-1 p-4 bg-transparent resize-none text-sm font-mono outline-none text-amber-900 dark:text-amber-100"
-                        />
+                        {missingInB.length === 0 ? (
+                            <div className="flex-1 flex items-center justify-center text-amber-400 dark:text-amber-600 text-sm italic">
+                                No unique items in A only
+                            </div>
+                        ) : (
+                            <textarea 
+                                readOnly 
+                                value={missingInB.join("\n")}
+                                className="flex-1 p-4 bg-transparent resize-none text-sm font-mono outline-none leading-6 text-amber-900 dark:text-amber-100"
+                            />
+                        )}
                          <div className="p-3 border-t border-amber-100 dark:border-amber-900/30 flex gap-2 justify-end">
-                            <button onClick={() => handleCopy(missingInB)} className="p-2 hover:bg-amber-100 dark:hover:bg-amber-900/30 rounded text-amber-700" title="Copy">
+                            <button onClick={() => handleCopy(missingInB)} className="p-2 hover:bg-amber-100 dark:hover:bg-amber-900/30 rounded text-amber-700" title="Copy to clipboard">
                                 <Copy size={16} />
                             </button>
-                            <button onClick={() => handleDownload(missingInB, "in_a_missing_in_b.txt")} className="p-2 hover:bg-amber-100 dark:hover:bg-amber-900/30 rounded text-amber-700" title="Download">
+                            <button onClick={() => handleDownload(missingInB, "in_a_missing_in_b.txt")} className="p-2 hover:bg-amber-100 dark:hover:bg-amber-900/30 rounded text-amber-700" title="Download as TXT">
                                 <Download size={16} />
                             </button>
                         </div>
@@ -451,7 +502,7 @@ https://example.com/api/v1/checkout`;
 
 
                     {/* Card 3: In Both (Intersection) */}
-                    <div className="bg-white dark:bg-slate-900 rounded-xl border border-emerald-200 dark:border-emerald-900/30 ring-1 ring-emerald-200/50 dark:ring-emerald-900/50 shadow-md overflow-hidden flex flex-col h-96">
+                    <div className="bg-white dark:bg-slate-900 rounded-xl border border-emerald-200 dark:border-emerald-900/30 ring-1 ring-emerald-200/50 dark:ring-emerald-900/50 shadow-md overflow-hidden flex flex-col h-[28rem]">
                         <div className="p-4 border-b border-emerald-100 dark:border-emerald-900/30 bg-emerald-50 dark:bg-emerald-900/10 flex justify-between items-center">
                             <div className="flex flex-col gap-1">
                                 <h3 className="font-bold text-emerald-900 dark:text-emerald-100 flex items-center gap-2">
@@ -459,28 +510,34 @@ https://example.com/api/v1/checkout`;
                                 </h3>
                                 {totalCountA > 0 && totalCountB > 0 && inBoth.length > 0 && (
                                     <span className="text-xs text-emerald-700 dark:text-emerald-200 font-medium">
-                                        {(((inBoth.length / Math.max(totalCountA, totalCountB)) * 100).toFixed(1))}% overlap
+                                        {(((inBoth.length / Math.max(uniqueA.length, (totalCountB - missingInA.length))) * 100).toFixed(1))}% overlap
                                     </span>
                                 )}
                             </div>
-                            <span className="text-xs bg-emerald-200 dark:bg-emerald-900/50 text-emerald-900 dark:text-emerald-100 px-2 py-1 rounded-full">{inBoth.length}</span>
+                            <span className="text-sm bg-emerald-200 dark:bg-emerald-900/50 text-emerald-900 dark:text-emerald-100 px-3 py-1 rounded-full font-bold">{inBoth.length.toLocaleString()}</span>
                         </div>
-                        <textarea 
-                            readOnly 
-                            value={inBoth.join("\n")}
-                            className="flex-1 p-4 bg-transparent resize-none text-sm font-mono outline-none text-emerald-900 dark:text-emerald-100"
-                        />
+                        {inBoth.length === 0 ? (
+                            <div className="flex-1 flex items-center justify-center text-emerald-400 dark:text-emerald-600 text-sm italic">
+                                No items in common
+                            </div>
+                        ) : (
+                            <textarea 
+                                readOnly 
+                                value={inBoth.join("\n")}
+                                className="flex-1 p-4 bg-transparent resize-none text-sm font-mono outline-none leading-6 text-emerald-900 dark:text-emerald-100"
+                            />
+                        )}
                          <div className="p-3 border-t border-emerald-100 dark:border-emerald-900/30 flex gap-2 justify-end">
-                            <button onClick={() => handleCopy(inBoth)} className="p-2 hover:bg-emerald-100 dark:hover:bg-emerald-900/30 rounded text-emerald-700" title="Copy">
+                            <button onClick={() => handleCopy(inBoth)} className="p-2 hover:bg-emerald-100 dark:hover:bg-emerald-900/30 rounded text-emerald-700" title="Copy to clipboard">
                                 <Copy size={16} />
                             </button>
-                            <button onClick={() => handleDownload(inBoth, "in_both.txt")} className="p-2 hover:bg-emerald-100 dark:hover:bg-emerald-900/30 rounded text-emerald-700" title="Download">
+                            <button onClick={() => handleDownload(inBoth, "in_both.txt")} className="p-2 hover:bg-emerald-100 dark:hover:bg-emerald-900/30 rounded text-emerald-700" title="Download as TXT">
                                 <Download size={16} />
                             </button>
                         </div>
                     </div>
-                    {/* Card 3: Only in B (Missing in A) */}
-                     <div className="bg-white dark:bg-slate-900 rounded-xl border border-blue-200 dark:border-blue-900/30 ring-1 ring-blue-200/50 dark:ring-blue-900/50 shadow-md overflow-hidden flex flex-col h-96">
+                    {/* Card 4: Only in B (Missing in A) */}
+                     <div className="bg-white dark:bg-slate-900 rounded-xl border border-blue-200 dark:border-blue-900/30 ring-1 ring-blue-200/50 dark:ring-blue-900/50 shadow-md overflow-hidden flex flex-col h-[28rem]">
                         <div className="p-4 border-b border-blue-100 dark:border-blue-900/30 bg-blue-50 dark:bg-blue-900/10 flex justify-between items-center">
                             <div className="flex flex-col gap-1">
                                 <h3 className="font-bold text-blue-900 dark:text-blue-100 flex items-center gap-2">
@@ -488,22 +545,28 @@ https://example.com/api/v1/checkout`;
                                 </h3>
                                 {totalCountB > 0 && missingInA.length > 0 && (
                                     <span className="text-xs text-blue-700 dark:text-blue-200 font-medium">
-                                        {((missingInA.length / totalCountB) * 100).toFixed(1)}% of B missing in A
+                                        {((missingInA.length / totalCountB) * 100).toFixed(1)}% of B
                                     </span>
                                 )}
                             </div>
-                            <span className="text-xs bg-blue-200 dark:bg-blue-900/50 text-blue-900 dark:text-blue-100 px-2 py-1 rounded-full">{missingInA.length}</span>
+                            <span className="text-sm bg-blue-200 dark:bg-blue-900/50 text-blue-900 dark:text-blue-100 px-3 py-1 rounded-full font-bold">{missingInA.length.toLocaleString()}</span>
                         </div>
-                        <textarea 
-                            readOnly 
-                            value={missingInA.join("\n")}
-                            className="flex-1 p-4 bg-transparent resize-none text-sm font-mono outline-none text-blue-900 dark:text-blue-100"
-                        />
+                        {missingInA.length === 0 ? (
+                            <div className="flex-1 flex items-center justify-center text-blue-400 dark:text-blue-600 text-sm italic">
+                                No unique items in B only
+                            </div>
+                        ) : (
+                            <textarea 
+                                readOnly 
+                                value={missingInA.join("\n")}
+                                className="flex-1 p-4 bg-transparent resize-none text-sm font-mono outline-none leading-6 text-blue-900 dark:text-blue-100"
+                            />
+                        )}
                         <div className="p-3 border-t border-blue-100 dark:border-blue-900/30 flex gap-2 justify-end">
-                            <button onClick={() => handleCopy(missingInA)} className="p-2 hover:bg-blue-100 dark:hover:bg-blue-900/30 rounded text-blue-700" title="Copy">
+                            <button onClick={() => handleCopy(missingInA)} className="p-2 hover:bg-blue-100 dark:hover:bg-blue-900/30 rounded text-blue-700" title="Copy to clipboard">
                                 <Copy size={16} />
                             </button>
-                            <button onClick={() => handleDownload(missingInA, "in_b_missing_in_a.txt")} className="p-2 hover:bg-blue-100 dark:hover:bg-blue-900/30 rounded text-blue-700" title="Download">
+                            <button onClick={() => handleDownload(missingInA, "in_b_missing_in_a.txt")} className="p-2 hover:bg-blue-100 dark:hover:bg-blue-900/30 rounded text-blue-700" title="Download as TXT">
                                 <Download size={16} />
                             </button>
                         </div>
