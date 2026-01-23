@@ -25,6 +25,7 @@ export default function ListComparatorClient() {
   const [totalCountB, setTotalCountB] = useState(0); // Track original count for B
   const [missingInB, setMissingInB] = useState<string[]>([]); // A - B
   const [missingInA, setMissingInA] = useState<string[]>([]); // B - A
+  const [inBoth, setInBoth] = useState<string[]>([]); // A ∩ B (intersection)
 
   // Processing Logic
   const processLists = useCallback(() => {
@@ -75,9 +76,6 @@ export default function ListComparatorClient() {
 
     // 4. Comparison (if Input B exists)
     if (listB.length > 0 || showInputB) {
-        // Missing in B = Item is in A, but NOT in B
-        const diffA_B = listA.filter(item => !setA_Normalized.has(normalize(item)) && true /* logic error fix below */);
-        
         // Correct Set Logic for O(N)
         const setB_Normalized = new Set(listB.map(normalize));
 
@@ -87,9 +85,14 @@ export default function ListComparatorClient() {
 
         const inB_notInA = listB.filter(item => !setA_Normalized.has(normalize(item)));
         setMissingInA(Array.from(new Set(inB_notInA)));
+
+        // Intersection: items in both A and B
+        const intersection = listA.filter(item => setB_Normalized.has(normalize(item)));
+        setInBoth(Array.from(new Set(intersection)));
     } else {
         setMissingInB([]);
         setMissingInA([]);
+        setInBoth([]);
     }
 
   }, [inputA, inputB, delimiter, customDelimiter, caseSensitive, showInputB]);
@@ -236,7 +239,7 @@ https://example.com/api/v1/checkout`;
           </div>
 
           {/* Results Grid */}
-          <div className={`grid gap-6 ${showInputB ? "md:grid-cols-3" : "grid-cols-1"}`}>
+          <div className={`grid gap-6 ${showInputB ? "md:grid-cols-2 lg:grid-cols-4" : "grid-cols-1"}`}>
               
               {/* Card 1: Unique A */}
               <div className="bg-white dark:bg-slate-900 rounded-xl border border-slate-200 dark:border-slate-800 ring-1 ring-slate-200/50 dark:ring-slate-700/50 shadow-md overflow-hidden flex flex-col h-96">
