@@ -5,8 +5,9 @@ import { SchemaMarkup } from "@/components/SchemaMarkup";
 import { SmartHeroHeader } from "@/components/SmartHeroHeader";
 import { flowerThemes } from "@/config/flowerThemes";
 import { DynamicAd } from "@/components/DynamicAd";
-import { Copy, Download, Trash2, ArrowRightLeft, ArrowRight, ArrowLeft, Upload, Camera, Printer } from "lucide-react";
+import { Copy, Download, Trash2, ArrowRightLeft, ArrowRight, ArrowLeft, Upload, Camera, Printer, Image as ImageIcon } from "lucide-react";
 import { useState, useCallback, useEffect, useRef } from "react";
+import html2canvas from "html2canvas";
 
 export default function ListComparatorClient() {
   const theme = flowerThemes.protea; // distinct theme
@@ -208,12 +209,12 @@ https://example.com/api/v1/checkout`;
     e.target.value = '';
   };
 
-  // Screenshot/Export - using browser print as fallback
-  const handleScreenshot = () => {
-    // Create a printable version of results
+  // Export Features
+  const handlePrint = () => {
     if (!resultsRef.current) return;
     
-    const printContent = resultsRef.current.innerHTML;
+    // Get unique data to inject into print view directly rather than scraping DOM
+    // This ensures clean state without UI artifacts
     const printWindow = window.open('', '_blank');
     
     if (printWindow) {
@@ -221,26 +222,153 @@ https://example.com/api/v1/checkout`;
         <!DOCTYPE html>
         <html>
         <head>
-          <title>List Comparison Results</title>
+          <title>List Comparison Results - TextGauge</title>
           <style>
-            body { font-family: system-ui, -apple-system, sans-serif; padding: 20px; }
-            .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 20px; }
-            textarea { width: 100%; min-height: 200px; font-family: monospace; padding: 10px; border: 1px solid #ccc; border-radius: 8px; }
-            h3 { margin-bottom: 8px; }
-            button { display: none; }
+            @page { size: landscape; margin: 0.5cm; }
+            body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif; padding: 20px; color: #1e293b; -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+            h1 { text-align: center; color: #4f46e5; margin-bottom: 5px; }
+            .meta { text-align: center; color: #64748b; font-size: 14px; margin-bottom: 30px; }
+            .stats-bar { display: flex; justify-content: center; gap: 20px; margin-bottom: 30px; flex-wrap: wrap; }
+            .stat-badge { background: #f1f5f9; padding: 5px 15px; border-radius: 20px; font-weight: 600; font-size: 14px; border: 1px solid #e2e8f0; }
+            .grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 20px; }
+            .card { border-radius: 12px; overflow: hidden; break-inside: avoid; page-break-inside: avoid; border: 1px solid #e2e8f0; box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1); }
+            .card-header { padding: 15px; display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid #e2e8f0; }
+            .card-title { font-weight: 700; margin: 0; font-size: 16px; display: flex; align-items: center; gap: 8px; }
+            .count-badge { padding: 2px 10px; border-radius: 12px; font-size: 12px; font-weight: bold; }
+            .card-content { padding: 15px; font-family: 'Menlo', 'Monaco', 'Courier New', monospace; font-size: 12px; line-height: 1.5; white-space: pre-wrap; min-height: 200px; }
+            
+            /* Theme Colors */
+            .theme-violet .card-header { background: #f5f3ff; border-color: #ddd6fe; }
+            .theme-violet .card-title { color: #5b21b6; }
+            .theme-violet .count-badge { background: #ddd6fe; color: #5b21b6; }
+            .theme-violet .card { border-color: #ddd6fe; }
+
+            .theme-amber .card-header { background: #fffbeb; border-color: #fde68a; }
+            .theme-amber .card-title { color: #92400e; }
+            .theme-amber .count-badge { background: #fde68a; color: #92400e; }
+            .theme-amber .card { border-color: #fde68a; }
+
+            .theme-emerald .card-header { background: #ecfdf5; border-color: #a7f3d0; }
+            .theme-emerald .card-title { color: #065f46; }
+            .theme-emerald .count-badge { background: #a7f3d0; color: #065f46; }
+            .theme-emerald .card { border-color: #a7f3d0; }
+
+            .theme-blue .card-header { background: #eff6ff; border-color: #bfdbfe; }
+            .theme-blue .card-title { color: #1e40af; }
+            .theme-blue .count-badge { background: #bfdbfe; color: #1e40af; }
+            .theme-blue .card { border-color: #bfdbfe; }
+            
+            @media print { button { display: none; } }
           </style>
         </head>
         <body>
-          <h1>List Comparison Results</h1>
-          <p>Generated on ${new Date().toLocaleString()}</p>
-          <div class="grid">${printContent}</div>
-          <script>window.print(); window.close();</script>
+          <h1>List Comparison Report</h1>
+          <p class="meta">Generated by TextGauge on ${new Date().toLocaleString()}</p>
+          
+          <div class="stats-bar">
+            <div class="stat-badge" style="color: #5b21b6; background: #f5f3ff; border-color: #ddd6fe;">List A: ${totalCountA.toLocaleString()}</div>
+            ${showInputB ? `
+                <div class="stat-badge" style="color: #1e40af; background: #eff6ff; border-color: #bfdbfe;">List B: ${totalCountB.toLocaleString()}</div>
+                <div class="stat-badge" style="color: #065f46; background: #ecfdf5; border-color: #a7f3d0;">Unique: ${uniqueA.length.toLocaleString()}</div>
+                <div class="stat-badge" style="color: #92400e; background: #fffbeb; border-color: #fde68a;">Only A: ${missingInB.length.toLocaleString()}</div>
+                <div class="stat-badge" style="color: #1e40af; background: #eff6ff; border-color: #bfdbfe;">Only B: ${missingInA.length.toLocaleString()}</div>
+                <div class="stat-badge" style="color: #065f46; background: #ecfdf5; border-color: #a7f3d0;">In Both: ${inBoth.length.toLocaleString()}</div>
+            ` : ''}
+          </div>
+
+          <div class="grid" style="grid-template-columns: ${showInputB ? 'repeat(4, 1fr)' : '1fr'};">
+             <!-- Unique A -->
+             <div class="card theme-violet">
+                <div class="card-header">
+                    <h3 class="card-title">Unique List A</h3>
+                    <span class="count-badge">${uniqueA.length.toLocaleString()}</span>
+                </div>
+                <div class="card-content">${uniqueA.join('\n') || 'No items'}</div>
+             </div>
+
+             ${showInputB ? `
+                <!-- In A Only -->
+                <div class="card theme-amber">
+                    <div class="card-header">
+                         <h3 class="card-title">In A Only</h3>
+                         <span class="count-badge">${missingInB.length.toLocaleString()}</span>
+                    </div>
+                    <div class="card-content">${missingInB.join('\n') || 'No items'}</div>
+                </div>
+
+                <!-- In Both -->
+                <div class="card theme-emerald">
+                     <div class="card-header">
+                         <h3 class="card-title">✓ In Both</h3>
+                         <span class="count-badge">${inBoth.length.toLocaleString()}</span>
+                     </div>
+                     <div class="card-content">${inBoth.join('\n') || 'No items'}</div>
+                </div>
+
+                <!-- In B Only -->
+                 <div class="card theme-blue">
+                     <div class="card-header">
+                         <h3 class="card-title">In B Only</h3>
+                         <span class="count-badge">${missingInA.length.toLocaleString()}</span>
+                     </div>
+                     <div class="card-content">${missingInA.join('\n') || 'No items'}</div>
+                </div>
+             ` : ''}
+          </div>
+          <script>
+            window.onload = function() { window.print(); window.close(); }
+          </script>
         </body>
         </html>
       `);
       printWindow.document.close();
     } else {
       alert('Please allow popups to print/save the results.');
+    }
+  };
+
+  const handleExportImage = async () => {
+    if (!resultsRef.current) return;
+    setIsProcessing(true);
+    
+    try {
+        // Create a hidden clone for creating the image to avoid scrollbars and UI issues
+        const element = resultsRef.current;
+        const canvas = await html2canvas(element, {
+            backgroundColor: document.documentElement.classList.contains('dark') ? '#0f172a' : '#ffffff',
+            scale: 2, // High resolution
+            useCORS: true,
+            logging: false,
+            ignoreElements: (element) => {
+                // Ignore buttons and icons in the screenshot
+                return element.tagName === 'BUTTON' || element.classList.contains('lucide');
+            },
+            onclone: (clonedDoc) => {
+                // Make all textareas full height in the clone so we capture all content
+                const textareas = clonedDoc.getElementsByTagName('textarea');
+                for (let i = 0; i < textareas.length; i++) {
+                    textareas[i].style.height = 'auto';
+                    textareas[i].style.height = textareas[i].scrollHeight + 'px';
+                    textareas[i].style.overflow = 'visible';
+                }
+                // Ensure the container is visible and has no scrollbars
+                const grid = clonedDoc.querySelector('.grid') as HTMLElement;
+                if (grid) {
+                    grid.style.overflow = 'visible';
+                    grid.style.height = 'auto';
+                }
+            }
+        });
+
+        const link = document.createElement('a');
+        link.download = `list-comparison-${new Date().toISOString().slice(0,10)}.png`;
+        link.href = canvas.toDataURL('image/png');
+        link.click();
+    } catch (error) {
+        console.error('Image export failed:', error);
+        alert('Failed to create image. Try using the Print > Save as PDF option instead.');
+    } finally {
+        setIsProcessing(false);
     }
   };
 
@@ -275,11 +403,11 @@ https://example.com/api/v1/checkout`;
             accept=".txt,.csv,.text"
             className="hidden" 
           />
-          {/* Controls - Modern Design */}
-          <div className="relative mb-6">
+          {/* Controls - Modern Design - Sticky Header */}
+          <div className="sticky top-4 z-40 mb-6 transition-all duration-200">
               {/* Gradient border effect */}
               <div className="absolute inset-0 bg-gradient-to-r from-violet-500/20 via-indigo-500/20 to-violet-500/20 rounded-xl blur-sm"></div>
-              <div className="relative bg-white dark:bg-slate-900 p-5 rounded-xl border border-slate-200 dark:border-slate-800 shadow-sm">
+              <div className="relative bg-white/90 dark:bg-slate-900/90 backdrop-blur-md p-4 rounded-xl border border-slate-200 dark:border-slate-800 shadow-lg">
                   <div className="flex flex-wrap gap-4 items-center justify-between">
                       {/* Left section - Main controls */}
                       <div className="flex flex-wrap items-center gap-4">
@@ -350,10 +478,17 @@ https://example.com/api/v1/checkout`;
                               <Trash2 size={14} /> Reset
                           </button>
                           <button 
-                             onClick={handleScreenshot}
+                             onClick={handlePrint}
                              className="text-sm px-3 py-1.5 text-emerald-600 hover:text-emerald-700 dark:text-emerald-400 dark:hover:text-emerald-300 flex items-center gap-1.5 font-medium hover:bg-emerald-50 dark:hover:bg-emerald-900/20 rounded-lg transition-all"
                           >
-                              <Printer size={14} /> Print/Save
+                              <Printer size={14} /> Print PDF
+                          </button>
+                          <button 
+                             onClick={handleExportImage}
+                             disabled={isProcessing}
+                             className="text-sm px-3 py-1.5 text-blue-600 hover:text-blue-700 dark:text-blue-400 dark:hover:text-blue-300 flex items-center gap-1.5 font-medium hover:bg-blue-50 dark:hover:bg-blue-900/20 rounded-lg transition-all disabled:opacity-50 disabled:cursor-not-allowed"
+                          >
+                              <ImageIcon size={14} /> {isProcessing ? "Generating..." : "Save Image"}
                           </button>
                       </div>
                   </div>
