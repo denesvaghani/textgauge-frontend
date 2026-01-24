@@ -56,7 +56,7 @@ temp_targets = { cpu = 79.5, case = 72.0 }
             <div className="flex flex-col min-h-screen">
                 
                 {/* 3-Column Layout Wrapper */}
-                <div className="w-full max-w-[1920px] mx-auto px-4 py-6 flex justify-center gap-6 2xl:gap-8">
+                <div className="w-full max-w-[1920px] mx-auto px-4 sm:px-6 lg:px-8 py-6 flex justify-center gap-6 2xl:gap-8">
                     
                     {/* LEFT AD COLUMN (Desktop XL+) */}
                     {process.env.NEXT_PUBLIC_AD_SLOT_SKYSCRAPER_LEFT && (
