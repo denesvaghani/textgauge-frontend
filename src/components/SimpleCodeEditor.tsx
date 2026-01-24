@@ -56,20 +56,26 @@ export function SimpleCodeEditor({
     const handleScroll = () => {
         if (textareaRef.current) {
             const scrollTop = textareaRef.current.scrollTop;
+            const scrollLeft = textareaRef.current.scrollLeft;
+
             if (lineNumbersRef.current) {
                 lineNumbersRef.current.scrollTop = scrollTop;
             }
             if (jsonOverlayRef.current) {
                 jsonOverlayRef.current.scrollTop = scrollTop;
+                jsonOverlayRef.current.scrollLeft = scrollLeft;
             }
             if (yamlOverlayRef.current) {
                 yamlOverlayRef.current.scrollTop = scrollTop;
+                yamlOverlayRef.current.scrollLeft = scrollLeft;
             }
             if (tomlOverlayRef.current) {
                 tomlOverlayRef.current.scrollTop = scrollTop;
+                tomlOverlayRef.current.scrollLeft = scrollLeft;
             }
             if (csvOverlayRef.current) {
                 csvOverlayRef.current.scrollTop = scrollTop;
+                csvOverlayRef.current.scrollLeft = scrollLeft;
             }
         }
     };
