@@ -327,31 +327,29 @@ https://example.com/api/v1/checkout`;
     }
   };
 
-  const handleExportImage = async () => {
+  const handleExportImage = async (action: 'download' | 'copy' = 'download') => {
     if (!resultsRef.current) return;
     setIsProcessing(true);
     
     try {
-        // Create a hidden clone for creating the image to avoid scrollbars and UI issues
         const element = resultsRef.current;
         const canvas = await html2canvas(element, {
             backgroundColor: document.documentElement.classList.contains('dark') ? '#0f172a' : '#ffffff',
-            scale: 2, // High resolution
+            scale: 2, 
             useCORS: true,
+            allowTaint: true,
+            foreignObjectRendering: false,
             logging: false,
             ignoreElements: (element) => {
-                // Ignore buttons and icons in the screenshot
                 return element.tagName === 'BUTTON' || element.classList.contains('lucide');
             },
             onclone: (clonedDoc) => {
-                // Make all textareas full height in the clone so we capture all content
                 const textareas = clonedDoc.getElementsByTagName('textarea');
                 for (let i = 0; i < textareas.length; i++) {
                     textareas[i].style.height = 'auto';
                     textareas[i].style.height = textareas[i].scrollHeight + 'px';
                     textareas[i].style.overflow = 'visible';
                 }
-                // Ensure the container is visible and has no scrollbars
                 const grid = clonedDoc.querySelector('.grid') as HTMLElement;
                 if (grid) {
                     grid.style.overflow = 'visible';
@@ -360,10 +358,30 @@ https://example.com/api/v1/checkout`;
             }
         });
 
-        const link = document.createElement('a');
-        link.download = `list-comparison-${new Date().toISOString().slice(0,10)}.png`;
-        link.href = canvas.toDataURL('image/png');
-        link.click();
+        if (action === 'download') {
+            const link = document.createElement('a');
+            link.download = `list-comparison-${new Date().toISOString().slice(0,10)}.png`;
+            link.href = canvas.toDataURL('image/png');
+            link.click();
+        } else {
+            canvas.toBlob(async (blob) => {
+                if (!blob) throw new Error('Failed to generate image blob');
+                try {
+                    await navigator.clipboard.write([
+                        new ClipboardItem({ 'image/png': blob })
+                    ]);
+                    alert('Image copied to clipboard!');
+                } catch (err) {
+                    console.error('Clipboard write failed:', err);
+                    alert('Failed to copy to clipboard. Downloading instead.');
+                    // Fallback to download
+                    const link = document.createElement('a');
+                    link.download = `list-comparison-${new Date().toISOString().slice(0,10)}.png`;
+                    link.href = canvas.toDataURL('image/png');
+                    link.click();
+                }
+            });
+        }
     } catch (error) {
         console.error('Image export failed:', error);
         alert('Failed to create image. Try using the Print > Save as PDF option instead.');
@@ -480,16 +498,29 @@ https://example.com/api/v1/checkout`;
                           <button 
                              onClick={handlePrint}
                              className="text-sm px-3 py-1.5 text-emerald-600 hover:text-emerald-700 dark:text-emerald-400 dark:hover:text-emerald-300 flex items-center gap-1.5 font-medium hover:bg-emerald-50 dark:hover:bg-emerald-900/20 rounded-lg transition-all"
+                             title="Print or Save as PDF"
                           >
                               <Printer size={14} /> Print PDF
                           </button>
-                          <button 
-                             onClick={handleExportImage}
-                             disabled={isProcessing}
-                             className="text-sm px-3 py-1.5 text-blue-600 hover:text-blue-700 dark:text-blue-400 dark:hover:text-blue-300 flex items-center gap-1.5 font-medium hover:bg-blue-50 dark:hover:bg-blue-900/20 rounded-lg transition-all disabled:opacity-50 disabled:cursor-not-allowed"
-                          >
-                              <ImageIcon size={14} /> {isProcessing ? "Generating..." : "Save Image"}
-                          </button>
+                          <div className="flex items-center gap-1 bg-blue-50 dark:bg-blue-900/20 rounded-lg p-0.5 border border-blue-100 dark:border-blue-900/30">
+                              <button 
+                                 onClick={() => handleExportImage('download')}
+                                 disabled={isProcessing}
+                                 className="text-sm px-2.5 py-1 text-blue-600 hover:text-blue-700 dark:text-blue-400 dark:hover:text-blue-300 flex items-center gap-1.5 font-medium hover:bg-white dark:hover:bg-blue-900/50 rounded-md transition-all disabled:opacity-50 disabled:cursor-not-allowed"
+                                 title="Download as PNG Image"
+                              >
+                                  <ImageIcon size={14} /> Save Img
+                              </button>
+                              <div className="w-px h-3 bg-blue-200 dark:bg-blue-800"></div>
+                              <button 
+                                 onClick={() => handleExportImage('copy')}
+                                 disabled={isProcessing}
+                                 className="text-sm px-2 py-1 text-blue-600 hover:text-blue-700 dark:text-blue-400 dark:hover:text-blue-300 flex items-center gap-1.5 font-medium hover:bg-white dark:hover:bg-blue-900/50 rounded-md transition-all disabled:opacity-50 disabled:cursor-not-allowed"
+                                 title="Copy Image to Clipboard"
+                              >
+                                  <Copy size={14} />
+                              </button>
+                          </div>
                       </div>
                   </div>
               </div>
