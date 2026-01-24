@@ -431,7 +431,7 @@ export function SimpleCodeEditor({
                 {/* Line Numbers */}
                 <div
                     ref={lineNumbersRef}
-                    className="hidden sm:block w-10 shrink-0 text-right pr-2 pt-4 pb-4 bg-slate-50 dark:bg-slate-900/50 text-slate-300 dark:text-slate-600 text-xs font-mono select-none overflow-hidden"
+                    className="hidden sm:block w-9 shrink-0 text-right pr-2 pt-3 pb-3 bg-slate-50 dark:bg-slate-900/50 text-slate-300 dark:text-slate-600 text-xs font-mono select-none overflow-hidden"
                 >
                     {lineNumbers.map(n => (
                         <div key={n} className="leading-[24px]">{n}</div>
@@ -443,10 +443,10 @@ export function SimpleCodeEditor({
                     <div 
                         ref={jsonOverlayRef}
                         className="absolute top-0 left-0 right-0 bottom-0 pointer-events-none overflow-auto"
-                        style={{ paddingLeft: 'calc(2.5rem)' }}
+                        style={{ paddingLeft: 'calc(2.25rem)' }}
                     >
                         <pre 
-                            className="p-4 text-[14px] leading-[24px] whitespace-pre"
+                            className="p-3 text-[14px] leading-[24px] whitespace-pre"
                             style={{ fontFamily: "'JetBrains Mono', 'Fira Code', 'SF Mono', Menlo, Consolas, monospace" }}
                             dangerouslySetInnerHTML={{ __html: highlightedJson }}
                         />
@@ -458,10 +458,10 @@ export function SimpleCodeEditor({
                     <div 
                         ref={yamlOverlayRef}
                         className="absolute top-0 left-0 right-0 bottom-0 pointer-events-none overflow-auto"
-                        style={{ paddingLeft: 'calc(2.5rem)' }}
+                        style={{ paddingLeft: 'calc(2.25rem)' }}
                     >
                         <pre 
-                            className="p-4 text-[14px] leading-[24px] whitespace-pre"
+                            className="p-3 text-[14px] leading-[24px] whitespace-pre"
                             style={{ fontFamily: "'JetBrains Mono', 'Fira Code', 'SF Mono', Menlo, Consolas, monospace" }}
                             dangerouslySetInnerHTML={{ __html: highlightedYaml }}
                         />
@@ -473,10 +473,10 @@ export function SimpleCodeEditor({
                     <div 
                         ref={tomlOverlayRef}
                         className="absolute top-0 left-0 right-0 bottom-0 pointer-events-none overflow-auto"
-                        style={{ paddingLeft: 'calc(2.5rem)' }}
+                        style={{ paddingLeft: 'calc(2.25rem)' }}
                     >
                         <pre 
-                            className="p-4 text-[14px] leading-[24px] whitespace-pre"
+                            className="p-3 text-[14px] leading-[24px] whitespace-pre"
                             style={{ fontFamily: "'JetBrains Mono', 'Fira Code', 'SF Mono', Menlo, Consolas, monospace" }}
                             dangerouslySetInnerHTML={{ __html: highlightedToml }}
                         />
@@ -488,10 +488,10 @@ export function SimpleCodeEditor({
                     <div 
                         ref={csvOverlayRef}
                         className="absolute top-0 left-0 right-0 bottom-0 pointer-events-none overflow-auto"
-                        style={{ paddingLeft: 'calc(2.5rem)' }}
+                        style={{ paddingLeft: 'calc(2.25rem)' }}
                     >
                         <pre 
-                            className="p-4 text-[14px] leading-[24px] whitespace-pre"
+                            className="p-3 text-[14px] leading-[24px] whitespace-pre"
                             style={{ fontFamily: "'JetBrains Mono', 'Fira Code', 'SF Mono', Menlo, Consolas, monospace" }}
                             dangerouslySetInnerHTML={{ __html: highlightedCsv }}
                         />
@@ -507,7 +507,7 @@ export function SimpleCodeEditor({
                     readOnly={readOnly}
                     onScroll={handleScroll}
                     placeholder={placeholder}
-                    className={`flex-1 w-full h-full p-4 resize-none outline-none border-none bg-transparent text-[14px] leading-[24px] placeholder:text-slate-400 whitespace-pre text-left overflow-auto ${
+                    className={`flex-1 w-full h-full p-3 resize-none outline-none border-none bg-transparent text-[14px] leading-[24px] placeholder:text-slate-400 whitespace-pre text-left overflow-auto ${
                         (language === "json" || language === "yaml" || language === "csv" || language === "toml") && value
                             ? "text-transparent caret-slate-800 dark:caret-slate-200"
                             : "text-slate-800 dark:text-slate-200"
