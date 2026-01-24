@@ -336,7 +336,7 @@ https://example.com/api/v1/checkout`;
         const canvas = await html2canvas(element, {
             backgroundColor: document.documentElement.classList.contains('dark') ? '#0f172a' : '#ffffff',
             scale: 2, 
-            useCORS: true,
+            useCORS: false,
             allowTaint: false,
             foreignObjectRendering: false,
             logging: false,
@@ -382,9 +382,9 @@ https://example.com/api/v1/checkout`;
                 }
             });
         }
-    } catch (error) {
+    } catch (error: any) {
         console.error('Image export failed:', error);
-        alert('Failed to create image. Try using the Print > Save as PDF option instead.');
+        alert(`Failed to create image: ${error.message || 'Unknown error'}`);
     } finally {
         setIsProcessing(false);
     }
