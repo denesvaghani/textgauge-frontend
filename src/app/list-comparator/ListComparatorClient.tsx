@@ -361,7 +361,7 @@ https://example.com/api/v1/checkout`;
             className="hidden" 
           />
           {/* Controls - Modern Design - Sticky Header */}
-          <div className="sticky top-4 z-40 mb-6 transition-all duration-200">
+          <div className="sticky top-20 z-40 mb-6 transition-all duration-200">
               {/* Gradient border effect */}
               <div className="absolute inset-0 bg-gradient-to-r from-violet-500/20 via-indigo-500/20 to-violet-500/20 rounded-xl blur-sm"></div>
               <div className="relative bg-white/90 dark:bg-slate-900/90 backdrop-blur-md p-4 rounded-xl border border-slate-200 dark:border-slate-800 shadow-lg">
