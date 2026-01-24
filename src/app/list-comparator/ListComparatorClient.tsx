@@ -5,9 +5,9 @@ import { SchemaMarkup } from "@/components/SchemaMarkup";
 import { SmartHeroHeader } from "@/components/SmartHeroHeader";
 import { flowerThemes } from "@/config/flowerThemes";
 import { DynamicAd } from "@/components/DynamicAd";
-import { Copy, Download, Trash2, ArrowRightLeft, ArrowRight, ArrowLeft, Upload, Camera, Printer, Image as ImageIcon } from "lucide-react";
+import { Copy, Download, Trash2, ArrowRightLeft, ArrowRight, ArrowLeft, Upload, Camera, Printer } from "lucide-react";
 import { useState, useCallback, useEffect, useRef } from "react";
-import html2canvas from "html2canvas";
+
 
 export default function ListComparatorClient() {
   const theme = flowerThemes.protea; // distinct theme
@@ -327,68 +327,7 @@ https://example.com/api/v1/checkout`;
     }
   };
 
-  const handleExportImage = async (action: 'download' | 'copy' = 'download') => {
-    if (!resultsRef.current) return;
-    setIsProcessing(true);
-    
-    try {
-        const element = resultsRef.current;
-        const canvas = await html2canvas(element, {
-            backgroundColor: document.documentElement.classList.contains('dark') ? '#0f172a' : '#ffffff',
-            scale: 2, 
-            useCORS: false,
-            allowTaint: false,
-            foreignObjectRendering: false,
-            logging: false,
-            ignoreElements: (element) => {
-                return element.tagName === 'BUTTON' || element.classList.contains('lucide');
-            },
-            onclone: (clonedDoc) => {
-                const textareas = clonedDoc.getElementsByTagName('textarea');
-                for (let i = 0; i < textareas.length; i++) {
-                    textareas[i].style.height = 'auto';
-                    textareas[i].style.height = textareas[i].scrollHeight + 'px';
-                    textareas[i].style.overflow = 'visible';
-                }
-                const grid = clonedDoc.querySelector('.grid') as HTMLElement;
-                if (grid) {
-                    grid.style.overflow = 'visible';
-                    grid.style.height = 'auto';
-                }
-            }
-        });
 
-        if (action === 'download') {
-            const link = document.createElement('a');
-            link.download = `list-comparison-${new Date().toISOString().slice(0,10)}.png`;
-            link.href = canvas.toDataURL('image/png');
-            link.click();
-        } else {
-            canvas.toBlob(async (blob) => {
-                if (!blob) throw new Error('Failed to generate image blob');
-                try {
-                    await navigator.clipboard.write([
-                        new ClipboardItem({ 'image/png': blob })
-                    ]);
-                    alert('Image copied to clipboard!');
-                } catch (err) {
-                    console.error('Clipboard write failed:', err);
-                    alert('Failed to copy to clipboard. Downloading instead.');
-                    // Fallback to download
-                    const link = document.createElement('a');
-                    link.download = `list-comparison-${new Date().toISOString().slice(0,10)}.png`;
-                    link.href = canvas.toDataURL('image/png');
-                    link.click();
-                }
-            });
-        }
-    } catch (error: any) {
-        console.error('Image export failed:', error);
-        alert(`Failed to create image: ${error.message || 'Unknown error'}`);
-    } finally {
-        setIsProcessing(false);
-    }
-  };
 
   return (
     <FlowerBackground theme={theme} badgeText="List Comparator">
@@ -502,25 +441,7 @@ https://example.com/api/v1/checkout`;
                           >
                               <Printer size={14} /> Print PDF
                           </button>
-                          <div className="flex items-center gap-1 bg-blue-50 dark:bg-blue-900/20 rounded-lg p-0.5 border border-blue-100 dark:border-blue-900/30">
-                              <button 
-                                 onClick={() => handleExportImage('download')}
-                                 disabled={isProcessing}
-                                 className="text-sm px-2.5 py-1 text-blue-600 hover:text-blue-700 dark:text-blue-400 dark:hover:text-blue-300 flex items-center gap-1.5 font-medium hover:bg-white dark:hover:bg-blue-900/50 rounded-md transition-all disabled:opacity-50 disabled:cursor-not-allowed"
-                                 title="Download as PNG Image"
-                              >
-                                  <ImageIcon size={14} /> Save Img
-                              </button>
-                              <div className="w-px h-3 bg-blue-200 dark:bg-blue-800"></div>
-                              <button 
-                                 onClick={() => handleExportImage('copy')}
-                                 disabled={isProcessing}
-                                 className="text-sm px-2 py-1 text-blue-600 hover:text-blue-700 dark:text-blue-400 dark:hover:text-blue-300 flex items-center gap-1.5 font-medium hover:bg-white dark:hover:bg-blue-900/50 rounded-md transition-all disabled:opacity-50 disabled:cursor-not-allowed"
-                                 title="Copy Image to Clipboard"
-                              >
-                                  <Copy size={14} />
-                              </button>
-                          </div>
+
                       </div>
                   </div>
               </div>
