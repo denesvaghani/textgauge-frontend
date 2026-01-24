@@ -395,7 +395,7 @@ export function Editor() {
                     e.preventDefault();
                     transformSelection(toTitleCase);
                   }}
-                  className="hidden sm:block rounded-md bg-emerald-500 px-3 py-1.5 font-bold text-white shadow-sm shadow-emerald-500/20 hover:bg-emerald-600 hover:shadow-emerald-500/30 transition-all active:scale-95"
+                  className="hidden sm:block rounded-md bg-emerald-600 px-3 py-1.5 font-bold text-white shadow-sm shadow-emerald-500/20 hover:bg-emerald-700 hover:shadow-emerald-500/30 transition-all active:scale-95"
                 >
                   Title
                 </button>
@@ -408,7 +408,7 @@ export function Editor() {
                     e.preventDefault();
                     transformSelection(toSentenceCase);
                   }}
-                  className="hidden sm:block rounded-md bg-emerald-500 px-3 py-1.5 font-bold text-white shadow-sm shadow-emerald-500/20 hover:bg-emerald-600 hover:shadow-emerald-500/30 transition-all active:scale-95"
+                  className="hidden sm:block rounded-md bg-emerald-600 px-3 py-1.5 font-bold text-white shadow-sm shadow-emerald-500/20 hover:bg-emerald-700 hover:shadow-emerald-500/30 transition-all active:scale-95"
                 >
                   Sentence
                 </button>
@@ -421,7 +421,7 @@ export function Editor() {
                     e.preventDefault();
                     transformSelection((s) => s.toLowerCase());
                   }}
-                  className="hidden sm:block rounded-md bg-emerald-500 px-3 py-1.5 font-bold text-white shadow-sm shadow-emerald-500/20 hover:bg-emerald-600 hover:shadow-emerald-500/30 transition-all active:scale-95"
+                  className="hidden sm:block rounded-md bg-emerald-600 px-3 py-1.5 font-bold text-white shadow-sm shadow-emerald-500/20 hover:bg-emerald-700 hover:shadow-emerald-500/30 transition-all active:scale-95"
                 >
                   lower
                 </button>
@@ -434,7 +434,7 @@ export function Editor() {
                     e.preventDefault();
                     transformSelection((s) => s.toUpperCase());
                   }}
-                  className="hidden sm:block rounded-md bg-emerald-500 px-3 py-1.5 font-bold text-white shadow-sm shadow-emerald-500/20 hover:bg-emerald-600 hover:shadow-emerald-500/30 transition-all active:scale-95"
+                  className="hidden sm:block rounded-md bg-emerald-600 px-3 py-1.5 font-bold text-white shadow-sm shadow-emerald-500/20 hover:bg-emerald-700 hover:shadow-emerald-500/30 transition-all active:scale-95"
                 >
                   UPPER
                 </button>
@@ -447,7 +447,7 @@ export function Editor() {
                     e.preventDefault();
                     transformSelection(toSnakeCase);
                   }}
-                  className="hidden sm:block rounded-md bg-emerald-500 px-3 py-1.5 font-bold text-white shadow-sm shadow-emerald-500/20 hover:bg-emerald-600 hover:shadow-emerald-500/30 transition-all active:scale-95"
+                  className="hidden sm:block rounded-md bg-emerald-600 px-3 py-1.5 font-bold text-white shadow-sm shadow-emerald-500/20 hover:bg-emerald-700 hover:shadow-emerald-500/30 transition-all active:scale-95"
                 >
                   snake_case
                 </button>
@@ -635,6 +635,7 @@ function StatsBar({ metrics, limit, onLimitChange }: { metrics: Metrics; limit: 
              <select
                 value={limit}
                 onChange={(e) => onLimitChange(Number(e.target.value))}
+                aria-label="Character count limit preset"
                 className="p-1.5 bg-slate-50 dark:bg-slate-700 border border-slate-200 dark:border-slate-600 rounded text-xs font-medium text-slate-800 dark:text-white outline-none focus:ring-1 focus:ring-indigo-500 cursor-pointer min-w-[140px]"
              >
                 {LIMIT_PRESETS.map(p => (

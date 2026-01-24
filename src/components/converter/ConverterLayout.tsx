@@ -60,6 +60,7 @@ export function ConverterLayout({ defaultFrom = 'json', defaultTo = 'yaml' }: Co
                     <select
                         value={fromFormat}
                         onChange={(e) => setFromFormat(e.target.value as ConversionFormat)}
+                        aria-label="Source format"
                         className="p-2 rounded-lg border border-slate-300 dark:border-slate-700 bg-transparent font-medium focus:ring-2 focus:ring-indigo-500"
                     >
                         {FORMATS.map(f => <option key={f.value} value={f.value}>{f.label}</option>)}
@@ -70,6 +71,7 @@ export function ConverterLayout({ defaultFrom = 'json', defaultTo = 'yaml' }: Co
                     <select
                         value={toFormat}
                         onChange={(e) => setToFormat(e.target.value as ConversionFormat)}
+                        aria-label="Target format"
                         className="p-2 rounded-lg border border-slate-300 dark:border-slate-700 bg-transparent font-medium focus:ring-2 focus:ring-indigo-500"
                     >
                         {FORMATS.map(f => <option key={f.value} value={f.value}>{f.label}</option>)}
