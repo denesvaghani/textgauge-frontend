@@ -204,7 +204,7 @@ export function Formatter({
       />
 
       {/* Main Content */}
-      <main className="flex-1 flex flex-col min-h-0 w-full max-w-[1920px] mx-auto px-4 sm:px-6 lg:px-8 py-4">
+      <main className="flex-1 flex flex-col min-h-0 w-full py-4">
 
         {/* Layout Container - Optimized for Maximum Editor Space */}
         <div className="flex flex-col lg:flex-row gap-4 h-full">
