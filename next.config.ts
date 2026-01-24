@@ -4,12 +4,34 @@ const nextConfig: NextConfig = {
   /* config options here */
   reactCompiler: true,
 
+  // Modern browser targeting - removes unnecessary polyfills
+  compiler: {
+    removeConsole: process.env.NODE_ENV === 'production',
+  },
+
+  // Optimize images
+  images: {
+    formats: ['image/avif', 'image/webp'],
+    minimumCacheTTL: 31536000, // 1 year
+  },
+
+  // Enable compression
+  compress: true,
+  
+  // Strict mode for better debugging
+  reactStrictMode: true,
+
   // Security headers including CSP
   async headers() {
     return [
       {
         source: "/:path*",
         headers: [
+          // Cache control for static assets
+          {
+            key: "Cache-Control",
+            value: "public, max-age=31536000, immutable",
+          },
           {
             key: "Content-Security-Policy",
             value: [
@@ -42,6 +64,25 @@ const nextConfig: NextConfig = {
           {
             key: "Permissions-Policy",
             value: "camera=(), microphone=(), geolocation=()",
+          },
+        ],
+      },
+      // Different cache for fonts and images
+      {
+        source: "/:all*.(woff|woff2|ttf|otf)",
+        headers: [
+          {
+            key: "Cache-Control",
+            value: "public, max-age=31536000, immutable",
+          },
+        ],
+      },
+      {
+        source: "/:all*.(jpg|jpeg|gif|png|svg|ico|webp|avif)",
+        headers: [
+          {
+            key: "Cache-Control",
+            value: "public, max-age=31536000, immutable",
           },
         ],
       },

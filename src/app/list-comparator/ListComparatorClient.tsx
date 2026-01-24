@@ -431,6 +431,7 @@ https://example.com/api/v1/checkout`;
                           <select 
                              value={delimiter}
                              onChange={(e) => setDelimiter(e.target.value as any)}
+                             aria-label="List delimiter"
                              className="text-sm px-3 py-1.5 border border-slate-200 dark:border-slate-700 rounded-lg bg-white dark:bg-slate-800 text-slate-700 dark:text-slate-300 hover:border-violet-400 dark:hover:border-violet-500 focus:outline-none focus:ring-2 focus:ring-violet-500/20 transition-all"
                           >
                               <option value="auto">Auto (Comma/NewLine)</option>

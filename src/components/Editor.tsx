@@ -635,6 +635,7 @@ function StatsBar({ metrics, limit, onLimitChange }: { metrics: Metrics; limit: 
              <select
                 value={limit}
                 onChange={(e) => onLimitChange(Number(e.target.value))}
+                aria-label="Character count limit preset"
                 className="p-1.5 bg-slate-50 dark:bg-slate-700 border border-slate-200 dark:border-slate-600 rounded text-xs font-medium text-slate-800 dark:text-white outline-none focus:ring-1 focus:ring-indigo-500 cursor-pointer min-w-[140px]"
              >
                 {LIMIT_PRESETS.map(p => (
