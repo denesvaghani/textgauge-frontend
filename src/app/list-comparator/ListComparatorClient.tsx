@@ -34,80 +34,92 @@ export default function ListComparatorClient() {
   const [missingInB, setMissingInB] = useState<string[]>([]); // A - B
   const [missingInA, setMissingInA] = useState<string[]>([]); // B - A
   const [inBoth, setInBoth] = useState<string[]>([]); // A ∩ B (intersection)
+  const [isProcessing, setIsProcessing] = useState(false);
 
   // Processing Logic
+  // Processing Logic
   const processLists = useCallback(() => {
-    // 1. Tokenizer
-    const tokenize = (text: string) => {
-      if (!text.trim()) return [];
-      let items: string[] = [];
-      
-      if (delimiter === "newline") {
-        items = text.split(/\n+/);
-      } else if (delimiter === "comma") {
-        items = text.split(/,/);
-      } else if (delimiter === "semicolon") {
-        items = text.split(/;/);
-      } else if (delimiter === "pipe") {
-        items = text.split(/\|/);
-      } else if (delimiter === "tab") {
-        items = text.split(/\t+/);
-      } else if (delimiter === "custom" && customDelimiter) {
-        // Escape special regex characters in custom delimiter
-        const escaped = customDelimiter.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
-        items = text.split(new RegExp(escaped));
-      } else {
-        // Auto: split by comma or newline (but preserve spaces for URLs)
-        items = text.split(/[,\n]+/);
-      }
-      
-      return items
-        .map(i => i.trim())
-        .filter(i => i.length > 0);
-    };
-
-    const listA = tokenize(inputA);
-    const listB = tokenize(inputB);
-
-    // Track original count
-    setTotalCountA(listA.length);
-    setTotalCountB(listB.length);
-
-    // 2. Normalize if needed
-    const normalize = (s: string) => caseSensitive ? s : s.toLowerCase();
-
-    // 3. Unique A
-    const setA_Raw = new Set(listA);
-    const setA_Normalized = new Set(listA.map(normalize));
+    setIsProcessing(true);
     
-    setUniqueA(Array.from(setA_Raw));
-
-    // 4. Comparison (if Input B exists)
-    if (listB.length > 0 || showInputB) {
-        // Correct Set Logic for O(N)
-        const setB_Normalized = new Set(listB.map(normalize));
-
-        const inA_notInB = listA.filter(item => !setB_Normalized.has(normalize(item)));
-        // Deduplicate result
-        setMissingInB(Array.from(new Set(inA_notInB)));
-
-        const inB_notInA = listB.filter(item => !setA_Normalized.has(normalize(item)));
-        setMissingInA(Array.from(new Set(inB_notInA)));
-
-        // Intersection: items in both A and B
-        const intersection = listA.filter(item => setB_Normalized.has(normalize(item)));
-        setInBoth(Array.from(new Set(intersection)));
-    } else {
-        setMissingInB([]);
-        setMissingInA([]);
-        setInBoth([]);
-    }
-
+    // Use timeout to allow UI to update with loading state
+    setTimeout(() => {
+        // 1. Tokenizer
+        const tokenize = (text: string) => {
+          if (!text.trim()) return [];
+          let items: string[] = [];
+          
+          if (delimiter === "newline") {
+            items = text.split(/\n+/);
+          } else if (delimiter === "comma") {
+            items = text.split(/,/);
+          } else if (delimiter === "semicolon") {
+            items = text.split(/;/);
+          } else if (delimiter === "pipe") {
+            items = text.split(/\|/);
+          } else if (delimiter === "tab") {
+            items = text.split(/\t+/);
+          } else if (delimiter === "custom" && customDelimiter) {
+            // Escape special regex characters in custom delimiter
+            const escaped = customDelimiter.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+            items = text.split(new RegExp(escaped));
+          } else {
+            // Auto: split by comma or newline (but preserve spaces for URLs)
+            items = text.split(/[,\n]+/);
+          }
+          
+          return items
+            .map(i => i.trim())
+            .filter(i => i.length > 0);
+        };
+    
+        const listA = tokenize(inputA);
+        const listB = tokenize(inputB);
+    
+        // Track original count
+        setTotalCountA(listA.length);
+        setTotalCountB(listB.length);
+    
+        // 2. Normalize if needed
+        const normalize = (s: string) => caseSensitive ? s : s.toLowerCase();
+    
+        // 3. Unique A
+        const setA_Raw = new Set(listA);
+        const setA_Normalized = new Set(listA.map(normalize));
+        
+        setUniqueA(Array.from(setA_Raw));
+    
+        // 4. Comparison (if Input B exists)
+        if (listB.length > 0 || showInputB) {
+            // Correct Set Logic for O(N)
+            const setB_Normalized = new Set(listB.map(normalize));
+    
+            const inA_notInB = listA.filter(item => !setB_Normalized.has(normalize(item)));
+            // Deduplicate result
+            setMissingInB(Array.from(new Set(inA_notInB)));
+    
+            const inB_notInA = listB.filter(item => !setA_Normalized.has(normalize(item)));
+            setMissingInA(Array.from(new Set(inB_notInA)));
+    
+            // Intersection: items in both A and B
+            const intersection = listA.filter(item => setB_Normalized.has(normalize(item)));
+            setInBoth(Array.from(new Set(intersection)));
+        } else {
+            setMissingInB([]);
+            setMissingInA([]);
+            setInBoth([]);
+        }
+        
+        setIsProcessing(false);
+    }, 10); // Small delay to unblock main thread
   }, [inputA, inputB, delimiter, customDelimiter, caseSensitive, showInputB]);
 
   // Auto-process on input change (debounced could differ, but instant is fine for text)
   useEffect(() => {
-    processLists();
+    // Debounce to prevent flashing loading state
+    const timer = setTimeout(() => {
+        processLists();
+    }, 300);
+    return () => clearTimeout(timer);
   }, [processLists]);
 
   // Helper: Copy/Download
@@ -115,12 +127,28 @@ export default function ListComparatorClient() {
     navigator.clipboard.writeText(items.join("\n"));
   };
 
-  const handleDownload = (items: string[], filename: string) => {
-    const blob = new Blob([items.join("\n")], { type: "text/plain" });
+  const handleDownload = (items: string[], filename: string, format: "txt" | "csv" | "json" = "txt") => {
+    let content = "";
+    let type = "text/plain";
+    let finalFilename = filename;
+
+    if (format === "csv") {
+        content = items.map(i => `"${i.replace(/"/g, '""')}"`).join("\n");
+        type = "text/csv";
+        finalFilename = filename.replace(".txt", ".csv");
+    } else if (format === "json") {
+        content = JSON.stringify(items, null, 2);
+        type = "application/json";
+        finalFilename = filename.replace(".txt", ".json");
+    } else {
+        content = items.join("\n");
+    }
+
+    const blob = new Blob([content], { type });
     const url = URL.createObjectURL(blob);
     const a = document.createElement("a");
     a.href = url;
-    a.download = filename;
+    a.download = finalFilename;
     a.click();
     URL.revokeObjectURL(url);
   };
@@ -255,7 +283,7 @@ https://example.com/api/v1/checkout`;
                   <div className="flex flex-wrap gap-4 items-center justify-between">
                       {/* Left section - Main controls */}
                       <div className="flex flex-wrap items-center gap-4">
-                          <label className="flex items-center gap-2.5 text-sm font-medium text-slate-700 dark:text-slate-300 cursor-pointer group">
+                          <label className="flex items-center gap-3 text-sm font-medium text-slate-700 dark:text-slate-300 cursor-pointer group">
                               <div className="relative">
                                   <input 
                                      type="checkbox" 
@@ -263,10 +291,13 @@ https://example.com/api/v1/checkout`;
                                      onChange={e => setShowInputB(e.target.checked)}
                                      className="sr-only peer"
                                   />
-                                  <div className="w-11 h-6 bg-slate-200 dark:bg-slate-700 rounded-full peer peer-checked:bg-gradient-to-r peer-checked:from-violet-500 peer-checked:to-indigo-500 transition-all"></div>
-                                  <div className="absolute left-1 top-1 w-4 h-4 bg-white rounded-full transition-transform peer-checked:translate-x-5 shadow-sm"></div>
+                                  <div className="w-14 h-7 bg-slate-200 dark:bg-slate-700 rounded-full peer peer-checked:bg-gradient-to-r peer-checked:from-violet-500 peer-checked:to-indigo-500 transition-all"></div>
+                                  <div className="absolute left-1 top-1 w-5 h-5 bg-white rounded-full transition-transform peer-checked:translate-x-7 shadow-md"></div>
                               </div>
-                              <span className="group-hover:text-violet-600 dark:group-hover:text-violet-400 transition-colors">Compare Two Lists</span>
+                              <div className="flex flex-col">
+                                  <span className="group-hover:text-violet-600 dark:group-hover:text-violet-400 transition-colors font-semibold">Compare Two Lists</span>
+                                  <span className="text-xs text-slate-400 dark:text-slate-500">{showInputB ? "Finding differences" : "Extracting unique items"}</span>
+                              </div>
                           </label>
                           <div className="h-8 w-px bg-gradient-to-b from-transparent via-slate-300 dark:via-slate-600 to-transparent"></div>
                           <select 
@@ -283,13 +314,16 @@ https://example.com/api/v1/checkout`;
                               <option value="custom">Custom</option>
                           </select>
                           {delimiter === "custom" && (
-                              <input
-                                  type="text"
-                                  value={customDelimiter}
-                                  onChange={(e) => setCustomDelimiter(e.target.value)}
-                                  placeholder="Enter delimiter"
-                                  className="text-sm px-3 py-1.5 border border-slate-200 dark:border-slate-700 rounded-lg bg-white dark:bg-slate-800 w-32 focus:outline-none focus:ring-2 focus:ring-violet-500/20 transition-all"
-                              />
+                              <div className="flex items-center gap-2">
+                                  <span className="text-xs text-slate-500">Delimiter:</span>
+                                  <input
+                                      type="text"
+                                      value={customDelimiter}
+                                      onChange={(e) => setCustomDelimiter(e.target.value)}
+                                      placeholder="e.g. ; or |"
+                                      className="text-sm px-3 py-1.5 border border-violet-300 dark:border-violet-700 rounded-lg bg-violet-50 dark:bg-violet-900/30 w-24 focus:outline-none focus:ring-2 focus:ring-violet-500/20 transition-all placeholder:text-violet-300"
+                                  />
+                              </div>
                           )}
                           <label className="flex items-center gap-2 text-sm text-slate-600 dark:text-slate-400 cursor-pointer hover:text-slate-900 dark:hover:text-slate-200 transition-colors">
                               <input 
@@ -385,7 +419,17 @@ https://example.com/api/v1/checkout`;
 
           {/* Statistics Summary Bar */}
           {(totalCountA > 0 || totalCountB > 0) && (
-              <div className="mb-6 p-4 bg-white dark:bg-slate-900 rounded-xl border border-slate-200 dark:border-slate-800 shadow-sm">
+              <div className="mb-6 p-4 bg-white dark:bg-slate-900 rounded-xl border border-slate-200 dark:border-slate-800 shadow-sm relative overflow-hidden">
+                  {isProcessing && (
+                      <div className="absolute inset-0 bg-white/80 dark:bg-slate-900/80 flex items-center justify-center z-10 backdrop-blur-sm">
+                          <div className="flex items-center gap-2 text-violet-600 font-medium animate-pulse">
+                              <span className="w-2 h-2 rounded-full bg-violet-600 animate-bounce"></span>
+                              <span className="w-2 h-2 rounded-full bg-violet-600 animate-bounce delay-100"></span>
+                              <span className="w-2 h-2 rounded-full bg-violet-600 animate-bounce delay-200"></span>
+                              Processing...
+                          </div>
+                      </div>
+                  )}
                   <div className="flex flex-wrap items-center gap-4 justify-center">
                       <div className="flex items-center gap-2">
                           <span className="text-sm text-slate-600 dark:text-slate-400">List A:</span>
@@ -424,7 +468,6 @@ https://example.com/api/v1/checkout`;
 
           {/* Results Grid */}
           <div ref={resultsRef} className={`grid gap-6 ${showInputB ? "md:grid-cols-2 lg:grid-cols-4" : "grid-cols-1"}`}>
-              
               {/* Card 1: Unique A */}
               <div className="bg-white dark:bg-slate-900 rounded-xl border border-slate-200 dark:border-slate-800 ring-1 ring-slate-200/50 dark:ring-slate-700/50 shadow-md overflow-hidden flex flex-col h-[28rem]">
                   <div className="p-4 border-b border-slate-100 dark:border-slate-800 bg-slate-50 dark:bg-slate-900/50 flex justify-between items-center">
@@ -453,9 +496,11 @@ https://example.com/api/v1/checkout`;
                       <button onClick={() => handleCopy(uniqueA)} className="p-2 hover:bg-slate-100 dark:hover:bg-slate-800 rounded text-slate-500" title="Copy to clipboard">
                           <Copy size={16} />
                       </button>
-                      <button onClick={() => handleDownload(uniqueA, "unique_list_a.txt")} className="p-2 hover:bg-slate-100 dark:hover:bg-slate-800 rounded text-slate-500" title="Download as TXT">
-                          <Download size={16} />
-                      </button>
+                      <div className="flex items-center gap-1 bg-slate-100 dark:bg-slate-800 rounded p-0.5">
+                          <button onClick={() => handleDownload(uniqueA, "unique_list_a.txt", "txt")} className="px-2 py-1.5 hover:bg-white dark:hover:bg-slate-700 rounded text-xs font-medium text-slate-600 dark:text-slate-400" title="Download TXT">TXT</button>
+                          <button onClick={() => handleDownload(uniqueA, "unique_list_a.txt", "csv")} className="px-2 py-1.5 hover:bg-white dark:hover:bg-slate-700 rounded text-xs font-medium text-slate-600 dark:text-slate-400" title="Download CSV">CSV</button>
+                          <button onClick={() => handleDownload(uniqueA, "unique_list_a.txt", "json")} className="px-2 py-1.5 hover:bg-white dark:hover:bg-slate-700 rounded text-xs font-medium text-slate-600 dark:text-slate-400" title="Download JSON">JSON</button>
+                      </div>
                   </div>
               </div>
 
@@ -494,9 +539,11 @@ https://example.com/api/v1/checkout`;
                             <button onClick={() => handleCopy(missingInB)} className="p-2 hover:bg-amber-100 dark:hover:bg-amber-900/30 rounded text-amber-700" title="Copy to clipboard">
                                 <Copy size={16} />
                             </button>
-                            <button onClick={() => handleDownload(missingInB, "in_a_missing_in_b.txt")} className="p-2 hover:bg-amber-100 dark:hover:bg-amber-900/30 rounded text-amber-700" title="Download as TXT">
-                                <Download size={16} />
-                            </button>
+                            <div className="flex items-center gap-1 bg-amber-100 dark:bg-amber-900/30 rounded p-0.5">
+                                <button onClick={() => handleDownload(missingInB, "in_a_missing_in_b.txt", "txt")} className="px-2 py-1.5 hover:bg-white dark:hover:bg-slate-800 rounded text-xs font-medium text-amber-700 dark:text-amber-200" title="Download TXT">TXT</button>
+                                <button onClick={() => handleDownload(missingInB, "in_a_missing_in_b.txt", "csv")} className="px-2 py-1.5 hover:bg-white dark:hover:bg-slate-800 rounded text-xs font-medium text-amber-700 dark:text-amber-200" title="Download CSV">CSV</button>
+                                <button onClick={() => handleDownload(missingInB, "in_a_missing_in_b.txt", "json")} className="px-2 py-1.5 hover:bg-white dark:hover:bg-slate-800 rounded text-xs font-medium text-amber-700 dark:text-amber-200" title="Download JSON">JSON</button>
+                            </div>
                         </div>
                     </div>
 
@@ -531,9 +578,11 @@ https://example.com/api/v1/checkout`;
                             <button onClick={() => handleCopy(inBoth)} className="p-2 hover:bg-emerald-100 dark:hover:bg-emerald-900/30 rounded text-emerald-700" title="Copy to clipboard">
                                 <Copy size={16} />
                             </button>
-                            <button onClick={() => handleDownload(inBoth, "in_both.txt")} className="p-2 hover:bg-emerald-100 dark:hover:bg-emerald-900/30 rounded text-emerald-700" title="Download as TXT">
-                                <Download size={16} />
-                            </button>
+                            <div className="flex items-center gap-1 bg-emerald-100 dark:bg-emerald-900/30 rounded p-0.5">
+                                <button onClick={() => handleDownload(inBoth, "in_both.txt", "txt")} className="px-2 py-1.5 hover:bg-white dark:hover:bg-slate-800 rounded text-xs font-medium text-emerald-700 dark:text-emerald-200" title="Download TXT">TXT</button>
+                                <button onClick={() => handleDownload(inBoth, "in_both.txt", "csv")} className="px-2 py-1.5 hover:bg-white dark:hover:bg-slate-800 rounded text-xs font-medium text-emerald-700 dark:text-emerald-200" title="Download CSV">CSV</button>
+                                <button onClick={() => handleDownload(inBoth, "in_both.txt", "json")} className="px-2 py-1.5 hover:bg-white dark:hover:bg-slate-800 rounded text-xs font-medium text-emerald-700 dark:text-emerald-200" title="Download JSON">JSON</button>
+                            </div>
                         </div>
                     </div>
                     {/* Card 4: Only in B (Missing in A) */}
