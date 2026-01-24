@@ -337,7 +337,7 @@ https://example.com/api/v1/checkout`;
             backgroundColor: document.documentElement.classList.contains('dark') ? '#0f172a' : '#ffffff',
             scale: 2, 
             useCORS: true,
-            allowTaint: true,
+            allowTaint: false,
             foreignObjectRendering: false,
             logging: false,
             ignoreElements: (element) => {
