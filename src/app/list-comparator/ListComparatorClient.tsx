@@ -7,6 +7,8 @@ import { flowerThemes } from "@/config/flowerThemes";
 import { DynamicAd } from "@/components/DynamicAd";
 import { Copy, Download, Trash2, ArrowRightLeft, ArrowRight, ArrowLeft, Upload, Camera, Printer } from "lucide-react";
 import { useState, useCallback, useEffect, useRef } from "react";
+import { parseFile, FILE_ACCEPT_ATTR } from "@/lib/file-parser";
+import { FileDropZone } from "@/components/FileDropZone";
 
 
 export default function ListComparatorClient() {
@@ -36,6 +38,10 @@ export default function ListComparatorClient() {
   const [missingInA, setMissingInA] = useState<string[]>([]); // B - A
   const [inBoth, setInBoth] = useState<string[]>([]); // A ∩ B (intersection)
   const [isProcessing, setIsProcessing] = useState(false);
+  
+  // Drag and drop state
+  const [isDraggingA, setIsDraggingA] = useState(false);
+  const [isDraggingB, setIsDraggingB] = useState(false);
 
   // Processing Logic
   // Processing Logic
@@ -175,10 +181,18 @@ https://example.com/api/v1/checkout`;
   };
 
   // File upload handler
-  const handleFileUpload = (e: React.ChangeEvent<HTMLInputElement>, target: 'A' | 'B') => {
+  const handleFileUpload = async (e: React.ChangeEvent<HTMLInputElement>, target: 'A' | 'B') => {
     const file = e.target.files?.[0];
     if (!file) return;
 
+    await processFile(file, target);
+    
+    // Reset input so same file can be re-uploaded
+    e.target.value = '';
+  };
+
+  // Process file (used by both upload and drag-drop)
+  const processFile = async (file: File, target: 'A' | 'B') => {
     // Check file size (5MB limit)
     if (file.size > MAX_FILE_SIZE) {
       alert(`File too large. Maximum size is 5MB.`);
@@ -186,27 +200,56 @@ https://example.com/api/v1/checkout`;
     }
 
     // Check file type
-    const validTypes = ['.txt', '.csv', '.text'];
+    const validTypes = ['.txt', '.csv', '.text', '.json', '.xlsx', '.xls', '.md'];
     const ext = file.name.toLowerCase().substring(file.name.lastIndexOf('.'));
     if (!validTypes.includes(ext)) {
-      alert('Please upload a .txt or .csv file.');
+      alert('Please upload a supported file type: TXT, CSV, JSON, Excel (.xlsx, .xls), or Markdown (.md)');
       return;
     }
 
-    const reader = new FileReader();
-    reader.onload = (event) => {
-      const content = event.target?.result as string;
+    try {
+      setIsProcessing(true);
+      const content = await parseFile(file);
+      
       if (target === 'A') {
         setInputA(content);
       } else {
         setInputB(content);
         setShowInputB(true);
       }
-    };
-    reader.readAsText(file);
+    } catch (error: any) {
+      alert(`Failed to parse file: ${error.message || 'Unknown error'}`);
+    } finally {
+      setIsProcessing(false);
+    }
+  };
+
+  // Drag and drop handlers
+  const handleDragOver = (e: React.DragEvent, target: 'A' | 'B') => {
+    e.preventDefault();
+    e.stopPropagation();
+    if (target === 'A') setIsDraggingA(true);
+    else setIsDraggingB(true);
+  };
+
+  const handleDragLeave = (e: React.DragEvent, target: 'A' | 'B') => {
+    e.preventDefault();
+    e.stopPropagation();
+    if (target === 'A') setIsDraggingA(false);
+    else setIsDraggingB(false);
+  };
+
+  const handleDrop = async (e: React.DragEvent, target: 'A' | 'B') => {
+    e.preventDefault();
+    e.stopPropagation();
     
-    // Reset input so same file can be re-uploaded
-    e.target.value = '';
+    if (target === 'A') setIsDraggingA(false);
+    else setIsDraggingB(false);
+
+    const file = e.dataTransfer.files?.[0];
+    if (file) {
+      await processFile(file, target);
+    }
   };
 
   // Export Features
@@ -350,14 +393,14 @@ https://example.com/api/v1/checkout`;
             type="file" 
             ref={fileInputARef} 
             onChange={(e) => handleFileUpload(e, 'A')} 
-            accept=".txt,.csv,.text"
+            accept={FILE_ACCEPT_ATTR}
             className="hidden" 
           />
           <input 
             type="file" 
             ref={fileInputBRef} 
             onChange={(e) => handleFileUpload(e, 'B')} 
-            accept=".txt,.csv,.text"
+            accept={FILE_ACCEPT_ATTR}
             className="hidden" 
           />
           {/* Controls - Modern Design - Sticky Header */}
@@ -450,57 +493,35 @@ https://example.com/api/v1/checkout`;
           {/* Inputs Grid */}
           <div className={`grid gap-6 mb-8 ${showInputB ? "md:grid-cols-2" : "grid-cols-1"}`}>
               {/* Input A */}
-              <div className="flex flex-col gap-2">
-                   <label className="flex items-center gap-2">
-                       <span className="text-lg">📝</span>
-                       <span className="font-bold bg-gradient-to-r from-violet-600 to-indigo-600 dark:from-violet-400 dark:to-indigo-400 bg-clip-text text-transparent">
-                           List A
-                       </span>
-                       <button
-                           onClick={() => fileInputARef.current?.click()}
-                           className="text-xs px-2.5 py-1 text-violet-600 dark:text-violet-400 border border-violet-200 dark:border-violet-800 bg-violet-50 dark:bg-violet-900/30 hover:bg-violet-100 dark:hover:bg-violet-900/50 flex items-center gap-1.5 rounded-md transition-all font-medium"
-                           title="Upload file (.txt, .csv) - Max 5MB"
-                       >
-                           <Upload size={12} /> Upload
-                       </button>
-                       <span className="ml-auto font-normal text-slate-400 text-sm">
-                           {totalCountA > 0 && `${totalCountA} items`}
-                       </span>
-                   </label>
-                  <textarea
-                      value={inputA}
-                      onChange={(e) => setInputA(e.target.value)}
-                      placeholder="Paste your text here... (IDs separated by newlines, commas, or paragraphs)"
-                      className="w-full h-64 p-4 font-mono text-sm leading-6 text-slate-800 dark:text-slate-100 bg-white dark:bg-slate-900 border-2 border-slate-200 dark:border-slate-700 rounded-xl focus:ring-2 focus:ring-violet-500/20 focus:border-violet-300 dark:focus:border-violet-600 outline-none resize-none placeholder:text-slate-400"
-                  />
-              </div>
+              <FileDropZone
+                value={inputA}
+                onChange={setInputA}
+                onFileUpload={(e) => handleFileUpload(e, 'A')}
+                onDragOver={(e) => handleDragOver(e, 'A')}
+                onDragLeave={(e) => handleDragLeave(e, 'A')}
+                onDrop={(e) => handleDrop(e, 'A')}
+                isDragging={isDraggingA}
+                label="List A"
+                theme="violet"
+                fileInputRef={fileInputARef}
+                itemCount={totalCountA}
+              />
 
               {/* Input B (Conditional) */}
               {showInputB && (
-                  <div className="flex flex-col gap-2">
-                      <label className="flex items-center gap-2">
-                          <span className="text-lg">📄</span>
-                          <span className="font-bold bg-gradient-to-r from-indigo-600 to-violet-600 dark:from-indigo-400 dark:to-violet-400 bg-clip-text text-transparent">
-                              List B
-                          </span>
-                          <button
-                              onClick={() => fileInputBRef.current?.click()}
-                              className="text-xs px-2.5 py-1 text-indigo-600 dark:text-indigo-400 border border-indigo-200 dark:border-indigo-800 bg-indigo-50 dark:bg-indigo-900/30 hover:bg-indigo-100 dark:hover:bg-indigo-900/50 flex items-center gap-1.5 rounded-md transition-all font-medium"
-                              title="Upload file (.txt, .csv) - Max 5MB"
-                          >
-                              <Upload size={12} /> Upload
-                          </button>
-                          <span className="ml-auto font-normal text-slate-400 text-sm">
-                              {totalCountB > 0 ? `${totalCountB} items` : "Comparison Target"}
-                          </span>
-                      </label>
-                      <textarea
-                          value={inputB}
-                          onChange={(e) => setInputB(e.target.value)}
-                          placeholder="Paste the second list to compare against..."
-                          className="w-full h-64 p-4 font-mono text-sm leading-6 text-slate-800 dark:text-slate-100 bg-white dark:bg-slate-900 border-2 border-slate-200 dark:border-slate-700 rounded-xl focus:ring-2 focus:ring-violet-500/20 focus:border-violet-300 dark:focus:border-violet-600 outline-none resize-none placeholder:text-slate-400"
-                      />
-                  </div>
+                  <FileDropZone
+                    value={inputB}
+                    onChange={setInputB}
+                    onFileUpload={(e) => handleFileUpload(e, 'B')}
+                    onDragOver={(e) => handleDragOver(e, 'B')}
+                    onDragLeave={(e) => handleDragLeave(e, 'B')}
+                    onDrop={(e) => handleDrop(e, 'B')}
+                    isDragging={isDraggingB}
+                    label="List B"
+                    theme="indigo"
+                    fileInputRef={fileInputBRef}
+                    itemCount={totalCountB}
+                  />
               )}
           </div>
 
