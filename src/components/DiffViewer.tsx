@@ -101,9 +101,16 @@ export function DiffViewer({ original, modified, viewMode, language }: DiffViewe
             return;
         }
 
-        setLoading(true);
+        // Start loading with a delay to prevent flash for fast operations
+        const timer = setTimeout(() => {
+            setLoading(true);
+        }, 150); // Only show loader if it takes > 150ms
+
         // Post message to worker
         workerRef.current?.postMessage({ original, modified });
+
+        // Cleanup timer if we finish fast
+        return () => clearTimeout(timer);
 
     }, [original, modified]);
 
