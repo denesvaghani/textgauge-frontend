@@ -8,6 +8,7 @@ import { DynamicAd } from "@/components/DynamicAd";
 import { Copy, Download, Trash2, ArrowRightLeft, ArrowRight, ArrowLeft, Upload, Camera, Printer } from "lucide-react";
 import { useState, useCallback, useEffect, useRef } from "react";
 import { parseFile, FILE_ACCEPT_ATTR } from "@/lib/file-parser";
+import { FileDropZone } from "@/components/FileDropZone";
 
 
 export default function ListComparatorClient() {
@@ -492,95 +493,35 @@ https://example.com/api/v1/checkout`;
           {/* Inputs Grid */}
           <div className={`grid gap-6 mb-8 ${showInputB ? "md:grid-cols-2" : "grid-cols-1"}`}>
               {/* Input A */}
-              <div className="flex flex-col gap-2">
-                   <label className="flex items-center gap-2">
-                       <span className="text-lg">📝</span>
-                       <span className="font-bold bg-gradient-to-r from-violet-600 to-indigo-600 dark:from-violet-400 dark:to-indigo-400 bg-clip-text text-transparent">
-                           List A
-                       </span>
-                       <button
-                           onClick={() => fileInputARef.current?.click()}
-                           className="text-xs px-2.5 py-1 text-violet-600 dark:text-violet-400 border border-violet-200 dark:border-violet-800 bg-violet-50 dark:bg-violet-900/30 hover:bg-violet-100 dark:hover:bg-violet-900/50 flex items-center gap-1.5 rounded-md transition-all font-medium"
-                           title="Upload file (TXT, CSV, JSON, Excel, Markdown) - Max 5MB"
-                       >
-                           <Upload size={12} /> Upload
-                       </button>
-                       <span className="ml-auto font-normal text-slate-400 text-sm">
-                           {totalCountA > 0 && `${totalCountA} items`}
-                       </span>
-                   </label>
-                  <div 
-                      onDragOver={(e) => handleDragOver(e, 'A')}
-                      onDragLeave={(e) => handleDragLeave(e, 'A')}
-                      onDrop={(e) => handleDrop(e, 'A')}
-                      className="relative"
-                  >
-                      <textarea
-                          value={inputA}
-                          onChange={(e) => setInputA(e.target.value)}
-                          placeholder="Paste your text here, or drag & drop a file (max 5MB)... Supports: TXT, CSV, JSON, Excel, Markdown"
-                          className={`w-full h-64 p-4 font-mono text-sm leading-6 text-slate-800 dark:text-slate-100 bg-white dark:bg-slate-900 border-2 rounded-xl focus:ring-2 focus:ring-violet-500/20 outline-none resize-none placeholder:text-slate-400 transition-all ${
-                              isDraggingA 
-                                  ? 'border-violet-400 dark:border-violet-500 bg-violet-50 dark:bg-violet-900/20' 
-                                  : 'border-slate-200 dark:border-slate-700 focus:border-violet-300 dark:focus:border-violet-600'
-                          }`}
-                      />
-                      {isDraggingA && (
-                          <div className="absolute inset-0 flex items-center justify-center bg-violet-100/80 dark:bg-violet-900/80 rounded-xl pointer-events-none">
-                              <div className="text-violet-700 dark:text-violet-300 font-semibold text-lg flex items-center gap-2">
-                                  <Upload size={24} />
-                                  Drop file here
-                              </div>
-                          </div>
-                      )}
-                  </div>
-              </div>
+              <FileDropZone
+                value={inputA}
+                onChange={setInputA}
+                onFileUpload={(e) => handleFileUpload(e, 'A')}
+                onDragOver={(e) => handleDragOver(e, 'A')}
+                onDragLeave={(e) => handleDragLeave(e, 'A')}
+                onDrop={(e) => handleDrop(e, 'A')}
+                isDragging={isDraggingA}
+                label="List A"
+                theme="violet"
+                fileInputRef={fileInputARef}
+                itemCount={totalCountA}
+              />
 
               {/* Input B (Conditional) */}
               {showInputB && (
-                  <div className="flex flex-col gap-2">
-                      <label className="flex items-center gap-2">
-                          <span className="text-lg">📄</span>
-                          <span className="font-bold bg-gradient-to-r from-indigo-600 to-violet-600 dark:from-indigo-400 dark:to-violet-400 bg-clip-text text-transparent">
-                              List B
-                          </span>
-                          <button
-                              onClick={() => fileInputBRef.current?.click()}
-                              className="text-xs px-2.5 py-1 text-indigo-600 dark:text-indigo-400 border border-indigo-200 dark:border-indigo-800 bg-indigo-50 dark:bg-indigo-900/30 hover:bg-indigo-100 dark:hover:bg-indigo-900/50 flex items-center gap-1.5 rounded-md transition-all font-medium"
-                              title="Upload file (TXT, CSV, JSON, Excel, Markdown) - Max 5MB"
-                          >
-                              <Upload size={12} /> Upload
-                          </button>
-                          <span className="ml-auto font-normal text-slate-400 text-sm">
-                              {totalCountB > 0 ? `${totalCountB} items` : "Comparison Target"}
-                          </span>
-                      </label>
-                      <div 
-                          onDragOver={(e) => handleDragOver(e, 'B')}
-                          onDragLeave={(e) => handleDragLeave(e, 'B')}
-                          onDrop={(e) => handleDrop(e, 'B')}
-                          className="relative"
-                      >
-                          <textarea
-                              value={inputB}
-                              onChange={(e) => setInputB(e.target.value)}
-                              placeholder="Paste the second list, or drag & drop a file (max 5MB)..."
-                              className={`w-full h-64 p-4 font-mono text-sm leading-6 text-slate-800 dark:text-slate-100 bg-white dark:bg-slate-900 border-2 rounded-xl focus:ring-2 focus:ring-violet-500/20 outline-none resize-none placeholder:text-slate-400 transition-all ${
-                                  isDraggingB 
-                                      ? 'border-indigo-400 dark:border-indigo-500 bg-indigo-50 dark:bg-indigo-900/20' 
-                                      : 'border-slate-200 dark:border-slate-700 focus:border-violet-300 dark:focus:border-violet-600'
-                              }`}
-                          />
-                          {isDraggingB && (
-                              <div className="absolute inset-0 flex items-center justify-center bg-indigo-100/80 dark:bg-indigo-900/80 rounded-xl pointer-events-none">
-                                  <div className="text-indigo-700 dark:text-indigo-300 font-semibold text-lg flex items-center gap-2">
-                                      <Upload size={24} />
-                                      Drop file here
-                                  </div>
-                              </div>
-                          )}
-                      </div>
-                  </div>
+                  <FileDropZone
+                    value={inputB}
+                    onChange={setInputB}
+                    onFileUpload={(e) => handleFileUpload(e, 'B')}
+                    onDragOver={(e) => handleDragOver(e, 'B')}
+                    onDragLeave={(e) => handleDragLeave(e, 'B')}
+                    onDrop={(e) => handleDrop(e, 'B')}
+                    isDragging={isDraggingB}
+                    label="List B"
+                    theme="indigo"
+                    fileInputRef={fileInputBRef}
+                    itemCount={totalCountB}
+                  />
               )}
           </div>
 
