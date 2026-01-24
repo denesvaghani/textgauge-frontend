@@ -401,7 +401,7 @@ https://example.com/api/v1/checkout`;
         <SmartHeroHeader
           title="List Comparator & Unique Extractor"
           theme={theme}
-          description="Extract unique IDs from messy text or compare two lists to find differences."
+          description="Quickly compare lists and spot differences—no spreadsheet needed."
         />
 
         <main className="flex-grow w-full max-w-[1920px] mx-auto px-4 sm:px-6 lg:px-8 py-8">
