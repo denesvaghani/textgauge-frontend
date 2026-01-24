@@ -90,8 +90,9 @@ Jane Smith,jane@example.com,London,SW1A`;
     return (
         <FlowerBackground theme={theme} badgeText="Converter Tool">
             <div className="flex flex-col min-h-screen">
-                <Formatter
-                    title="JSON to CSV Converter"
+                <div className="w-full max-w-[1920px] mx-auto px-4 sm:px-6 lg:px-8 py-6">
+                    <Formatter
+                        title="JSON to CSV Converter"
                     description="Convert JSON data to CSV format instantly. Support for nested objects, large files, and bidirectional conversion."
                     inputType={direction === "json-csv" ? "json" : "csv"}
                     outputType={direction === "json-csv" ? "csv" : "json"}
@@ -102,6 +103,7 @@ Jane Smith,jane@example.com,London,SW1A`;
                     actionLabel="Convert"
                     flowerTheme={theme}
                 />
+                </div>
                 
                 {/* File Size Savings */}
                 <section className="w-full max-w-[1920px] mx-auto px-4 sm:px-6 lg:px-8 pb-12">

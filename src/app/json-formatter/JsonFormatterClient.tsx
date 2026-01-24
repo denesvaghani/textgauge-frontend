@@ -36,7 +36,7 @@ export default function JsonFormatterPage() {
             <div className="flex flex-col min-h-screen">
                 
                 {/* 3-Column Layout Wrapper */}
-                <div className="w-full max-w-[1920px] mx-auto px-4 py-6 flex justify-center gap-6 2xl:gap-8">
+                <div className="w-full max-w-[1920px] mx-auto px-4 sm:px-6 lg:px-8 py-6 flex justify-center gap-6 2xl:gap-8">
                     
                     {/* LEFT AD COLUMN (Desktop XL+) */}
                     {process.env.NEXT_PUBLIC_AD_SLOT_SKYSCRAPER_LEFT && (
@@ -247,20 +247,20 @@ export default function JsonFormatterPage() {
                                         <h4 className="font-semibold text-slate-700 dark:text-slate-300 uppercase tracking-wider text-xs">✅ Valid JSON</h4>
                                         <div className="bg-emerald-50 dark:bg-emerald-950/20 p-4 rounded-xl font-mono text-sm border border-emerald-200/50 dark:border-emerald-800/30">
                                             <pre className="text-emerald-800 dark:text-emerald-400">{`{
-                        "user": "antigravity",
-                        "status": "online",
-                        "tags": ["fast", "secure"]
-                        }`}</pre>
+  "user": "antigravity",
+  "status": "online",
+  "tags": ["fast", "secure"]
+}`}</pre>
                                         </div>
                                     </div>
                                     <div className="space-y-4">
                                         <h4 className="font-semibold text-slate-700 dark:text-slate-300 uppercase tracking-wider text-xs">❌ Common Malformed Error</h4>
                                         <div className="bg-rose-50 dark:bg-rose-950/20 p-4 rounded-xl font-mono text-sm border border-rose-200/50 dark:border-rose-800/30">
                                             <pre className="text-rose-800 dark:text-rose-400">{`{
-                        'user': "antigravity", // Single quotes invalid
-                        "status": "online",
-                        "tags": ["fast", "secure",] // Trailing comma
-                        }`}</pre>
+  'user': "antigravity", // Single quotes invalid
+  "status": "online",
+  "tags": ["fast", "secure",] // Trailing comma
+}`}</pre>
                                         </div>
                                     </div>
                                 </div>

@@ -86,8 +86,9 @@ Jane Smith, jane@example.com, Designer, 88`;
     return (
         <FlowerBackground theme={theme} badgeText="TOON Converter">
             <div className="flex flex-col min-h-screen">
-                <Formatter
-                    title="JSON to TOON Converter"
+                <div className="w-full max-w-[1920px] mx-auto px-4 sm:px-6 lg:px-8 py-6">
+                    <Formatter
+                        title="JSON to TOON Converter"
                     description="Convert JSON to TOON format – the AI-native data format that reduces token usage by 30-60%."
                     inputType={direction === "json-toon" ? "json" : "toon"}
                     outputType={direction === "json-toon" ? "text" : "json"}
@@ -99,6 +100,7 @@ Jane Smith, jane@example.com, Designer, 88`;
                     flowerTheme={theme}
                     showTokenCount={true}
                 />
+                </div>
                 
                 {/* Token Savings Highlight */}
                 <section className="w-full max-w-[1920px] mx-auto px-4 sm:px-6 lg:px-8 pb-12">

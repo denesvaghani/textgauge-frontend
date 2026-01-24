@@ -74,36 +74,38 @@ function renderWordDiff(oldText: string, newText: string, type: "added" | "remov
 export function DiffViewer({ original, modified, viewMode, language }: DiffViewerProps) {
     const [loading, setLoading] = useState(false);
     const [result, setResult] = useState<WorkerResult | null>(null);
-    const workerRef = useRef<Worker | null>(null);
-
-    useEffect(() => {
-        // Initialize worker
-        workerRef.current = new Worker(new URL('../workers/diff.worker.ts', import.meta.url));
-        
-        workerRef.current.onmessage = (event) => {
-            const { originalLines, modifiedLines, stats, error } = event.data;
-            if (error) {
-                console.error("Diff computation error:", error);
-            } else {
-                setResult({ originalLines, modifiedLines, stats });
-            }
-            setLoading(false);
-        };
-
-        return () => {
-            workerRef.current?.terminate();
-        };
-    }, []);
-
     useEffect(() => {
         if (!original && !modified) {
             setResult(null);
             return;
         }
 
-        setLoading(true);
-        // Post message to worker
-        workerRef.current?.postMessage({ original, modified });
+        // Debounce loading state
+        const loadingTimer = setTimeout(() => {
+            setLoading(true);
+        }, 150);
+
+        // Execute diff on next tick (to allow loading state to show if needed)
+        const calcTimer = setTimeout(async () => {
+            try {
+                // Dynamic import to avoid bundling if possible (optional, but good for code splitting)
+                // Actually, just import it at top level is fine for now as it's small.
+                // We'll use the imported function.
+                const { calculateDiff } = await import('@/lib/diff-calc');
+                const res = calculateDiff(original, modified);
+                setResult(res);
+            } catch (err) {
+                console.error("Diff calc error:", err);
+            } finally {
+                setLoading(false);
+                clearTimeout(loadingTimer);
+            }
+        }, 50); // Small delay to unblock main thread
+
+        return () => {
+            clearTimeout(loadingTimer);
+            clearTimeout(calcTimer);
+        };
 
     }, [original, modified]);
 
