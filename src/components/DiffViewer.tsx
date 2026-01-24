@@ -74,43 +74,38 @@ function renderWordDiff(oldText: string, newText: string, type: "added" | "remov
 export function DiffViewer({ original, modified, viewMode, language }: DiffViewerProps) {
     const [loading, setLoading] = useState(false);
     const [result, setResult] = useState<WorkerResult | null>(null);
-    const workerRef = useRef<Worker | null>(null);
-
-    useEffect(() => {
-        // Initialize worker
-        workerRef.current = new Worker(new URL('../workers/diff.worker.ts', import.meta.url));
-        
-        workerRef.current.onmessage = (event) => {
-            const { originalLines, modifiedLines, stats, error } = event.data;
-            if (error) {
-                console.error("Diff computation error:", error);
-            } else {
-                setResult({ originalLines, modifiedLines, stats });
-            }
-            setLoading(false);
-        };
-
-        return () => {
-            workerRef.current?.terminate();
-        };
-    }, []);
-
     useEffect(() => {
         if (!original && !modified) {
             setResult(null);
             return;
         }
 
-        // Start loading with a delay to prevent flash for fast operations
-        const timer = setTimeout(() => {
+        // Debounce loading state
+        const loadingTimer = setTimeout(() => {
             setLoading(true);
-        }, 150); // Only show loader if it takes > 150ms
+        }, 150);
 
-        // Post message to worker
-        workerRef.current?.postMessage({ original, modified });
+        // Execute diff on next tick (to allow loading state to show if needed)
+        const calcTimer = setTimeout(async () => {
+            try {
+                // Dynamic import to avoid bundling if possible (optional, but good for code splitting)
+                // Actually, just import it at top level is fine for now as it's small.
+                // We'll use the imported function.
+                const { calculateDiff } = await import('@/lib/diff-calc');
+                const res = calculateDiff(original, modified);
+                setResult(res);
+            } catch (err) {
+                console.error("Diff calc error:", err);
+            } finally {
+                setLoading(false);
+                clearTimeout(loadingTimer);
+            }
+        }, 50); // Small delay to unblock main thread
 
-        // Cleanup timer if we finish fast
-        return () => clearTimeout(timer);
+        return () => {
+            clearTimeout(loadingTimer);
+            clearTimeout(calcTimer);
+        };
 
     }, [original, modified]);
 
