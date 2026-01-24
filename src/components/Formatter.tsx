@@ -362,6 +362,7 @@ export function Formatter({
                 <select
                   value={tabSize}
                   onChange={(e) => setTabSize(Number(e.target.value))}
+                  aria-label="Code indentation spaces"
                   className="w-full appearance-none p-2 pl-3 pr-8 border border-slate-200 dark:border-slate-700 rounded-md bg-slate-50 dark:bg-slate-950/50 text-xs font-medium text-slate-700 dark:text-slate-200 outline-none focus:ring-2 focus:ring-indigo-500/20 focus:border-indigo-500 transition-all cursor-pointer"
                 >
                   <option value={2}>2 Spaces</option>
