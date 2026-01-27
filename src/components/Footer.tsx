@@ -49,7 +49,9 @@ export function Footer() {
         { name: 'About Us', href: '/about' },
         { name: 'Team', href: '/team' },
         { name: 'Contact', href: '/contact' },
+        { name: 'Help & FAQ', href: '/help' },
         { name: 'Privacy Policy', href: '/privacy' },
+        { name: 'Cookie Policy', href: '/cookie-policy' },
         { name: 'Terms of Service', href: '/terms' },
     ];
 

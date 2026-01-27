@@ -57,13 +57,49 @@ export default function PrivacyPage() {
 
             <h2>Third-Party Services</h2>
             <p>We may use third-party services for analytics and advertising, including:</p>
+            
+            <h3>Google Analytics</h3>
+            <p>
+                We use Google Analytics to understand how visitors use our site. This helps us improve our tools and user experience.
+                Google Analytics collects information such as:
+            </p>
             <ul>
-                <li><strong>Google Analytics:</strong> To understand how visitors use our site</li>
-                <li><strong>Google AdSense:</strong> To display relevant advertisements</li>
+                <li>Pages you visit and time spent on each page</li>
+                <li>How you arrived at our site (search engine, direct visit, etc.)</li>
+                <li>Your approximate location (country/city level)</li>
+                <li>Browser and device information</li>
             </ul>
             <p>
-                These services may collect information about your visits to our site and other websites. Please refer
-                to their respective privacy policies for more information.
+                This data is collected anonymously and does not identify you personally. You can opt out of Google Analytics tracking by installing the{' '}
+                <a href="https://tools.google.com/dlpage/gaoptout" target="_blank" rel="noopener noreferrer" className="text-indigo-600 dark:text-indigo-400 hover:underline">
+                    Google Analytics opt-out browser add-on
+                </a>.
+            </p>
+
+            <h3>Google AdSense</h3>
+            <p>
+                We display advertisements through Google AdSense to keep TextGauge free for everyone. Here's what you should know:
+            </p>
+            <ul>
+                <li><strong>Personalized Ads:</strong> Google may use cookies and browsing data to show you relevant advertisements based on your interests</li>
+                <li><strong>Data Collection:</strong> Google collects information about your visits to our site and other websites to provide targeted advertising</li>
+                <li><strong>Ad Preferences:</strong> You can control personalized advertising through{' '}
+                    <a href="https://adssettings.google.com" target="_blank" rel="noopener noreferrer" className="text-indigo-600 dark:text-indigo-400 hover:underline">
+                        Google Ads Settings
+                    </a>
+                </li>
+                <li><strong>Opt-Out:</strong> You can opt out of personalized ads while continuing to see non-personalized ads</li>
+            </ul>
+            <p>
+                Please refer to{' '}
+                <a href="https://policies.google.com/privacy" target="_blank" rel="noopener noreferrer" className="text-indigo-600 dark:text-indigo-400 hover:underline">
+                    Google's Privacy Policy
+                </a>{' '}
+                and{' '}
+                <a href="https://support.google.com/adsense/answer/48182" target="_blank" rel="noopener noreferrer" className="text-indigo-600 dark:text-indigo-400 hover:underline">
+                    Google AdSense Privacy Information
+                </a>{' '}
+                for more details on how Google processes your information.
             </p>
 
             <h2>Data Security</h2>

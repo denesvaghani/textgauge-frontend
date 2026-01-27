@@ -6,8 +6,8 @@ const CANONICAL_DOMAIN = 'www.countcharacters.org';
 
 // Domains that should redirect to the canonical domain
 const REDIRECT_DOMAINS = [
-  'countcharacters.in',
-  'www.countcharacters.in',
+  'countcharacters.org',
+  'www.countcharacters.org',
   'countcharacters.org', // non-www should also redirect to www
 ];
 

@@ -288,7 +288,7 @@ export function SimpleCodeEditor({
     };
 
     return (
-        <div className={`relative flex flex-col h-full border border-slate-200 dark:border-slate-800 rounded-lg overflow-hidden bg-white dark:bg-slate-900 ${className}`}>
+        <div className={`relative flex flex-col border border-slate-200 dark:border-slate-800 rounded-lg overflow-hidden bg-white dark:bg-slate-900 ${className}`} style={{ height: 'calc(50 * 1.5rem)' }}>
 
             {/* Absolute Action Buttons - Top Right */}
             <div className="absolute top-2 right-2 z-10 flex items-center gap-1">
@@ -428,99 +428,111 @@ export function SimpleCodeEditor({
 
             {/* Editor Area */}
             <div className="flex-1 flex relative min-h-0 bg-white dark:bg-slate-950 group">
-                {/* Line Numbers */}
+                {/* Line Numbers - Fixed with sticky positioning or separate scroll sync */}
                 <div
                     ref={lineNumbersRef}
-                    className="hidden sm:block w-9 shrink-0 text-right pr-2 pt-3 pb-3 bg-slate-50 dark:bg-slate-900/50 text-slate-300 dark:text-slate-600 text-xs font-mono select-none overflow-hidden"
+                    className="hidden sm:block w-12 shrink-0 text-right pr-3 pt-3 pb-3 bg-slate-50 dark:bg-slate-900/50 text-slate-300 dark:text-slate-600 text-xs font-mono select-none overflow-hidden border-r border-slate-100 dark:border-slate-800"
                 >
                     {lineNumbers.map(n => (
-                        <div key={n} className="leading-[24px]">{n}</div>
+                        <div key={n} className="leading-[1.5rem] h-[1.5rem]">{n}</div>
                     ))}
                 </div>
 
-                {/* JSON Syntax Highlighting Overlay */}
-                {language === "json" && value && (
-                    <div 
-                        ref={jsonOverlayRef}
-                        className="absolute top-0 left-0 right-0 bottom-0 pointer-events-none overflow-auto"
-                        style={{ paddingLeft: 'calc(2.25rem)' }}
-                    >
-                        <pre 
-                            className="p-3 text-[14px] leading-[24px] whitespace-pre"
-                            style={{ fontFamily: "'JetBrains Mono', 'Fira Code', 'SF Mono', Menlo, Consolas, monospace" }}
-                            dangerouslySetInnerHTML={{ __html: highlightedJson }}
-                        />
-                    </div>
-                )}
+                {/* Content Area with Overlays */}
+                <div className="flex-1 relative overflow-hidden">
+                    
+                    {/* Syntax Highlighting Overlays */}
+                    {/* JSON */}
+                    {language === "json" && value && (
+                        <div 
+                            ref={jsonOverlayRef}
+                            className="absolute inset-0 pointer-events-none overflow-auto"
+                        >
+                            <pre 
+                                className="p-3 text-[14px] leading-[1.5rem] whitespace-pre font-mono"
+                                style={{ 
+                                    fontFamily: "'JetBrains Mono', 'Fira Code', 'SF Mono', Menlo, Consolas, monospace",
+                                    minHeight: '100%'
+                                }}
+                                dangerouslySetInnerHTML={{ __html: highlightedJson }}
+                            />
+                        </div>
+                    )}
 
-                {/* YAML Syntax Highlighting Overlay */}
-                {language === "yaml" && value && (
-                    <div 
-                        ref={yamlOverlayRef}
-                        className="absolute top-0 left-0 right-0 bottom-0 pointer-events-none overflow-auto"
-                        style={{ paddingLeft: 'calc(2.25rem)' }}
-                    >
-                        <pre 
-                            className="p-3 text-[14px] leading-[24px] whitespace-pre"
-                            style={{ fontFamily: "'JetBrains Mono', 'Fira Code', 'SF Mono', Menlo, Consolas, monospace" }}
-                            dangerouslySetInnerHTML={{ __html: highlightedYaml }}
-                        />
-                    </div>
-                )}
+                    {/* YAML */}
+                    {language === "yaml" && value && (
+                        <div 
+                            ref={yamlOverlayRef}
+                            className="absolute inset-0 pointer-events-none overflow-auto"
+                        >
+                            <pre 
+                                className="p-3 text-[14px] leading-[1.5rem] whitespace-pre font-mono"
+                                style={{ 
+                                    fontFamily: "'JetBrains Mono', 'Fira Code', 'SF Mono', Menlo, Consolas, monospace",
+                                    minHeight: '100%'
+                                }}
+                                dangerouslySetInnerHTML={{ __html: highlightedYaml }}
+                            />
+                        </div>
+                    )}
 
-                {/* TOML Syntax Highlighting Overlay */}
-                {language === "toml" && value && (
-                    <div 
-                        ref={tomlOverlayRef}
-                        className="absolute top-0 left-0 right-0 bottom-0 pointer-events-none overflow-auto"
-                        style={{ paddingLeft: 'calc(2.25rem)' }}
-                    >
-                        <pre 
-                            className="p-3 text-[14px] leading-[24px] whitespace-pre"
-                            style={{ fontFamily: "'JetBrains Mono', 'Fira Code', 'SF Mono', Menlo, Consolas, monospace" }}
-                            dangerouslySetInnerHTML={{ __html: highlightedToml }}
-                        />
-                    </div>
-                )}
+                    {/* TOML */}
+                    {language === "toml" && value && (
+                        <div 
+                            ref={tomlOverlayRef}
+                            className="absolute inset-0 pointer-events-none overflow-auto"
+                        >
+                            <pre 
+                                className="p-3 text-[14px] leading-[1.5rem] whitespace-pre font-mono"
+                                style={{ 
+                                    fontFamily: "'JetBrains Mono', 'Fira Code', 'SF Mono', Menlo, Consolas, monospace",
+                                    minHeight: '100%'
+                                }}
+                                dangerouslySetInnerHTML={{ __html: highlightedToml }}
+                            />
+                        </div>
+                    )}
 
-                {/* CSV Syntax Highlighting Overlay */}
-                {language === "csv" && value && (
-                    <div 
-                        ref={csvOverlayRef}
-                        className="absolute top-0 left-0 right-0 bottom-0 pointer-events-none overflow-auto"
-                        style={{ paddingLeft: 'calc(2.25rem)' }}
-                    >
-                        <pre 
-                            className="p-3 text-[14px] leading-[24px] whitespace-pre"
-                            style={{ fontFamily: "'JetBrains Mono', 'Fira Code', 'SF Mono', Menlo, Consolas, monospace" }}
-                            dangerouslySetInnerHTML={{ __html: highlightedCsv }}
-                        />
-                    </div>
-                )}
+                    {/* CSV */}
+                    {language === "csv" && value && (
+                        <div 
+                            ref={csvOverlayRef}
+                            className="absolute inset-0 pointer-events-none overflow-auto"
+                        >
+                            <pre 
+                                className="p-3 text-[14px] leading-[1.5rem] whitespace-pre font-mono"
+                                style={{ 
+                                    fontFamily: "'JetBrains Mono', 'Fira Code', 'SF Mono', Menlo, Consolas, monospace",
+                                    minHeight: '100%'
+                                }}
+                                dangerouslySetInnerHTML={{ __html: highlightedCsv }}
+                            />
+                        </div>
+                    )}
 
-
-                {/* Text Area */}
-                <textarea
-                    ref={textareaRef}
-                    value={value}
-                    onChange={(e) => !readOnly && onChange?.(e.target.value)}
-                    readOnly={readOnly}
-                    onScroll={handleScroll}
-                    placeholder={placeholder}
-                    className={`flex-1 w-full h-full p-3 resize-none outline-none border-none bg-transparent text-[14px] leading-[24px] placeholder:text-slate-400 whitespace-pre text-left overflow-auto ${
-                        (language === "json" || language === "yaml" || language === "csv" || language === "toml") && value
-                            ? "text-transparent caret-slate-800 dark:caret-slate-200"
-                            : "text-slate-800 dark:text-slate-200"
-                    }`}
-                    style={{ 
-                        fontFamily: "'JetBrains Mono', 'Fira Code', 'SF Mono', Menlo, Consolas, monospace",
-                        textAlign: "left"
-                    }}
-                    spellCheck="false"
-                    autoCapitalize="off"
-                    autoComplete="off"
-                    autoCorrect="off"
-                />
+                    {/* Text Area */}
+                    <textarea
+                        ref={textareaRef}
+                        value={value}
+                        onChange={(e) => !readOnly && onChange?.(e.target.value)}
+                        readOnly={readOnly}
+                        onScroll={handleScroll}
+                        placeholder={placeholder}
+                        className={`absolute inset-0 w-full h-full p-3 resize-none outline-none border-none bg-transparent text-[14px] leading-[1.5rem] placeholder:text-slate-400 whitespace-pre text-left overflow-auto font-mono ${
+                            (language === "json" || language === "yaml" || language === "csv" || language === "toml") && value
+                                ? "text-transparent caret-slate-800 dark:caret-slate-200"
+                                : "text-slate-800 dark:text-slate-200"
+                        }`}
+                        style={{ 
+                            fontFamily: "'JetBrains Mono', 'Fira Code', 'SF Mono', Menlo, Consolas, monospace",
+                            textAlign: "left"
+                        }}
+                        spellCheck="false"
+                        autoCapitalize="off"
+                        autoComplete="off"
+                        autoCorrect="off"
+                    />
+                </div>
 
                 {/* Scrollbar Match Markers */}
                 {showFindReplace && matchPositions.length > 0 && (

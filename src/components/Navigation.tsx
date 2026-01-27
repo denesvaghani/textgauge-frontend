@@ -104,10 +104,18 @@ export function Navigation() {
 
     return (
         <nav className="sticky top-0 z-50 bg-white/80 dark:bg-slate-900/80 backdrop-blur-md border-b border-slate-200 dark:border-slate-800 transition-colors duration-200">
+            {/* Skip to main content link for accessibility */}
+            <a 
+                href="#main-content" 
+                className="sr-only focus:not-sr-only focus:absolute focus:top-4 focus:left-4 focus:z-50 focus:px-4 focus:py-2 focus:bg-indigo-600 focus:text-white focus:rounded-lg"
+            >
+                Skip to main content
+            </a>
+            
             <div className="max-w-[1920px] mx-auto px-4 sm:px-6 lg:px-8">
                 <div className="flex justify-between h-14">
                     {/* Logo */}
-                    <Link href="/" className="flex items-center gap-2 pr-4 border-r border-slate-200 dark:border-slate-700 mr-2">
+                    <Link href="/" className="flex items-center gap-2 pr-4 border-r border-slate-200 dark:border-slate-700 mr-2" aria-label="TextGauge Home">
                         <Image
                             src="/images/logo/sunflower-logo.webp"
                             alt="TextGauge Logo"
