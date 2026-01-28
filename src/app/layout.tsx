@@ -202,19 +202,7 @@ export default function RootLayout({
           <Footer />
           
           {/* PWA: Register Service Worker */}
-          <Script
-             id="sw-registration"
-             strategy="afterInteractive"
-             dangerouslySetInnerHTML={{
-               __html: `
-                 if ('serviceWorker' in navigator && window.location.protocol === 'https:') {
-                   window.addEventListener('load', function() {
-                     navigator.serviceWorker.register('/service-worker.js');
-                   });
-                 }
-               `,
-             }}
-          />
+
 
           {/* Google Analytics 4 */}
           {gaId && <GoogleAnalytics measurementId={gaId} />}
