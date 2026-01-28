@@ -13,7 +13,7 @@ export default function PrivacyPage() {
     return (
         <LegalLayout title="Privacy Policy">
             <p className="lead">
-                Last updated: January 22, 2025
+                Last updated: January 22, 2026
             </p>
 
             <h2>Introduction</h2>
