@@ -88,6 +88,21 @@ export function FileDropZone({
             className={`text-xs px-3 py-1.5 ${themeColors.text} border ${themeColors.border} ${themeColors.bg} hover:opacity-80 flex items-center gap-1.5 rounded-lg transition-all font-medium`}
           >
             <Upload size={14} /> Browse Files
+            <input 
+                type="file" 
+                ref={fileInputRef} 
+                className="hidden" 
+                onChange={(e) => {
+                    if (e.target.files && e.target.files[0]) {
+                        if (e.target.files[0].size > 10 * 1024 * 1024) {
+                             alert("File is too large! Maximum limit is 10MB.");
+                             e.target.value = ''; // Reset input
+                             return;
+                        }
+                    }
+                    onFileUpload(e);
+                }}
+            />
           </button>
         </div>
       </div>
@@ -96,13 +111,23 @@ export function FileDropZone({
       <div
         onDragOver={onDragOver}
         onDragLeave={onDragLeave}
-        onDrop={onDrop}
+        onDrop={(e) => {
+          e.preventDefault(); 
+          if (e.dataTransfer.files && e.dataTransfer.files[0]) {
+             if (e.dataTransfer.files[0].size > 10 * 1024 * 1024) {
+                 alert("File is too large! Maximum limit is 10MB.");
+                 return;
+             }
+          }
+          onDrop(e);
+        }}
         onClick={() => textareaRef.current?.focus()}
         className={`
           relative rounded-xl border-2 transition-all duration-300 cursor-text min-h-[320px]
           ${isDragging 
             ? `${themeColors.dragBorder} ${themeColors.dragBg} scale-[1.02]` 
             : isFocused
+
               ? `${themeColors.dragBorder} bg-white dark:bg-slate-900`
               : `${themeColors.border} ${themeColors.hoverBorder} bg-white dark:bg-slate-900`
           }

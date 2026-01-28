@@ -10,9 +10,25 @@ export const metadata: Metadata = {
     },
 };
 
+// ContactPage Schema for SEO
+const contactSchema = {
+    "@context": "https://schema.org",
+    "@type": "ContactPage",
+    "@id": "https://www.countcharacters.org/contact#contact",
+    "url": "https://www.countcharacters.org/contact",
+    "name": "Contact TextGauge",
+    "description": "Get in touch with the TextGauge team for support, feedback, or partnership inquiries."
+};
+
 export default function ContactPage() {
     return (
         <LegalLayout title="Contact Us">
+            {/* Schema markup */}
+            <script
+                type="application/ld+json"
+                dangerouslySetInnerHTML={{ __html: JSON.stringify(contactSchema) }}
+            />
+            
             <p className="lead">
                 Have questions about <strong>countcharacters.org</strong> or our <strong>TextGauge</strong> tools? We'd love to hear from you. 
                 Our team is dedicated to building the web's most privacy-focused developer utility suite.

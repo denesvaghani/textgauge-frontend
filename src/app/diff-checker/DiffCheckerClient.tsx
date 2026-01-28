@@ -170,8 +170,8 @@ export default function DiffCheckerPage() {
                                 <button
                                     onClick={handleCompare}
                                     disabled={!original && !modified}
-                                    className="inline-flex items-center gap-2 px-6 py-2.5 bg-rose-600 hover:bg-rose-700 disabled:bg-slate-300 dark:disabled:bg-slate-700 text-white font-semibold rounded-lg transition-colors shadow-sm"
-                                    title="Ctrl + Enter"
+                                    className="inline-flex items-center gap-2 px-6 py-2.5 bg-rose-600 hover:bg-rose-700 disabled:bg-slate-300 dark:disabled:bg-slate-700 disabled:cursor-not-allowed text-white font-semibold rounded-lg transition-colors shadow-sm"
+                                    title={(!original && !modified) ? "Enter text to compare" : "Ctrl + Enter"}
                                 >
                                     <GitCompare size={18} />
                                     Compare
@@ -179,7 +179,7 @@ export default function DiffCheckerPage() {
                                 <button
                                     onClick={handleSwap}
                                     disabled={!original && !modified}
-                                    className="inline-flex items-center gap-2 px-4 py-2.5 bg-slate-100 hover:bg-slate-200 dark:bg-slate-800 dark:hover:bg-slate-700 text-slate-700 dark:text-slate-300 font-medium rounded-lg transition-colors"
+                                    className="inline-flex items-center gap-2 px-4 py-2.5 bg-slate-100 hover:bg-slate-200 dark:bg-slate-800 dark:hover:bg-slate-700 disabled:opacity-50 disabled:cursor-not-allowed text-slate-700 dark:text-slate-300 font-medium rounded-lg transition-colors"
                                 >
                                     <ArrowLeftRight size={18} />
                                     Swap
@@ -305,7 +305,7 @@ export default function DiffCheckerPage() {
                                 </div>
                             </div>
                             {/* Editor Area */}
-                            <div className="shrink-0 relative bg-slate-50/30 dark:bg-black/20 h-[400px] md:h-[700px]">
+                            <div className="shrink-0 relative bg-slate-50/30 dark:bg-black/20">
                                 <SimpleCodeEditor
                                     value={original}
                                     onChange={setOriginal}
@@ -367,7 +367,7 @@ export default function DiffCheckerPage() {
                                 </div>
                             </div>
                             {/* Editor Area */}
-                            <div className="shrink-0 relative bg-slate-50/30 dark:bg-black/20 h-[400px] md:h-[700px]">
+                            <div className="shrink-0 relative bg-slate-50/30 dark:bg-black/20">
                                 <SimpleCodeEditor
                                     value={modified}
                                     onChange={setModified}

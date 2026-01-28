@@ -94,14 +94,25 @@ const structuredData = [
       width: 512,
       height: 512
     },
+    contactPoint: {
+      "@type": "ContactPoint",
+      email: "denesdvaghani9200@gmail.com",
+      contactType: "Customer Support",
+      areaServed: "Worldwide",
+      availableLanguage: "English"
+    },
     sameAs: [
       "https://www.linkedin.com/in/denesvaghani/"
     ],
     founder: {
       "@type": "Person",
       name: "Denes Vaghani",
-      url: "https://www.countcharacters.org/team"
-    }
+      url: "https://www.countcharacters.org/team",
+      jobTitle: "Founder & CEO",
+      sameAs: ["https://www.linkedin.com/in/denesvaghani/"]
+    },
+    foundingDate: "2025-11",
+    description: "Free developer tools suite with 100% client-side processing for maximum privacy."
   },
   // WebApplication schema
   {
@@ -136,8 +147,10 @@ const structuredData = [
       { "@type": "SiteNavigationElement", position: 4, name: "Image Compressor", url: "https://www.countcharacters.org/image-compressor" },
       { "@type": "SiteNavigationElement", position: 5, name: "JSON to CSV", url: "https://www.countcharacters.org/json-to-csv" },
       { "@type": "SiteNavigationElement", position: 6, name: "UUID Generator", url: "https://www.countcharacters.org/uuid-generator" },
-      { "@type": "SiteNavigationElement", position: 7, name: "About Us", url: "https://www.countcharacters.org/about" },
-      { "@type": "SiteNavigationElement", position: 8, name: "Team", url: "https://www.countcharacters.org/team" }
+      { "@type": "SiteNavigationElement", position: 7, name: "Help & FAQ", url: "https://www.countcharacters.org/help" },
+      { "@type": "SiteNavigationElement", position: 8, name: "About Us", url: "https://www.countcharacters.org/about" },
+      { "@type": "SiteNavigationElement", position: 9, name: "Contact", url: "https://www.countcharacters.org/contact" },
+      { "@type": "SiteNavigationElement", position: 10, name: "Privacy Policy", url: "https://www.countcharacters.org/privacy" }
     ]
   }
 ];
@@ -183,7 +196,7 @@ export default function RootLayout({
       <body className="bg-slate-50 text-slate-900 dark:bg-slate-950 dark:text-slate-50 font-sans antialiased selection:bg-indigo-200 selection:text-indigo-900 dark:selection:bg-indigo-500/40 dark:selection:text-indigo-50 flex flex-col min-h-screen">
         <ThemeProvider>
           <Navigation />
-          <main className="flex-1">
+          <main id="main-content" className="flex-1">
             {children}
           </main>
           <Footer />
