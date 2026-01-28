@@ -40,7 +40,7 @@ const nextConfig: NextConfig = {
               "style-src 'self' 'unsafe-inline' https://fonts.googleapis.com",
               "img-src 'self' data: blob: https: http:",
               "font-src 'self' https://fonts.gstatic.com",
-              "connect-src 'self' https://vercel.live https://www.google-analytics.com https://analytics.google.com https://pagead2.googlesyndication.com https://adservice.google.com https://*.google.com https://googleads.g.doubleclick.net",
+              "connect-src 'self' https://vercel.live https://www.google-analytics.com https://analytics.google.com https://pagead2.googlesyndication.com https://adservice.google.com https://*.google.com https://epi.adtrafficquality.google https://googleads.g.doubleclick.net",
               "frame-src 'self' https://www.google.com https://googleads.g.doubleclick.net https://tpc.googlesyndication.com https://vercel.live",
               "object-src 'none'",
               "base-uri 'self'",
