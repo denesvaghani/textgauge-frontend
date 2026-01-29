@@ -4,40 +4,5 @@
       "path": "/api/cron/indexnow",
       "schedule": "0 10 * * *"
     }
-  ],
-  "redirects": [
-    {
-      "source": "/:path*",
-      "destination": "https://www.countcharacters.org/:path*",
-      "permanent": true,
-      "has": [
-        {
-          "type": "host",
-          "value": "countcharacters.org"
-        }
-      ]
-    },
-    {
-      "source": "/:path*",
-      "destination": "https://www.countcharacters.org/:path*",
-      "permanent": true,
-      "has": [
-        {
-          "type": "host",
-          "value": "www.countcharacters.org"
-        }
-      ]
-    },
-    {
-      "source": "/:path*",
-      "destination": "https://www.countcharacters.org/:path*",
-      "permanent": true,
-      "has": [
-        {
-          "type": "host",
-          "value": "countcharacters.org"
-        }
-      ]
-    }
   ]
 }

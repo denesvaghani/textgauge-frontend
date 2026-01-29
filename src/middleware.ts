@@ -12,6 +12,16 @@ const REDIRECT_DOMAINS = [
 ];
 
 export function middleware(request: NextRequest) {
+  // Skip redirects for static files, API, and Next.js internals
+  if (
+    request.nextUrl.pathname.startsWith('/_next') ||
+    request.nextUrl.pathname.startsWith('/api') ||
+    request.nextUrl.pathname.startsWith('/static') ||
+    request.nextUrl.pathname.includes('.') // Skip files with extensions
+  ) {
+    return NextResponse.next();
+  }
+
   const host = request.headers.get('host') || '';
   const hostname = host.split(':')[0]; // Remove port if present
   
