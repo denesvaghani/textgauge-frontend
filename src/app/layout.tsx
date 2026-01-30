@@ -24,7 +24,7 @@ export async function generateMetadata(): Promise<Metadata> {
       "Free developer tools: compress images, format JSON/YAML, generate UUIDs & hashes, compare text, and more. 100% browser-based, no server uploads.",
     metadataBase: new URL(baseUrl),
     alternates: {
-      canonical: baseUrl,
+      canonical: "./",
     },
     openGraph: {
       title: "TextGauge - Free Developer Tools Suite",
