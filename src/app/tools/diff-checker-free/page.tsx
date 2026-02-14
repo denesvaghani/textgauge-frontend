@@ -3,9 +3,9 @@ import { AdLandingPage } from "@/components/AdLandingPage";
 import { GitCompare, Eye, Zap } from "lucide-react";
 
 export const metadata: Metadata = {
-  title: "Free Image Compressor - Compress JPG, PNG, WebP Online | TextGauge",
+  title: "Free Online Diff Checker - Compare Text & Code | TextGauge",
   description:
-    "Compress images without losing quality. Reduce JPG, PNG, and WebP file sizes instantly. Free online tool with batch processing and preset targets.",
+    "Compare two texts side-by-side. Highlight differences instantly with syntax highlighting and unified views.",
   robots: {
     index: false,
     follow: false,

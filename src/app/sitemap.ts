@@ -141,6 +141,18 @@ export default function sitemap(): MetadataRoute.Sitemap {
       changeFrequency: "monthly",
       priority: 0.9,
     },
+    {
+      url: `${baseUrl}/converter`,
+      lastModified: LAST_UPDATED.converters,
+      changeFrequency: "monthly",
+      priority: 0.7,
+    },
+    {
+      url: `${baseUrl}/help`,
+      lastModified: LAST_UPDATED.company,
+      changeFrequency: "monthly",
+      priority: 0.6,
+    },
     // Company Pages
     {
       url: `${baseUrl}/about`,

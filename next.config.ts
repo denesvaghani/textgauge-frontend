@@ -25,12 +25,12 @@ const nextConfig: NextConfig = {
   async headers() {
     return [
       {
-        source: "/:path*",
+        source: "/:path((?!_next/static|_next/image|.*\\..*).*)",
         headers: [
-          // Cache control for static assets
+          // Dynamic HTML should be revalidated, not cached as immutable.
           {
             key: "Cache-Control",
-            value: "public, max-age=31536000, immutable",
+            value: "public, max-age=0, must-revalidate",
           },
           {
             key: "Content-Security-Policy",
