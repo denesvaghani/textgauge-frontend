@@ -145,7 +145,7 @@ const structuredData = [
       { "@type": "SiteNavigationElement", position: 2, name: "JSON Formatter", url: "https://www.countcharacters.org/json-formatter" },
       { "@type": "SiteNavigationElement", position: 3, name: "Diff Checker", url: "https://www.countcharacters.org/diff-checker" },
       { "@type": "SiteNavigationElement", position: 4, name: "Image Compressor", url: "https://www.countcharacters.org/image-compressor" },
-      { "@type": "SiteNavigationElement", position: 5, name: "JSON to CSV", url: "https://www.countcharacters.org/json-to-csv" },
+      { "@type": "SiteNavigationElement", position: 5, name: "JSON to CSV", url: "https://www.countcharacters.org/json-to-csv-converter" },
       { "@type": "SiteNavigationElement", position: 6, name: "UUID Generator", url: "https://www.countcharacters.org/uuid-generator" },
       { "@type": "SiteNavigationElement", position: 7, name: "Help & FAQ", url: "https://www.countcharacters.org/help" },
       { "@type": "SiteNavigationElement", position: 8, name: "About Us", url: "https://www.countcharacters.org/about" },
@@ -157,8 +157,6 @@ const structuredData = [
 
 import { Navigation } from "@/components/Navigation";
 import { Footer } from "@/components/Footer";
-
-import { TimedAdPopup } from "@/components/TimedAdPopup";
 
 export default function RootLayout({
   children,
@@ -206,8 +204,6 @@ export default function RootLayout({
 
           {/* Google Analytics 4 */}
           {gaId && <GoogleAnalytics measurementId={gaId} />}
-
-          <TimedAdPopup />
         </ThemeProvider>
       </body>
     </html>

@@ -9,19 +9,19 @@ export default function robots(): MetadataRoute.Robots {
         // Primary crawlers - full access
         userAgent: ['Googlebot', 'Bingbot', 'Slurp', 'DuckDuckBot'],
         allow: '/',
-        disallow: ['/api/', '/_next/', '/static/'],
+        disallow: ['/api/'],
       },
       {
         // AI crawlers - allow for visibility
         userAgent: ['GPTBot', 'ChatGPT-User', 'Claude-Web', 'Anthropic-AI'],
         allow: '/',
-        disallow: ['/api/', '/_next/'],
+        disallow: ['/api/'],
       },
       {
         // All other bots
         userAgent: '*',
         allow: '/',
-        disallow: ['/api/', '/_next/', '/static/'],
+        disallow: ['/api/'],
       },
     ],
     sitemap: `${baseUrl}/sitemap.xml`,
