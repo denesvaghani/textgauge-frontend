@@ -7,11 +7,11 @@ export const metadata: Metadata = {
   description:
     "Compress images without losing quality. Reduce JPG, PNG, and WebP file sizes instantly. Free online tool with batch processing and preset targets.",
   alternates: {
-    canonical: "https://www.countcharacters.org/tools/image-compressor-free",
+    canonical: "https://www.countcharacters.org/image-compressor",
   },
   robots: {
-    index: true,
-    follow: true,
+    index: false,
+    follow: false,
   },
   openGraph: {
     title: "Free Image Compressor - Compress JPG, PNG, WebP Online",
